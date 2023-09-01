@@ -22,6 +22,11 @@ This is a normal paragraph following a header. GitHub is a code hosting platform
 
 ### Header 3
 
+```bash
+#Test avec code bash
+rm -R ./www
+```
+
 ```js
 // Javascript code with syntax highlighting.
 var fun = function lang(l) {
