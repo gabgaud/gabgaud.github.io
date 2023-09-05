@@ -2,6 +2,8 @@
 
 Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation.
 
+* * *
+
 ## Architecture
 
 Pour la plupart du commun des mortels, la racine d'un disque dur est représentée par une lettre `C:`. C'est une notion qui a été inculquée dût à la manière dont fonctionne Windows. Or, chez Linux, on a plutôt opté pour le caractère `/`. En effet, la barre oblique représente le début de l'arborescence système chez Linux. Il s'en suit alors une arborescence complète, tout comme chez Windows d'ailleurs. Nous retrouvons donc les dossiers suivants:
@@ -28,17 +30,20 @@ Pour la plupart du commun des mortels, la racine d'un disque dur est représent�
 
 * `/var/` Diminutif de _variable_ Contient des données variant en fonction des systèmes et des logiciels installés sur le système.
 
+* * *
 
 ## Interfaces graphiques \(GUI\)
 
 Une interface graphique est un environnement permettant aux humains de communiquer des instructions à une machine par l'entremise d'objets qui sont affichés sur un écran. On y retrouve généralement des fenêtres, des boutons, des icônes et un pointeur \(souris\). L'interface graphique de Windows est généralement bien connu.
 
-![Branching](../Images/Windows-10-Bureau.png)
+![W10](../Images/Windows-10-Bureau.png)
 
 Or, sous Linux, l'interface graphique est interchangeable. Nous pouvons donc opérer un système d'exploitation Linux donné, tout en exploitant l'une ou l'autres des interfaces qui nous intéresse le plus. Voici donc quelques-unes des interfaces graphiques les plus connus sous Linux:
 
-* GNOME \(GNU Network Object Model\)
+* ### GNOME \(GNU Network Object Model\)
 GNOME est sans doute l'une des interfaces graphiques les plus populaires chez Linux. Elle a d'ailleurs été longtemps l'interface graphique par défaut d'Ubuntu. 
-![Branching](../Images/Gnome.png)
+![Gnome](../Images/Gnome.png)
 
-* KDE
+* ### KDE
+KDE est très souvent le petit préféré des nouveaux adeptes de Linux. C'est parce qu'il partage plusieurs similarités avec l'interface graphique de Windows. On y retrouve un menu en bas à gauche comprenanat les différents logiciels installés ainsi qu'une barre des tâches au bas de l'écran.
+![Kubuntu](../Images/kubuntu.png)
