@@ -1,6 +1,6 @@
 # Linux
 
-Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation.
+Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation. Prenez note que je 
 
 * * *
 
@@ -52,4 +52,11 @@ KDE est très souvent le petit préféré des nouveaux adeptes de Linux. C'est p
 Rapidité, économie de ressources et simplicité sont les trois prémices qui ont mené au développement de l'environnement graphique XFCE. Cette interface est effectivement très légère et peut facilement s'exécuter sur des ordinateurs qui ont peu de performances à offrir.
 ![XFCE](../Images/XFCE-Desktop.png)
 
+* ### Le terminal \(Absence d'interface graphique\)
+Même s'il peut vous refroidir aux premiers abords, le terminal Linux est un réel charme à utiliser lorsque nous nous y sommes habitués. Utiliser le terminal procure de réels avantages: l'économie de ressources, la rapidité d'exécution versus l'interface graphique et il est même possible d'automatiser certaines tâches. Nous nous attarderons longuement au terminal linux dans la prochaine section.
+![Terminal](../Images/CLI-Linux.png)
+
 Sachez qu'il existe encore d'autres interfaces graphiques. L'objectif était seulement de vous en présenter quelques-unes afin que vous pussiez vous en faire une idée et réaliser que cet aspect interchangeable de Linux diffère de Windows.
+
+* * *
+
