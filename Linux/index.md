@@ -28,8 +28,17 @@ Pour la plupart du commun des mortels, la racine d'un disque dur est représent�
 
 * `/var/` Diminutif de _variable_ Contient des données variant en fonction des systèmes et des logiciels installés sur le système.
 
+
 ## Interfaces graphiques \(GUI\)
 
 Une interface graphique est un environnement permettant aux humains de communiquer des instructions à une machine par l'entremise d'objets qui sont affichés sur un écran. On y retrouve généralement des fenêtres, des boutons, des icônes et un pointeur \(souris\). L'interface graphique de Windows est généralement bien connu.
 
 ![Branching](../Images/Windows-10-Bureau.png)
+
+Or, sous Linux, l'interface graphique est interchangeable. Nous pouvons donc opérer un système d'exploitation Linux donné, tout en exploitant l'une ou l'autres des interfaces qui nous intéresse le plus. Voici donc quelques-unes des interfaces graphiques les plus connus sous Linux:
+
+* GNOME \(GNU Network Object Model\)
+GNOME est sans doute l'une des interfaces graphiques les plus populaires chez Linux. Elle a d'ailleurs été longtemps l'interface graphique par défaut d'Ubuntu. 
+![Branching](../Images/Gnome.png)
+
+* KDE
