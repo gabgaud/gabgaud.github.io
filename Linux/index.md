@@ -67,4 +67,18 @@ Sachez qu'il existe encore d'autres interfaces graphiques. L'objectif était seu
 ## Ligne de commande \(CLI\) Linux
 La ligne de commande et l'utilisation du terminal Linux permettent d'outrepasser l'interface graphique. Tout bon technicien se doit de posséder une base minimale avec les commandes du terminal. Évidemment, il n'y a rien comme la pratique. Essayez les diverses commandes qui vous sont présentées et mettez-les en contexte autant que possible. Cela dit, il faut d'abord comprendre ce qui se passe lorsque vous ouvrez un terminal. Observez l'image du terminal présenté ci-dessus. Vous y retrouverez une ligne de texte semblable à celle-ci:
 
-gabriel@ubgab:~$
+gabriel @ ubgab : ~ $
+
+Chacun de ces éléments a une signification:
+
+* `gabriel` : C'est le nom de l'utilisateur qui s'apprête à utiliser la ligne de commande.
+
+* `@` : C'est un délimitateur ici. Il sépare l'utilisateur de l'ordinateur.
+
+* `ubgab`: C'est le nom de l'ordinateur sur lequel nous travaillons actuellement.
+
+* `:` : Un autre délimitateur. Il sépare le nom de l'ordinateur du répertoire au courant.
+
+* `~` : Ici vous retrouverez l'endroit où vous êtes dans l'ordinateur. Le caractère ici présent \(le tilde\) représente votre répertoire personnel \(/home/_utilisateur_\)
+
+* `$` : Ce dernier caractère représente votre niveau de droit actuel. `$` signifie que vous avez les droits d'un simple utilisateur. Alors que le sybole `#` signifie que vous êtes en mode superutilisateur.
