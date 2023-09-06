@@ -1,4 +1,4 @@
-# Linux
+# Linux 🖥
 
 Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation.
 
@@ -163,3 +163,51 @@ La commande `man` vous permet de consulter le manuel d'instructions d'une comman
 ```bash
 man ls
 ```
+### MKDIR \(Make Directory\)
+La commande `mkdir` permet de créer des répertoires. Elle prendra nécessairement un emplacement et un nom pour le nouveau répertoire en paramètres. Exemple:
+
+```bash
+mkdir ./monrepertoire/
+```
+Avez-vous remarqué le `./` au début de ma dernière commande ? Sous Linux, le `./` signifie le répertoire courant. Autrement dit, dans ma dernière commande, je lui demande de créer un dossier nommé "monrepertoire" dans le répertoire courant, c'est-à-dire où je me trouve présentement.
+
+### RM \(Remove\)
+Comme son nom l'indique, la commande `remove` permet de supprimer un élément. Il peut s'agir d'un fichier ou même d'un dossier en utilisant le ou les bons commutateurs. La commande `rmdir`permet également de supprimer des répertoires, mais elle ne prend pas en charge les fichiers. Je vous recommande donc de ne retenir que la commande `rm` qui saura répondre à tous vos besoins. Pour supprimer un fichier, il suffit de passer son chemin et son nom en paramètres:
+
+```bash
+rm ./fichier1
+```
+
+### ECHO
+La commande `echo` se contente tout simplement de renvoyer ce que vous lui demandez à l'écran. Ce n'est pas très pratique à première vue. Cela dit, dans le cadre de script ou même de programme, cela peut s'avérer très pratique de transmettre de l'information à l'utilisateur. La commande echo s'utilise comme suit:
+
+```bash
+echo "Hello world!"
+```
+
+### CAT \(Concatenate\)
+L'utilité principal de la commande `cat` est de faire la concaténation de plusieurs fichiers, c'est-à-dire de les fusionner, dans un autre fichier de sortie ou tout simplement à l'écran. Or, les linuxiens 🤓 en ont fait une commande pour afficher le contenu d'un fichier. `cat` peut donc être utilisé à plusieurs escients. D'abord, pour afficher le contenu d'un fichier, on utilisera la commande de cette façon:
+
+```bash
+cat ./fichier1
+```
+Pour fusionner le contenu de plusieurs fichiers et en afficher le résultat à l'écran, on procèdera ainsi:
+
+```bash
+cat ./fichier1 ./fichier2
+```
+
+Finalement, si je désirais fusionner le contenu de plusieurs fichiers pour en renvoyer le résultat dans un autre fichier, j'utiliserais la commande comme suit:
+
+```bash
+cat ./fichier1 ./fichier2 > fichiersortie
+```
+
+L'opérande `>` joue un rôle bien particulier. En effet, cet opérande renvoie le texte qui serait normalement généré par une commande dans un fichier indiqué par l'utilisateur. Dans la commande précédente, le texte qui serait normalement affiché à l'écran par la commande `cat` est renvoyé dans le fichier "fichiersortie". Si le fichier n'existe pas déjà, il sera tout simplement créé automatiquement.
+
+Dans le cas où le fichier indiqué existerait déjà, l'opérande `>` effacera son contenu pour y inscrire le résultat de la commande qui la précède. Pour éviter cette suppression, il est possible de doubler l'opérande comme dans l'exemple suivant:
+
+```bash
+cat ./fichier1 ./fichier2 >> fichiersortie
+```
+Le texte sera alors tout simplement ajouté à la fin du fichier.
