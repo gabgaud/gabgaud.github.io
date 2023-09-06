@@ -4,6 +4,16 @@ Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une 
 
 * * *
 
+## Accès rapide
+
+|:-------------|:------------------|:------|
+| [Architecture](https://gabgaud.github.io/Linux/index.html#architecture)| good swedish fish | nice  |
+| out of stock | good and plenty   | nice  |
+| ok           | good `oreos`      | hmm   |
+| ok           | good `zoute` drop | yumm  |
+
+* * * 
+
 ## Architecture
 
 Pour la plupart du commun des mortels, la racine d'un disque dur est représentée par une lettre `C:`. C'est une notion qui a été inculquée dût à la manière dont fonctionne Windows. Or, chez Linux, on a plutôt opté pour le caractère `/`. En effet, la barre oblique représente le début de l'arborescence système chez Linux. Il s'en suit alors une arborescence complète, tout comme chez Windows d'ailleurs. Nous retrouvons donc les dossiers suivants:
@@ -116,7 +126,7 @@ cd Documents/
 Lequel des deux types devez-vous privilégier ? Il n'y a malheureusement pas de bonne réponse à cette question. Parfois un chemin relatif sera plus court à taper et d'autres fois, ce sera le contraire. Tout dépend de ce que vous faites et d'où vous êtes dans l'ordinateur. Ne vous faites pas, vous créerez vos propres habitudes sur le terminal bien assez vite. Allez-y comme vous le sentez.
 
 ### LS \(List\)
-La commande LS permet d'afficher le contenu d'un répertoire. C'est très pratique, qu'on se le dise. Pour afficher le contenu de mon dossier Documents, je pourrais taper la commande suivante:
+La commande `ls` permet d'afficher le contenu d'un répertoire. C'est très pratique, qu'on se le dise. Pour afficher le contenu de mon dossier Documents, je pourrais taper la commande suivante:
 
 ```bash
 ls /home/gabriel/Documents/
@@ -148,3 +158,10 @@ ls --all /home/gabriel/Documents/
 ```
 
 Finalement, il faut considérer que Linux est un système **sensible à la casse**. C'est donc dire qu'un commutateur `-l` avec une commande donnée n'aura pas le même rôle que le commutateur `-L` avec la même commande donnée.
+
+### MAN \(Manuel\)
+La commande `man` vous permet de consulter le manuel d'instructions d'une commande donnée. Vous y retrouverez une description de la commande passée en paramètre, les commutateurs disponibles ainsi que les paramètres obligatoires et facultatifs pour son utilisation. Par exemple, si je désirais consulter le manuel d'instructions de la command `ls`, je taperais la commande suivante:
+
+```bash
+man ls
+```
