@@ -102,8 +102,49 @@ cd ..
 ```
 Lorsque nous nous déplaçons ainsi dans l'ordinateur, il importe de différencier les notions de chemin relatif et absolu:
 
-* Chemin absolu: Un chemin absolu est composé de tous les dossiers et sous-dossiers à traverser pour se rendre à une destination déterminé, et ce, depuis la racine du disque. Sous Windows, on dirait que c'est le chemin complet vers un fichier en partant de la racine du disque dur C:. Par exemple, si je souhaite me rendre dans mon dossier Documents avec un chemin absolu, je devrais entrer cette commande:
+* **Chemin absolu:** Un chemin absolu est composé de tous les dossiers et sous-dossiers à traverser pour se rendre à une destination déterminé, et ce, depuis la racine du disque. Sous Windows, on dirait que c'est le chemin complet vers un fichier en partant de la racine du disque dur C:. Par exemple, si je souhaite me rendre dans mon dossier Documents avec un chemin absolu, je devrais entrer cette commande:
 
 ```bash
 cd /home/gabriel/Documents/
 ```
+
+* **Chemin relatif:** Un chemin relatif s'adaptera en fonction de l'endroit où vous vous trouvez dans l'arborescence du système. Reprenons l'exemple de mon dossier Documents, mais cette fois, nous assumerons que je suis présentemment dans mon répertoire personnel \(/home/gabriel/\). Je pourrais alors taper la commande suivante:
+
+```bash
+cd Documents/
+```
+Lequel des deux types devez-vous privilégier ? Il n'y a malheureusement pas de bonne réponse à cette question. Parfois un chemin relatif sera plus court à taper et d'autres fois, ce sera le contraire. Tout dépend de ce que vous faites et d'où vous êtes dans l'ordinateur. Ne vous faites pas, vous créerez vos propres habitudes sur le terminal bien assez vite. Allez-y comme vous le sentez.
+
+### LS \(List\)
+La commande LS permet d'afficher le contenu d'un répertoire. C'est très pratique, qu'on se le dise. Pour afficher le contenu de mon dossier Documents, je pourrais taper la commande suivante:
+
+```bash
+ls /home/gabriel/Documents/
+```
+Par défaut, vous verrez les dossiers apparaitrent en bleu et les fichiers en blanc. Un jour ou l'autre, vous verrez d'autres couleurs également. Nous aurons l'occasion d'en reparler.
+
+Certaines commandes permettent l'utilisation de commutateurs et de paramètres. Les paramètres d'une commande indique généralement un préalable à l'utilisation de la commande elle-même. Par exemple, pour utiliser la commande `ls`, il importe d'indiquer le répertoire dont nous désirons lister le contenu. Dans le cas où aucun paramètre n'indiquerait un répertoire concerné, la commande considèrera le répertoire courant comme celui dont vous désirez lister le contenu.
+
+Un commutateur permet d'adapter, voir modifier le comportement d'une commande. Dans le cas de la commande `ls`, il existe deux principaux commutateurs:
+1. `-l` Ce commutateur indique à la commande qu'elle doit afficher plus de détails.
+1. `-a` Ce commutateur indique à la commande qu'elle doit afficher tout les éléments, même ceux qui serait cachés.
+
+On inscrit généralement les commutateurs entre la commande et ses paramètres. Par exemple:
+
+```bash
+ls -l /home/gabriel/Documents/
+```
+
+Il est également possible de jumeler les commutateurs entre-eux:
+
+```bash
+ls -la /home/gabriel/Documents/
+```
+
+Certains commutateurs sont des mots entiers. Il faut alors les indiquer à l'aide du préfixe `--`:
+
+```bash
+ls --all /home/gabriel/Documents/
+```
+
+Finalement, il faut considérer que Linux est un système **sensible à la casse**. C'est donc dire qu'un commutateur `-l` avec une commande donnée n'aura pas le même rôle que le commutateur `-L` avec la même commande donnée.
