@@ -1,6 +1,6 @@
 # Linux
 
-Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation. Prenez note que je 
+Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une famille de systèmes d'exploitation ? Tout comme Windows d'ailleurs. Je ne dresserai pas l'historique de Linux sur cette page. Vous pouvez consulter [wikipédia](https://fr.wikipedia.org/wiki/Linux) à cet effet. J'aborderai plutôt la conception du système et son utilisation.
 
 * * *
 
@@ -82,3 +82,28 @@ Chacun de ces éléments a une signification:
 * `~` : Ici vous retrouverez l'endroit où vous êtes dans l'ordinateur. Le caractère ici présent \(le tilde\) représente votre répertoire personnel \(/home/_utilisateur_\)
 
 * `$` : Ce dernier caractère représente votre niveau de droit actuel. `$` signifie que vous avez les droits d'un simple utilisateur. Alors que le sybole `#` signifie que vous êtes en mode superutilisateur.
+
+### CD \(Change Directory\)
+La commande CD permet de se déplacer à travers les différents dossiers du système d'exploitation. Par exemple, si je me trouve actuellement dans mon répertoire personnel et que je souhaite me rendre à la racine du disque, je pourrais taper la commande suivante:
+
+```bash
+cd /
+```
+Pour aller dans le dossier `/var/log/`, je pourrais taper la commande suivante:
+
+```bash
+cd /var/log/
+```
+
+Il est également possible de reculer en ligne de commande, soit l'équivalent du bouton "back" dans l'explorateur Windows. Pour cela, on utilise `..` de cette façon:
+
+```bash
+cd ..
+```
+Lorsque nous nous déplaçons ainsi dans l'ordinateur, il importe de différencier les notions de chemin relatif et absolu:
+
+* Chemin absolu: Un chemin absolu est composé de tous les dossiers et sous-dossiers à traverser pour se rendre à une destination déterminé, et ce, depuis la racine du disque. Sous Windows, on dirait que c'est le chemin complet vers un fichier en partant de la racine du disque dur C:. Par exemple, si je souhaite me rendre dans mon dossier Documents avec un chemin absolu, je devrais entrer cette commande:
+
+```bash
+cd /home/gabriel/Documents/
+```
