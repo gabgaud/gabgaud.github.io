@@ -172,7 +172,7 @@ mkdir ./monrepertoire/
 Avez-vous remarqué le `./` au début de ma dernière commande ? Sous Linux, le `./` signifie le répertoire courant. Autrement dit, dans ma dernière commande, je lui demande de créer un dossier nommé "monrepertoire" dans le répertoire courant, c'est-à-dire où je me trouve présentement.
 
 ### RM \(Remove\)
-Comme son nom l'indique, la commande `remove` permet de supprimer un élément. Il peut s'agir d'un fichier ou même d'un dossier en utilisant le ou les bons commutateurs. La commande `rmdir`permet également de supprimer des répertoires, mais elle ne prend pas en charge les fichiers. Je vous recommande donc de ne retenir que la commande `rm` qui saura répondre à tous vos besoins. Pour supprimer un fichier, il suffit de passer son chemin et son nom en paramètres:
+Comme son nom l'indique, la commande `rm` permet de supprimer un élément. Il peut s'agir d'un fichier ou même d'un dossier en utilisant le ou les bons commutateurs. La commande `rmdir` permet également de supprimer des répertoires, mais elle ne prend pas en charge les fichiers. Je vous recommande donc de ne retenir que la commande `rm` qui saura répondre à tous vos besoins. Pour supprimer un fichier, il suffit de passer son chemin et son nom en paramètres:
 
 ```bash
 rm ./fichier1
