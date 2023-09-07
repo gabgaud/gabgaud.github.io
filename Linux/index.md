@@ -89,7 +89,7 @@ Chacun de ces éléments a une signification:
 
 * `~` : Ici vous retrouverez l'endroit où vous êtes dans l'ordinateur. Le caractère ici présent \(le tilde\) représente votre répertoire personnel \(/home/_utilisateur_\)
 
-* `$` : Ce dernier caractère représente votre niveau de droit actuel. `$` signifie que vous avez les droits d'un simple utilisateur. Alors que le sybole `#` signifie que vous êtes en mode superutilisateur.
+* `$` : Ce dernier caractère représente votre niveau de droit actuel. `$` signifie que vous avez les droits d'un simple utilisateur. Alors que le symbole `#` signifie que vous êtes en mode superutilisateur.
 
 ### CD \(Change Directory\)
 La commande CD permet de se déplacer à travers les différents dossiers du système d'exploitation. Par exemple, si je me trouve actuellement dans mon répertoire personnel et que je souhaite me rendre à la racine du disque, je pourrais taper la commande suivante:
@@ -211,3 +211,62 @@ Dans le cas où le fichier indiqué existerait déjà, l'opérande `>` effacera 
 cat ./fichier1 ./fichier2 >> fichiersortie
 ```
 Le texte sera alors tout simplement ajouté à la fin du fichier.
+
+### MV \(Move\)
+La commande `move` permet non seulement de déplacer des éléments dans le système, mais elle offre en plus, la possibilité de renommer. Plus intéressant encore, la commande est capable de réaliser les deux actions en une seule commande. Pour renommer un fichier, il suffira d'entrer le nom actuel du fichier et le nouveau nom en paramètres:
+
+```bash
+mv ./vieuxNom ./nouveauNom
+```
+
+Pour déplacer un fichier, la commande s'utilise sensiblement de la même façon. Il faudra cependant indiquer le nouveau chemin du fichier à déplacer:
+
+```bash
+mv ~/fichierX /var/www/fichierX
+```
+
+Finalement, pour déplacer un fichier et le renommer dans une seule et même commande, il faudra tout simplement utiliser une fusion des deux commandes précédentes:
+
+```bash
+mv ~/fichierX /var/www/fichierY
+```
+
+### PWD \(Print Working Directory\)
+La commande `pwd` permet d'afficher où nous nous trouvons actuellement dans l'arborescence de l'ordinateur. Même si à première vue cela semble évident, certaines configurations d'interpréteur de commande peuvent ne pas vous afficher l'endroit où vous vous trouvez. Cette commande devient alors essentielle.
+
+```bash
+pwd
+```
+
+### CP \(Copy\)
+Tôt ou tard, vous aurez sans doute besoin de copier des fichiers, voir même des dossiers. La command `cp` vous permettra donc d'y arriver. Pour l'utiliser, il suffit d'entrer la source et la destination en paramètres de commande:
+
+```bash
+cp /home/utilisateur/Desktop/monTexte.txt ~/copieMonTexte.txt
+```
+
+### HEAD et TAIL
+J'ai décidé d'aborder les commandes `head` et `tail` ensembles puisqu'elles ont sensiblement le même objectif, à une différence près. Ces commandes permettent à l'utilisateur d'afficher une partie d'un fichier seulement. Sans entrer dans des exemples trop avancés, elles permettent de lire les lignes qui débutent \(`head`\) un fichier ou les lignes qui le termine \(`tail`\). Par défaut, les deux commandes afficheront 10 lignes. Sachez qu'il est possible d'indiquer le nombre de lignes souhaitées à l'écran. Je vous invite à consulter le manuel à cet effet. 
+
+```bash
+head ~/monFichier.txt
+```
+
+```bash
+tail ~/monFichier.txt
+```
+
+### SUDO \(Super user do\)
+La commande `sudo` permet d'exécuter une commande en tant que superutilisateur. Les actions qui peuvent avoir un impact considérable sur le système \(MAJ, Suppression de certains fichiers, redémarrage du système\) nécessitent d'être lancées par un superutilisateur. Afin d'utiliser `sudo`, l'utilisateur doit d'abord avoir été ajouté au groupe des sudoers. Sous Ubuntu, le premier utilisateur créé lors de l'installation du système y est automatiquement ajouté. Une fois la commande lancée avec `sudo` terminée, l'utilisateur repasse immédiatement en mode utilisateur. Voici un exemple d'utilisation de `sudo`:
+
+```bash
+sudo rm /etc/dhcp/dhcpd.conf
+```
+
+### SHUTDOWN `sudo`
+La commande `shutdown` permet d'éteindre l'ordinateur convenablement. Les arguments passés à la commande peuvent permettre un délais avant la fermeture ou non et demander un redémarrage. Cette commande doit être exécuté en mode superutilisateur.
+
+```bash
+sudo shutdown -r now
+```
+
