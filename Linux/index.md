@@ -7,7 +7,7 @@ Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une 
 ## Sections Linux
 
 |:-------------|:------------------|:------|
-| [Architecture](https://gabgaud.github.io/Linux/index.html#architecture)| [Interfaces Graphiques](https://gabgaud.github.io/Linux/index.html#interfaces-graphiques-gui) | [Ligne de commande](https://gabgaud.github.io/Linux/index.html#ligne-de-commande-cli-linux)  |
+| [Architecture](https://gabgaud.github.io/Linux/Architecture)| [Interfaces Graphiques](https://gabgaud.github.io/Linux/index.html#interfaces-graphiques-gui) | [Ligne de commande](https://gabgaud.github.io/Linux/index.html#ligne-de-commande-cli-linux)  |
 
 
 * * *
