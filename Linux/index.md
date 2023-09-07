@@ -91,6 +91,8 @@ Chacun de ces éléments a une signification:
 
 * `$` : Ce dernier caractère représente votre niveau de droit actuel. `$` signifie que vous avez les droits d'un simple utilisateur. Alors que le symbole `#` signifie que vous êtes en mode superutilisateur.
 
+* * *
+
 ### CD \(Change Directory\)
 La commande CD permet de se déplacer à travers les différents dossiers du système d'exploitation. Par exemple, si je me trouve actuellement dans mon répertoire personnel et que je souhaite me rendre à la racine du disque, je pourrais taper la commande suivante:
 
@@ -122,6 +124,8 @@ cd /home/gabriel/Documents/
 cd Documents/
 ```
 Lequel des deux types devez-vous privilégier ? Il n'y a malheureusement pas de bonne réponse à cette question. Parfois un chemin relatif sera plus court à taper et d'autres fois, ce sera le contraire. Tout dépend de ce que vous faites et d'où vous êtes dans l'ordinateur. Ne vous faites pas, vous créerez vos propres habitudes sur le terminal bien assez vite. Allez-y comme vous le sentez.
+
+* * *
 
 ### LS \(List\)
 La commande `ls` permet d'afficher le contenu d'un répertoire. C'est très pratique, qu'on se le dise. Pour afficher le contenu de mon dossier Documents, je pourrais taper la commande suivante:
