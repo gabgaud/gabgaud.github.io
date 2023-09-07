@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Interfaces graphiques \(GUI\)
+## Interfaces graphiques \(GUI\) 📺
 
 Une interface graphique est un environnement permettant aux humains de communiquer des instructions à une machine par l'entremise d'objets qui sont affichés sur un écran. On y retrouve généralement des fenêtres, des boutons, des icônes et un pointeur \(souris\). L'interface graphique de Windows est généralement bien connue.
 
