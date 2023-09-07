@@ -4,7 +4,7 @@ layout: default
 
 ## Menu des commandes
 
-|:-----------------------------------|:-----------------------|:--------------------|
+|:----|:----|:----|
 |[cd](./Cli.html#cd-change-directory)|[ls](./Cli.html#ls-list)|[man](./Cli.html#man-manuel)
 
 ## Ligne de commande \(CLI\) Linux
