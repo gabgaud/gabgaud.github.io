@@ -6,7 +6,8 @@ layout: default
 
 |:------|:------|:------|:------|:------|
 | [cd](./Cli.html#cd-change-directory) | [ls](./Cli.html#ls-list) | [man](./Cli.html#man-manuel) | [mkdir](./Cli.html#mkdir-make-directory) | [echo](./Cli.html#echo) |
-| [cat](./Cli.html#cat-concatenate) | [mv](./Cli.html#mv-move) | [pwd](./Cli.html#pwd-print-working-directory) | [cp](./Cli.html#cp-copy) | [head/tail](./Cli.html#head-et-tail)
+| [cat](./Cli.html#cat-concatenate) | [mv](./Cli.html#mv-move) | [pwd](./Cli.html#pwd-print-working-directory) | [cp](./Cli.html#cp-copy) | [head/tail](./Cli.html#head-et-tail) |
+| [sudo](./Cli.html#sudo) | [shutdown](./Cli.html#shutdown) | [reboot](./Cli.html#reboot) | [history](./Cli.html#history) | [less](./Cli.html#less) |
 
 ## Ligne de commande \(CLI\) Linux
 La ligne de commande et l'utilisation du terminal Linux permettent d'outrepasser l'interface graphique. Tout bon technicien se doit de posséder une base minimale avec les commandes du terminal. Évidemment, il n'y a rien comme la pratique. Essayez les diverses commandes qui vous sont présentées et mettez-les en contexte autant que possible. Cela dit, il faut d'abord comprendre ce qui se passe lorsque vous ouvrez un terminal. Observez l'image du terminal présenté ci-dessus. Vous y retrouverez une ligne de texte semblable à celle-ci:
@@ -222,13 +223,22 @@ sudo rm /etc/dhcp/dhcpd.conf
 
 * * *
 
-### SHUTDOWN `sudo`
+### SHUTDOWN 
 La commande `shutdown` permet d'éteindre l'ordinateur convenablement. Les arguments passés à la commande peuvent permettre un délai avant la fermeture ou non et demander un redémarrage. Cette commande doit être exécutée en mode superutilisateur.
 
 ```bash
 sudo shutdown -r now
 ```
 * * *
+
+### REBOOT
+La commande `reboot` permet de redémarrer l'ordinateur aussi, tout comme `shutdown`. Un argument de temps est utiliser de la même manière qu'avec `shutdown`.
+
+```bash
+sudo reboot now
+```
+
+* * * 
 
 ### HISTORY
 La commande `history` vous permet d'accéder à l'historique des commandes que vous avez déjà entrées. Cela peut s'avérer très pratique lorsque vous tapez de très longues commandes puisque vous éviterez de devoir les retaper à nouveau.
@@ -244,4 +254,15 @@ Une autre fonctionnalité intéressante qu'offre le terminal Linux est l'autocom
 cd /home/
 ```
 
-Appuyez maintenant sur la touche "tab". Alors ? Linux devrait avoir complété le chemin pour vous en indiquant le nom d'utilisateur du dossier se trouvant dans `/home/`. L'autoxomplétion peut parfois vous éviter des erreurs typographiques. Ne vous gênez pas pour l'utiliser. Dans le cas où plusieurs dossiers se seraient trouvés dans le répertoire `/home`, j'aurais pu appuyer deux fois sur la touche "tab". Linux m'aurait alors afficher les dossiers présents dans `/home/` afin que je puisse trouver lequel m'intéresse.
+Appuyez maintenant sur la touche "tab". Alors ? Linux devrait avoir complété le chemin pour vous en indiquant le nom d'utilisateur du dossier se trouvant dans `/home/`. L'autoxomplétion peut parfois vous éviter des erreurs typographiques. Ne vous gênez pas pour l'utiliser. Dans le cas où plusieurs dossiers se seraient trouvés dans le répertoire `/home/`, j'aurais pu appuyer deux fois sur la touche "tab". Linux m'aurait alors afficher les dossiers présents dans `/home/` afin que je puisse trouver lequel m'intéresse.
+
+* * * 
+
+### LESS
+Cette commande, tout comme `cat` permet d'afficher du contenu à l'écran. Cela dit, elle le fait en mode page. Là ou `cat` vous défilerait un flot d'information à l'écran sans vous laisser le temps de lire quoi que ce soit, `less` attendra votre confirmation pour passer à la page suivante:
+
+```bash
+less /var/log/syslog
+```
+
+* * * 
