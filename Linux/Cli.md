@@ -4,7 +4,7 @@ layout: default
 
 ## Menu des commandes
 
-|:-------------|:------------------|:------|:------|:------|
+|:------|:------|:------|:------|:------|
 | [cd](./Cli.html#cd-change-directory) | [ls](./Cli.html#ls-list) | [man](./Cli.html#man-manuel) | [mkdir](./Cli.html#mkdir-make-directory) | [echo](./Cli.html#echo) |
 
 ## Ligne de commande \(CLI\) Linux
@@ -96,12 +96,17 @@ ls --all /home/gabriel/Documents/
 
 Finalement, il faut considérer que Linux est un système **sensible à la casse**. C'est donc dire qu'un commutateur `-l` avec une commande donnée n'aura pas le même rôle que le commutateur `-L` avec la même commande donnée.
 
+* * *
+
 ### MAN \(Manuel\)
 La commande `man` vous permet de consulter le manuel d'instructions d'une commande donnée. Vous y retrouverez une description de la commande passée en paramètre, les commutateurs disponibles ainsi que les paramètres obligatoires et facultatifs pour son utilisation. Par exemple, si je désirais consulter le manuel d'instructions de la command `ls`, je taperais la commande suivante:
 
 ```bash
 man ls
 ```
+
+* * *
+
 ### MKDIR \(Make Directory\)
 La commande `mkdir` permet de créer des répertoires. Elle prendra nécessairement un emplacement et un nom pour le nouveau répertoire en paramètres. Exemple:
 
@@ -110,6 +115,8 @@ mkdir ./monrepertoire/
 ```
 Avez-vous remarqué le `./` au début de ma dernière commande ? Sous Linux, le `./` signifie le répertoire courant. Autrement dit, dans ma dernière commande, je lui demande de créer un dossier nommé "monrepertoire" dans le répertoire courant, c'est-à-dire où je me trouve présentement.
 
+* * *
+
 ### RM \(Remove\)
 Comme son nom l'indique, la commande `rm` permet de supprimer un élément. Il peut s'agir d'un fichier ou même d'un dossier en utilisant le ou les bons commutateurs. La commande `rmdir` permet également de supprimer des répertoires, mais elle ne prend pas en charge les fichiers. Je vous recommande donc de ne retenir que la commande `rm` qui saura répondre à tous vos besoins. Pour supprimer un fichier, il suffit de passer son chemin et son nom en paramètres:
 
@@ -117,12 +124,15 @@ Comme son nom l'indique, la commande `rm` permet de supprimer un élément. Il p
 rm ./fichier1
 ```
 
+* * *
+
 ### ECHO
 La commande `echo` se contente tout simplement de renvoyer ce que vous lui demandez à l'écran. Ce n'est pas très pratique à première vue. Cela dit, dans le cadre de script ou même de programme, cela peut s'avérer très pratique de transmettre de l'information à l'utilisateur. La commande echo s'utilise comme suit:
 
 ```bash
 echo "Hello world!"
 ```
+* * *
 
 ### CAT \(Concatenate\)
 L'utilité principal de la commande `cat` est de faire la concaténation de plusieurs fichiers, c'est-à-dire de les fusionner, dans un autre fichier de sortie ou tout simplement à l'écran. Or, les linuxiens 🤓 en ont fait une commande pour afficher le contenu d'un fichier. `cat` peut donc être utilisé à plusieurs escients. D'abord, pour afficher le contenu d'un fichier, on utilisera la commande de cette façon:
@@ -151,6 +161,8 @@ cat ./fichier1 ./fichier2 >> fichiersortie
 ```
 Le texte sera alors tout simplement ajouté à la fin du fichier.
 
+* * *
+
 ### MV \(Move\)
 La commande `move` permet non seulement de déplacer des éléments dans le système, mais elle offre en plus, la possibilité de renommer. Plus intéressant encore, la commande est capable de réaliser les deux actions en une seule commande. Pour renommer un fichier, il suffira d'entrer le nom actuel du fichier et le nouveau nom en paramètres:
 
@@ -169,6 +181,7 @@ Finalement, pour déplacer un fichier et le renommer dans une seule et même com
 ```bash
 mv ~/fichierX /var/www/fichierY
 ```
+* * *
 
 ### PWD \(Print Working Directory\)
 La commande `pwd` permet d'afficher où nous nous trouvons actuellement dans l'arborescence de l'ordinateur. Même si à première vue cela semble évident, certaines configurations d'interpréteur de commande peuvent ne pas vous afficher l'endroit où vous vous trouvez. Cette commande devient alors essentielle.
@@ -176,6 +189,7 @@ La commande `pwd` permet d'afficher où nous nous trouvons actuellement dans l'a
 ```bash
 pwd
 ```
+* * *
 
 ### CP \(Copy\)
 Tôt ou tard, vous aurez sans doute besoin de copier des fichiers, voir même des dossiers. La command `cp` vous permettra donc d'y arriver. Pour l'utiliser, il suffit d'entrer la source et la destination en paramètres de commande:
@@ -183,6 +197,8 @@ Tôt ou tard, vous aurez sans doute besoin de copier des fichiers, voir même de
 ```bash
 cp /home/utilisateur/Desktop/monTexte.txt ~/copieMonTexte.txt
 ```
+
+* * *
 
 ### HEAD et TAIL
 J'ai décidé d'aborder les commandes `head` et `tail` ensembles puisqu'elles ont sensiblement le même objectif, à une différence près. Ces commandes permettent à l'utilisateur d'afficher une partie d'un fichier seulement. Sans entrer dans des exemples trop avancés, elles permettent de lire les lignes qui débutent \(`head`\) un fichier ou les lignes qui le termine \(`tail`\). Par défaut, les deux commandes afficheront 10 lignes. Sachez qu'il est possible d'indiquer le nombre de lignes souhaitées à l'écran. Je vous invite à consulter le manuel à cet effet. 
@@ -194,6 +210,7 @@ head ~/monFichier.txt
 ```bash
 tail ~/monFichier.txt
 ```
+* * *
 
 ### SUDO \(Super user do\)
 La commande `sudo` permet d'exécuter une commande en tant que superutilisateur. Les actions qui peuvent avoir un impact considérable sur le système \(MAJ, Suppression de certains fichiers, redémarrage du système\) nécessitent d'être lancées par un superutilisateur. Afin d'utiliser `sudo`, l'utilisateur doit d'abord avoir été ajouté au groupe des sudoers. Sous Ubuntu, le premier utilisateur créé lors de l'installation du système y est automatiquement ajouté. Une fois la commande lancée avec `sudo` terminée, l'utilisateur repasse immédiatement en mode utilisateur. Voici un exemple d'utilisation de `sudo`:
@@ -201,6 +218,8 @@ La commande `sudo` permet d'exécuter une commande en tant que superutilisateur.
 ```bash
 sudo rm /etc/dhcp/dhcpd.conf
 ```
+
+* * *
 
 ### SHUTDOWN `sudo`
 La commande `shutdown` permet d'éteindre l'ordinateur convenablement. Les arguments passés à la commande peuvent permettre un délais avant la fermeture ou non et demander un redémarrage. Cette commande doit être exécuté en mode superutilisateur.
