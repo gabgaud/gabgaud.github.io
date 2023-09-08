@@ -6,7 +6,7 @@ layout: default
 
 |:------|:------|:------|:------|:------|
 | [cd](./Cli.html#cd-change-directory) | [ls](./Cli.html#ls-list) | [man](./Cli.html#man-manuel) | [mkdir](./Cli.html#mkdir-make-directory) | [echo](./Cli.html#echo) |
-| [cat](./Cli.html#cat-concatenate) | [mv](./Cli.html#mv-move) | [pwd](./Cli.html#pwd-print-working-directory) | [cp](./Cli.html#cp-copy) | [head/tail](.Cli.html#head-et-tail)
+| [cat](./Cli.html#cat-concatenate) | [mv](./Cli.html#mv-move) | [pwd](./Cli.html#pwd-print-working-directory) | [cp](./Cli.html#cp-copy) | [head/tail](./Cli.html#head-et-tail)
 
 ## Ligne de commande \(CLI\) Linux
 La ligne de commande et l'utilisation du terminal Linux permettent d'outrepasser l'interface graphique. Tout bon technicien se doit de posséder une base minimale avec les commandes du terminal. Évidemment, il n'y a rien comme la pratique. Essayez les diverses commandes qui vous sont présentées et mettez-les en contexte autant que possible. Cela dit, il faut d'abord comprendre ce qui se passe lorsque vous ouvrez un terminal. Observez l'image du terminal présenté ci-dessus. Vous y retrouverez une ligne de texte semblable à celle-ci:
@@ -17,11 +17,11 @@ Chacun de ces éléments a une signification:
 
 * `gabriel` : C'est le nom de l'utilisateur qui s'apprête à utiliser la ligne de commande.
 
-* `@` : C'est un délimitateur ici. Il sépare l'utilisateur de l'ordinateur.
+* `@` : C'est un délimiteur ici. Il sépare l'utilisateur de l'ordinateur.
 
 * `ubgab`: C'est le nom de l'ordinateur sur lequel nous travaillons actuellement.
 
-* `:` : Un autre délimitateur. Il sépare le nom de l'ordinateur du répertoire au courant.
+* `:` : Un autre délimiteur. Il sépare le nom de l'ordinateur du répertoire au courant.
 
 * `~` : Ici vous retrouverez l'endroit où vous êtes dans l'ordinateur. Le caractère ici présent \(le tilde\) représente votre répertoire personnel \(/home/_utilisateur_\)
 
@@ -48,13 +48,13 @@ cd ..
 ```
 Lorsque nous nous déplaçons ainsi dans l'ordinateur, il importe de différencier les notions de chemin relatif et absolu:
 
-* **Chemin absolu:** Un chemin absolu est composé de tous les dossiers et sous-dossiers à traverser pour se rendre à une destination déterminé, et ce, depuis la racine du disque. Sous Windows, on dirait que c'est le chemin complet vers un fichier en partant de la racine du disque dur C:. Par exemple, si je souhaite me rendre dans mon dossier Documents avec un chemin absolu, je devrais entrer cette commande:
+* **Chemin absolu:** Un chemin absolu est composé de tous les dossiers et sous-dossiers à traverser pour se rendre à une destination déterminée, et ce, depuis la racine du disque. Sous Windows, on dirait que c'est le chemin complet vers un fichier en partant de la racine du disque dur C:. Par exemple, si je souhaite me rendre dans mon dossier Documents avec un chemin absolu, je devrais entrer cette commande:
 
 ```bash
 cd /home/gabriel/Documents/
 ```
 
-* **Chemin relatif:** Un chemin relatif s'adaptera en fonction de l'endroit où vous vous trouvez dans l'arborescence du système. Reprenons l'exemple de mon dossier Documents, mais cette fois, nous assumerons que je suis présentemment dans mon répertoire personnel \(/home/gabriel/\). Je pourrais alors taper la commande suivante:
+* **Chemin relatif:** Un chemin relatif s'adaptera en fonction de l'endroit où vous vous trouvez dans l'arborescence du système. Reprenons l'exemple de mon dossier Documents, mais cette fois, nous assumerons que je suis présentement dans mon répertoire personnel \(/home/gabriel/\). Je pourrais alors taper la commande suivante:
 
 ```bash
 cd Documents/
@@ -69,13 +69,13 @@ La commande `ls` permet d'afficher le contenu d'un répertoire. C'est très prat
 ```bash
 ls /home/gabriel/Documents/
 ```
-Par défaut, vous verrez les dossiers apparaitrent en bleu et les fichiers en blanc. Un jour ou l'autre, vous verrez d'autres couleurs également. Nous aurons l'occasion d'en reparler.
+Par défaut, vous verrez les dossiers apparaitre en bleu et les fichiers en blanc. Un jour ou l'autre, vous verrez d'autres couleurs également. Nous aurons l'occasion d'en reparler.
 
-Certaines commandes permettent l'utilisation de commutateurs et de paramètres. Les paramètres d'une commande indique généralement un préalable à l'utilisation de la commande elle-même. Par exemple, pour utiliser la commande `ls`, il importe d'indiquer le répertoire dont nous désirons lister le contenu. Dans le cas où aucun paramètre n'indiquerait un répertoire concerné, la commande considèrera le répertoire courant comme celui dont vous désirez lister le contenu.
+Certaines commandes permettent l'utilisation de commutateurs et de paramètres. Les paramètres d'une commande indiquent généralement un préalable à l'utilisation de la commande elle-même. Par exemple, pour utiliser la commande `ls`, il importe d'indiquer le répertoire dont nous désirons lister le contenu. Dans le cas où aucun paramètre n'indiquerait un répertoire concerné, la commande considèrera le répertoire courant comme celui dont vous désirez lister le contenu.
 
 Un commutateur permet d'adapter, voir modifier le comportement d'une commande. Dans le cas de la commande `ls`, il existe deux principaux commutateurs:
 1. `-l` Ce commutateur indique à la commande qu'elle doit afficher plus de détails.
-1. `-a` Ce commutateur indique à la commande qu'elle doit afficher tout les éléments, même ceux qui serait cachés.
+1. `-a` Ce commutateur indique à la commande qu'elle doit afficher tout les éléments, même ceux qui seraient cachés.
 
 On inscrit généralement les commutateurs entre la commande et ses paramètres. Par exemple:
 
@@ -83,7 +83,7 @@ On inscrit généralement les commutateurs entre la commande et ses paramètres.
 ls -l /home/gabriel/Documents/
 ```
 
-Il est également possible de jumeler les commutateurs entre-eux:
+Il est également possible de jumeler les commutateurs entre eux:
 
 ```bash
 ls -la /home/gabriel/Documents/
@@ -202,7 +202,7 @@ cp /home/utilisateur/Desktop/monTexte.txt ~/copieMonTexte.txt
 * * *
 
 ### HEAD et TAIL
-J'ai décidé d'aborder les commandes `head` et `tail` ensembles puisqu'elles ont sensiblement le même objectif, à une différence près. Ces commandes permettent à l'utilisateur d'afficher une partie d'un fichier seulement. Sans entrer dans des exemples trop avancés, elles permettent de lire les lignes qui débutent \(`head`\) un fichier ou les lignes qui le termine \(`tail`\). Par défaut, les deux commandes afficheront 10 lignes. Sachez qu'il est possible d'indiquer le nombre de lignes souhaitées à l'écran. Je vous invite à consulter le manuel à cet effet. 
+J'ai décidé d'aborder les commandes `head` et `tail` ensembles puisqu'elles ont sensiblement le même objectif, à une différence près. Ces commandes permettent à l'utilisateur d'afficher une partie d'un fichier seulement. Sans entrer dans des exemples trop avancés, elles permettent de lire les lignes qui débutent \(`head`\) un fichier ou les lignes qui le terminent \(`tail`\). Par défaut, les deux commandes afficheront 10 lignes. Sachez qu'il est possible d'indiquer le nombre de lignes souhaitées à l'écran. Je vous invite à consulter le manuel à cet effet. 
 
 ```bash
 head ~/monFichier.txt
@@ -223,8 +223,25 @@ sudo rm /etc/dhcp/dhcpd.conf
 * * *
 
 ### SHUTDOWN `sudo`
-La commande `shutdown` permet d'éteindre l'ordinateur convenablement. Les arguments passés à la commande peuvent permettre un délais avant la fermeture ou non et demander un redémarrage. Cette commande doit être exécuté en mode superutilisateur.
+La commande `shutdown` permet d'éteindre l'ordinateur convenablement. Les arguments passés à la commande peuvent permettre un délai avant la fermeture ou non et demander un redémarrage. Cette commande doit être exécutée en mode superutilisateur.
 
 ```bash
 sudo shutdown -r now
 ```
+* * *
+
+### HISTORY
+La commande `history` vous permet d'accéder à l'historique des commandes que vous avez déjà entrées. Cela peut s'avérer très pratique lorsque vous tapez de très longues commandes puisque vous éviterez de devoir les retaper à nouveau.
+
+```bash
+history
+```
+Il y a encore mieux, Linux vous donne accès à cet historique à tout moment. En effet, lorsque vous êtes au clavier à taper des commandes, vous n'avez qu'à appuyer sur la touche ⬆ pour retrouver les commandes que vous avez tapées précédemment.
+
+Une autre fonctionnalité intéressante qu'offre le terminal Linux est l'autocomplétion des commandes. En effet, Linux est parfois capable de "prédire" la commande que vous désirez taper. Vous allez comprendre rapidement ce que je veux dire. Commencez par taper la commande suivante mais n'appuyez pas sur entrée.
+
+```bash
+cd /home/
+```
+
+Appuyez maintenant sur la touche "tab". Alors ? Linux devrait avoir complété le chemin pour vous en indiquant le nom d'utilisateur du dossier se trouvant dans `/home/`. L'autoxomplétion peut parfois vous éviter des erreurs typographiques. Ne vous gênez pas pour l'utiliser. Dans le cas où plusieurs dossiers se seraient trouvés dans le répertoire `/home`, j'aurais pu appuyer deux fois sur la touche "tab". Linux m'aurait alors afficher les dossiers présents dans `/home/` afin que je puisse trouver lequel m'intéresse.
