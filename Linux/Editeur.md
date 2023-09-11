@@ -19,7 +19,7 @@ Voici à quoi ressemble l'éditeur de texte Nano¸:
 
 Une fois dans cette fenêtre, vous pourrez dès lors, taper du texte. Évidemment, taper du texte ou l'effacer, ca n'a rien d'impressionnant et ca ne relève pas de la sorcellerie. Cela dit, Nano est équipé de quelques fonctions intéressantes. Remarquez au bas de l'écran le menu des actions disponibles.
 
-[!MenuNano](../Images/MenuNano.png)
+![MenuNano](../Images/MenuNano.png)
 
 Le caractère `^` représente la touche `ctrl` du clavier. Le caractère `M` qui précède certaines actions du menu, quant à lui, représente la touche `alt` du clavier.
 
