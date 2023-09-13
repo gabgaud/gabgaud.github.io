@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## La gestion des paquets 🗃
+## La gestion des paquets 📦
 
 Tant sur Linux que sur Windows, il est possible d'installer divers logiciels. Les deux systèmes d'exploitation partagent des méthodes communes d'installation. Analysons les ensemble.
 
