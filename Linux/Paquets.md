@@ -67,7 +67,7 @@ sudo apt install audacity
 ```
 Voici donc ce que vous retournera Linux en résultat:
 
-[!APTInstall](../Images/AptInstall.png)
+![APTInstall](../Images/AptInstall.png)
 
 * Encadré rouge: Il s'agit des dépendances nécessaires au logiciel que vous tentez d'installer. La plupart du temps, ces dépendances sont constituées de bibliothèques partagées. Elles peuvent servir à accéder à une base de données, à utiliser des protocoles réseau ou même à dessiner des éléments graphiques à l'écran.
 
