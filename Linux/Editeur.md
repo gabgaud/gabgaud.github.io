@@ -215,10 +215,10 @@ Il est tout à fait possible d'envoyer des commandes au système d'exploitation 
 La commande `:set` permet de définir certains paramètres intéressants dans le logiciel. À titre d'exemple:
 
 ```bash
-:set syntax on
+:syntax on
 ```
 
-Cette commande activera la coloration de certaines balises de programmation. En effet, `vim` supporte toute une panoplie de langage de programmation. Il peut donc s'avérer utile d'activer le support de la syntaxe si vous l'utilisez pour programmer quoi que ce soit.
+Cette commande activera la coloration de certaines balises de programmation. En effet, `vim` supporte toute une panoplie de langage de programmation. Il peut donc s'avérer utile d'activer le support de la syntaxe si vous l'utilisez pour programmer quoi que ce soit. Notez qu'il vous faudra remplace le terme "on" par "off" pour désactiver cette option.
 
 ```bash
 :set number
@@ -226,4 +226,4 @@ Cette commande activera la coloration de certaines balises de programmation. En 
 
 Cette dernière commande vous affichera les numéros de ligne. C'est très pratique dans les fichiers assez chargé en texte.
 
-Pour désactiver une option telle que les numéros de ligne, il suffit d'entrer la même commande en terminant par un point d'exclamation `!`.
+Pour désactiver les numéros de ligne, il suffit d'entrer la même commande en terminant par un point d'exclamation `!`.
