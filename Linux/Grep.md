@@ -113,7 +113,27 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     - Choix d'un caractère parmi une liste:
     Les crochets peuvent représenter le choix parmi une liste de caractères donnée. Par exemple, dans le cas du mot "officier", je pourrais utiliser la commande suivante:
     ```bash
-    grep "\[ou\]ficier" 3mousquetaires
+    grep "[ou]ficier" 3mousquetaires
     ```
     J'aurai alors un match avec le terme "officier" ou "ufficier".
+
+    - Utilisation de classes de caractère:
+    Les classes de caractère permettent de donner des indications abrégées à GREP. Les classes sont toujours placées entre crochets:
+        - \[a-z\] : Indique que l'on souhaite faire correspondre n'importe quelle lettre minuscule.
+        - \[A-Z\] : Indique que l'on souhaite faire correspondre n'importe quelle lettre majuscule.
+        - \[a-zA-Z\]: Indique que l'on souhaite faire correspondre n'importe quelle lettre.
+        - \[:alpha:\]: Indique que l'on souhaote faire correspondre n'importe quelle lettre.
+        - \[0-9\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre.
+        - \[a-zA-Z0-9\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
+        - \[:alnum:\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
+    
+    - Négation:
+    On utilise également les crochets pour indiquer une négation. C'est-à-dire un élément avec lequel on ne souhaite pas correspondre. Par exemple, si je désirais retrouver toutes les occurences du mot "officier", à l'exception des fois où le mot est inscrit au pluriel.
+    ```bash
+    grep "officier[^s]" 3mousquetaires
+    ```
+
+    D'ailleurs, en faisant la somme des occurences, nous voyons bien la différence:
+
+    ![GrepNégation](../Images/GrepNegation.png)
 
