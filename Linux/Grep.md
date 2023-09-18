@@ -206,3 +206,4 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     ```bash
     grep -P "officier(?! [a-zA-Z])"
     ```
+    #
