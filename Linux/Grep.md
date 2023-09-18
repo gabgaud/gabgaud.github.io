@@ -129,6 +129,8 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
         - `[:alpha:]` : Indique que l'on souhaote faire correspondre n'importe quelle lettre.
        
         - `[0-9]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre.
+
+        - `[:digit:]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre.
        
         - `[a-zA-Z0-9]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
        
@@ -145,9 +147,22 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
         ![GrepNégation](../Images/GrepNegation.png)
 
+- Les accolades `{}`
+
+    Les accolades permettent de créer des quantificateurs personnalisés. On les utilisera pour y inscrire une valeur fixe ou même pour y définir un minimum et un maximum. **ATTENTION:** Pour utiliser les accolades avec `grep`, il faudra utiliser le commutateur `-P` qui prend en charge la syntaxe des expressions régulières au format PERL. Par défaut, `grep` utilise la syntaxe POSIX et celle-ci ne prend pas en charge les accolades. Dans le cas du mot "officier", nous pourrions par exemple indiquer les deux lettres "f" consécutives comme suit:
+
+    ```bash
+    grep -P "of{2}icier" 3mousquetaires
+    ```
+    ou nous pourrions même accepter de 1 à 5 lettres "f" consécutives:
+
+    ```bash
+    grep -P "of{1,5}icier" 3mousquetaires
+    ```
+
 - Les parenthèses `()`
     
-    Les parenthèses permettent de grouper des expressions ou des bouts d'expression que l'on désir retrouver dans un ordre déterminé. Cela permet, par exemple, d'utiliser un quantificateur sur un groupe plutôt que sur une lettre seulement. ATTENTION: Pour utiliser les parenthèses avec `grep`, il faudra utiliser le commutateur `-p` qui prend en charge la syntaxe des expressions régulières au format PERL. Par défaut, `grep` utilise la syntaxe POSIX et celle-ci ne prend pas en charge les parenthèses. Voici un exemple d'utilisation des parenthèses:
+    Les parenthèses permettent de grouper des expressions ou des bouts d'expression que l'on désir retrouver dans un ordre déterminé. Cela permet, par exemple, d'utiliser un quantificateur sur un groupe plutôt que sur une lettre seulement. **ATTENTION:** Pour utiliser les parenthèses avec `grep`, il faudra utiliser le commutateur `-P` qui prend en charge la syntaxe des expressions régulières au format PERL. Par défaut, `grep` utilise la syntaxe POSIX et celle-ci ne prend pas en charge les parenthèses. Voici un exemple d'utilisation des parenthèses:
 
     ```bash
     grep -P "(off)[a-z]*" 3mousquetaires
@@ -155,4 +170,4 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
     ![GrepParentheses](../Images/GrepParentheses.png)
 
-    L'expression ici nous a permis de stipuler que l'on recherchait des mots qui débutaient par "off", suivi d'autres lettre de l'alphabet, tout simplement.
+    L'expression ici nous a permis de stipuler que l'on recherchait des expressions qui débutaient par "off", suivi d'autres lettres de l'alphabet, tout simplement. Avez-vous remarqué que certaines de ces expressions ne correspondent pas au début d'un mot ? Par exemple, dans le cas du mot "coffre" ou "coffret" ? Comment aurais-je pu m'assurer que seulement des mots complets concordent avec mon expression régulière ? C'est ce que nous verrons avec les tests "lookahead" et "lookbehind".
