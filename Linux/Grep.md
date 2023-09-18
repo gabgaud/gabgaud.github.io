@@ -176,7 +176,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
 ### LOOKAHEAD & LOOKBEHIND
 
-    Les tests `lookahead` et `lookbehind` permettent d'effectuer des tests sur ce qui trouve avant ou après une expression recherchée avant d'effectuer une concordance. Par exemple, lors de mon exemple avec les parenthèses, `grep` a repéré des concordances à travers des mots tels que coffre ou coffret puisque je ne lui ai jamais spécifié si je désirais quelque chose de particulier avant le début de mon groupe \(off\). Un test du type `lookbehind` me permettrait de valider si une lettre ou un espace précède l'expression. 
+Les tests `lookahead` et `lookbehind` permettent d'effectuer des tests sur ce qui trouve avant ou après une expression recherchée avant d'effectuer une concordance. Par exemple, lors de mon exemple avec les parenthèses, `grep` a repéré des concordances à travers des mots tels que coffre ou coffret puisque je ne lui ai jamais spécifié si je désirais quelque chose de particulier avant le début de mon groupe \(off\). Un test du type `lookbehind` me permettrait de valider si une lettre ou un espace précède l'expression. 
 
     - LOOKBEHIND POSITIF
     Ce test vérifiera la présence d'un élément précédant l'expression pour effectuer une concordance. On effectue ce genre de test en entrant `(?<=exp)` devant votre expression. Vous devez remplacer le terme "exp" pour l'expression que vous désirez tester. Si je reprenais mon exemple précédent avec les parenthèses mais que j'ajoutais un test de type lookbehind positif, cela me permettrait de valider qu'un espace précède le groupe \(off\) et donc, qu'il s'agit sans doute d'un début de mot.
@@ -206,4 +206,3 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     ```bash
     grep -P "officier(?! [a-zA-Z])"
     ```
-    #
