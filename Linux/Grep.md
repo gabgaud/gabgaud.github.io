@@ -178,7 +178,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
 Les tests `lookahead` et `lookbehind` permettent d'effectuer des tests sur ce qui trouve avant ou après une expression recherchée avant d'effectuer une concordance. Par exemple, lors de mon exemple avec les parenthèses, `grep` a repéré des concordances à travers des mots tels que coffre ou coffret puisque je ne lui ai jamais spécifié si je désirais quelque chose de particulier avant le début de mon groupe \(off\). Un test du type `lookbehind` me permettrait de valider si une lettre ou un espace précède l'expression. 
 
-    - LOOKBEHIND POSITIF
+- LOOKBEHIND POSITIF
     Ce test vérifiera la présence d'un élément précédant l'expression pour effectuer une concordance. On effectue ce genre de test en entrant `(?<=exp)` devant votre expression. Vous devez remplacer le terme "exp" pour l'expression que vous désirez tester. Si je reprenais mon exemple précédent avec les parenthèses mais que j'ajoutais un test de type lookbehind positif, cela me permettrait de valider qu'un espace précède le groupe \(off\) et donc, qu'il s'agit sans doute d'un début de mot.
 
     ```bash
@@ -187,20 +187,20 @@ Les tests `lookahead` et `lookbehind` permettent d'effectuer des tests sur ce qu
 
     Note: \\s signifie n'importe quel type d'espace. Il s'agit d'un métacaractère tiré du langage Perl.
 
-    - LOOKBEHIND NÉGATIF
+- LOOKBEHIND NÉGATIF
     À l'inverse, ce test vérifiera l'absence d'un élément avant de déclencher une concordance. On effectue ce genre de test en entrant `(?<!exp)` devant votre expression. Vous devez remplacer le terme "exp" pour l'expression que vous désirez tester. En reprenant le même exemple que ci-dessus, je pourrais signifier que je ne veux pas de lettre avant mon expression:
 
     ```bash
     grep -P "(?<! [a-zA-Z])(off)[a-z]*"
     ```
-    - LOOKAHEAD POSITIF
+- LOOKAHEAD POSITIF
     Vous l'aurez compris, les tests `lookahead` permettent d'effectuer des tests sur ce qui suit l'expression recherchée. On effectue ce genre de test en entrant `(?=exp)` après votre expression régulière. Par exemple:
 
     ```bash
     grep -P "officier(?=\s)"
     ```
 
-    - LOOKAHEAD NÉGATIF
+- LOOKAHEAD NÉGATIF
     Finalement, tout comme avec le test `lookbehind`, il y a possibilité d'effectuer un test sur l'absence d'un élément suivant votre expression. On utilisera alors `(?!exp)` après votre expression régulière. Par exemple:
 
     ```bash
