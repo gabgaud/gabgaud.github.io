@@ -70,33 +70,33 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
 * Le point `.`
 
-Le point symbolise n'importe quel caractère unique. Dans une expression régulière, le point peut être remplacé par un espace, une lettre, un chiffre, etc. Par exemple, je vais remplacer une partie du mot "officier" par des points pour en observer le résultat:
+    Le point symbolise n'importe quel caractère unique. Dans une expression régulière, le point peut être remplacé par un espace, une lettre, un chiffre, etc. Par exemple, je vais remplacer une partie du mot "officier" par des points pour en observer le résultat:
 
-```bash
-grep "....cier" 3mousquetaires
-```
+    ```bash
+    grep "....cier" 3mousquetaires
+    ```
 
-![GrepPoint](../Images/GrepPoint.png)
+    ![GrepPoint](../Images/GrepPoint.png)
 
-On voit tout de suite que ce n'est plus seulement le mot "officier" qui correspond à l'expression régulière mais bien tout ce qui comporte 4 caractères quelconque, suivi des lettres "cier". Nous retrouvons notre expression régulière à l'intérieur du mot "remerciera" par exemple.
+    On voit tout de suite que ce n'est plus seulement le mot "officier" qui correspond à l'expression régulière mais bien tout ce qui comporte 4 caractères quelconque, suivi des lettres "cier". Nous retrouvons notre expression régulière à l'intérieur du mot "remerciera" par exemple.
 
 * L'étoile `*`
 
-L'étoile est ce que l'on appelle un quantificateur dans le jargon des expressions régulières. Elle permet d'indiquer une quantité recherchée. Plus précisémment, l'étoile signifie que l'on recherche zéro ou plusieurs occurences du caractère qui le précède. Par exemple, dans le cas du mot "officier", nous pourrions l'utiliser comme suit:
+    L'étoile est ce que l'on appelle un quantificateur dans le jargon des expressions régulières. Elle permet d'indiquer une quantité recherchée. Plus précisémment, l'étoile signifie que l'on recherche zéro ou plusieurs occurences du caractère qui le précède. Par exemple, dans le cas du mot "officier", nous pourrions l'utiliser comme suit:
 
-```bash
-grep "of*icier" 3mousquetaires
-```
+    ```bash
+    grep "of*icier" 3mousquetaires
+    ```
 
-Cela me permet d'indiquer qu'il peut y avoir entre 0 et plusieurs lettres "f" dans le mot que je recherche.
+    Cela me permet d'indiquer qu'il peut y avoir entre 0 et plusieurs lettres "f" dans le mot que je recherche.
 
 * Le plus `+`
 
-Le symbole `+` est également un quantificateur. Il s'utilise donc de la même manière que l'étoile. Ce symbole fera correspondre une ou plusieurs occurences du caractère qui le précède à la différence de l'étoile qui peut également faire correspondre aucune occurence \(0\). Exemple:
+    Le symbole `+` est également un quantificateur. Il s'utilise donc de la même manière que l'étoile. Ce symbole fera correspondre une ou plusieurs occurences du caractère qui le précède à la différence de l'étoile qui peut également faire correspondre aucune occurence \(0\). Exemple:
 
-```bash
-grep "of+icier" 3mousquetaires
-```
+    ```bash
+    grep "of+icier" 3mousquetaires
+    ```
 
 * Le point d'interrogation `?`
 
@@ -106,6 +106,14 @@ grep "of+icier" 3mousquetaires
     grep "of?icier" 3mousquetaires
     ```
 
-* Les crochets \[\]
+* Les crochets `[]`
 
+    Les crochets jouent plusieurs rôles dans les expressions réguliuères, nous allons donc voir chacun de ces rôles:
+
+    1. Choix d'un caractère parmi une liste:
+    Les crochets peuvent représenter le choix parmi une liste de caractères donnée. Par exemple, dans le cas du mot "officier", je pourrais utiliser la commande suivante:
+    ```bash
+    grep "\[ou\]ficier" 3mousquetaires
+    ```
+    J'aurai alors un match avec le terme "officier" ou "ufficier".
 
