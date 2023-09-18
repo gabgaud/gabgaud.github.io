@@ -172,9 +172,9 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
     ![GrepParentheses](../Images/GrepParentheses.png)
 
-    L'expression ici nous a permis de stipuler que l'on recherchait des expressions qui débutaient par "off", suivi d'autres lettres de l'alphabet, tout simplement. Avez-vous remarqué que certaines de ces expressions ne correspondent pas au début d'un mot ? Par exemple, dans le cas du mot "coffre" ou "coffret" ? Comment aurais-je pu m'assurer que seulement des mots complets concordent avec mon expression régulière ? C'est ce que nous verrons avec les tests "lookahead" et "lookbehind".
+    L'expression ici nous a permis de stipuler que l'on recherchait des expressions qui débutaient par "off", suivi d'autres lettres de l'alphabet, tout simplement. Avez-vous remarqué que certaines de ces expressions ne correspondent pas au début d'un mot ? Par exemple, dans le cas du mot "coffre" ou "coffret" ? Comment aurais-je pu m'assurer que seulement des mots complets concordent avec mon expression régulière ? C'est ce que nous verrons avec les tests `lookahead` et `lookbehind`.
 
-    ### LOOKAHEAD & LOOKBEHIND
+### LOOKAHEAD & LOOKBEHIND
 
     Les tests `lookahead` et `lookbehind` permettent d'effectuer des tests sur ce qui trouve avant ou après une expression recherchée avant d'effectuer une concordance. Par exemple, lors de mon exemple avec les parenthèses, `grep` a repéré des concordances à travers des mots tels que coffre ou coffret puisque je ne lui ai jamais spécifié si je désirais quelque chose de particulier avant le début de mon groupe \(off\). Un test du type `lookbehind` me permettrait de valider si une lettre ou un espace précède l'expression. 
 
