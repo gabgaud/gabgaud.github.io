@@ -68,7 +68,7 @@ grep "officier$" 3mousquetaires
 
 Les métacaractères sont des caractères spéciaux ayant une signification particulière dans une expression régulière. Nous allons étudier les principaux et analyser leur fonctionnement à l'aide d'exemples.
 
-* Le point `.`
+- Le point `.`
 
     Le point symbolise n'importe quel caractère unique. Dans une expression régulière, le point peut être remplacé par un espace, une lettre, un chiffre, etc. Par exemple, je vais remplacer une partie du mot "officier" par des points pour en observer le résultat:
 
@@ -80,7 +80,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
     On voit tout de suite que ce n'est plus seulement le mot "officier" qui correspond à l'expression régulière mais bien tout ce qui comporte 4 caractères quelconque, suivi des lettres "cier". Nous retrouvons notre expression régulière à l'intérieur du mot "remerciera" par exemple.
 
-* L'étoile `*`
+- L'étoile `*`
 
     L'étoile est ce que l'on appelle un quantificateur dans le jargon des expressions régulières. Elle permet d'indiquer une quantité recherchée. Plus précisémment, l'étoile signifie que l'on recherche zéro ou plusieurs occurences du caractère qui le précède. Par exemple, dans le cas du mot "officier", nous pourrions l'utiliser comme suit:
 
@@ -90,7 +90,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
     Cela me permet d'indiquer qu'il peut y avoir entre 0 et plusieurs lettres "f" dans le mot que je recherche.
 
-* Le plus `+`
+- Le plus `+`
 
     Le symbole `+` est également un quantificateur. Il s'utilise donc de la même manière que l'étoile. Ce symbole fera correspondre une ou plusieurs occurences du caractère qui le précède à la différence de l'étoile qui peut également faire correspondre aucune occurence \(0\). Exemple:
 
@@ -98,7 +98,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     grep "of+icier" 3mousquetaires
     ```
 
-* Le point d'interrogation `?`
+- Le point d'interrogation `?`
 
     Le symbole `?` est aussi un quantificateur. Il s'utilise de la même manière que l'étoile et le symbole `+`. Celui-ci fera correspondre zéro ou une occurence du caractère qui le précède. Cela  signifie que si nous le plaçon au même endroit que dans l'exemple avec l'étoile et le plus, nous n'aurons pas de correspondance avec le mot "officier" puisque celui-ci comporte 2 lettres "f".
 
@@ -120,19 +120,19 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     - Utilisation de classes de caractère:
     Les classes de caractère permettent de donner des indications abrégées à GREP. Les classes sont toujours placées entre crochets:
        
-        - \[a-z\] : Indique que l'on souhaite faire correspondre n'importe quelle lettre minuscule.
+        - `[a-z]` : Indique que l'on souhaite faire correspondre n'importe quelle lettre minuscule.
        
-        - \[A-Z\] : Indique que l'on souhaite faire correspondre n'importe quelle lettre majuscule.
+        - `[A-Z]` : Indique que l'on souhaite faire correspondre n'importe quelle lettre majuscule.
        
-        - \[a-zA-Z\]: Indique que l'on souhaite faire correspondre n'importe quelle lettre.
+        - `[a-zA-Z]` : Indique que l'on souhaite faire correspondre n'importe quelle lettre.
        
-        - \[:alpha:\]: Indique que l'on souhaote faire correspondre n'importe quelle lettre.
+        - `[:alpha:]` : Indique que l'on souhaote faire correspondre n'importe quelle lettre.
        
-        - \[0-9\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre.
+        - `[0-9]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre.
        
-        - \[a-zA-Z0-9\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
+        - `[a-zA-Z0-9]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
        
-        - \[:alnum:\]: Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
+        - `[:alnum:]` : Indique que l'on souhaite faire correspondre n'importe quel chiffre ou lettre.
     
     - Négation:
         On utilise également les crochets pour indiquer une négation. C'est-à-dire un élément avec lequel on ne souhaite pas correspondre. Par exemple, si je désirais retrouver toutes les occurences du mot "officier", à l'exception des fois où le mot est inscrit au pluriel.
@@ -145,3 +145,4 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
         ![GrepNégation](../Images/GrepNegation.png)
 
+- Les parenthèses `()`
