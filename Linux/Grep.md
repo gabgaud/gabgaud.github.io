@@ -4,11 +4,11 @@ layout: default
 
 ## GREP et les expressions régulières 🧪
 
-La commande `grep` est sans doute l'une des plus utiles du terminal et c'est pourquoi elle se mérite une section à elle seule. En fait, `grep` est l'aconyme de "Global Regular Expression Print". La commande vous permet donc de rechercher du texte sur la base d'un modèle. Quel genre de modèle me demanderez-vous ? Prenons un exemple simple, je cherche à trouver un numéro de téléphone dans un fichier. Cela dit, je ne connais pas le numéro de téléphone que je recherche. Par contre, je sais qu'un numéro de téléphone correspond au modèle suivant: XXX-XXX-XXXX. Je pourrais donc demander à `grep` de chercher le contenu d'un fichier qui correspond à ce modèle.
+La commande `grep` est sans doute l'une des plus utiles du terminal et c'est pourquoi elle se mérite une section à elle seule. En fait `grep` est l'acronyme de "Global Regular Expression Print". La commande vous permet donc de rechercher du texte sur la base d'un modèle. Quel genre de modèle me demanderez-vous ? Prenons un exemple simple, je cherche à trouver un numéro de téléphone dans un fichier. Cela dit, je ne connais pas le numéro de téléphone que je recherche. Par contre, je sais qu'un numéro de téléphone correspond au modèle suivant: XXX-XXX-XXXX. Je pourrais donc demander à `grep` de chercher le contenu d'un fichier qui correspond à ce modèle.
 
 ### REGEX
 
-Ce modèle, c'est ce que l'on nomme une expression régulière. Il s'agit d'une expression permettant d'indiquer à `grep` le genre de texte que je recherche. La composition d'une expression régulière passe par l'utilisation de metacaractère et de texte. Nous étudierons le tout.
+Ce modèle, c'est ce que l'on nomme une expression régulière. Il s'agit d'une expression permettant d'indiquer à `grep` le genre de texte que je recherche. La composition d'une expression régulière passe par l'utilisation de métacaractère et de texte. Nous étudierons le tout.
 
 Pour les prochains exemples d'utilisation de `grep`, j'utiliserai le livre "Les 3 mousquetaires" que pouvez [télécharger](https://gutenberg.org/ebooks/13951.txt.utf-8) gratuitement sur le site du projet Gutenberg.
 
@@ -43,11 +43,11 @@ grep -ci "officier" 3mousquetaires
 
 ![SommeOfficierInsensible](../Images/GrepSommeOfficierInsensible.png)
 
-Cette fois ça y est! Nous avons toutes les occurences.
+Cette fois ça y est! Nous avons toutes les occurrences.
 
 ### Correspondance d'ancrage
 
-Les ancres sont des caractères spéciaux me permettant de déterminer à quel endroit sur une ligne de texte un modèle est considéré comme valable. Reprenons notre exemple avec le mot ""officier". Je sais qu'il y a un total de 86 occurences du mot "officier" dans le texte concerné. Cela dit, j'aimerais retrouvé seulement les mots "officier" qui sont en début de ligne. Le metacaractère `^` permet donc ce genre de correspondance par ancrage. Nous l'utiliserons comme suit:
+Les ancres sont des caractères spéciaux me permettant de déterminer à quel endroit sur une ligne de texte un modèle est considéré comme valable. Reprenons notre exemple avec le mot ""officier". Je sais qu'il y a un total de 86 occurrences du mot "officier" dans le texte concerné. Cela dit, j'aimerais retrouver seulement les mots "officier" qui sont en début de ligne. Le métacaractère `^` permet donc ce genre de correspondance par ancrage. Nous l'utiliserons comme suit:
 
 ```bash
 grep "^officier" 3mousquetaires
@@ -55,3 +55,40 @@ grep "^officier" 3mousquetaires
 ![OfficierDebut](../Images/GrepDebut.png)
 
 Nous avons donc un total de 4 lignes dans le roman qui débutent par le mot "officier".
+
+Qu'en est-il pour les fins de ligne ? Vous l'aurez compris, il est tout à fait possible de rechercher le mot "officier" en fin de ligne également. On utilisera alors le métacaractère `$` comme suit:
+
+```bash
+grep "officier$" 3mousquetaires
+```
+
+![OfficierFin](../Images/GrepFin.png)
+
+### Métacaractères
+
+Les métacaractères sont des caractères spéciaux ayant une signification particulière dans une expression régulière. Nous allons étudier les principaux et analyser leur fonctionnement à l'aide d'exemples.
+
+* Le point `.`
+
+Le point symbolise n'importe quel caractère unique. Dans une expression régulière, le point peut être remplacé par un espace, une lettre, un chiffre, etc. Par exemple, je vais remplacer une partie du mot "officier" par des points pour en observer le résultat:
+
+```bash
+grep "....cier" 3mousquetaires
+```
+
+![GrepPoint](../Images/GrepPoint.png)
+
+On voit tout de suite que ce n'est plus seulement le mot "officier" qui correspond à l'expression régulière mais bien tout ce qui comporte 4 caractères quelconque, suivi des lettres "cier". Nous retrouvons notre expression régulière à l'intérieur du mot "remerciera" par exemple.
+
+* L'étoile `*`
+
+L'étoile est ce que l'on appelle un quantificateur dans le jargon des expressions régulières. Elle permet d'indiquer une quantité recherchée. Plus précisémment, l'étoile signifie que l'on recherche zéro ou plusieurs occurences du caractère qui le précède. Par exemple, dans le cas du mot "officier", nous pourrions l'utiliser comme suit:
+
+```bash
+grep "of*icier" 3mousquetaires
+```
+
+Cela me permet d'indiquer qu'il peut y avoir entre 0 et plusieurs lettres "f" dans le mot que je recherche.
+
+* Le plus `+`
+
