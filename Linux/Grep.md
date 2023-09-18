@@ -92,3 +92,20 @@ Cela me permet d'indiquer qu'il peut y avoir entre 0 et plusieurs lettres "f" da
 
 * Le plus `+`
 
+Le symbole `+` est également un quantificateur. Il s'utilise donc de la même manière que l'étoile. Ce symbole fera correspondre une ou plusieurs occurences du caractère qui le précède à la différence de l'étoile qui peut également faire correspondre aucune occurence \(0\). Exemple:
+
+```bash
+grep "of+icier" 3mousquetaires
+```
+
+* Le point d'interrogation `?`
+
+    Le symbole `?` est aussi un quantificateur. Il s'utilise de la même manière que l'étoile et le symbole `+`. Celui-ci fera correspondre zéro ou une occurence du caractère qui le précède. Cela  signifie que si nous le plaçon au même endroit que dans l'exemple avec l'étoile et le plus, nous n'aurons pas de correspondance avec le mot "officier" puisque celui-ci comporte 2 lettres "f".
+
+    ```bash
+    grep "of?icier" 3mousquetaires
+    ```
+
+* Les crochets \[\]
+
+
