@@ -106,11 +106,11 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     grep "of?icier" 3mousquetaires
     ```
 
-* Les crochets `[]`
+- Les crochets `[]`
 
     Les crochets jouent plusieurs rôles dans les expressions réguliuères, nous allons donc voir chacun de ces rôles:
 
-    1. Choix d'un caractère parmi une liste:
+    - Choix d'un caractère parmi une liste:
     Les crochets peuvent représenter le choix parmi une liste de caractères donnée. Par exemple, dans le cas du mot "officier", je pourrais utiliser la commande suivante:
     ```bash
     grep "\[ou\]ficier" 3mousquetaires
