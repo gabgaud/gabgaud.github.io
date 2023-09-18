@@ -146,3 +146,13 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
         ![GrepNégation](../Images/GrepNegation.png)
 
 - Les parenthèses `()`
+    
+    Les parenthèses permettent de grouper des expressions ou des bouts d'expression que l'on désir retrouver dans un ordre déterminé. Cela permet, par exemple, d'utiliser un quantificateur sur un groupe plutôt que sur une lettre seulement. ATTENTION: Pour utiliser les parenthèses avec `grep`, il faudra utiliser le commutateur `-p` qui prend en charge la syntaxe des expressions régulières au format PERL. Par défaut, `grep` utilise la syntaxe POSIX et celle-ci ne prend pas en charge les parenthèses. Voici un exemple d'utilisation des parenthèses:
+
+    ```bash
+    grep -P "(off)[a-z]*" 3mousquetaires
+    ```
+
+    ![GrepParentheses](../Images/GrepParentheses.png)
+
+    L'expression ici nous a permis de stipuler que l'on recherchait des mots qui débutaient par "off", suivi d'autres lettre de l'alphabet, tout simplement.
