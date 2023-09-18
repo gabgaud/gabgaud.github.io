@@ -8,4 +8,4 @@ Linux est avant tout un système d'exploitation, ou devrais-je plutôt dire une 
 
 |:------|:------|:------|
 | [1 - Architecture](https://gabgaud.github.io/Linux/Architecture.html)| [2 - Interfaces Graphiques](https://gabgaud.github.io/Linux/Gui.html) | [3 - Commandes de base](https://gabgaud.github.io/Linux/Cli.html)  |
-| [4 - Éditeurs de texte](https://gabgaud.github.io/Linux/Editeur.html) | [5 - Gestion des paquets](https://gabgaud.github.io/Linux/Paquets.html) | [6 - La commande GREP](https://gabgaud.github.io/Linux/Grep.html) |
+| [4 - Éditeurs de texte](https://gabgaud.github.io/Linux/Editeur.html) | [5 - Gestion des paquets](https://gabgaud.github.io/Linux/Paquets.html) | [6 - GREP et REGEX](https://gabgaud.github.io/Linux/Grep.html) |

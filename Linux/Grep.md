@@ -27,4 +27,31 @@ Chaque ligne du résultat représente une ligne de texte où l'expression recher
 
 ### Somme d'une expression
 
-Combien de fois le mot "officier" apparait-il en fait ?
+Combien de fois le mot "officier" apparait-il en fait ? Il est possible de demander à `grep` en utilisant le commutateur `-c`.
+
+```bash
+grep -c "officier" 3mousquetaires
+```
+
+![SommeOfficier](../Images/GrepSommeOfficier.png)
+
+Le mot "officier" apparaitrait donc 83 fois...ou presque. En fait, il ne faut pas négliger le fait que Linux est un système "sensible à la casse". Pour Linux, le mot "officier" et le mot "Officier" sont différents. Pour ignorer cette différenciation que Linux fait entre majuscules et minuscules, nous ajouterons le commutateur `-i`.
+
+```bash
+grep -ci "officier" 3mousquetaires
+```
+
+![SommeOfficierInsensible](../Images/GrepSommeOfficierInsensible.png)
+
+Cette fois ça y est! Nous avons toutes les occurences.
+
+### Correspondance d'ancrage
+
+Les ancres sont des caractères spéciaux me permettant de déterminer à quel endroit sur une ligne de texte un modèle est considéré comme valable. Reprenons notre exemple avec le mot ""officier". Je sais qu'il y a un total de 86 occurences du mot "officier" dans le texte concerné. Cela dit, j'aimerais retrouvé seulement les mots "officier" qui sont en début de ligne. Le metacaractère `^` permet donc ce genre de correspondance par ancrage. Nous l'utiliserons comme suit:
+
+```bash
+grep "^officier" 3mousquetaires
+```
+![OfficierDebut](../Images/GrepDebut.png)
+
+Nous avons donc un total de 4 lignes dans le roman qui débutent par le mot "officier".
