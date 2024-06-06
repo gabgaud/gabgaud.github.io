@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: OS
 ---
 
 ## La configuration du réseau 🛜

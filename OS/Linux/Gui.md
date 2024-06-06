@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: OS
 ---
 
 ## Interfaces graphiques \(GUI\) 📺
