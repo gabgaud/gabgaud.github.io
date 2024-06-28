@@ -1,5 +1,5 @@
 ---
-layout: OS
+layout: os
 ---
 
 ## GREP et les expressions régulières 🧪

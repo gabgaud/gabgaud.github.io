@@ -1,5 +1,5 @@
 ---
-layout: OS
+layout: os
 ---
 
 ## Les éditeurs de texte ✍
