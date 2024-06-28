@@ -15,11 +15,11 @@ Pour lancer l'éditeur de texte Nano, vous n'avez qu'à entrer le nom de l'édit
 nano informatique
 ```
 Voici à quoi ressemble l'éditeur de texte Nano¸:
-![Nano](../Images/Nano.png)
+![Nano](/Images/Nano.png)
 
 Une fois dans cette fenêtre, vous pourrez dès lors, taper du texte. Évidemment, taper du texte ou l'effacer, ca n'a rien d'impressionnant et ca ne relève pas de la sorcellerie. Cela dit, Nano est équipé de quelques fonctions intéressantes. Remarquez au bas de l'écran le menu des actions disponibles.
 
-![MenuNano](../Images/MenuNano.png)
+![MenuNano](/Images/MenuNano.png)
 
 Le caractère `^` représente la touche `ctrl` du clavier. Le caractère `M` qui précède certaines actions du menu, quant à lui, représente la touche `alt` du clavier.
 
@@ -153,7 +153,7 @@ Si vous êtes à la recherche d'un mot, vous pouvez appuyer sur la touche `/`, t
 
 C'est à peu près tout ce que vous pouvez faire dans ce mode. Pour entrer en mode "insertion de texte", appuyez sur la touche `i`. Vous verrez alors le mot --INSERTION-- au bas de l'écran à gauche:
 
-![InsertionVim](../Images/InsertionVim.png)
+![InsertionVim](/Images/InsertionVim.png)
 
 Cela veut donc dire que vous pouvez entrer du texte comme bon vous semble. Tôt ou tard, il vous faudra sortir du mode insertion afin de pouvoir enregistrer et même sortir de `vim`. Pour sortir du mode insertion et repasser en mode interactif, appuyez sur la touche `esc`.
 
@@ -188,7 +188,7 @@ L'exemple numéro 3 remplacera toutes les occurences du mot recherché par le mo
 
 Oui, vous avez bien lu. Il est possible de scinder l'écran de `vim` et de travailler sur plusieurs fichiers à la fois. Pour ouvrir un deuxième fichier en écran scindé, il suffit d'utiliser la commande `:sp nom_du_fichier`. 
 
-![SplitVim](../Images/SPVim.png)
+![SplitVim](/Images/SPVim.png)
 
 Une fois en mode écran scindé vous pouvez gérer le tout en utilisants les commandes suivantes :
 

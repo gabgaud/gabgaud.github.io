@@ -21,7 +21,7 @@ grep "officier" 3mousquetaires
 ```
 Voici le résultat obtenu:
 
-![GrepOfficier](../Images/Grep_Officier.png)
+![GrepOfficier](/Images/Grep_Officier.png)
 
 Chaque ligne du résultat représente une ligne de texte où l'expression recherchée a été repérée. Sur l'image, vous n'en voyez qu'une partie. Ce mot revient très souvent dans le texte. 
 
@@ -33,7 +33,7 @@ Combien de fois le mot "officier" apparait-il en fait ? Il est possible de deman
 grep -c "officier" 3mousquetaires
 ```
 
-![SommeOfficier](../Images/GrepSommeOfficier.png)
+![SommeOfficier](/Images/GrepSommeOfficier.png)
 
 Le mot "officier" apparaitrait donc 83 fois...ou presque. En fait, il ne faut pas négliger le fait que Linux est un système "sensible à la casse". Pour Linux, le mot "officier" et le mot "Officier" sont différents. Pour ignorer cette différenciation que Linux fait entre majuscules et minuscules, nous ajouterons le commutateur `-i`.
 
@@ -41,7 +41,7 @@ Le mot "officier" apparaitrait donc 83 fois...ou presque. En fait, il ne faut pa
 grep -ci "officier" 3mousquetaires
 ```
 
-![SommeOfficierInsensible](../Images/GrepSommeOfficierInsensible.png)
+![SommeOfficierInsensible](/Images/GrepSommeOfficierInsensible.png)
 
 Cette fois ça y est! Nous avons toutes les occurrences.
 
@@ -52,7 +52,7 @@ Les ancres sont des caractères spéciaux me permettant de déterminer à quel e
 ```bash
 grep "^officier" 3mousquetaires
 ```
-![OfficierDebut](../Images/GrepDebut.png)
+![OfficierDebut](/Images/GrepDebut.png)
 
 Nous avons donc un total de 4 lignes dans le roman qui débutent par le mot "officier".
 
@@ -62,7 +62,7 @@ Qu'en est-il pour les fins de ligne ? Vous l'aurez compris, il est tout à fait 
 grep "officier$" 3mousquetaires
 ```
 
-![OfficierFin](../Images/GrepFin.png)
+![OfficierFin](/Images/GrepFin.png)
 
 ### Métacaractères
 
@@ -76,7 +76,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     grep "....cier" 3mousquetaires
     ```
 
-    ![GrepPoint](../Images/GrepPoint.png)
+    ![GrepPoint](/Images/GrepPoint.png)
 
     On voit tout de suite que ce n'est plus seulement le mot "officier" qui correspond à l'expression régulière mais bien tout ce qui comporte 4 caractères quelconque, suivi des lettres "cier". Nous retrouvons notre expression régulière à l'intérieur du mot "remerciera" par exemple.
 
@@ -147,7 +147,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
 
         D'ailleurs, en faisant la somme des occurences, nous voyons bien la différence:
 
-        ![GrepNégation](../Images/GrepNegation.png)
+        ![GrepNégation](/Images/GrepNegation.png)
 
 - Les accolades `{}`
 
@@ -170,7 +170,7 @@ Les métacaractères sont des caractères spéciaux ayant une signification part
     grep -P "(off)[a-z]*" 3mousquetaires
     ```
 
-    ![GrepParentheses](../Images/GrepParentheses.png)
+    ![GrepParentheses](/Images/GrepParentheses.png)
 
     L'expression ici nous a permis de stipuler que l'on recherchait des expressions qui débutaient par "off", suivi d'autres lettres de l'alphabet, tout simplement. Avez-vous remarqué que certaines de ces expressions ne correspondent pas au début d'un mot ? Par exemple, dans le cas du mot "coffre" ou "coffret" ? Comment aurais-je pu m'assurer que seulement des mots complets concordent avec mon expression régulière ? C'est ce que nous verrons avec les tests `lookahead` et `lookbehind`.
 

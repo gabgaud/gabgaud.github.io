@@ -13,6 +13,6 @@ Sur cette page, j'offrirai de la théorie et des exemples en utilisant Ubuntu, l
 ## Sections Linux
 
 |:------|:------|:------|
-| [1 - Architecture](https://gabgaud.github.io/Linux/Architecture.html)| [2 - Interfaces Graphiques](https://gabgaud.github.io/Linux/Gui.html) | [3 - Commandes de base](https://gabgaud.github.io/Linux/Cli.html)  |
-| [4 - Éditeurs de texte](https://gabgaud.github.io/Linux/Editeur.html) | [5 - Gestion des paquets](https://gabgaud.github.io/Linux/Paquets.html) | [6 - GREP et REGEX](https://gabgaud.github.io/Linux/Grep.html) | 
-| [7 - Configuration du réseau](https://gabgaud.github.io/Linux/Netplan.html) | [8 - Stockage/Montage](https://gabgaud.github.io/Linux/Stock.html) |
+| [1 - Architecture](https://www.tonprof.ca/Linux/Architecture.html)| [2 - Interfaces Graphiques](https://www.tonprof.ca/Linux/Gui.html) | [3 - Commandes de base](https://www.tonprof.ca/Linux/Cli.html)  |
+| [4 - Éditeurs de texte](https://www.tonprof.ca/Linux/Editeur.html) | [5 - Gestion des paquets](https://www.tonprof.ca/Linux/Paquets.html) | [6 - GREP et REGEX](https://www.tonprof.ca/Linux/Grep.html) | 
+| [7 - Configuration du réseau](https://www.tonprof.ca/Linux/Netplan.html) | [8 - Stockage/Montage](https://www.tonprof.ca/Linux/Stock.html) |
