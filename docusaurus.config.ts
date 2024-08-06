@@ -35,7 +35,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: "/",
+          editUrl:
+            'editUrl: `https://github.com/gabgaud/gabgaud.github.io/tree/main/docs`,',
         },
 
         theme: {
