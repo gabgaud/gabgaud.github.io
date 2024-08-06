@@ -11,7 +11,7 @@ const config: Config = {
   url: 'https://www.tonprof.ca',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/docs/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -36,8 +36,6 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'editUrl: `https://github.com/gabgaud/gabgaud.github.io/tree/main/docs`,',
         },
         blog: false,
 
