@@ -34,10 +34,12 @@ const config: Config = {
       'classic',
       {
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
             'editUrl: `https://github.com/gabgaud/gabgaud.github.io/tree/main/docs`,',
         },
+        blog: false,
 
         theme: {
           customCss: './src/css/custom.css',
@@ -50,9 +52,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Le site de ton prof',
+      title: 'Accueil',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Logo',
         src: 'img/logo.svg',
       },
       items: [
