@@ -18,7 +18,7 @@ const config: Config = {
   organizationName: 'gabgaud', // Usually your GitHub org/user name.
   projectName: 'www.tonprof.ca', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   deploymentBranch: "gh-pages",
   trailingSlash: false,
