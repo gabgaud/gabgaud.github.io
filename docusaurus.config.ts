@@ -29,16 +29,21 @@ const config: Config = {
     locales: ["fr"],
   },
 
+  markdown: {
+    mermaid: true
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       'classic',
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          routeBasePath: "/",
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'editUrl: `https://github.com/gabgaud/gabgaud.github.io/tree/main/docs`,',
         },
 
         theme: {
@@ -52,7 +57,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'Le site de ton prof',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
