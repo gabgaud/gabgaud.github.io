@@ -1,48 +1,17 @@
 ---
 slug: /
-sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Bienvenue!
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## Mot du prof 😎
 
-## Getting Started
+J'ai créé cette page pour y partager toutes sortes de notes en lien avec mes cours. De façon générale, j'aime aller un peu plus loin que lorsque j'enseigne en classe. Cela dit, c'est à vous de prendre ce dont vous avez besoin. C'est un travail en continu que d'alimenter ce site alors si vous trouvez une information qui n'est plus vraie ou qui nécessite une mise à jour, n'ayez pas peur de m'en aviser. Bonne lecture et bon apprentissage.
 
-Get started by **creating a new site**.
+## Navigation ⛵
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+Les sections principales de ce site se retrouve dans la barre de navigation au haut du site. Chacune de ces sections comportent des sous-sections qui se retrouveront dans le volet de gauche.
 
-### What you'll need
+## Me joindre 📫
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+Si vous désirez communiquez avec moi pour me signaler un problème avec ce site ou tout simplement m'aviser qu'une mise-à-jour est requise, vous pouvez le faire en utilisant [ce lien](mailto:gabriel.gaudreault@hotmail.com)

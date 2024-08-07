@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Le site de ton prof',
   tagline: 'L\'informatique simplifié',
-  favicon: 'img/code.png',
+  favicon: 'img/hipster.svg',
 
   // Set the production url of your site here
   url: 'https://www.tonprof.ca',
@@ -60,14 +60,14 @@ const config: Config = {
       title: 'Accueil',
       logo: {
         alt: 'Logo',
-        src: 'img/logo.svg',
+        src: 'img/hipster.svg',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'OsSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Systèmes d\'exploitation',
         },
         {
           href: 'https://github.com/facebook/docusaurus',
@@ -80,28 +80,20 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Sections',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Systèmes d\'exploitation',
+              to: 'OS/Linux',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'Social',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/gabriel-gaudreault-9ba67151/',
             },
           ],
         },
@@ -115,7 +107,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Gabriel Gaudreault.`,
     },
     prism: {
       theme: prismThemes.github,
