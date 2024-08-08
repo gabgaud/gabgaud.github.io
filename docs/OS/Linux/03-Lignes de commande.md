@@ -1,4 +1,4 @@
-# Lignes de commande
+# Lignes de commande 🤖
 
 La ligne de commande et l'utilisation du terminal Linux permettent d'outrepasser l'interface graphique. Tout bon technicien se doit de posséder une base minimale avec les commandes du terminal. Évidemment, il n'y a rien comme la pratique. Essayez les diverses commandes qui vous sont présentées et mettez-les en contexte autant que possible. Cela dit, il faut d'abord comprendre ce qui se passe lorsque vous ouvrez un terminal. Observez l'image du terminal présenté ci-dessus. Vous y retrouverez une ligne de texte semblable à celle-ci:
 
