@@ -22,7 +22,14 @@ Microsoft et IBM ont toujours travaillés main dans la main depuis leur entente 
 
 En 1992, Windows mettra à jour Windows et offrira la version 3.1x, un an à peine avant la sortie de Windows NT 3.1. La version NT recevra un accueil plutôt mitigé. La complexité du système et de sa programmation effrai même les développeurs de pilotes qui refusent de s'avancer sur ce système.
 
-:::info
-**Fait intéressant:**
+:::tip[Le saviez vous ?]
+
 L'acronyme NT dans le nom Windows NT signifie *New Technology*
 :::
+
+## Windows 95
+
+Windows 95 est sorti le 24 août 1995. Avec sa sortie, Microsoft prend une avance considérable sur IBM et son système OS/2. Windows 95 arrive avec des fonctionnalités et des ajouts très importants en ce qui concerne l'informatique d'aujourd'hui. C'est avec cette version de Windows que le fameux (ou l'infameux...) navigateur [Internet Explorer](https://fr.wikipedia.org/wiki/Internet_Explorer) a fait son entrée. Windows 95 offira également un premier support pour l'[USB](https://fr.wikipedia.org/wiki/Universal_Serial_Bus), une technologie peu connue à l'époque mais qui est toujours grandemment utilisée aujourd'hui.
+
+!­[Windows95](/img/Windows/Windows95.png)
+
