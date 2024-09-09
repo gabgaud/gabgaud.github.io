@@ -2,11 +2,11 @@
 
 *A contrario* de Linux, Microsoft n'a pas développé plusieurs interfaces graphiques. L'entreprise n'en a développé qu'une seule, qu'elle a su améliorer et optimiser au fil des années. Cela a eu pour effet de rassurer et de réconforter la majorité des utilisateurs finaux. C'est vrai que pour quelqu'un qui n'est pas un expert de l'informatique, retrouver ses menus toujours aux mêmes endroits peut être rassurant.
 
-![WindowsGUI](/img/Windows/WinGui.png)
+![WindowsGUI](./Assets/02/WinGui.png)
 
 ## Éléments de l'interface graphique
 
-Même si de nombreux changements ont été apportés à l'interface graphique de Windows, certains éléments demeurent:
+Même si de nombreux changements ont été apportés à l'interface graphique de Windows à travers les années, certains éléments demeurent toujours présents:
 
 ### Le menu démarrer
 
@@ -21,7 +21,7 @@ Dépendemment de la version de Windows que vous utilisez, vous pourriez retrouve
 
 **Exemple de menu démarrer:**
 
-![MenuDémarrer](/img/Windows/StartMenuWindow.png)
+![MenuDémarrer](./Assets/02/StartMenuWindow.png)
 
 ### L'explorateur Windows
 
@@ -30,13 +30,13 @@ L'explorateur Windows, c'est le gestionnaire de fenêtre du système d'exploitat
 - La recherche
 - Les boutons de navigation
 
-![ExplorateurWindows](/img/Windows/ExplorateurWindow.png)
+![ExplorateurWindows](./Assets/02/ExplorateurWindow.png)
 
 ### Le bureau
 
 Le bureau sous Windows est une analogie au véritable bureau de travail. En classe, par exemple, vous avez un bureau sur lequel vous pouvez déposer vos cartables de notes, vos exercices et vos crayons (du matériel que vous trainez à chacun de vos cours, j'en suis sûr 😉). Sous Windows, vous pouvez également déposer des éléments sur votre bureau: des raccourcis pour lancer vos logiciels, des dossiers, des fichiers et tout ce dont vous pourriez avoir besoin pour travailler convenablement.
 
-![BureauWindows](/img/Windows/WindowsDesktop.png)
+![BureauWindows](./Assets/02/WindowsDesktop.png)
 
 ### La barre des tâches
 
@@ -44,6 +44,6 @@ La barre des tâches est l'un des seuls éléments constamment visible (ou presq
 
 Voici la barre des tâches sous Windows 11:
 
-![Taskbar](/img/Windows/Taskbar.png)
+![Taskbar](./Assets/02/Taskbar.png)
 
 Les éléments sous lesquels ont retrouve un ovale grisé sont présentemment ouverts et en cours d'exécution. Les autres, peuvent être lancés directement depuis la barre des tâches, mais ne le sont pas présentement.
