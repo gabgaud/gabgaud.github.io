@@ -103,12 +103,15 @@ Les lettres *xp* de cette version de Windows proviennent du mot: E**xp**erience
 
 Windows XP introduit un bon nombre de nouvelles fonctionnalités. Parmi celles-ci, on peut penser au bureau à distance, au mode veille ainsi que la possibilité de rejoindre un réseau sans-fil.
 
-Au niveau des caractéristiques matérielles recommandées par Microsoft, on suggère aux utilisateurs un ordinateur possédant:
+Au niveau des caractéristiques matérielles recommandées par Microsoft, voici ce que l'on retrouve:
 
-- Un processeur cadencé à 300MHz
-- 128 Mo de mémoire vive
-- Une carte graphique supportant une résolution de 800 x 600
-- 6 Go d'espace disque (disque dur)
+|Matériel|Caractéristiques|
+|--------|:----------------:|
+|Processeur|300Mhz|
+|Mémoire vive|128Mo|
+|Carte graphique|Résolution de 800 x 600|
+|Espace disque|6Go|
+
 
 **Bureau de Windows XP:**
 
@@ -152,3 +155,50 @@ En 2007, un recours collectif a été lancé contre Microsoft concernant l'appel
 ## Windows 7 - *Vienna*
 
 Windows 7 sera donc lancé dans un contexte très particulier et sensible. Windows Vista ayant échoué sa mission de succéder à Windows XP. Le système d'exploitation sera lancé officiellement le 22 octobre 2009. Par rapport à son prédecesseur, Vista, Windows 7 démarre plus vite, possède un nouveau Shell ([Windows Powershell](https://fr.wikipedia.org/wiki/Windows_PowerShell)) et une *UAC* grandemment améliorée.
+
+Les utilisateurs ont bien reçu le système d'exploitation. Le 28 avril 2010, 6 mois après sa sortie, plus de 100 millions de licences de Windows 7 ont été vendu. C'était un record en termes de nombre de licence en si peu de temps. Peu de temps après, en octobre 2011, Windows 7 devient le système d'exploitation le plus utilisé au monde, devant Windows XP, alors que Windows Vista n'avait jamais réussi à surpasser son prédécesseur. Le 20 janvier 2012, Microsoft annonce avoir vendu 525 millions de licences, ce qui correspond à une moyenne de 7,8 licences vendues par seconde depuis son lancement, 2 ans auparavant 😱
+
+Voici les ressources qui sont requises pour exécuter Windows 7 (x64):
+
+|Matériel|Caractéristiques|
+|--------|:----------------:|
+|Processeur|1Ghz|
+|Mémoire vive|2Go|
+|Carte graphique|Compatible DirectX9|
+|Espace disque|20Go|
+
+ :::tip[Le saviez-vous ?]
+
+Le 7 janvier 2009, Microsoft a mis à disposition du grand public sa version bêta de Windows 7. Ce jour-là, les serveurs de l'entreprise ont été submergés par des millions de personnes qui ont tenté de télécharger le système. Pour rendre la chose plus mémorable, Microsoft a choisi une date en lien avec son produit (07/01). Cette initiative a généré beaucoup d'engoument et d'excitation autour du produit.
+
+:::
+
+**Bureau de Windows 7:**
+
+![Windows7](./Assets/01/Windows_7.png)
+
+## Windows 8
+
+Windows 8 est une version multi-plateforme de Windows. Celle-ci a été commercialisé à partir du 26 octobre 2012. Windows 8 utilise une nouvelle interface appelée *Metro*. Cette interface s'articule autour d'un nouvel écran de démarrage, composé de tuiles dynamiques, similaires aux tuiles que l'on retrouvent sur le système [Windows Phone](https://fr.wikipedia.org/wiki/Windows_Phone). Chacune des tuiles représente une application. Le traditionnel environnement de bureau, quant à lui, est accessible depuis une tuile. Le bouton de démarrage de la barre des tâches a été dans déplacé dans la *charm bar*, accessible en placant son curseur ou son doigt en bas, à gauche de son écran.
+
+### Flop monumental
+
+La première version de Windows 8 est une véritable catastrophe au niveau des ventes. Microsoft en est réduit à cesser le support du système le 12 janvier 2016, à peine 3 ans après sa sortie.
+
+Dans la semaine suivant le lancement de Windows 8, Microsoft annonce un maigre 4 millions d'utilisateurs. En juin 2013, Windows 8 représente seulement 5% des ordinateurs présents sur le web, alors que Windows 7 et XP représentent toujours 70% de ceux-ci. En juin 2015, soit peu de temps avant le lancement de Windows 10, les ordinateurs sous Windows 8 ne représentent que 16% des ordinateurs connectés, et ce, malgré la sortie de Windows 8.1.
+
+### Windows 8.1
+
+Les critiques sur Windows 8 sont plus que nombreuses, mais l'une d'entre elle fait beaucoup de bruit: "La quasi disparition du menu démarrer". Les habitués de Windows expriment tant d'insatisfaction, que l'on voit apparaître des programmes externes sur le web qui permettent de rétablir le menu démarrer original. En effet, les logiciels *Classic Shell* et *8StartButton* permettront de calmer la colère des utilisateurs finaux en atttendant l'arrivée d'une mise à jour importante: Windows 8.1.
+
+Windows 8.1 représente pratiquement le désaveu de Microsoft face à Windows 8. La mise à jour vers Windows 8.1 aura permis de calmer le ressentiment envers l'entreprise qui semble alimenter la réputation de commercialiser 1 système d'exploitation valable sur 2.
+
+ :::tip[Le saviez-vous ?]
+
+Le 16 mai 2014, le gouvernement de la République populaire de Chine a interdit à toutes ses agences d'utiliser Windows 8 pour des raisons de sécurité. En effet, suite aux révélation d'Edward Snowden sur les agissements de la NSA, la le gouvernement chinois a décidé de délaisser Windows (un produit américain) pour adopter les système GNU/Linux.
+
+:::
+
+**Bureau de Windows 8:**
+
+![Windows8](./Assets/01/8.jpg)
