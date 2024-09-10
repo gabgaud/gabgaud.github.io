@@ -202,3 +202,21 @@ Le 16 mai 2014, le gouvernement de la République populaire de Chine a interdit 
 **Bureau de Windows 8:**
 
 ![Windows8](./Assets/01/8.jpg)
+
+## Windows 10 - *Threshold*
+
+Au grand plaisir des utilisateurs qui retrouveront enfin leur menu démarrer, Windows 10 arrive sur le marché le 29 juillet 2015. Le menu démarrer reviendra cependant avec des tuiles, un héritage plutôt sombre qu'aura laisser Windows 8 derrière lui. En plus d'un menu démarrer modifié, Cortana, l'assistante numérique de Windows fera sa première apparition. Cortana est un système de reconnaissance vocale qui permettra à l'utilisateur d'envoyer des courriels, d'inscrire des rappels à son agenda et d'exécuter d'autres petites tâches du quotidien . Une autre grande nouveauté du système d'exploitation qui est apparu avec la version *anniversary* découle d'une collaboration avec l'entreprise Canonical (Linux Ubuntu). Ensemble, les deux entreprises ont créés un [sous-système Linux](https://fr.wikipedia.org/wiki/Windows_Subsystem_for_Linux) permettant à Windows de supporter des applications Linux.
+
+### La fin d'internet explorer 🪦 
+Windows 10 marque également la fin d'une époque puisque ce sera la fin d'internet explorer, le célèbre navigateur web de Microsoft. Au fil des années, Internet Explorer a souffert de plusieurs critiques au sein de la communauté des T.I. Son instabilité, sa lenteur et ses nombreuses failles de sécurité auront finalement eu raison de lui. Ce dernier sera remplacé par un tout nouveau navigateur: [Microsoft Edge](https://fr.wikipedia.org/wiki/Microsoft_Edge).
+
+### Le dernier système d'exploitation de Microsoft
+Lors de son lancement en 2015, Microsoft a présenté son nouveau système d'exploitation comme une plateforme qui serait continuellement mise à jour avec des améliorations régulières, plutôt que de lancer de nouvelles versions majeures avec des numéros différents. Évidemment, peu de gens ont réellement cru que Microsoft ne lancerais plus de nouveau système d'exploitation, et avec raison. En 2021, Microsoft annoncait la venu de Windows 11.
+
+ :::tip[Le saviez-vous ?]
+
+Le nom « Cortana » pour l'assistant virtuel de Microsoft vient d'un personnage de la série de jeux vidéo « Halo ». Dans cette série, Cortana est une intelligence artificielle avancée qui joue un rôle crucial dans l'histoire et aide le personnage principal, Master Chief.
+
+:::
+
+## Windows 11 - *Sun Valley*
