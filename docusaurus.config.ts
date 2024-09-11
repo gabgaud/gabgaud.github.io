@@ -90,7 +90,7 @@ const config: Config = {
           items: [
             {
               label: 'Systèmes d\'exploitation',
-              to: 'OS/Linux',
+              to: 'OS/Mot%20de%20section',
             },
           ],
         },
