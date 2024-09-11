@@ -219,4 +219,33 @@ Le nom « Cortana » pour l'assistant virtuel de Microsoft vient d'un personnage
 
 :::
 
+**Bureau de Windows 10:**
+
+![Windows10](./Assets/01/10.png)
+
 ## Windows 11 - *Sun Valley*
+
+Windows 11 fait son apparition sur le marché le 5 octobre 2021. La majorité du code qui compose Windows 10 est repris dans Windows 11, incluant le noyau du système. La grande majorité des nouveautés dans Windows 11 relèvent du « design ». Sont dignes mention le logiciel Microsoft Teams, un logiciel de collaboration, ainsi que le raccourci de « Copilot » qui marque l'entrée au jeu de Microsoft dans l'ère de l'intelligence artificielle.
+
+### Critiques sur les configurations requises
+
+La majorité des critiques quant à Windows 11 concernent ses critères minimales pour être installer, qui aux dires de plusieurs utilisateurs sont démesurés. En effet, si vous désirez installer le système d'exploitation sur votre ordinateur, ce dernier devra répondre aux exigences suivantes:
+
+|Matériel|Caractéristiques|
+|--------|:----------------:|
+|Processeur|Intel Core 8ème génération ou AMD Ryzen 2ème génération.<br/>Dans tous les cas, le cpu doit être cadencé à 1Ghz et posséder 2 coeurs|
+|Mémoire vive|4Go|
+|Carte graphique|Compatible DirectX12 et [WDDM 2](https://fr.wikipedia.org/wiki/Windows_Display_Driver_Model)|
+|Espace disque|64Go|
+|Micrologiciel|[UEFI](https://fr.wikipedia.org/wiki/UEFI) et compatible *Secure boot*|
+|[TPM](https://fr.wikipedia.org/wiki/Trusted_Platform_Module)|Module de plateforme sécurisée obligatoire|
+
+ :::tip[Le saviez-vous ?]
+
+Dans Windows 11, les éléments de la barre des tâches (menu démarrer, raccourcis, etc.) se retrouvent au centre de l'écran, alors que dans les versions précédentes de Windows, on les retrouve à gauche. Il s'agit en fait d'un clin d'oeil à Windows 1.0, le tout premier système d'exploitation graphique de Microsoft, dans lequel ces éléments étaient centrés.
+
+:::
+
+**Bureau de Windows 11:**
+
+![Windows11](./Assets/01/11.png)
