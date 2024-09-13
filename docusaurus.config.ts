@@ -69,12 +69,12 @@ const config: Config = {
           position: 'left',
           label: 'Systèmes d\'exploitation',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'ScriptingSidebar',
-          position: 'left',
-          label: 'Scripting',
-        },
+        //{
+        //  type: 'docSidebar',
+        //  sidebarId: 'ScriptingSidebar',
+        //  position: 'left',
+        //  label: 'Scripting',
+        //},
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',

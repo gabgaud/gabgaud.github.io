@@ -61,4 +61,12 @@ Le dossier Windows est l'un des dossiers les plus critiques du système Windows 
 
 2. **Fichiers de démarrage:** Des fichiers nécessaires au bon démarrage du système sont également présents dans ce répertoire. Le fichier *bootmgr* et le sous-dossier *System32\Boot* en sont deux exemples.
 
-3. **Sous-dossier: System32**: Le sous-dossier *System32* contient de nombreux fichiers cruciaux tels que certains exécutables essentiels comme *cmd.exe* ou *explorer.exe* ([l'explorateur Windows](www.tonprof.ca/OS/Windows/Interfaces%20graphiques#lexplorateur-windows)). Ce dossier contient également des pilotes et des [bibliothèques dynamiques (DLL)](https://fr.wikipedia.org/wiki/Dynamic_Link_Library) au bon fonctionnement de Windows.
+3. **Sous-dossier: System32**: Le sous-dossier *System32* contient de nombreux fichiers cruciaux tels que certains exécutables essentiels comme *cmd.exe* ou *explorer.exe* ([l'explorateur Windows](Interfaces%20graphiques#lexplorateur-windows)). Ce dossier contient également des pilotes et des [bibliothèques dynamiques (DLL)](https://fr.wikipedia.org/wiki/Dynamic_Link_Library) au bon fonctionnement de Windows.
+
+4. **Sous-dossier: SysWOW64**: Le sous-dossier *SysWOW64* contient les bibliothèques dynamiques nécessaires à l'exécution de logiciels 32 bits sur un système 64 bits. Il contient également le fichier *WOW64*, l'émulateur de l'environnement 32 bits. En gros, sans ce dossier, aucun logiciel 32 bits ne pourrait être exécuté sous Windows.
+
+5. **Sous-dossier: WinSxS**: Le sous dossier *WinSxS* signifie « Windows Side-by-Side ». Le nom du dossier est un espère de jeu de mot comme « 4x4 » pour les véhicules tout terrain. Ce dossier plusieurs versions des fichiers système, permettant à différentes applications d'utiliser la version avec laquelle elles sont compatibles. Cela permet d'éviter les conflits entre différentes versions et d'assurer un fonctionnement.
+
+6. **Sous-dossier: SoftwareDistribution**: Ce dossier contient les fichiers téléchargés par Windows Update pour mettre à jour le système. Il n'est pas rare que ce dossier devienne imposant avec le temps (plusieurs giga-octets de données). Néanmoins, il demeure sécuritaire d'en supprimer le contenu. Au besoin Windows Update le retééchargera.
+
+7. **Sous-dossier: Logs**: Ce sous-dossier contient des journaux créées par le système et les applications qui peuvent être utiles pour le diagnostic et la résolution de problèmes. Pour rappel, un fichier *log* ou un fichier journal, contient de l'information pertinente concernant sur l'exécution d'un logiciel x ou y.
