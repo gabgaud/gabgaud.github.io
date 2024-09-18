@@ -124,3 +124,23 @@ L'explorateur Windows, c'est le gestionnaire de fenêtre du système d'exploitat
 ### Boutons de navigation
 
 Les boutons de navigation de l'explorateur vous permettent d'accéder à certains dossiers plus rapidement. Le bouton « Back » ⬅️ vous permet de retourner au dossier où vous étiez précédemment. Le bouton suivant ➡️ vous permet de retourner au dossier où vous étiez avant de cliquez sur « Back ». Ça peut devenir mélangeant, mais il suffit de les essayer pour bien comprendre. La flèche pointant vers le haut ⬆️, quant à elle, vous remène directement au bureau, c'est un raccourci. Finalement, le bouton représenté par un symbole semblable à celui-ci: 🔄️ signifie « rafraîchir ». Il vous permet d'actualiser le contenu d'un dossier.
+
+### Barre d'adresse
+
+La barre d'adresse vous permet d'entrer le chemin absolu vers un dossier ou un fichier et de vous y rendre immédiatement. Elle vous affichera également où vous vous trouvez l'arborescence du système en tout temps.
+
+### Recherche
+
+La recherche vous permet de trouver rapidement un fichier ou un dossier dans l'explorateur Windows. L'élément que vous recherchez n'a pas obligatoirement à être dans le dossier dans lequel vous vous trouvez. Vous pouvez effectuer des concernant un élément qui se trouverait dans un sous-dossier.
+
+### Les outils
+
+Parmi les outils, vous retrouverez certaines fonctionnalités classiques telles que « couper » , « copier » et « coller ». Vous aurez également un bouton pour renommer rapidement des fichiers ou des dossiers. Vous retrouverez un bouton avec un dessin de corbeille, qui vous permettra d'envoyer directement des éléments vers cette dernière. Finalement, vous aurez également accès à un bouton « partager ». Celui-ci vous permettra d'envoyer rapidement l'élément en question à un collègue ou un contact.
+
+### Le volet de navigation
+
+Le volet de navigation vous permet de vous déplacer plus rapidement dans l'arborescence du système en vous offrant des raccourcis vers certains endroits clés du système. L'accès à vos téléchargements, à vos documents ou même à votre bureau n'est toujours qu'à un clic d'où vous vous situez.
+
+### Les éléments récents
+
+Si vous avez créé un dossier ou modifié un fichier récemment, vous le retrouverez à cet endroit. L'objectif de cette section est tout simplement d'améliorer l'ergonomie de travail. Habituellement, si vous manipulez certains dossiers ou certains fichiers, il y a fort à parier que vous devrez les consulter à nouveau pour une raison ou pour une autre. Cette section vous permettra donc de vous y rendre plus rapidement.
