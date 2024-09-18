@@ -16,7 +16,7 @@ Ce shell a fait sa première apparition avec la version 1607 de Windows 10. Il p
 
 ## Powershell
 
-Powershell a fait son apparition en 2006. L'objectif était de fournir un environnement de gestion plus puissant, flexible et moderne. Powershell un langage orienté objet, permettant l'automatisation des tâches et la gestion de systèmes informatiques plus complexes. La dernière version de Powershell est la version 7 et c'est également le terminal par défaut sous Windows 11. Nous nous attarderons donc à ce shell pour interagir avec notre système Windows. Pour lancer Powershell sous Windows 11, vous n'avez qu'à cliquer sur le bouton de droite de votre souris et sélectionner « Ouvrir dans le terminal ».
+Powershell a fait son apparition en 2006. L'objectif était de fournir un environnement de gestion plus puissant, flexible et moderne. Powershell est un langage de script orienté objet, permettant l'automatisation des tâches et la gestion de systèmes informatiques plus complexes. La dernière version de Powershell est la version 7 et c'est également le terminal par défaut sous Windows 11. Nous nous attarderons donc à ce shell pour interagir avec notre système Windows. Pour lancer Powershell sous Windows 11, vous n'avez qu'à cliquer sur le bouton de droite de votre souris et sélectionner « Ouvrir dans le terminal ».
 
 ![Powershell](./Assets/04/ps.png)
 
