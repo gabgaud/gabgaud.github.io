@@ -52,7 +52,7 @@ Il n'est pas toujours nécessaire de préciser le nom du paramètre. Dans l'exem
 
 ## Aide en ligne
 
-Avant de commencer à vous présenter certaines commandes de base en Powershell, je dois vous parler des ressources d'aide à votre disposition. Il est impensable d'apprendre toutes les cmdlets de Powershell par coeur. À un moment ou un autre, vous voudrez peut-être utiliser une commande sans en connaître tous les paramètres. Évidemment, il y a la bonne vieille recherche Google, mais sinon, je vous invite à consulter le [site de Microsoft](https://learn.microsoft.com/en-us/powershell/scripting/how-to-use-docs?view=powershell-7.4). Vous y trouverez toutes les références nécessaires à l'utilisations des cmdlets.
+Avant de commencer à vous présenter certaines commandes de base en Powershell, je dois vous parler des ressources d'aide à votre disposition. Il est impensable d'apprendre toutes les cmdlets de Powershell par cœur. À un moment ou un autre, vous voudrez peut-être utiliser une commande sans en connaître tous les paramètres. Évidemment, il y a la bonne vieille recherche Google, mais sinon, je vous invite à consulter le [site de Microsoft](https://learn.microsoft.com/en-us/powershell/scripting/how-to-use-docs?view=powershell-7.4). Vous y trouverez toutes les références nécessaires à l'utilisation des cmdlets.
 
 :::info[Le point sur les intelligences artificielles]
 
@@ -280,6 +280,47 @@ Set-Content -Path "C:\NouveauFichier.txt" -Value "En fait, mon enseignant est co
 
 :::caution
 
-Cette dernière manipulation (remplacement de mot) est un peu plus avancé. Nous aurons l'occasion d'en reparler un peu plus loin dans la théorie.
+Cette dernière manipulation (remplacement de mot) est un peu plus avancée. Nous aurons l'occasion d'en reparler un peu plus loin dans la théorie.
 
 :::
+
+## Chemins absolus et relatifs
+
+Le concept de chemins absolus et de chemins relatifs est important à discerner, surtout lorsque nous travaillons en ligne de commande.
+
+### Chemins absolus
+
+Peu importe le système d'exploitation sur lequel vous travaillez, un chemin absolu désigne le chemin vers un dossier ou un fichier depuis la racine du système. Voici quelques exemples pour mieux comprendre ce que c'est:
+
+**Exemple 1: Déplacement vers un emplacement en utilisant un chemin absolu:**
+
+```powershell
+Set-Location "C:\Users\gabriel.gaudreault\Downloads\"
+```
+
+**Exemple 2: Copie d'un fichier en utilisant des chemins absolus :**
+
+```powershell
+Copy-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt" -Destination "C:\"
+```
+
+
+### Chemins relatifs
+
+Un chemin relatif, quant à lui, désigne un chemin vers un dossier ou un fichier depuis l'emplacement où je me trouve dans le système.
+
+**Exemple 1: Déplacement à l'aide d'un chemin relatif**
+
+Considérant que je suis présentemment dans le dossier `C:\Users\gabriel.gaudreault\` et que je désir atteinre le dossier `C:\Windows\`
+
+```powershell
+Set-Location ..\..\Windows
+```
+
+**Exemple 2: Copie d'un fichier à l'aide d'un chemin relatif**
+
+Considérant que je suis présentemment dans le dossier `C:\Users\gabriel.gaudreault\Desktop` et que je désir copier le fichier `C:\HelloWorld.txt` à l'endroit où je me trouve présentemment
+
+```powershell
+Copy-Item -Path "C:\HelloWorld.txt" -Destination ".\"
+```
