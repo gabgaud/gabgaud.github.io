@@ -50,11 +50,21 @@ Il n'est pas toujours nécessaire de préciser le nom du paramètre. Dans l'exem
 
 :::
 
+## Aide en ligne
+
+Avant de commencer à vous présenter certaines commandes de base en Powershell, je dois vous parler des ressources d'aide à votre disposition. Il est impensable d'apprendre toutes les cmdlets de Powershell par coeur. À un moment ou un autre, vous voudrez peut-être utiliser une commande sans en connaître tous les paramètres. Évidemment, il y a la bonne vieille recherche Google, mais sinon, je vous invite à consulter le [site de Microsoft](https://learn.microsoft.com/en-us/powershell/scripting/how-to-use-docs?view=powershell-7.4). Vous y trouverez toutes les références nécessaires à l'utilisations des cmdlets.
+
+:::info[Le point sur les intelligences artificielles]
+
+Certaines intelligences artificielles, comme chatgpt ou copilot, peuvent parfois vous aider à accomplir une tâche en Powershell. Ce sont des outils à votre disposition. Cela dit, tout comme vous ne prendriez pas tout comme une vérité absolue sur le web, il faut prendre du recul avec les réponses que fournit une intelligence artificielle. L'intelligence artificielle peut vous aider, mais elle ne peut pas réfléchir à votre place. Observez les commandes qu'elle vous offre, réfléchissez et ajustez les réponses au besoin. Prenez le temps de comprendre ce que l'intelligence artificielle fait. Si vous ne faites que du copier-coller, votre compréhension ne s'améliorera pas et vous vous ferez avoir en examen.
+
+:::
+
 ## Commandes de base
 
-Nous allons aborder certaines cmdlets ensemble afin que vous puissiez vous débrouiller avec Powershell. Évidemment, il ne s'agit que d'une petite introduction à toutes les possibilités offertes par ce dernier. Rien ne vous empêche d'aller plus loin par vous-mêmes, cependant, en ce qui nous concerne, nous nous en tiendrons à l'essentiel.
+Nous allons aborder certaines cmdlets ensemble afin que vous puissiez vous débrouiller avec Powershell. Évidemment, il ne s'agit que d'une petite introduction à toutes les possibilités offertes par ce dernier. Rien ne vous empêche d'aller plus loin par vous-mêmes, cependant, en ce qui nous concerne, nous nous en tiendrons à l'essentiel. J'ai pris soin d'insérer un lien vers l'aide en ligne de Microsoft pour chacune des commandes présentées. Vous n'avez qu'à cliquer sur le nom de la commande pour vous y rendre.
 
-### Set-Location
+### [Set-Location](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-location?view=powershell-7.4)
 
 Cette cmdlet permet de se déplacer dans l'arborescence Windows. C'est l'équivalent de la commande `cd` sous Linux ou même dans l'invite de commande Windows standard.
 
@@ -70,7 +80,7 @@ Set-Location C:\
 Set-Location 'C:\Program files'
 ```
 
-### Get-ChildItem
+### [Get-ChildItem](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-7.4)
 
 Cette commande permet d'afficher le contenu d'un répertoire. Autrement dit, elle est l'équivalente de la commande `ls` sous Linux ou `dir` sous Windows.
 
@@ -94,7 +104,7 @@ Get-ChildItem .\
 Les répertoires représentés par un point `.\` et par deux points `..\` ont des significations particulières. En effet, le répertoire `.\` représente le dossier actuel, c'est-à-dire celui dans lequel vous vous trouvez présentemment. Quant au dossier `..\`, il représente le répertoire parent. Autrement dit, en entrant la commande `set-location ..\`, vous atteindrez le répertoire parent relativement à votre emplacement.
 :::
 
-### New-Item
+### [New-Item](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-item?view=powershell-7.4)
 
 Cette cmdlet permet de créer un nouvel item. Le terme item est assez large et c'est volontaire de la part de Microsoft, car cette commande peut créer des fichiers, des répertoires, des raccourcis et bien d'autres éléments. Comme il ne s'agit pas d'un cours de Powershell à strictement parler, nous nous contenterons de voir comment créer des dossiers et des fichiers.
 
@@ -114,7 +124,7 @@ New-Item -Path C:\Users\gabriel.gaudreault\Desktop -Name HelloWorld.txt -ItemTyp
 
 ![NewItemFichier](./Assets/04/NewItemFichier.png)
 
-### Write-Host
+### [Write-Host](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host?view=powershell-7.4)
 
 La commande `Write-Host` permet d'afficher du texte à l'écran, tout simplement.
 
@@ -134,7 +144,7 @@ Write-Host "Powershell c'est génial!" -BackgroundColor Black -ForegroundColor Y
 
 ![WriteHostCustom](./Assets/04/WriteHostBlackNYellow.png)
 
-### Get-Content
+### [Get-Content](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.4)
 
 Cette cmdlet permet d'afficher le contenu d'un fichier. Elle est comparable à la commande `cat` sous linux ou même `type` en invite de commandes Windows.
 
@@ -152,3 +162,124 @@ Get-Content -Path C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt
 ```
 
 ![GetContentLigne](./Assets/04/GetContentLigne.png)
+
+### [Move-Item](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/move-item?view=powershell-7.4)
+
+La commande `move-item` permet de déplacer un élément (dossier,fichier,etc.). Elle peut également renommer l'item tout en le déplacant.
+
+**Exemple 1: Déplacer un item depuis mon bureau vers la racine du système**
+
+```powershell
+Move-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt" -Destination "C:\"
+```
+:::caution
+Les droits d'administrateur sont requis pour écrire à la racine du système. Si vous désirez exécuter la dernière commande, assurez-vous de lancer Powershell en tant qu'Administrateur.
+:::
+
+![MoveItem](./Assets/04/MoveItem.png)
+
+**Exemple 2: Déplacer un item tout en le renommant**
+
+```powershell
+Move-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt" -Destination "C:\Patates.txt"
+```
+
+![MoveItemRen](./Assets/04/MoveItemRen.png)
+
+### [Copy-Item](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/copy-item?view=powershell-7.4)
+
+La cmdlet `copy-item` permet de copier un élément (dossier,fichier,etc.). Tout comme `move-item`, elle est capable de renommer un élément tout en le copiant.
+
+**Exemple 1: Copier un item de mon bureau vers mon dossier documents**
+
+```powershell
+Copy-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt" -Destination "C:\Users\gabriel.gaudreault\Documents\"
+```
+
+![CopyItem](./Assets/04/CopyItem.png)
+
+**Exemple 2: Copier un item tout en le renommant**
+
+```powershell
+Copy-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt" -Destination "C:\Users\gabriel.gaudreault\Desktop\Sauvegarde.txt"
+```
+
+![CopyItemRen](./Assets/04/CopyItemRen.png)
+
+### [Remove-Item](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.4)
+
+Vous l'aurez sans doute déjà compris, cette cmdlet permet de supprimer des éléments du système.
+
+**Exemple 1: Supprimer un fichier sur mon bureau**
+
+```powershell
+Remove-Item -Path "C:\Users\gabriel.gaudreault\Desktop\HelloWorld.txt"
+```
+
+![RemoveItem](./Assets/04/RemoveItem.png)
+
+**Exemple 2: Supprimer un dossier et son contenu**
+
+```powershell
+Remove-Item -Path "C:\Users\gabriel.gaudreault\Desktop\Dossier\" -Recurse
+```
+
+![RemoveItemRecurse](./Assets/04/RemoveItemRecurse.png)
+
+### [Clear-Host](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/clear-host?view=powershell-7.4)
+
+La commande `clear-host` permet de nettoyer l'affichage dans la fenêtre de Powershell.
+
+**Avant :**
+
+![PreClearHost](./Assets/04/PreClearHost.png)
+
+**Après :**
+
+![PostClearHost](./Assets/04/PostClearHost.png)
+
+### [Add-Content](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-7.4)
+
+`Add-Content` permet d'ajouter du contenu à un fichier et même d'en créer de nouveaux.
+
+**Exemple 1: Ajout d'une ligne de texte dans un fichier existant**
+
+```powershell
+Add-Content -Path "C:\HelloWorld.txt" -Value "Nouvelle ligne"
+```
+
+![AddContent](./Assets/04/AddContent.png)
+
+**Exemple 2: Création d'un nouveau fichier en y ajoutant du contenu**
+
+```powershell
+Add-Content -Path "C:\NouveauFichier.txt" -Value "Mon enseignant est fantastique!"
+```
+
+![AddContentNew](./Assets/04/AddContentNew.png)
+
+### [Set-Content](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-content?view=powershell-7.4)
+
+La cmdlet `set-content` permet de modifier ou de remplacer le contenu d'un fichier.
+
+**Exemple 1: Remplacer le contenu d'un fichier**
+
+```powershell
+Set-Content -Path "C:\NouveauFichier.txt" -Value "En fait, mon enseignant est correct."
+```
+
+![SetContent](./Assets/04/SetContent.png)
+
+**Exemple 2: Remplacer seulement un mot dans un fichier**
+
+```powershell
+(Get-Content -Path "C:\NouveauFichier.txt") -replace "enseignant", "ami" | Set-Content "C:\NouveauFichier.txt"
+```
+
+![SetContentMot](./Assets/04/SetContentMot.png)
+
+:::caution
+
+Cette dernière manipulation (remplacement de mot) est un peu plus avancé. Nous aurons l'occasion d'en reparler un peu plus loin dans la théorie.
+
+:::
