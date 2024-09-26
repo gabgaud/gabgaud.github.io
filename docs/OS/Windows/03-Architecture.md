@@ -10,6 +10,26 @@ Pourquoi ne pas avoir utilisé la lettre «A:» comme lettre pour le disque dur 
 
 :::
 
+### L'arborescence...ça contient quoi ?
+
+De quoi parle-t-on lorsqu'on parle du système ? En fait, Windows est essentiellement constitué d'une arborescence de dossiers, de fichiers, de raccourcis et de stockage. Évidemment, c'est un peu plus complexe que cela lorsqu'on se met à creuser un peu. Néanmoins, c'est ce que vous vous devez de comprendre pour l'instant. Voici une portion de l'arborescence du système Windows:
+
+
+
+### Le système de fichiers
+
+L'arborescence de Windows n'est pas stockée n'importe comment sur le disque dur. On utilisera ce que l'on nomme: un système de fichiers. Essentiellement, un système de fichiers est une méthode de disposition des éléments du systèmes sous la forme d'une structure donnée. Plus concrètement, le système de fichier occupe les fonctions et possède les caractéristiques suivantes:
+
+- **Organisation des données:** Il définit comment les fichiers et les dossiers sont structurés et organisés sur le support
+
+- **Nommage des fichiers:** Il permet de donner des noms aux fichiers et de gérer les extensions, ce qui aide à identifier le type de fichier.
+
+- **Gestion de l'espace:** Il suit l'utilisation de l'espace de stockage, détermine où les fichiers sont stockés et libère de l'espace lorsque des fichiers sont supprimés.
+
+- **Accès aux fichiers:** Il gère la lecture et l'écriture des données, permettant aux applications et aux utilisateurs d'accéder aux fichiers.
+
+- **Permissions et sécurité:** Il contrôle qui peut accéder, modifier ou exécuter un fichier, garantissant la sécurité des données.
+
 ## Certains dossiers dignes de mention
 
 Que retrouve-t-on donc sur ce disque principal ? Plusieurs dossiers importants, évidemment, dont certains cachés. Cela dit, attardons-nous à certains dossiers plus importants et qui nécessiteront tôt ou tard, des interventions.

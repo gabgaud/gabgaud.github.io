@@ -34,7 +34,7 @@ Vous pouvez faire afficher toutes ces icônes, seulement une partie ou aucune en
 
 ### Raccourcis logiciels
 
-Au fur et à mesure que vous utiliserez votre PC sous Windows 11, il se peut que vous installiez de nouveaux logiciels. Lors de l'installation de ceux-ci, on vous proposera souvent d'ajouter un icône sur le bureau. Les icônes sont en fait des raccourcis vers un fichier situé dans l'arborescence de l'ordinateur. Dans la portion Architecture, nous verrons ensemble où sont véritablement situés les fichiers de programme. Cela dit, vous pouvez dès maintenant ingérer le concept selon lequel un icône sur le bureau n'est qu'une façon de lancer un logiciel plus rapidement.
+Au fur et à mesure que vous utiliserez votre PC sous Windows 11, il se peut que vous installiez de nouveaux logiciels. Lors de l'installation de ceux-ci, on vous proposera souvent d'ajouter un icône sur le bureau. Les icônes sont en fait des raccourcis vers un fichier situé dans l'arborescence de l'ordinateur. Dans la portion [Architecture](./03-Architecture.md), nous verrons ensemble où sont véritablement situés les fichiers de programme. Cela dit, vous pouvez dès maintenant ingérer le concept selon lequel un icône sur le bureau n'est qu'une façon de lancer un logiciel plus rapidement.
 
 ### Les widgets
 
