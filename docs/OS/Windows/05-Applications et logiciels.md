@@ -1,12 +1,11 @@
 # Applications et logiciels 📦
 
-Une application (ou logiciel), c'est un programme qui offre une ou plusieurs fonctionnalités à l'utilisateur. Lorsqu'on installe un système d'exploitation, il y a souvent quelques applications de base qui sont installées. On retrouve la plupart du temps:
+## Qu'est-ce qu'un logiciel ?
+Un logiciel ou une application, c'est d'abord un fichier ou un ensemble de fichier qu'un programmeur ou qu'une équipe de programmeurs auront conçu. Ces programmeurs utiliseront ce que l'on nomme un langage de programmation pour écrire et composer un ensemble d'instructions que l'ordinateur pourra traiter. Voici un exemple de fichier écrit par un programmeur:
 
-- Une calculatrice
-- Un bloc-note
-- Un navigateur web
-- etc.
+![Programmation](./Assets/05/Source_code.png)
 
-Néanmoins, beaucoup de logiciels ou d'applications que vous voudrez utiliser ne sont pas installés de base. C'est à vous de procéder à leur installation.
+Dans certains cas, dépendamment des langages de programmation et de leur contexte respectif, une deuxième étape sera nécessaire avant que le programme puisse fonctionner. Il s'agit de l'étape de la compilation. Lorsqu'il y a compilation, le code utilisé par le programmeur sera alors transformé en instructions pour le processeur de l'ordinateur. Un code compilé est très peu lisible et compréhensible.
 
-## Les extensions de fichiers
+![Compilation](./Assets/05/compilation.jpg)
+

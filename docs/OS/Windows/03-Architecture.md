@@ -1,5 +1,29 @@
 # Architecture 🌳
 
+## De quoi est constitué Windows ?
+
+De quoi parle-t-on lorsqu'on parle du système ? En fait, Windows est essentiellement constitué d'une arborescence de dossiers, de fichiers, de raccourcis et de stockage. Évidemment, c'est un peu plus complexe que cela lorsqu'on se met à creuser un peu. Néanmoins, c'est ce que vous vous devez de comprendre pour l'instant. Je vais tenter de vous expliquer brièvement ce que sont chacun de ces éléments:
+
+- **Le dossier:** Le dossier contient des fichiers et d'autres dossiers (sous-dossiers), organisés de manière hiérarchique. Il sert à regrouper des éléments liés par un thème, un type de contenu ou objectif commun, facilitant ainsi leur gestion et leur accès.
+
+- **Le fichier:** Un fichier contient un ensemble de données ou d'informations organisées et de manière structurée. Il peut s'agir de texte, d'images, de sons, de code ou même d'instructions (fichier exécutable). En général, un fichier est identifiable par son nom et son [extension](#les-extensions-de-fichiers).
+
+- **Le raccourci:** Un raccourci est un lien permettant d'accéder rapidement à un fichier, un dossier ou un programme, sans avoir à naviguer dans l'arborescence complète du système. Un raccourci <u>ne contient aucune données,</u> mais pointe vers les emplacement d'origine, faciliant un accès rapide et efficace.
+
+:::caution
+Le raccourci est difficilement reconnaissable au premier coup d'oeil, il est cependant reconnaissable grâce à une petite flèche qu'il est possible de repérer au bas, à gauche de l'image. Voici à quoi ressemble celle-ci:
+
+![Raccourci](./Assets/03/shortcut.png)
+:::
+
+**Voici une portion de l'arborescence du système Windows:**
+
+![ArborescenceWindows](./Assets/03/arbowin11.png)
+
+### Les extensions de fichiers
+
+L'extension d'un fichier est un suffixe ajouté à son nom, généralement constitué de trois à quatre caractères, qui indique le type de fichier et son format. Par exemple, dans le nom de fichier « document.txt », l'extension est « .txt », ce qui signifie qu'il s'agit d'un fichier texte. Les extensions aident le système d'exploitation à déterminer quel programme doit être utilisé pour ouvrir le fichier. Elles aident également les utilisateurs à reconnaître certains fichiers. Elles jouent donc un rôle crucial dans l'organisation et la gestion des fichiers.
+
 ## La racine du système - Le disque C:
 
 L'arborescence entière de l'écosystème Windows est hébergé sur un disque dur. On a attribué la lettre «­C:» à ce stockage. Peu importe le fichier ou le dossier que vous désirez récupérer, s'il a été créé ou enregistré sous Windows, il est quelque part dans le disque dur «C:» (À quelques exceptions près).
@@ -9,12 +33,6 @@ L'arborescence entière de l'écosystème Windows est hébergé sur un disque du
 Pourquoi ne pas avoir utilisé la lettre «A:» comme lettre pour le disque dur principal ? Pour comprendre, il faut reculer jusqu'à l'époque de [MS-DOS](https://fr.wikipedia.org/wiki/MS-DOS). Les lettres «A:» et «B:» étaient réservés aux lecteurs de [disquettes](https://fr.wikipedia.org/wiki/Disquette). On a donc attribué la lettre «C:» au disque dur du système. Même si les lecteurs de disquettes appartiennent désormais au passé, l'attribution de la lettre «C:» au disque dur principal est resté. C'est donc un héritage d'un passé lointain qui explique son utilisation.
 
 :::
-
-### L'arborescence...ça contient quoi ?
-
-De quoi parle-t-on lorsqu'on parle du système ? En fait, Windows est essentiellement constitué d'une arborescence de dossiers, de fichiers, de raccourcis et de stockage. Évidemment, c'est un peu plus complexe que cela lorsqu'on se met à creuser un peu. Néanmoins, c'est ce que vous vous devez de comprendre pour l'instant. Voici une portion de l'arborescence du système Windows:
-
-
 
 ### Le système de fichiers
 
@@ -50,7 +68,7 @@ C'est dans ce répertoire que sont stockés toutes les données des utilisateurs
 
 :::danger
 
-Le fichier **NTUser.dat** contient une portion du registre de Windows. Le registre Windows est une base de données dans laquelle sont centralisé l'ensemble des paramètres du système, nous aurons l'occasion d'en parler un peu plus loin.
+Le fichier **NTUser.dat** contient une portion du registre de Windows. Le registre Windows est une base de données dans laquelle sont centralisé l'ensemble des paramètres du système, nous aurons l'occasion d'en parler un peu plus loin. En aucun cas il ne faut supprimer ou renommer ce fichier.
 
 :::
 
