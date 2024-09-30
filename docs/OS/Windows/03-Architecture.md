@@ -87,6 +87,10 @@ C'est le répertoire par défaut où s'installeront les logiciels et application
 
 C'est un répertoire pour les applications également. Cependant, ce répertoire est réservé aux applications moins modernes, s'exécutant en 32 bits. C'est logiciels sont distingués des autres puisqu'ils nécessitent un environnement un peu particulier que Windows mettra en place pour les exécuter.
 
+:::info[32 ou 64 bits, quelle incidence ?]
+Il se peut que vous entendiez parler de deux architecture distinctes en informatique: 32 bits ou 64 bits. **De quoi parle-t-on ?** Grossièrement, on parle de la largeur des unités de données qu'un processeur peut traiter. À titre de comparaison, imaginons un écrivain capable de composer des phrases d'au maximum 32 mots, puis un second capable de composer des phrases allant jusqu'à 64 mots. L'écrivain limité à 32 mots devra parfois travaillé plus fort que son collègue pour exprimer une idée. De son côté, l'écrivain capable de composer des phrases de 64 mots aura plus d'espace pour nuancer ses propos et exprimer des idées plus complexes. C'est pourquoi aujourd'hui, la grande majorité des processeurs fonctionnent sous une architecture 64 bits. Peut-être vous demandez vous quel est le lien entre le terme x86 utilisé pour désigner les programmes sous l'architecture 32 bits. C'est tout simplement parce que l'architecture 32 bits a fait son entrée sur le marché avec la gamme 8086 des processeurs intel. On a donc associé les deux termes et cela est resté avec le temps.
+:::
+
 ### C:\ProgramData
 
 Ce répertoire est utilisé pour stocker des données d'application partagées, c'est-à-dire des fichiers et des paramètres qui doivent être accessibles à tous les utilisateurs de l'ordinateur. Cela permet l'utilisation d'un logiciel et de ses données par plusieurs utilisateurs sans avoir a en dupliquer les données dans plusieurs profiles.
