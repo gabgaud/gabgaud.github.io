@@ -90,6 +90,12 @@ Une fois le logiciel téléchargé, celui-ci devrait se retrouver dans votre dos
 
 Lancez le fichier, en double-cliquant sur celui-ci, et suivez les étapes de l'installation.
 
+## Où se retrouvent les fichiers de programme ?
+
+Tel que nous avons discuté dans [cette section](./03-Architecture.md#certains-dossiers-dignes-de-mention), les fichiers de programme se retrouvent principalement dans les dossiers `C:\Program Files\` et `C:\Program Files (x86)` dans un dossier au nom de l'application ou du logiciel. Cependant, les applications téléchargées depuis le *Microsoft Store* se retrouveront plutôt dans le dossier `C:\Program Files\WindowsApps\` qui est un dossier caché et protégé.
+
+Lorsque vous cliquez sur une icône de votre bureau ou même sur le nom d'une application dans le menu démarrer, vous vous trouvez à cliquer sur un raccourci qui lance l'exécutable du logiciel se trouvant dans le dossier *Program Files*.
+
 ## Applications par défaut
 
 Windows 11 vous offre la possibilité de créer une association entre certaines extensions de fichier et une application particulière. Par exemple, si vous désirez ouvrir vos fichiers *.mp3* (musique) toujours avec le même lecteur multimédia, il est possible de le faire. Dans les paramètres Windows (clic-droit sur le menu démarrer, puis paramètres), sélectionnez la section « Applications », puis cliquez sur « Applications par défaut »:
@@ -122,7 +128,7 @@ Comme pour l'installation d'un logiciel, la désinstallation d'un logiciel et/ou
 
 ### Paramètres
 
-Depuis les paramètres Windows (Win + i), cliquez sur « Applications installées ». Dans la liste affichée, trouvez l'application ou le logiciel que vous désirez désinstaller, puis cliquez sur `...` . Enfin, sélectionnez « Désinstaller »
+Depuis les paramètres Windows (raccourci clavier: <kbd>&#8862; win</kbd>+<kbd>i</kbd>), cliquez sur « Applications installées ». Dans la liste affichée, trouvez l'application ou le logiciel que vous désirez désinstaller, puis cliquez sur `...` . Enfin, sélectionnez « Désinstaller »
 
 ![Désinstallation Param](./Assets/05/ParamDesinstaller.png)
 
@@ -146,7 +152,9 @@ Dans certains cas, WinGET ne fait que lancer l'exécutable responsable de la dé
 
 ### Le panneau de configuration
 
-Le panneau de configuration est sans doute l'un des éléments emblématiques de Windows. Il faut dire que sa première apparition remonte à [Windows 3.0](01-Historique.md#windows-30). Même si certaines configurations sont désormais accessibles depuis l'application Paramètres dans Windows, le panneau de configuration est toujours présent et prêt à être utilisé. Pour ouvrir le panneau de configuration, vous pouvez tout simplement faire une recherche dans le menu démarrer ou taper *control panel* dans la fenêtre « Exécuter » (win + r).
+Le panneau de configuration est sans doute l'un des éléments emblématiques de Windows. Il faut dire que sa première apparition remonte à [Windows 3.0](01-Historique.md#windows-30). Même si certaines configurations sont désormais accessibles depuis l'application Paramètres dans Windows, le panneau de configuration est toujours présent et prêt à être utilisé. Pour ouvrir le panneau de configuration, vous pouvez tout simplement faire une recherche dans le menu démarrer ou taper *control panel* dans la fenêtre « Exécuter ». 
+
+(raccourci clavier: <kbd>&#8862; win</kbd>+<kbd>r</kbd>).
 
 ![PanneauDeConfig](./Assets/05/ExecControlPanel.png)
 

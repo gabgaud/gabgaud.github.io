@@ -4,7 +4,7 @@ Sous Windows, plusieurs Shell (interface machine-personne) cohabitent côte à c
 
 ## L'invite de commande
 
-L'invite de commande traditionnelle existe depuis la première version de Windows et s'inspire des commandes que l'on retrouvait sous MS-DOS. Évidemment, l'invite de commande à évoluer entre les différentes versions de Windows. Or, son évolution n'a pas toujours été de tout repos pour les utilisateurs. En effet, dans une version de Windows, on pouvait retrouver une commande, puis dans la version de Windows suivante, la commande avait disparu. Pire encore, dans la version de Windows qui suivait encore, la commande réapparaissait. Bref, cela pouvait être relativement dur à suivre. Pour lancer l'invite de commande, utilisez le raccourci clavier `win` + `r` et tapez l'expression `cmd` suivie de la touche « entrée ».
+L'invite de commande traditionnelle existe depuis la première version de Windows et s'inspire des commandes que l'on retrouvait sous MS-DOS. Évidemment, l'invite de commande à évoluer entre les différentes versions de Windows. Or, son évolution n'a pas toujours été de tout repos pour les utilisateurs. En effet, dans une version de Windows, on pouvait retrouver une commande, puis dans la version de Windows suivante, la commande avait disparu. Pire encore, dans la version de Windows qui suivait encore, la commande réapparaissait. Bref, cela pouvait être relativement dur à suivre. Pour lancer l'invite de commande, utilisez le raccourci clavier <kbd>&#8862; win</kbd>+<kbd>r</kbd> et tapez l'expression `cmd` suivie de la touche « entrée ».
 
 ![InviteCMD](./Assets/04/cmd.png)
 
