@@ -36,7 +36,7 @@ Voici à quoi ressemble le gestionnaire des tâches une fois lancée:
 
 ![Gestionnaire des tâches](./Assets/06/Taskmgr.png)
 
-### Section: Processus
+## Section: Processus
 Ce que vous voyez actuellement, ce sont la liste des processus présentemment en cours. Windows les sépare en deux grands types:
 
 - **Les applications:** Ce sont les programmes ou les logiciels que vous avez vous-mêmes lancés. En s'exécutant, Windows leur a créé un processus et il se retrouve donc dans cette liste. Dans l'exemple ci-dessus, on voit que même le gestionnaire des tâches, que j'ai moi-même lancé possède son processus. Les processus qui se retrouvent sous cette section possèdent généralement une interface graphique avec laquelle vous interagissez.
@@ -49,7 +49,7 @@ Pour chacun des processus listés, nous avons accès à différentes données co
 
 Remarquez le nombre 17 (encerclé en rouge) à côté du processus *Microsoft Edge*. Il s'agit en fait, du nombre de processus regroupé sous un seul logiciel. Certains logiciels peuvent utiliser plus d'un processus pour fonctionner. Cela permet d'isoler certains aspects d'un même logiciel (des onglets, des modules complémentaires, etc.). Certains logiciels, dans la façon dont ils ont été développés et programmés, peuvent parfois utiliser plus d'un processus.
 
-#### Affichage
+### Affichage en mode standard (onglet processus)
 
 Il est possible de modifier les colonnes de données affichées dans le gestionnaire des tâches pour afficher les informations que l'on désir analyser. Voici l'ensemble des colonnes qu'il est possible d'afficher dans le gestionnaire des tâches:
 
@@ -62,3 +62,42 @@ Il est possible de modifier les colonnes de données affichées dans le gestionn
 | Éditeur | L'entreprise propriétaire de l'exécutable lancé au sein du processus |
 | PID | Il s'agit du « Process ID » l'identifiant unique du processus concerné. Chaque processus s'en voit attribuer un dès sa création. |
 | Nom du processus | Il s'agit en fait du nom de l'exécutable qui a provoqué la création du processus concerné. |
+| Ligne de commande | C'est la ligne de commande, incluant l'exécutable, qui a provoqué la création du processus concerné. |
+| Processeur, Mémoire, Disque, Réseau et Processeur graphique | L'utilisation, en valeurs informatiques ou en pourcentage, des différentes ressources qu'un processus utilise|
+| Moteur de processeur graphique | Cette colonne se concentre sur les différents moteurs de traitement du GPU (Processeur graphique). Les GPU modernes ont plusieurs "moteurs" spécialisés pour différentes tâches, comme le traitement graphique, le calcul ou l'IA. La colonne indique quel moteur est en cours d'utilisation et à quel pourcentage.|
+| Consommation d'énergie et Tendance de consommation d'énergie | La colonne « Consommation d'énergie » permet de voir la consommation d'énergie d'un processus en temps réel.<br/><br/> La tendance de consommation d'énergique, quant à elle, t'indiquera la consommation d'énergie d'un processus échelonnée sur quelques minutes. |
+
+
+### Affichage en mode détails (onglet détails)
+
+L'onglet *Détails* du gestionnaire des tâches permet d'obtenir de nombreux détails rapidements quant aux différents processus en cours d'exécution.
+
+![Onglet Détails](./Assets/06/Details.png)
+
+De la même façon dont nous avons géré l'affichage des différentes colonnes dans l'onglet *processus*, l'affichage dans l'onglet *détails* est également ajustable. Vous n'avez qu'à effectuer un clic à l'aide du bouton de droite de la souris sur l'une des en-têtes de colonnes et sélectionnez les champs qui vous intéressent. Par exemple, le champ `élevé` vous permet de savoir si un processus bénéficie de privilèges administratifs pour s'exécuter.
+
+### Fin de tâche et nouvelle tâche
+
+Dans les différentes sections du gestionnaire des tâches que nous avons abordé jusqu'à maintenant, vous aurez peut-être remarqué la présence de deux boutons:
+
+- Exécuter une nouvelle tâche
+
+- Terminer une tâche
+
+![Boutons](./Assets/06/NewTaskEndTask.png)
+
+#### Exécuter une nouvelle tâche
+
+Ce bouton est l'équivalent du raccourci clavier <kbd>&#8862; win</kbd>+<kbd>r</kbd>. Il permet de lancer un exécutable (et donc la création d'un processus) rapidement. Si vous y entrez le chemin d'un exécutable, celui-ci se lancera et un processus sera automatiquement créé.
+
+**Exemple:**
+
+![ExecCMD](./Assets/06/ExecCMD.png)
+
+:::caution
+Si vous prenez soin de cocher la case encerclé en rouge dans l'image ci-dessus, l'exécutable sera lancé en tant qu'Administrateur. À condition que vous possédiez ces droits évidemment.
+:::
+
+**Résultat:**
+
+![ExecCMDResult](./Assets/06/ExecCMDResult.png)
