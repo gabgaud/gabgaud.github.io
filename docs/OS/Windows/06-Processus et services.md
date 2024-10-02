@@ -37,7 +37,7 @@ Voici à quoi ressemble le gestionnaire des tâches une fois lancée:
 ![Gestionnaire des tâches](./Assets/06/Taskmgr.png)
 
 ### Section: Processus
-Ce que vous voyez actuellement, ce sont la liste des processus présentemment en cours. Windows les sépare en deux grandes catégories:
+Ce que vous voyez actuellement, ce sont la liste des processus présentemment en cours. Windows les sépare en deux grands types:
 
 - **Les applications:** Ce sont les programmes ou les logiciels que vous avez vous-mêmes lancés. En s'exécutant, Windows leur a créé un processus et il se retrouve donc dans cette liste. Dans l'exemple ci-dessus, on voit que même le gestionnaire des tâches, que j'ai moi-même lancé possède son processus. Les processus qui se retrouvent sous cette section possèdent généralement une interface graphique avec laquelle vous interagissez.
 
@@ -46,3 +46,19 @@ Ce que vous voyez actuellement, ce sont la liste des processus présentemment en
 Pour chacun des processus listés, nous avons accès à différentes données concernant sa consommation de ressources (mémoire, puissance de calcul, stockage, etc.). Ces informations sont précieuses et nous permettent de garder un oeil sur ce qui tourne normalement ou anormalement sur votre pc. J'attire votre attention sur la ligne du navigateur *Microsoft Edge*. En un tour de main, je peux constater que ce processus utilise plus de 72% des ressources de calcul disponible, ainsi que plus d'un demi giga-octet de mémoire. C'est considérable.
 
 ![Processus Multiples](./Assets/06/ProcessusMulti%20.png)
+
+Remarquez le nombre 17 (encerclé en rouge) à côté du processus *Microsoft Edge*. Il s'agit en fait, du nombre de processus regroupé sous un seul logiciel. Certains logiciels peuvent utiliser plus d'un processus pour fonctionner. Cela permet d'isoler certains aspects d'un même logiciel (des onglets, des modules complémentaires, etc.). Certains logiciels, dans la façon dont ils ont été développés et programmés, peuvent parfois utiliser plus d'un processus.
+
+#### Affichage
+
+Il est possible de modifier les colonnes de données affichées dans le gestionnaire des tâches pour afficher les informations que l'on désir analyser. Voici l'ensemble des colonnes qu'il est possible d'afficher dans le gestionnaire des tâches:
+
+![Colonnes Gestionnaire](./Assets/06/colonnes.png)
+
+|Colonne|Données|
+|:------------------:|---------------------|
+| Type | Ce sont les deux grand types de processus, soit « Applications » ou « Processus en arrière-plan » |
+| Statut | Cette colonne ne sera utilisée que lorsqu'un processus aura un statut autre que son statut normal (en cours d'exécution). Par exemple, lorsqu'un processus *gèle*, la mention « **Ne répond pas** » apparaitra.<br/><br/> Certains processus afficheront un statut « **Mode efficacité** » accompagné d'une petite feuille verte 🍃 lorsque le système d'exploitation aura suspendu celui-ci ou une partie de celui-ci pour économiser de l'énergie.<br/><br/> Dans un même ordre d'idée, un processus pourrait afficher un statut « **interrompu** » afin que le système puisse économiser des ressources et de l'énergie. |
+| Éditeur | L'entreprise propriétaire de l'exécutable lancé au sein du processus |
+| PID | Il s'agit du « Process ID » l'identifiant unique du processus concerné. Chaque processus s'en voit attribuer un dès sa création. |
+| Nom du processus | Il s'agit en fait du nom de l'exécutable qui a provoqué la création du processus concerné. |
