@@ -121,3 +121,61 @@ Outre l'aspect visuel intéressant de pouvoir suivre les performances de l'ordin
 L'utilisation de la mémoire, quant à elle, peut aussi vous donner quelques indices. Une utilisation élevée de la mémoire peut indiquer que vous exécutez trop de logiciels à la fois ou que votre ordinateur ne possède pas suffisamment de mémoire pour combler vos besoins.
 
 Vous aurez accès à d'autres informations pertinentes telle que l'utilisation des stockage en lecture et en écriture, ainsi que l'utilisation de votre connexion réseau en envoi et en réception.
+
+## Gestion des processus en Powershell
+
+PowerShell permet également d'administrer les processus sous Windows. Analysons quelques commandes pour arriver à nos fins.
+
+### Lister les processus
+
+Pour lister les processus, nous utiliserons la commande `Get-Process`
+
+**Exemple:**
+
+```Powershell
+Get-Process
+```
+
+**Résultat:**
+
+![ResultatGetProcess](./Assets/06/GetProcess.png)
+
+Encore une fois, plusieurs éléments sont affichés dans le résultat. Voici une brève description pour chacun des éléments:
+
+| Élément | Description |
+|:-------:|-------------|
+| Handles | Il s'agit du nombre de "poignées" que le processus utilise. Les poignées sont des références aux ressources du système comme les fichiers ouverts, les threads (instructions) ou les connexions réseau.|
+| NPM(K) | La mémoire non paginée utilisée par le processus. C'est une portion de la mémoire qui ne peut pas être déplacée sur le disque dur, elle doit rester en mémoire vive (RAM). La valeur est en kilo-octets.|
+| PM(K) | La mémoire paginée utilisée par le processus. Contrairement à la mémoire non paginée, celle-ci peut être temporairement déplacée sur le disque dur si nécessaire. La valeur est aussi en kilo-octets.|
+| WS(K) | Le "Working Set" (ensemble de travail), c'est-à-dire la quantité de mémoire que le processus utilise actuellement dans la RAM. En d'autres termes, c'est la mémoire que le processus a activement en usage en ce moment.|
+| CPU(s) | Le temps processeur utilisé par le processus, exprimé en secondes. Cela correspond au temps total durant lequel le processus a utilisé le CPU pour effectuer des calculs.|
+| Id | L'ID du processus. C'est un identifiant unique attribué par le système pour chaque processus en cours d'exécution. Il permet de différencier les processus. |
+| SI | Le numéro de session. Cela indique la session à laquelle appartient le processus, utile lorsqu'il y a plusieurs utilisateurs connectés sur un système.|
+
+### Démarrer un processus
+
+Pour démarrer un processus, il faut inévitablement lancer un exécutable. On le fera avec la commande `start-process`
+
+**Exemple:**
+
+```Powershell
+Start-Process 'C:\Windows\System32\calc.exe'
+```
+
+**Résultat:**
+
+![StartProcess](./Assets/06/StartProcess.png)
+
+### Arrêter un processus
+
+Pour arrêter un processus, l'idéal est d'avoir son identifiant unique en main. Pour cela, vous devrez possiblement utiliser la commande `Get-Process` au préalable. Une fois l'id en main, vous pourrez utiliser la commande `stop-process` pour mettre fin au processus.
+
+**Exemple:**
+
+```Powershell
+Stop-Process 4388
+```
+
+**Résultat:**
+
+![StopProcess](./Assets/06/StopProcess.png)
