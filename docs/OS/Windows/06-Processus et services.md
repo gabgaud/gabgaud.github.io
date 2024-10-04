@@ -101,3 +101,23 @@ Si vous prenez soin de cocher la case encerclé en rouge dans l'image ci-dessus,
 **Résultat:**
 
 ![ExecCMDResult](./Assets/06/ExecCMDResult.png)
+
+#### Mettre fin à une tâche
+
+Mettre fin à une tâche est une opération à entreprendre avec parcimonie. En effet, mettre fin à une tâche permet de « forcer » la fermeture d'un processus et donc, de ce qui s'exécute à l'intérieur de celui-ci également.
+
+:::danger
+N'utilisez la fin de tâche qu'en dernier recours! Lorsque vous fermez un logiciel normalement, certaines actions peuvent s'exécuter en arrière-plan avant sa fermeture (une sauvegarde de fichier, une opération dans le registe, etc.), lorsque vous faites une fin de tâche, le processus se ferme immédiatement, sans donner la chance au logiciel d'exécuter ces dernières tâches. Cette action peut parfois engendrer des conséquences importantes.
+:::
+
+## Section : Performance
+
+La section performance du gestionnaire des tâches vous permet de surveiller de près les différentes composantes de votre ordinateur.
+
+![Onlget performance](./Assets/06/Performances.png)
+
+Outre l'aspect visuel intéressant de pouvoir suivre les performances de l'ordinateur en temps réel, le moniteur de performance peut vous indiquer que quelque chose ne va pas avec votre ordinateur. Par exemple, un processeur dont le pourcentage d'utilisation est régulièrement, voire toujours, au dessus de 90% peut indiquer qu'un processus exploite beaucoup de puissance de calcul. Si vous n'avez lancé aucun exécutable, peut-être qu'un logiciel caché s'exécute à votre insu.
+
+L'utilisation de la mémoire, quant à elle, peut aussi vous donner quelques indices. Une utilisation élevée de la mémoire peut indiquer que vous exécutez trop de logiciels à la fois ou que votre ordinateur ne possède pas suffisamment de mémoire pour combler vos besoins.
+
+Vous aurez accès à d'autres informations pertinentes telle que l'utilisation des stockage en lecture et en écriture, ainsi que l'utilisation de votre connexion réseau en envoi et en réception.
