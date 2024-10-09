@@ -18,7 +18,7 @@ Pourquoi a-t-on besoin des processus ? Pour plusieurs raisons:
 
 ### Comment ça fonctionne ?
 
-Tout ce qui s'exécute sur le système, est systématiquement exécuté dans un processus. Même ce que pourrait lancer Windows, en arrière-plan, sera lancé dans un processus. Il n'y a donc rien à faire, pour créer un processus, outre que de lancer un exécutable. Peu importe de quoi il s'agit, un processus sera créé. Nous verrons un peu plus loin comment lister, administrer et gérer les différents processus dans votre système Windows. Nous verrons également que chaque processus existant est identifié par le système d'exploitation.
+<mark>Tout ce qui s'exécute sur le système, est systématiquement exécuté dans un processus.</mark> Même ce que pourrait lancer Windows, en arrière-plan, sera lancé dans un processus. Il n'y a donc rien à faire, pour créer un processus, outre que de lancer un exécutable. Peu importe de quoi il s'agit, un processus sera créé. Nous verrons un peu plus loin comment lister, administrer et gérer les différents processus dans votre système Windows. Nous verrons également que chaque processus existant est identifié par le système d'exploitation.
 
 ## Le gestionnaire des tâches
 
