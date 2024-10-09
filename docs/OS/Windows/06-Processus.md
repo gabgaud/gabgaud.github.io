@@ -57,15 +57,15 @@ Il est possible de modifier les colonnes de données affichées dans le gestionn
 
 |Colonne|Données|
 |:------------------:|---------------------|
-| Type | Ce sont les deux grand types de processus, soit « Applications » ou « Processus en arrière-plan » |
-| Statut | Cette colonne ne sera utilisée que lorsqu'un processus aura un statut autre que son statut normal (en cours d'exécution). Par exemple, lorsqu'un processus *gèle*, la mention « **Ne répond pas** » apparaitra.<br/><br/> Certains processus afficheront un statut « **Mode efficacité** » accompagné d'une petite feuille verte 🍃 lorsque le système d'exploitation aura suspendu celui-ci ou une partie de celui-ci pour économiser de l'énergie.<br/><br/> Dans un même ordre d'idée, un processus pourrait afficher un statut « **interrompu** » afin que le système puisse économiser des ressources et de l'énergie. |
-| Éditeur | L'entreprise propriétaire de l'exécutable lancé au sein du processus |
-| PID | Il s'agit du « Process ID » l'identifiant unique du processus concerné. Chaque processus s'en voit attribuer un dès sa création. |
-| Nom du processus | Il s'agit en fait du nom de l'exécutable qui a provoqué la création du processus concerné. |
-| Ligne de commande | C'est la ligne de commande, incluant l'exécutable, qui a provoqué la création du processus concerné. |
-| Processeur, Mémoire, Disque, Réseau et Processeur graphique | L'utilisation, en valeurs informatiques ou en pourcentage, des différentes ressources qu'un processus utilise|
-| Moteur de processeur graphique | Cette colonne se concentre sur les différents moteurs de traitement du GPU (Processeur graphique). Les GPU modernes ont plusieurs "moteurs" spécialisés pour différentes tâches, comme le traitement graphique, le calcul ou l'IA. La colonne indique quel moteur est en cours d'utilisation et à quel pourcentage.|
-| Consommation d'énergie et Tendance de consommation d'énergie | La colonne « Consommation d'énergie » permet de voir la consommation d'énergie d'un processus en temps réel.<br/><br/> La tendance de consommation d'énergique, quant à elle, t'indiquera la consommation d'énergie d'un processus échelonnée sur quelques minutes. |
+| **Type** | Ce sont les deux grand types de processus, soit « Applications » ou « Processus en arrière-plan » |
+| **Statut** | Cette colonne ne sera utilisée que lorsqu'un processus aura un statut autre que son statut normal (en cours d'exécution). Par exemple, lorsqu'un processus *gèle*, la mention « **Ne répond pas** » apparaitra.<br/><br/> Certains processus afficheront un statut « **Mode efficacité** » accompagné d'une petite feuille verte 🍃 lorsque le système d'exploitation aura suspendu celui-ci ou une partie de celui-ci pour économiser de l'énergie.<br/><br/> Dans un même ordre d'idée, un processus pourrait afficher un statut « **interrompu** » afin que le système puisse économiser des ressources et de l'énergie. |
+| **Éditeur** | L'entreprise propriétaire de l'exécutable lancé au sein du processus |
+| **PID** | Il s'agit du « Process ID » l'identifiant unique du processus concerné. Chaque processus s'en voit attribuer un dès sa création. |
+| **Nom du processus** | Il s'agit en fait du nom de l'exécutable qui a provoqué la création du processus concerné. |
+| **Ligne de commande** | C'est la ligne de commande, incluant l'exécutable, qui a provoqué la création du processus concerné. |
+| **Processeur, Mémoire, Disque, Réseau et Processeur graphique** | L'utilisation, en valeurs informatiques ou en pourcentage, des différentes ressources qu'un processus utilise|
+| **Moteur de processeur graphique** | Cette colonne se concentre sur les différents moteurs de traitement du GPU (Processeur graphique). Les GPU modernes ont plusieurs "moteurs" spécialisés pour différentes tâches, comme le traitement graphique, le calcul ou l'IA. La colonne indique quel moteur est en cours d'utilisation et à quel pourcentage.|
+| **Consommation d'énergie et Tendance de consommation d'énergie** | La colonne « Consommation d'énergie » permet de voir la consommation d'énergie d'un processus en temps réel.<br/><br/> La tendance de consommation d'énergique, quant à elle, t'indiquera la consommation d'énergie d'un processus échelonnée sur quelques minutes. |
 
 
 ### Affichage en mode détails (onglet détails)
