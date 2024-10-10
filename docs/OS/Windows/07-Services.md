@@ -2,21 +2,21 @@
 
 Un service est un type de programme qui fonctionne en arrière-plan sans que l'utilisateur n'ait à interagir avec lui. Le service est conçu pour être invisible et pour exécuter des tâches automatiquement, souvent dès le démarrage du système, et parfois même avant que l'utilisateur se connecte.
 
-Un service continue à fonctionner même si aucune fenêtre n'est ouverte. Par exemple, l'antivirus, le service de mise à jour Windows, ou encore les services réseaux pour n'en nommer que quelques-uns. Ces programmes sont généralement essentiels au bon fonctionnement de l'ordinateur mais ne nécessite aucune interaction.
+Un service continue à fonctionner même si aucune fenêtre n'est ouverte. Par exemple, l'antivirus, le service de mise à jour Windows, ou encore les services réseau pour n'en nommer que quelques-uns. Ces programmes sont généralement essentiels au bon fonctionnement de l'ordinateur, mais ne nécessitent aucune interaction.
 
 J'aime bien faire l'analogie entre les services et certains réflexes humains. Vous n'avez pas besoin de réfléchir pour respirer, votre corps s'assure que ce « service » fonctionne constamment. Il en va de même pour votre battement cardiaque. C'est ainsi que fonctionnent également les services sous Windows. Vous n'avez rien à faire, rien à réfléchir, il s'exécuteront automatiquement.
 
 ## Le lien entre les services et les processus
 
-Dans la section précédente, nous avons abordé les processus et leur fonctionnement. En outre, nous avons mentionné que <mark>tout ce qui s'exécutait sur le pc, est systématiquement exécuté dans un processus.</mark>Les services n'échappent à cette règle non plus, après tout, ce sont des programmes également. Un service peut donc, lui aussi, être arrêter via une « fin de tâche ». Cela est peu recommandable, mais peut être fait dans certaines circonstances.
+Dans la section précédente, nous avons abordé les processus et leur fonctionnement. En outre, nous avons mentionné que <mark>tout ce qui s'exécutait sur le pc est systématiquement exécuté dans un processus.</mark>Les services n'échappent à cette règle non plus, après tout, ce sont des programmes également. Un service peut donc, lui aussi, être arrêté via une « fin de tâche ». Cela est peu recommandable, mais peut être fait dans certaines circonstances.
 
 ## Retour sur le gestionnaire des tâches
 
-Les services de Windows sont repérables à plusieurs endroits dans le gestionnaire des tâches. D'ailleurs, une section entière du gestionnaire est réservé aux services. Malgré cela, le gestionnaire des tâches demeure limité dans les options qu'il offre pour gérer les services. Nous verrons, un peu plus loins, qu'une console Windows est réservée strictement à l'administration des services et offre beaucoup plus de possibilités.
+Les services de Windows sont repérables à plusieurs endroits dans le gestionnaire des tâches. D'ailleurs, une section entière du gestionnaire est réservée aux services. Malgré cela, le gestionnaire des tâches demeure limité dans les options qu'il offre pour gérer les services. Nous verrons, un peu plus loin, qu'une console Windows est réservée strictement à l'administration des services et offre beaucoup plus de possibilités.
 
 ### Section: Services 🧩
 
-La section « Services » du gestionnaire des tâches vous permet de lister l'ensemble des services disponible dans le système. Vous y retrouverez une foule d'informations, comme une brève description du service, son numéro de processus dans le cas où le service serait en cours d'exécution ainsi que son statut. Remarquez l'encadré rouge où se trouve un bouton vous permettant d'accéder directement à la console des services de Windows.
+La section « Services » du gestionnaire des tâches vous permet de lister l'ensemble des services disponibles dans le système. Vous y retrouverez une foule d'informations, comme une brève description du service, son numéro de processus dans le cas où le service serait en cours d'exécution ainsi que son statut. Remarquez l'encadré rouge où se trouve un bouton vous permettant d'accéder directement à la console des services de Windows.
 
 Les actions que vous pouvez effectuer directement depuis le gestionnaire des tâches sont relativement limitées: démarrer, arrêter ou redémarrer les services.
 
@@ -31,7 +31,7 @@ Les services sont également repérables dans la section « Processus » du gest
 
 ### Section: Détails
 
-Les services sont aussi visibles dans la section « Détails » du gestionnaire des tâches. Ironiquement, c'est l'une des sections affichant le moins de détails sur ces-derniers. Dans cette section, tous les services portent le même nom (pas très pratique). Ce nom, c'est `svchost`. C'est pourquoi cette section n'est pas à privilégier pour la gestion des services.
+Les services sont aussi visibles dans la section « Détails » du gestionnaire des tâches. Ironiquement, c'est l'une des sections affichant le moins de détails sur ces derniers. Dans cette section, tous les services portent le même nom (pas très pratique). Ce nom, c'est `svchost`. C'est pourquoi cette section n'est pas à privilégier pour la gestion des services.
 
 ![Services détails](./Assets/07/TaskManDetails.png)
 
@@ -44,7 +44,7 @@ Autrement vous pouvez également taper la commande `services.msc` dans la fenêt
 Voici à quoi ressemble cette console:
 
 ![Console services](./Assets/07/ConsoleServices.png)
-
+<a id="VraiNom" />
 Je n'expliquerai pas chacun des champs affichés à l'écran puisque je les reprendrai un peu plus loin, dans la section [propriétés d'un service](07-Services.md#propriétés-dun-service).
 
 :::caution[Nom des services]
@@ -55,7 +55,7 @@ Dépendemment de la langue de votre système d'exploitation, vous ne verrez peut
 
 #### Onglet Général
 
-Les propriétés d'un service permettent d'accéder à ses moindres détails et d'interagir avec celui-ci. Pour accéder aux propriétés d'un service, vous n'avez qu'à double-cliquer sur celui-ci directement dans la console des services. Le premier onglet des propriétés vous permettra d'obtenir le véritable nom du service ( `Nom du service` ), une brève description de ce que fait le service, de déterminer un type de démarrage et d'entreprendre des actions instantanamment sur celui-ci.
+Les propriétés d'un service permettent d'accéder à ses moindres détails et d'interagir avec celui-ci. Pour accéder aux propriétés d'un service, vous n'avez qu'à double-cliquer sur celui-ci directement dans la console des services. Le premier onglet des propriétés vous permettra d'obtenir le véritable nom du service ( `Nom du service` ), une brève description de ce que fait le service, de déterminer un type de démarrage et d'entreprendre des actions instantanément sur celui-ci.
 
 ![PropriétésServices](./Assets/07/ProprietesServices.png)
 
@@ -95,7 +95,7 @@ Plusieurs facteurs peuvent expliquer l'impossibilité d'entreprendre une ou plus
 
 #### Onglet Connexion
 
-L'onglet connexion permet (mais pas toujours) de définir l'utilisateur qui exécutera le service en question. La grande majorité du temps, les comptes utilisés pour démarrer les services sont des comptes avec lesquels il est impossible d'ouvrir une session. Ce sont des comptes utilisés par Windows pour manoeuvrer le système. Parmi ces comptes on retrouve: Le compte SYSTEM, le compte Service Local et le compte Service Réseau. Nous discuterons des utilisateurs et des groupes dans une autre section.
+L'onglet connexion permet (mais pas toujours) de définir l'utilisateur qui exécutera le service en question. La grande majorité du temps, les comptes utilisés pour démarrer les services sont des comptes avec lesquels il est impossible d'ouvrir une session. Ce sont des comptes utilisés par Windows pour manœuvrer le système. Parmi ces comptes on retrouve: Le compte SYSTEM, le compte Service Local et le compte Service Réseau. Nous discuterons des utilisateurs et des groupes dans une autre section.
 
 ![OngletConnexion](./Assets/07/OngletConnexion.png)
 
@@ -125,3 +125,47 @@ Windows vous offre la possibilité de définir différentes actions pour une pre
 | **Exécuter un programme** | Lance un programme ou un script spécifique en cas de défaillance, permettant une action personnalisée.|
 
 Selon ce que vous configurerez comme actions, vous aurez la possibilité de spécifier des options supplémentaires au bas de la fenêtre.
+
+#### Dépendances
+
+Certains services dépendent d'autres services ou de pilotes système pour fonctionner. Si un composant du système est arrêté ou ne fonctionne pas correctement, les services dépendants peuvent en être affectés. L'onglet « Dépendances » permet d'obtenir la liste des composantes dont le service en question dépend, mais aussi la liste des autres services qui dépendent de celui-ci.
+
+![Onglet Dependances](./Assets/07/OngletDependances.png)
+
+## Administration des services avec PowerShell
+
+PowerShell offre une gamme de commandes pour gérer les différents services sous Windows.
+
+### Obtenir la liste des services
+
+Pour obtenir la liste des services et leur état avec PowerShell, on utilisera la commande `Get-Service`
+
+```Powershell
+Get-Service
+```
+
+**Résultat:**
+
+![Get-Service](./Assets/07/GetService.png)
+
+Il est possible d'obtenir l'état d'un seul service en précisant son nom ( [le vrai nom!](#VraiNom) ) avec le paramètre `-name`
+
+```Powershell
+Get-Service -Name Spooler
+```
+
+**Résultat:**
+
+![Get-Service Name](./Assets/07/GetServiceName.png)
+
+### Arrêter un service
+
+Pour arrêter l'exécution d'un service, nous pouvons utiliser la commande `Stop-Service`, suivi du nom en paramètre.
+
+```Powershell
+Stop-Service -Name Spooler
+```
+
+**Résultat:**
+
+![Stop-Service](./Assets/07/StopService.png)
