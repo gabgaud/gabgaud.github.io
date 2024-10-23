@@ -169,3 +169,27 @@ Stop-Service -Name Spooler
 **Résultat:**
 
 ![Stop-Service](./Assets/07/StopService.png)
+
+### Démarrer un service
+
+Pour démarrer un service, nous utiliserons la commande `Start-Service`, suivi du nom en paramètre.
+
+```Powershell
+Start-Service -Name Spooler
+```
+
+**Résultat:**
+
+![Start-Service](./Assets/07/StartService.png)
+
+### Redémarrer un service
+
+Pour redémarrer un service, nous utiliserons la commande `Restart-Service`, suivi du nom en paramètre.
+
+```Powershell
+Restart-Service -Name Spooler
+```
+
+**Résultat:**
+
+![Restart-Service](./Assets/07/RestartService.png)
