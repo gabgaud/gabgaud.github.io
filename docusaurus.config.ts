@@ -2,6 +2,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+
 const config: Config = {
   title: 'Le site de ton prof',
   tagline: 'L\'informatique simplifié',
@@ -38,6 +39,20 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
+          admonitions: {
+            keywords: [
+              'info',
+              'success',
+              'danger',
+              'note',
+              'tip',
+              'warning',
+              'important',
+              'caution',
+              'security',
+              'cadenas',
+            ],
+          },
         },
         blog: false,
 

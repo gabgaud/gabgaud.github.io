@@ -79,4 +79,8 @@ Indique qu'un problème grave s'est produit, entraînant l'arrêt immédiat d'un
 
 ### Classement des audits
 
-Un audit est aussi un événement en soi. Cela dit, c'est un événement lié à la sécurité et à la conformité du système.
+:::security[Événement en succès]
+:::
+
+:::cadenas[Événement en échec]
+:::

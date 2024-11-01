@@ -8,6 +8,7 @@ type FeatureItem = {
   description: JSX.Element;
 };
 
+
 const FeatureList: FeatureItem[] = [
   {
     title: 'Easy to Use',
