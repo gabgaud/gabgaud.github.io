@@ -2,13 +2,13 @@
 
 Lorsqu'un problème survient dans un processus en arrière-plan ou dans un service, il peut-être difficile de savoir ce qui se passe étant donné l'absence d'interface graphique. Les systèmes d'exploitation et plusieurs applications gardent une trace des étapes importantes de ce qu'ils font (démarrage, erreurs, etc.) dans un journal ou dans un fichier *log*.
 
-Les *logs* contiennent des informations sur le fonctionnement du système d'exploitation. Il permettent, en outre, de :
+Les *logs* contiennent des informations sur le fonctionnement du système d'exploitation. Ils permettent, en outre, de :
 
 - Auditer le système.
 - Détecter les accès non autorisés.
 - Diagnostiquer certains problèmes ou certaines erreurs.
 
-Cependant, lorsqu'elle n'est pas géré, ou mal géré, la journalisation peut avoir des impacts négatifs. Les effets possibles sont:
+Cependant, lorsqu'elle n'est pas gérée, ou mal gérée, la journalisation peut avoir des impacts négatifs. Les effets possibles sont:
 
 - Réduction des performances du système.
 - Surutilisation de l'espace de stockage.
@@ -24,7 +24,7 @@ La forme la plus rudimentaire d'un journal prend la forme d'un fichier texte, li
 
 ## L'observateur d'événements
 
-Sous Windows, la grande majorité des journaux sont rapportés dans l'observateur d'événements. Ce-dernier est accessible via le menu contextuel du menu démarrer ou en entrant la commande `eventvwr` depuis la fenêtre exécuter ( <kbd>&#8862; win</kbd> + <kbd>r</kbd> )
+Sous Windows, la grande majorité des journaux sont rapportés dans l'observateur d'événements. Ce dernier est accessible via le menu contextuel du menu démarrer ou en entrant la commande `eventvwr` depuis la fenêtre exécuter ( <kbd>&#8862; win</kbd> + <kbd>r</kbd> )
 
 ![EventViewer](./Assets/08/EventViewer.png)
 
@@ -93,11 +93,11 @@ Ces événements signalent qu'une action sécuritaire n'a pas pu être réalisé
 
 ### Filtrer les journaux
 
-Comme vous l'avez sans doute déjà remarqué, les journaux contiennent énormément d'informations. C'est pourquoi il peut être très utile de les filtrer. Pour ce faire, sélectionner l'un des journaux, puis faites un clic à l'aide du bouton de droite sur celui-ci. Dans le menu contextuel, sélectionnez « Filtrer le journal actuel ».
+Comme vous l'avez sans doute déjà remarqué, les journaux contiennent énormément d'informations. C'est pourquoi il peut être très utile de les filtrer. Pour ce faire, sélectionnez l'un des journaux, puis faites un clic à l'aide du bouton de droite sur celui-ci. Dans le menu contextuel, sélectionnez « Filtrer le journal actuel ».
 
 ![Filtre_Journal](./Assets/08/FiltreJournalActuel.png)
 
-Dans la fenêtre de création de filtre, vous aurez l'opportunité d'indiquer les critères de recherche qui vous intéressent:
+Dans la fenêtre de création de filtres, vous aurez l'opportunité d'indiquer les critères de recherche qui vous intéressent:
 
 ![Creer_Filtre](./Assets/08/CreationFiltre.png)
 
@@ -121,8 +121,32 @@ Dans la fenêtre de création de filtre, vous aurez l'opportunité d'indiquer le
 
 ### Powershell
 
-Il est évidemment possible de récupérer des événements enregistrés dans les différents journaux de Windows à l'aide de Powershell. Pour ce faire, on utilisera la commande `Get-EventLog`. Cette commande permet également de filtrer ce que vous rechercher en spécifiant le journal concerné, le type d'entrée, le numéro d'identification du Log, etc. Vous pouvez consulter la [liste des paramètres de la commande ici.](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-eventlog?view=powershell-5.1&viewFallbackFrom=powershell-7.4) Néanmoins, je me permet de vous recommander l'utilisation de deux paramètres plus particuliers:
+Il est évidemment possible de récupérer des événements enregistrés dans les différents journaux de Windows à l'aide de Powershell. Pour ce faire, on utilisera la commande `Get-EventLog`. Cette commande permet également de filtrer ce que vous recherchez en spécifiant le journal concerné, le type d'entrée, le numéro d'identification du Log, etc. Vous pouvez consulter la [liste des paramètres de la commande ici.](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-eventlog?view=powershell-5.1&viewFallbackFrom=powershell-7.4) Néanmoins, je me permets de vous recommander l'utilisation de deux paramètres plus particuliers:
 
-1. **LogName:** Vous permettra d'indiquer dans quel journal précisémment vous désirez chercher. Ce paramètre est obligatoire.
+1. **LogName:** Vous permettra d'indiquer dans quel journal précisément vous désirez chercher. Ce paramètre est obligatoire.
 
-2. **InstanceID:** Chaque événement possède un numéro d'identification dans les différents journaux Windows. Ces numéros vous permettent de filtrer un type d'événement particulier. Par exemple, l'événement 4625 représente un échec d'ouverture de session alors que l'événement 4732 indique la création d'un nouvel utilisateur. [Il existe plusieurs sites sur le web](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) vous permettant de connaître les différents numéro de certains événements.
+2. **InstanceID:** Chaque événement possède un numéro d'identification dans les différents journaux Windows. Ces numéros vous permettent de filtrer un type d'événement particulier. Par exemple, l'événement 4625 représente un échec d'ouverture de session alors que l'événement 4732 indique la création d'un nouvel utilisateur. [Il existe plusieurs sites sur le web](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) vous permettant de connaître les différents numéros de certains événements.
+
+**Exemple:**
+
+```Powershell
+Get-EventLog -LogName Security -InstanceID 4625
+```
+
+**Résultat:**
+
+![Powershell InstanceID](./Assets/08/PowerShellInstanceID.png)
+
+Chaque ligne représente une entrée dans le journal. Chacune de ces entrées est indexée et il est possible d'en voir le contenu complet en utilisant la même commande, soit : `Get-EventLog`.
+
+**Exemple:**
+
+```Powershell
+Get-EventLog -LogName Security -Index 17371 | fl
+```
+
+*Note:* La portion « | fl » de la commande permet simplement d'afficher le résultat obtenu en détail.
+
+**Résultat:**
+
+![Powershell Details](./Assets/08/PowershellDetails.png)
