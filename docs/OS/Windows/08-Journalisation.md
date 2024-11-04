@@ -80,7 +80,49 @@ Indique qu'un problème grave s'est produit, entraînant l'arrêt immédiat d'un
 ### Classement des audits
 
 :::security[Événement en succès]
+Ces événements indiquent qu'une action sécuritaire a été exécutée avec succès. Par exemple, un utilisateur a réussi à se connecter ou à accéder à une ressource protégée.
+
+**Exemple:** 4624 (connexion réussie).
 :::
 
 :::cadenas[Événement en échec]
+Ces événements signalent qu'une action sécuritaire n'a pas pu être réalisée, comme un échec de connexion. Cela peut être dû à des identifiants incorrects ou à des permissions insuffisantes.
+
+**Exemple:** 4625 (échec de connexion).
 :::
+
+### Filtrer les journaux
+
+Comme vous l'avez sans doute déjà remarqué, les journaux contiennent énormément d'informations. C'est pourquoi il peut être très utile de les filtrer. Pour ce faire, sélectionner l'un des journaux, puis faites un clic à l'aide du bouton de droite sur celui-ci. Dans le menu contextuel, sélectionnez « Filtrer le journal actuel ».
+
+![Filtre_Journal](./Assets/08/FiltreJournalActuel.png)
+
+Dans la fenêtre de création de filtre, vous aurez l'opportunité d'indiquer les critères de recherche qui vous intéressent:
+
+![Creer_Filtre](./Assets/08/CreationFiltre.png)
+
+- **Connecté:** C'est une mauvaise traduction du mot anglais « Logged ». Dans ce champ, on cherche à déterminer une période de temps où l'enregistrement a été créé. Ce champ permet donc de sélectionner la période pour laquelle on souhaite afficher les événements (par exemple, "À tout moment" ou une plage de dates spécifique).
+
+- **Niveau d'événement:** Cochez un ou plusieurs types d'événements que vous voulez afficher.
+
+- **Par journal:** Permet de sélectionner un journal spécifique pour le filtrage.
+
+- **Sources d'événements:** Permet de préciser une source spécifique d'événements (comme un processus ou un service particulier).
+
+- **Inclut/exclut des ID d'événements:** On peut entrer les ID spécifiques ou des plages d'ID pour inclure ou exclure certains événements. Les ID peuvent être séparés par des virgules, et un signe "moins" peut être ajouté devant pour exclure certains ID.
+
+- **Catégorie de la tâche:** Permet de filtrer en fonction de la catégorie de la tâche (utile pour certains types d’événements spécifiques).
+
+- **Mots clés:** Permet d'entrer des mots-clés pour affiner la recherche.
+
+- **Utilisateur:** Sélectionne les événements relatifs à un utilisateur particulier.
+
+- **Ordinateur(s):** Permet de spécifier un ou plusieurs ordinateurs pour le filtrage, pratique dans les environnements multi-ordinateurs.
+
+### Powershell
+
+Il est évidemment possible de récupérer des événements enregistrés dans les différents journaux de Windows à l'aide de Powershell. Pour ce faire, on utilisera la commande `Get-EventLog`. Cette commande permet également de filtrer ce que vous rechercher en spécifiant le journal concerné, le type d'entrée, le numéro d'identification du Log, etc. Vous pouvez consulter la [liste des paramètres de la commande ici.](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-eventlog?view=powershell-5.1&viewFallbackFrom=powershell-7.4) Néanmoins, je me permet de vous recommander l'utilisation de deux paramètres plus particuliers:
+
+1. **LogName:** Vous permettra d'indiquer dans quel journal précisémment vous désirez chercher. Ce paramètre est obligatoire.
+
+2. **InstanceID:** Chaque événement possède un numéro d'identification dans les différents journaux Windows. Ces numéros vous permettent de filtrer un type d'événement particulier. Par exemple, l'événement 4625 représente un échec d'ouverture de session alors que l'événement 4732 indique la création d'un nouvel utilisateur. [Il existe plusieurs sites sur le web](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) vous permettant de connaître les différents numéro de certains événements.

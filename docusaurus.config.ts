@@ -81,6 +81,7 @@ const config: Config = {
       logo: {
         alt: 'Logo',
         src: 'img/hipster.svg',
+        srcDark: 'img/hipster_w.svg',
       },
       items: [
         {
