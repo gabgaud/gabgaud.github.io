@@ -10,7 +10,7 @@ Pour lancer l'éditeur de texte Nano, vous n'avez qu'à entrer le nom de l'édit
 ```bash
 nano informatique
 ```
-Voici à quoi ressemble l'éditeur de texte Nano¸:
+Voici à quoi ressemble l'éditeur de texte Nano:
 ![Nano](/img/Linux/Nano.png)
 
 Une fois dans cette fenêtre, vous pourrez dès lors, taper du texte. Évidemment, taper du texte ou l'effacer, ca n'a rien d'impressionnant et ca ne relève pas de la sorcellerie. Cela dit, Nano est équipé de quelques fonctions intéressantes. Remarquez au bas de l'écran le menu des actions disponibles.
