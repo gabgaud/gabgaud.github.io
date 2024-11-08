@@ -84,3 +84,15 @@ Chaque utilisateur sur l'ordinateur, local ou non, possède ce que l'on nomme un
 Même si vous avez créé votre premier utilisateur lors de l'installation de Windows 11, vous n'êtes pas seul au monde dans votre système d'exploitation (eh non!). Rassurez-vous, d'autres utilisateurs existent à votre insu. Ces utilisateurs, ce sont les utilisateurs prédéfinis. Ils ont été créés à l'installation de Windows, mais ils sont désactivés pour des raisons de sécurité, et ils le restent habituellement. Les comptes d'utilisateurs prédéfinis sont repérables depuis la console de gestion de l'ordinateur (clic-droit sur le menu démarrer, puis cliquez sur gestion de l'ordinateur ).
 
 ![UtilisateursPrédéfinis](./Assets/09/UtilisateursPredef.png)
+
+- **Compte Administrateur:** Il s'agit d'un compte possédant des droits d'administration (évidemment) sur le système. Il est toujours présent dans chaque système mais son nom variera en fonction de la langue. Il est désactivé par défaut pour des raisons de sécurité, mais il est très facile de l'activer.
+
+- **DefaultAccount:** C'est un compte système spécial créé à des fins internes, et il est inactif par défaut. Il n'est pas destiné à l'interaction directe de l'utilisateur et ne nécessite pas d'attention particulière sauf dans des cas très spécifiques de dépannage ou de configuration avancée.
+
+- **Invité:** Le compte est invité est utilisé dans des cas où l'ordinateur concerné serait destiné à être utilisé par un large public. Par exemple dans le cas où un ordinateur serait en démonstration dans un kiosque ou dans le cas d'un ordinateur disponible dans un guichet libre-service.
+
+- **WDAGUtilityAccount:** C'est un compte système utilisé spécifiquement pour Windows Defender, permettant l'exécution d'applications dans un environnement sécurisé et isolé. Ce compte n'est pas destiné à une utilisation par les utilisateurs, et son rôle principal est de contribuer à la sécurité du système en isolant les processus d'application afin de prévenir les risques d'attaque.
+
+:::tip
+Vous pouvez tout à fait lister les utilisateurs à l'aide de Powershell. Pour ce faire, nous utiliserons la commande `Get-LocalUser`.
+:::
