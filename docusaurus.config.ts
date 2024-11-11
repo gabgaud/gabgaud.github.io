@@ -90,12 +90,12 @@ const config: Config = {
           position: 'left',
           label: 'Systèmes d\'exploitation',
         },
-        //{
-        //  type: 'docSidebar',
-        //  sidebarId: 'ScriptingSidebar',
-        //  position: 'left',
-        //  label: 'Scripting',
-        //},
+        {
+          type: 'docSidebar',
+          sidebarId: 'Serveur1Sidebar',
+          position: 'left',
+          label: 'Serveurs 1',
+        },
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -116,6 +116,10 @@ const config: Config = {
             {
               label: 'Systèmes d\'exploitation',
               to: 'OS/Mot%20de%20section',
+            },
+            {
+              label: 'Serveurs 1',
+              to: 'Serveurs 1/Mot%20de%20section',
             },
           ],
         },
