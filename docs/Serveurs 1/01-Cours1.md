@@ -104,11 +104,39 @@ import TabItem from '@theme/TabItem';
     
     ### Interface graphique
 
-    L'interface graphique de Windows Serveur est très similaire à celle d'un poste client
+    L'interface graphique de Windows Serveur est très similaire à celle d'un poste client. On y retrouve l'explorateur Windows, le bureau, le menu démarrer, tout y est. La différence majeure est la présence du gestionnaire de serveur.
+
+    #### Le gestionnaire de serveur
+
+    Il s'agit du poste de commandement de Windows Serveur. De là, vous pouvez installer de nouveaux rôles et services, en administrer ou même consulter les journaux du serveur. Bref, il s'agit de l'endroit où vous vous dirigerez plus souvent qu'autrement lorsque vous aurez à faire avec le serveur.
+
+    ![Gestionnaire de serveur](./Assets/01/GestionnaireServeur.png)
+
+    ### Configuration du réseau
+
+    La (ou les) carte réseau de Windows Serveur se configure exactement de la même façon que dans Windows standard. Par défaut, Windows Serveur est configurer pour recevoir une adresse IP automatiquement via un serveur DHCP. Si le serveur n'arrive pas à communiquer avec un serveur DHCP sur le réseau, celui-ci s'auto-configurera une adresse IP grâce au protocole APIPA (169.254.0.0/16).
+
+    :::danger[Adresse IP statique!]
+    Un serveur doit <u>**toujours**</u> être configuré pour utiliser une adresse IP statique, c'est-à-dire qui ne change <u>**jamais!**</u>. Peu importe si vous configurez cette adresse IP manuellement dans le serveur ou si vous passer par un serveur pour y arriver, le résultat doit être le même. Un serveur possède <u>**toujours**</u> la même adresse IP!
+    :::
+
+    ### Mises à jour et sécurité
+
+    Windows Serveur ne se met pas à jour automatiquement pour éviter les impacts sur la production, il faut donc penser à les faire. La protection antivirale, quant à elle, est relativement efficace. Cela dit, les mises à jour de l'antivirus se fait en même temps que les mises à jour du système. Il est donc doublement important de les faire. Un pare-feu est également intégré à Windows Serveur afin de restreindre certains types de trafic sur le réseau.
 
   </TabItem>
   <TabItem value="labo1" label="Laboratoire 🧪">
-    <h2>Laboratoire</h2>
+    * * *
+    <h2>Laboratoire 01 - Installation de Windows Serveur 2022</h2>
+    * * *
+    <h3>Objectifs:</h3>
+    1. Mettre en place une passerelle grâce au modèle fournis (PfSense)
+    2. Installer Windows Serveur 2022
+    3. Installer Windows 10
+    * * *
+    <h3>Schéma:</h3>
+
+
   </TabItem>
   <TabItem value="enri1" label="Enrichissement 👨‍🎓">
     <h2>Enrichissement</h2>
