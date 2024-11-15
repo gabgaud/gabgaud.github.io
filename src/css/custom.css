@@ -60,3 +60,11 @@ html[data-theme='dark'] .alert--cadenas {
 h4, h5, h6 {
   font-size: 1.2em;
 }
+
+.theme-color-SVG {
+  filter: invert(0) sepia(1) saturate(100%) hue-rotate(0deg);
+}
+
+[data-theme='dark'] .theme-color-icon {
+  filter: invert(1) sepia(1) saturate(100%) hue-rotate(180deg);
+}
