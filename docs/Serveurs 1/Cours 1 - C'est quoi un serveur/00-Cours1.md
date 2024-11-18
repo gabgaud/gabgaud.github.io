@@ -104,9 +104,10 @@ L'interface graphique de Windows Serveur est très similaire à celle d'un poste
 
 #### Le gestionnaire de serveur
 
-Il s'agit du poste de commandement de Windows Serveur. De là, vous pouvez installer de nouveaux rôles et services, en administrer ou même consulter les journaux du serveur. Bref, il s'agit de l'endroit où vous vous dirigerez plus souvent qu'autrement lorsque vous aurez à faire avec le serveur.
+Il s'agit du poste de commandement de Windows Serveur. De là, vous pouvez installer de nouveaux rôles (les rôles sont constituent les services offerts par le serveur), en administrer ou même consulter les journaux du serveur. Bref, il s'agit de l'endroit où vous vous dirigerez plus souvent qu'autrement lorsque vous aurez à faire avec le serveur.
 
-![Gestionnaire de serveur](../Assets/01/GestionnaireServeur.png)
+![Gestionnaire de serveur](../Assets/01/GestionnaireServeur.png)<br/>
+*Le gestionnaire de serveur*
 
 ### Configuration du réseau
 
@@ -130,4 +131,5 @@ Comme les serveurs sont généralement dans des salles à accès restreint, ils 
 
 Pour l'instant, nous nous contenterons de l'accès via le bureau à distance. Il vous sera possible d'activer celui-ci via le gestionnaire de serveur.
 
-![Bureau à distance](../Assets/01/rdp.png)
+![Bureau à distance](../Assets/01/rdp.png)<br/>
+*Étapes pour l'activation du bureau à distance*
