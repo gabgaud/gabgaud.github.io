@@ -4,7 +4,7 @@ import ThemedImage from '@theme/ThemedImage';
 # Laboratoire 2
 
 * * *
-## Installation de Windows Serveur 2022
+## Installation de Windows Serveur 2022 mode « Core »
 
 ## Préalable(s)
 
@@ -100,3 +100,29 @@ import ThemedImage from '@theme/ThemedImage';
     ![Fonctionnalités facultatives](../Assets/01/fonction_facultatives.png)
 
 3. Dans la fenêtre des fonctionnalités facultatives, sélectionnez « Ajouter une fonctionnalité », sélectionnez « RSAT : gestionnaire de serveur » puis cliquez sur « Installer ».
+
+4. Une fois la fonctionnalité installée, vous devriez être en mesure de retrouver le gestionnaire sur votre PC Windows 10 dans les outils d'administration Windows. (Menu démarrer > Outils d'administration Windows)
+
+    ![Outils d'administration](../Assets/02/OutilsAdmin.png)
+
+5. Démarrez le gestionnaire de serveur et cliquez sur « Ajouter d'autres serveurs à gérer ».
+
+    ![Ajoutez un serveur](../Assets/02/AjouterServeurs.png)
+
+6. Dans l'onglet « DNS », entrez l'adresse IP de votre serveur Windows 2022 « Core » et cliquez sur rechercher.
+
+    ![Serveur via DNS](../Assets/02/ServeurViaDNS.png)
+
+    :::caution[Erreur de recherche]
+    Si vous obtenez une erreur de recherche dût à l'absence d'entrée DNS, vous pouvez ignorer le message. Nous nous attarderons au fonctionnement des DNS dans les cours à venir. Vous pouvez ajouter le serveur quand même.
+    :::
+
+7. Une fois votre serveur ajouté, vous aurez sans doute un message d'erreur dans le gestionnaire de serveur vous indiquant « Échec de l'actualisation ». Ce message apparait pour des raisons de sécurité. En effet, votre PC ne reconnait pas le serveur car ils ne se sont jamais croisés sur le réseau auparavant. Il nous faudra donc indiquer à notre PC qu'il s'agit bien d'un serveur légitime et qu'il peut lui faire confiance pour s'y connecter à distance. Pour ce faire, nous devrons ajouter le serveur sur une liste spéciale: la « TrustedHosts List ». À l'aide d'une interface Powershell en mode Administrateur, entrez la ligne de commande suivante:
+
+    ```Powershell
+    Set-Item WSMan:\localhost\Client\TrustedHosts 192.168.21.20 -Concatenate
+    ```
+
+    Une fois cette commande validée, cliquez sur le bouton « rafraîchir » dans votre gestionnaire de serveur. Vous devriez être en mesure de gérer votre serveur à distance, c'est-à-dire y ajouter des rôles et entreprendre tout action comme si vous étiez directement sur celui-ci.
+
+    ![Gestionnaire à distance](../Assets/02/CoreOnline.png)
