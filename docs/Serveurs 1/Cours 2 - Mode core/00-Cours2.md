@@ -54,7 +54,7 @@ La *Microsoft Management Console* permet de gérer de nombreux rôles et fonctio
 ![MMC DHCP](../Assets/02/mmc_dhcp.png)<br/>
 *La console MMC branchée sur le serveur DHCP à distance*
 
-### Via SSH
+### Via SSH <FAIcon icon="fa-solid fa-terminal" size="1x"/>
 
 Le SSH ( *Secure Shell* ) est une autre méthode efficace pour administrer à distance Windows Serveur « Core ». Depuis Windows Serveur 2019 et Windows Serveur 2022, Microsoft a intégré la possibilité d'installer et d'utiliser le serveur SSH natif dans le système d'exploitation, ce qui permet aux administrateurs de se connecter à distance en utilisant le protocole SSH, une méthode largement utilisée sur les systèmes Linux et macOS.
 
