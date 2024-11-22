@@ -59,7 +59,7 @@ Vous serez amené à compléter des champs dans un formulaire. C'est la méthode
 - **Avec Netplan**<br/>
 Netplan est le gestionnaire de réseau par défaut de la version serveur d'Ubuntu. Ce dernier utilise des fichiers de configurations YAML pour fonctionner. Les fichiers YAML ne sont en fait que des fichiers textes devant respecter une structure particulière pour être interprété par le serveur. La configuration par défaut du serveur se situe dans le fichier `/etc/netplan/50-cloud-init.yaml`. Elle devrait ressembler à ceci:
 
-    ```bash
+    ```yaml title='/etc/netplan/50-cloud-init.yaml' showLineNumbers
     # This file is generated from information provided by te datasource. Changes
     # to it will not persist across an instance reboot. To disable cloud-init's
     # network configuration capabilities, write a file
@@ -71,13 +71,73 @@ Netplan est le gestionnaire de réseau par défaut de la version serveur d'Ubunt
                 dhcp4: true
         version: 2
     ```
-    :::danger
-    Ne modifiez pas ce fichier! Celui-ci constitue votre porte de secours dans le cas où vous bousilleriez votre configuration réseau.
+    :::caution
+    <u>**Ne modifiez pas ce fichier!**</u> Celui-ci constitue votre porte de secours dans le cas où vous bousilleriez votre configuration réseau.
     :::
 
 #### Créer votre config YAML
 Les fichiers YAML qui sont dans `/etc/netplan` sont appliqués en ordre de priorité, c'est pourquoi les fichiers débutent généralement par un numéro. Un fichier dont le nom débute par le chiffre 10 sera donc appliqué avant un fichier dont le nom commence par le chiffre 50. C'est une information dont il faut tenir compte surtout si les fichiers modifient la même interface réseau.
 
-:::note
-Le fichier par
+:::info[important]
+Le nom du fichier YAML par défaut d'ubuntu serveur commencer par le nombre 50. En créant un nouveau fichier dont le nom débute par le nombre 60, vous vous assurerez que ce sera votre fichier qui sera appliqué en dernier. De plus, en utilisant cette technique, vous pourrez toujours supprimer votre fichier et revenir à la configuration initiale du système au besoin.
 :::
+
+Voici un exemple de fichier YAML typique pour un serveur. Je vous en décris le contenu à chaque ligne:
+
+```yaml title='/etc/netplan/60-maconfig.yaml' showLineNumbers
+network:        # Bloc contenant toute la configuration du réseau
+    ethernets:      # Bloc dans lequel sont répertoriées les interfaces du serveur
+        ens192:         # Interface pour laquelle s'applique les configurations écrites ci-dessous
+            dhcp4: false   # Désactivation de l'obtention d'adresse IP automatiquement
+            addresses:        # Configuration de l'adresse et du masque de l'interface
+                - 192.168.21.30/24  # Le «/24» signifie que l'on utilise le masque 255.255.255.0
+            routes:                 # Configuration de la passerelle
+                - to: default
+                  via: 192.168.21.1
+            nameservers:            # Configuration des serveurs DNS
+                addresses: [192.168.21.1, 8.8.8.8]
+    version: 2
+```
+:::danger
+L'indentation et la structure des fichiers YAML est <u>**primordiale!**</u> Respectez les critères suivants:
+
+- **Aucune tabulation** n'est permise.
+- Pour indenter une ligne, faites 4 espaces.
+:::
+
+#### Appliquer les changements
+
+Lorsque vous créez un nouveau fichier YAML ou que vous en faites la modification, il faut appliquer les modifications, sans quoi celles-ci ne seront pas prises en compte. Pour ce faire vous devrez utiliser la commande suivante:
+
+```bash
+sudo netplan try
+```
+
+Cette dernière commande devrait vous retourner un message. Voici quelques exemples:
+
+**Mauvaise adresse IP:**
+
+![Erreur Netplan](../Assets/03/ErreurNetplan.png)
+
+* * *
+**Permission pas suffisamment restrictives (Pas d'impact sur le réseau):**
+
+![Permissions Netplan](../Assets/03/PermissionsNetplan.png)
+
+* * *
+
+**Aucune erreur, configuration valide:**
+
+![Netplan Valide](../Assets/03/NetplanValide.png)
+
+### Administration à distance
+
+Vous avez récemment appris que la plupart du temps, les serveurs s'administraient à distance. Les serveur Linux n'échappent pas à cette règle. Chez Linux, l'administration à distance se fait généralement via SSH. Pour rappel, le service SSH permet d'accéder au terminal d'un autre ordinateur à distance.
+
+#### Installation du service SSH
+
+Pour installer le service SSH sur votre serveur Ubuntu, vous devez préalablement avoir un accès à internet fonctionnel. Une fois cet accès bien configuré, entrez la commande suivante:
+
+```bash
+sudo apt install openssh-server -y
+```
