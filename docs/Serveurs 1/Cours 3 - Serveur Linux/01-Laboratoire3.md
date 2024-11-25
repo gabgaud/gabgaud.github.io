@@ -85,3 +85,60 @@ Cette étape vous permet de configurer le réseau de votre serveur via différen
 Une fois ici, Ubuntu tentera de communiquer avec son dépôt par défaut. Pour rappel, un dépôt (*repository* en anglais) est un serveur sur lequel un système d'exploitation peut se connecter pour télécharger divers paquets, comme des mises à jour ou des logiciels par exemple. La particularité pour Ubuntu Serveur, c'est que nous pourrions utiliser un autre dépôt que celui qui est configuré par défaut. À titre d'exemple, il est tout à fait possible d'avoir un dépôt sur son réseau local, à ce moment, il est plus pratique et surtout, plus rapide, d'utiliser le dépôt à l'interne. Pour l'instant, nous utiliserons le dépôt par défaut. Nous verrons comment nous pouvons le modifier ultérieurement.
 
     ![DefaultRepo](../Assets/03/DefaultRepo.png)
+
+#### Configuration du disque dur
+Ubuntu vous proposera alors de configurer votre disque dur. Je vous <u>recommande fortement</u> de déselectionner « Set up this disk as an LVM group ». La technologie LVM ajoute une couche logique supplémentaire pour gérer nos stockages. Bien que cette technologie soit très intéressante, elle demeure hors des limites de ce cours. Dans l'objectif de gérer nos stockages le plus simplement possible, je vous suggère donc de désactiver LVM.
+
+    ![InstallationDisque](../Assets/03/InstallationDisque.png)
+
+#### Configuration de votre profile
+À partir d'ici, l'installation du système est officiellement commencée. Pendant la copie et la configuration des fichiers, Ubuntu vous proposera d'entrer les informations nécessaires à la création d'un profil utilisateur.
+
+    ![CreationProfile](../Assets/03/InstallationProfile.png)
+
+#### Ubuntu Pro
+Ubuntu Pro est une nouvelle offre de Canonical pour les entreprises utilisant Ubuntu. En gros, Ubuntu Pro offre du support pour une plus longue durée (10 ans), en plus d'offrir un support 24/7 en cas de problème. Évidemment, tout cela pour une coquette somme. C'est pourquoi nous ne l'utiliserons pas.
+
+    ![UbuntuPro](../Assets/03/UbuntuPro.png)
+
+#### Configuration SSH
+Nous pourrions, dès maintenant, installer un service SSH nous permettant d'accéder à notre serveur à distance. <mark>Ne le faites pas!</mark> Nous installerons bien ce service mais nous le ferons d'une autre façon un peu plus tard. Ignorez cette offre pour le moment.
+
+    ![InstallationSSH](../Assets/03/InstallSSH.png)
+
+#### Offre d'applications snaps
+Les applications SNAPS permettent d'installer différents logiciels un peu comme on le ferait sur un Windows Store ou un Apps Store. Ubuntu vous offre quelques-unes des applications les plus populaires sur son système d'exploitation. N'en cochez aucune et poursuivez plutôt votre installation.
+
+    ![SnapsApps](../Assets/03/InstallFeaturedSnaps.png)
+
+### Configuration de votre carte réseau
+Vous avez présentemment une configuration réseau en mode dynamique. C'est-à-dire que votre adresse IP vous est attribué par le biais de votre passerelle. Nous allons à présent changer cela afin que votre serveur utilise plutôt une adresse IP statique (toujours la même).
+
+#### Ajout d'un fichier YAML pour Netplan
+Créez un fichier supplémentaire dans le dossier `/etc/netplan`. Utilisez le nombre 60 pour commencer le nom de ce fichier. Par exemple: `60-maconfig.yaml`. [Référez-vous à la théorie](00-Cours3.md#créer-votre-config-yaml) sur la création d'un fichier de configuration réseau pour bien configurer l'adressage de votre serveur.
+
+### Configuration du service SSH
+Le service SSH vous permettra de vous connecter à la ligne de commande de votre serveur à distance. Pour ce faire, vous devez installer le paquet `openssh-server` comme suit:
+
+```bash
+sudo apt install openssh-server -y
+```
+
+Une fois le service installé, vous pourrez le démarrer:
+
+```bash
+sudo systemctl start ssh.service
+```
+
+Si vous désirez que ce service démarre automatiquement avec le démarrage du serveur, vous pouvez autoriser son démarrage automatique avec la ligne de commande suivante:
+
+```bash
+sudo systemctl enable ssh.service
+```
+
+#### Se connecter depuis Windows
+Depuis un poste de travail Windows, vous pouvez vous connecter à votre serveur en utilisant l'invite de commandes. Ouvrez l'invite de commandes sous Windows et tapez la commande suivante:
+
+```bash
+ssh utilisateur@192.168.21.20 #Utilisez vos informations personnelles: Nom d'utilisateur et ip du serveur
+```

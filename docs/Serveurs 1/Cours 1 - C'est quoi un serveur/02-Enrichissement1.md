@@ -2,7 +2,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 
 
-# Enrichissement 1
+# Enrichissement
 * * *
 ## Administration via SSH
 
