@@ -2,7 +2,9 @@
 
 ## Les serveurs Linux <FAIcon icon="fa-brands fa-linux" size="1x"/>
 
-*« Pourquoi parle-t-on de Linux en classe Monsieur ? Personne n'utilise Linux »<br/>-Les étudiants*
+>*« Pourquoi parle-t-on de Linux en classe Monsieur ? Personne n'utilise Linux »*
+>
+>-Les étudiants
 
 Cette phrase, j'ai dû l'entendre des dizaines de fois depuis que j'enseigne l'informatique. Je l'ai entendu, elle, et toutes ses dérivées. Malheureusement elle est mal fondée. La plupart des étudiants qui me disent cela se fit uniquement à ce qu'il voit. Chez eux, chez leurs amis, la plupart des ordinateurs qu'ils croisent fonctionnent sous Windows ou Mac. Basé sur ce qu'ils voient, leur réflexion est légitime: Pourquoi apprendre Linux alors que le marché semble vide de toute présence de Linux ?
 

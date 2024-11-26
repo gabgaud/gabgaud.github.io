@@ -81,7 +81,7 @@ Cette étape vous permet de configurer le réseau de votre serveur via différen
 
     ![ReseauInstallation](../Assets/03/ReseauInstallation.png)
 
-#### Configuration du *repo* par défaut
+#### Configuration du *repo* par défaut 
 Une fois ici, Ubuntu tentera de communiquer avec son dépôt par défaut. Pour rappel, un dépôt (*repository* en anglais) est un serveur sur lequel un système d'exploitation peut se connecter pour télécharger divers paquets, comme des mises à jour ou des logiciels par exemple. La particularité pour Ubuntu Serveur, c'est que nous pourrions utiliser un autre dépôt que celui qui est configuré par défaut. À titre d'exemple, il est tout à fait possible d'avoir un dépôt sur son réseau local, à ce moment, il est plus pratique et surtout, plus rapide, d'utiliser le dépôt à l'interne. Pour l'instant, nous utiliserons le dépôt par défaut. Nous verrons comment nous pouvons le modifier ultérieurement.
 
     ![DefaultRepo](../Assets/03/DefaultRepo.png)
