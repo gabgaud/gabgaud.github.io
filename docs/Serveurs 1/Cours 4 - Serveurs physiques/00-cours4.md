@@ -113,3 +113,33 @@ En RAID0, les données sont étalonnées sur le disque. Cette façon de procéde
         }}
     />
 </div>
+
+
+##### RAID 1 - *Mirroring*
+En RAID1, les données sont simplement copiées sur un second disque dur. Il n'y a absolument aucun gain au niveau des performances en lecture et écriture, cependant comme les données sont conservées en double, celles-ci peuvent survivre à la perte d'un disque dur.
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Raid1_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Raid1_D.gif'),
+        }}
+    />
+</div>
+
+##### RAID 1 + 0 - *Mirroring + Striping*
+Avec le RAID0 et le RAID1, on dirait qu'il faut choisir entre performances et sécurité. Un choix que beaucoup redoutent puisque chacun de ces choix pourraient engendrer des conséquences désagréables. Alors pourquoi ne pas tenter de bénéficier des deux technologies en même temps ? C'est exactement ce à quoi le RAID 1 + 0 ( aussi appelé RAID10 ).
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Raid10_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Raid10_D.gif'),
+        }}
+    />
+</div>
+On crée une grappe entre les disques 1 & 2 ainsi qu'une grappe entre les disque 3 & 4. Chacune de ces grappes utilisera la technologie RAID1. Puis on créera un RAID0 entre les deux grappes précédentes. Les données seront donc traités dans l'ordre suivant:
+- Les données sont d'abord étalonnées entre les deux grappes. 
+- Les données sont ensuite copiées au sein de chaque grappe.
+
+##### RAID 5 - *Striping avec parité*
