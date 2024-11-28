@@ -44,6 +44,13 @@ Le serveur en « rack », parfois appelé « rackmount » sert principalement à
 
 ![ServeurRackBack](../Assets/04/poweredge-r650-back.png)<br />*Représentation d'un serveur « rackmount » (face arrière)*
 
+:::tip[Le saviez-vous ?]
+Avez-vous remarqué que le serveur de l'image ci-dessus possède deux blocs d'alimentation ? Vous l'aurez deviné, c'est pour éviter un arrêt de service si un bloc d'alimentation devient défectueux. On parlera donc de redondance électrique. 
+> *Oui mais Gabriel, s'il y a une panne d'électricité, on ne sera pas plus avancé non ?*
+>
+Effectivement! C'est pourquoi les entreprises ont généralement des alimentations électriques secondaires telles que des batteries de secours (ondulateurs) et parfois même des génératrices qui prendront le relais en cas de panne électrique.
+:::
+
 ##### Dimensions
 Les serveurs en « rack » ont toujours la même largeur (19 pouces), mais leur hauteur ainsi que leur profondeur peuvent varier en fonction des composantes qu'ils comportent. Même si la hauteur des serveurs en « rack » peut varier, celle-ci est tout de même normée. En effet, la hauteur d'un serveur de ce type est calculée en **U** ( *Rack Unit* ). 1U correspond à une hauteur de 1,75 pouce. Un serveur de 2U aura donc une hauteur de 3,5 pouces, ainsi de suite.
 
@@ -169,4 +176,70 @@ Le RAID5 permet de bénéficier aussi de l'étalonnage des données tout en les 
 | **Complexité**           | Modéré (calcul de parité)        | Simple (duplication)             |
 | **Idéal pour**           | Stockage de données avec lecture intensive | Applications nécessitant haute performance et sécurité |
 
+#### LVM - *Logical Volume Manager*
+
+Le gestionnaire de volume logique est une technologie d'abstraction qui se situe entre les stockages physiques et ce que le système nous présentera en termes de stockage. L'objectif ultime d'une structure LVM est d'apporter une plus grande flexibilité aux administrateurs dans la gestion des stockages sous Linux.
+
+:::caution[RAID vs LVM]
+La technologie RAID & LVM sont complètement distinctes. Elles ne répondent pas aux mêmes besoins et ne sont donc pas comparables. D'ailleurs, elles peuvent même être complémentaire. Il est tout à fait possible d'utiliser à la fois RAID & LVM.
+:::
+
+##### Comment ça fonctionne ?
+
+Pour expliquer le fonctionne de LVM, il faut d'abord définir certains éléments. Ensuite, je vous présenterai un schéma visuel pour que vous puissiez assembler les pièces du casse-tête.
+
+- PV ( *Physical Volume* ):
+Il s'agit des partitions physiques présentes sur votre ou vos disques durs. Le terme *physical* décrit bien l'aspect bas-niveau de cet élément.
+
+- VG ( *Volume Group* ):
+Les *Volume Groups* permettent d'assembler plusieurs partitions physiques ensemble, et ce, même si ces partitions se trouvent sur des disques durs distincts. Cela permet par exemple, de rassembler deux disques durs de 60Go dans un seul et même volume de 120Go.
+
+- LV ( *Logical Volume* ):
+C'est un espace que l'on peut définir dans le groupe de volume sur lequel nous installerons un système de fichiers. Vous pouvez vous imaginer cet endroit comme l'équivalent d'une partition physique sans l'utilisation de LVM.
+
+Voici un schéma qui vous permettra de mieux saisir comment le tout fonctionne:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/LVM_W.png'),
+            dark: useBaseUrl('/img/Serveurs1/LVM_D.png'),
+        }}
+    />
+</div>
+
 ### Stockage externe
+
+Outre les différents stockages internes qu'un serveur physique peut posséder, il existe également des technologies lui permettant d'exploiter des stockages externes. Attention, on ne parle pas simplement d'un disque dur USB mais bien de technologie plus avancée.
+
+#### NAS
+
+Le NAS ou *Network Attached Storage* est un type de serveur de fichiers sur lequel on y retrouve habituellement de la redondance, des sauvegardes programmées ainsi que des disques durs performants. Il présente certains avantages intéréssants comme la centralisation des données ainsi que des moyens de sécuriser ces dernières. Néanmoins, le NAS présente certains inconvénients également. Les données envoyées au NAS doivent transiger par le réseau, ce qui peut provoquer de l'achanladage sur celui-ci. De plus, la vitesse de transfert des données à travers un réseau est souvent limité.
+
+#### SAN
+
+Le SAN ou *Storage Area Network* procure un accès de bas niveau aux disques durs. Contrairement au NAS, où l'accès aux fichiers passent par des partages de dossier et nécessite des services en place, le SAN est un accès directe aux disques durs. Les serveurs sont reliés à l'espace de stockage via un lien fibré, ce qui assure un accès pratiquement instantanné. Le SAN est plus performant que le NAS pratiquement en tout point. Cela dit, c'est un dispositif très dispendieux.
+
+### Conditions d'opération
+
+Les serveurs physiques ne sont généralement pas entreposés n'importe où car ils ont besoin que certaines conditions soient respectés. En effet, les serveurs physiques auront des exigences en matière de:
+
+- Température
+- Ventilation
+- Taux d'humidité
+- Sécurité de l'accès
+
+#### Température
+Les serveurs physiques sont des ordinateurs très puissants. Conséquemment, ils peuvent générer une grande quantité de chaleur. Il est primordiale de gérer cette chaleur puisqu'une température trop élevé provoquera des erreurs et des risques importants de surchauffe 🥵. *A contrario*, si nous conservons les serveurs dans un environnement trop froid, il risque d'y avoir de la condensation 💧 lorsque l'air froid entrera en contact avec l'air chaud produit par les serveurs. La clé se situe donc dans l'équilibre. Généralement, les salles où les serveurs physiques sont entreposés sont maintenues entre 18 et 27 degrés celsius.
+
+#### Ventilation
+Maintenir la température est une première étape, il faut aussi assurer une circulation d'air. Les serveurs en *rack* sont empilés les uns par dessus les autres, les ventiler comme il se doit peut donc s'avérer un défi. Ce type de serveur expulse l'air chaud à l'arrière. On essaiera donc d'amener de l'air frais à l'avant et de récupérer l'air plus chaud à l'arrière.
+
+![Airflow](../Assets/04/AirFlow.png)
+
+#### Humidité
+L'humidité de l'air influe aussi sur le fonctionnement et l'usure des serveurs. Un air trop humide peut engendrer de la corrosion et créer des court-circuits. Au contraire, un air trop sec encourage la création d'électricité statique, ce qui peut évidemment endommager les équipements. Dans la salle où les serveurs opérent, on essaiera de conserver une humidité relative en 40% et 60%.
+
+#### Accès et sécurité
+La salle où sont stockés les serveurs doit posséder un accès contrôlé. Plusieurs serveurs hébergent des services et des données critiques à l'entreprise. Certainent entreprises dépendent littéralement de leurs services informatiques. L'accès au serveur doit être limité aux gens qualifiés. Un employé inconsciemment des risques pourrait s'enfargé dans des câbles et provoques des dommages considérables sans nécessairement le vouloir.
