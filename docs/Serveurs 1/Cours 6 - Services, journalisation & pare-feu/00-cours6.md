@@ -7,5 +7,8 @@ Lors du cours *systèmes d'exploitation*, vous avez appris ce qu'était un servi
 Sous Linux, les services sont parfois appelés « *daemons* ». C'est un nom d'origine grecque qui signifie divinité. C'est pourquoi on retrouve souvent la lettre « d » à la fin de leur nom: sshd, httpd, etc.
 :::
 
-### Windows Serveur
+### Windows Serveur <FAIcon icon="fa-brands fa-windows" size="1x"/>
 Sous Windows Serveur, les services du système d'exploitation s'administrent exactement de la même façon que sur un poste Windows standard. Si vous avez besoin de vous rafraichir la mémoire quant à la gestion des services sous Windows, [consultez cette section.](/docs/OS/Windows/07-Services.md)
+
+### Serveur Linux <FAIcon icon="fa-brands fa-linux" size="1x"/>
+Il en va de même pour les services sous Linux. Qu'il s'agisse d'un système Ubuntu *desktop* ou d'un système serveur, l'administration des services se fait de la même façon. Vous avez besoin de vous rafraichir la mémoire quant à la gestion des services sous Linux ? [Consultez cette section.](/docs/OS/Linux/08-Services.md)

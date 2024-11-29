@@ -72,4 +72,58 @@ La commande `grep` que j'ai utilisé pour filtrer la sortie de ma commande `ps` 
 ## Administration
 Vous savez, désormais, que pour démarrer un processus, il suffit de lancer n'importe quel exécutable. Celui-ci sera lancé automatiquement dans un processus. Cela dit, comment est-il possible de suspendre, d'arrêter ou de redémarrer un processus ? À l'aide de la commande `kill`.
 
-La commande `kill` fonctionne en envoyant des signaux aux différents processus. Ces signaux 
+La commande `kill` fonctionne en envoyant des signaux aux différents processus. Le signal envoyé détermine l'action à entreprendre sur le processus:
+
+| Signal   | Numéro | Nom      | Description                                                                   |
+|----------|--------|----------|-------------------------------------------------------------------------------|
+| SIGHUP   | 1      | Hangup   | Recharger la configuration ou terminer le processus. Souvent utilisé pour redémarrer un service. |
+| SIGINT   | 2      | Interrupt| Interruption (Ctrl+C). Demande au processus de se terminer.                   |
+| SIGQUIT  | 3      | Quit     | Terminer un processus avec un core dump (utile pour le débogage).             |
+| SIGKILL  | 9      | Kill     | Force la terminaison immédiate du processus (ne peut pas être ignoré).        |
+| SIGTERM  | 15     | Terminate| Demande au processus de se terminer proprement (signal par défaut avec `kill`).|
+| SIGSTOP  | 19     | Stop     | Met le processus en pause (ne peut pas être ignoré).                          |
+| SIGCONT  | 18     | Continue | Reprend un processus en pause.                                                |
+
+### Arrêter un processus
+Vous avez peut-être remarqué qu'il y a plus d'un signal pour arrêter un processus avec `kill`. Chacune de ces méthodes est de plus en plus radicale:
+
+#### kill -2
+La commande `kill -2` est l'équivalent d'appuyer simultanément sur les touches <kbd>Ctrl</kbd>+<kbd>c</kbd> sur votre clavier. Cette commande interrompera un processus en cours. Cela dit, certains processus pourrait ne pas répondre à cette demande d'interruption. Il faudra alors passer à un signal plus fort.
+
+```bash
+kill -2 6323 #6323 est le numéro du processus ciblé
+```
+
+#### kill -15
+Il s'agit du signal par défaut de la commande `kill`. Cette commande demande au processus de se terminer le plus « proprement » possible. C'est-à-dire en prenant soin de sauvegarder les données avant de quitter si ce processus utilisait des fichiers par exemple. La vaste majorité des processus répondront à ce signal à moins d'être « plantés ».
+
+```bash
+kill 1234 #Inutile d'inscrire le « -15 » car c'est le signal par défaut
+```
+
+#### kill -9
+Il s'agit du « boss final » des commandes `kill`. Cette commande ne « demande » pas au processus de s'arrêter, mais il l'ordonne. Les processus ne peuvent pas ignorer cette commande. Si vous n'arrivez pas à mettre fin à un processus malgré cette commande, il y a fort à parier que vous devrez redémarrer l'ordinateur pour y arriver.
+
+```bash
+kill -9 4321
+```
+
+### Redémarrer un processus
+Il est assez rare que nous ayons besoin de redémarrer un processus. Néanmoins, il existe bien un contexte ou cela peut être pratique: le redémarrage d'un service. Nous aborderons les services dans la prochaine section, néanmoins sachez que la commande `kill` peut, en quelques sortes, redémarrer un service. <u>**En fait, le service est plutôt recharger et non pas redémarrer.**</u>C'est tout de même pratique puisque plusieurs services fonctionnent avec des fichiers de configuration sur Linux. Lorsque nous apporterons des modifications dans ses fichiers de configuration, nous pourrons recharger le service avec la commande `kill -1`
+
+```bash
+sudo kill -1 7421 #Utilisation de SUDO avec des services
+```
+
+### Mettre un processus en pause
+Il est possible de mettre un processus en pause, dans le cas où vous le suspectez de causer des problèmes, puis de le reprendre ensuite.
+
+Pour mettre le processus en pause:
+```bash
+sudo kill -19 8269
+```
+
+Puis pour reprendre:
+```bash
+sudo kill -18 8269
+```
