@@ -4,7 +4,7 @@
 
 Voici venu le temps pour un premier quizz afin d'évaluer votre savoir jusqu'à présent.
 
-## Temps de complétion
+## Temps de complétion <FAIcon icon="fa-solid fa-clock" size="1x"/>
 
 Le cours d'aujourd'hui est dédié à l'avancement de vos laboratoires si ceux-ci ne sont pas terminés. Vous pouvez également prendre ce temps pour avancer ou peaufiner votre journal d'implémentation. Si votre journal est avancé et que vos laboratoires sont complétés, attaquez-vous aux exercices d'enrichissement.
 
