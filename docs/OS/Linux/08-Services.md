@@ -10,9 +10,15 @@ J'aime bien faire l'analogie entre les services et certains réflexes humains. V
 
 Dans la section précédente, nous avons abordé les processus et leur fonctionnement. En outre, nous avons mentionné que <mark>tout ce qui s'exécutait sur le pc est systématiquement exécuté dans un processus.</mark>Les services n'échappent à cette règle non plus, après tout, ce sont des programmes également. Un service peut donc, lui aussi, être arrêté via une « fin de tâche ». Cela est peu recommandable, mais peut être fait dans certaines circonstances.
 
-## Sous Linux plus précisémment
+## Systemd
 
-Sous Linux, les services sont représentés par des fichiers appelés **unités** (*unit files*). Ces fichiers définissent comment un service doit se comporter, comment il doit être démarré, arrêté ou redémarré, ainsi que ses dépendances. Selon leur priorité et leurs fonctions, les fichiers de service peuvent se retrouver à l'un ou l'autre de ces emplacements:
+**Systemd** est un logiciel utilisé dans de nombreux systèmes Linux pour gérer le démarrage et la gestion des services sur l'ordinateur
+
+### Rôle & fonctionnement
+
+Avec l'arrivée de **systemd**, lorsqu'on démarrait un ordinateur avec Linux, les services étaient démarrés les uns après les autres. **Systemd** est en mesure de démarrer certains services en parallèle plutôt qu'un par un. Cela améliore grandemment la vitesse du démarrage.
+
+Avec **systemd**, les services sont représentés par des fichiers appelés **unités** (*unit files*). Ces fichiers définissent comment un service doit se comporter, comment il doit être démarré, arrêté ou redémarré, ainsi que ses dépendances. Selon leur priorité et leurs fonctions, les fichiers de service peuvent se retrouver à l'un ou l'autre de ces emplacements:
 
 1. `/etc/systemd/system/`
 
