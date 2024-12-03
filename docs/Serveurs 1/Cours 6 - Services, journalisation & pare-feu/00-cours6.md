@@ -1,3 +1,6 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
 # Cours 6
 
 ## Retour sur les services <FAIcon icon="fa-solid fa-gears" size="1x"/>
@@ -106,4 +109,41 @@ Je vous résume les différentes informations affichées dans ce tableau:
 
 #### Créer une règle
 
-La grande majorité du temps, il existe une règle prédéfini pour répondre à un besoin. Dès lors, tout ce qu'il vous reste à faire, c'est appliq
+La grande majorité du temps, il existe une règle prédéfini pour répondre à un besoin. Dès lors, tout ce qu'il vous reste à faire, c'est activé la règle en effectuant un clic à l'aide du bouton de droite de la souris et en cliquant sur « Activer la règle ». Ceci étant dit, il pourrait arriver que vous ayez à créer une règle de pare-feu de toutes pièces. Voici comment y arriver:
+
+1. Déterminez d'abord si votre règle doit traiter le traffic entrant ou le traffic sortant. En général, surtout lorsque cela concerne un serveur, on veut autoriser une connexion entrante.
+
+2. Cliquez à l'aide du bouton de droite de la souris sur les règles de traffic correspondantes (entrant ou sortant). Sélectionnez « Nouvelle règle... »
+
+3. Quatre types de règles, parmi lesquels vous devrez choisir, seront disponibles:
+
+    | Type | Description |
+    |------|-------------|
+    | Programme | Ce type de règle permet d'autoriser le traffic en fonction d'un programme. Tout le traffic généré, ou à destinantion, de ce programme sera autorisé à traverser le pare-feu. |
+    | Port | C'est une règle permettant l'ouverture d'un port (Porte 🚪) menant à votre ordinateur. |
+    | Prédéfinie | Cette option permet d'activer une règle ou un ensemble de règles prédéfinies. |
+    | Personnalisée | Cette option vous permet de créer une règle en fonction d'une combinaison d'éléments que vous déterminez vous-même. |
+
+    ![Type de règles](../Assets/06/TypesRègles.png)<br/>*Représentation des types de règles lors de la création d'une nouvelle règle*
+
+4. Une fois le type de règle sélectionné, vous devrez en déterminer les paramètres (par exemple d'indiquer le programme concerné dans le cas d'une règle par programme).
+
+    ![Paramètres de règles](../Assets/06/ParamètresRègles.png)<br/>*Les paramètres de la règle en cours de création*
+
+5. Sélectionnez ensuite l'action à effectuer lorsque les paramètres de la règle sont respectés. Par exemple, lorsque du trafic réseau correspond au programme que vous avez identifié, que voulez-vous faire ? Le bloquer ou l'autoriser ?
+
+    ![Action de la règle](../Assets/06/RègleAction.png)<br/>*Détermination de l'action à entreprendre.*
+
+6. Vous devrez déterminer sur quel profil(s) de connexion votre nouvelle règle devra s'appliquer.
+
+    ![Profil de règle](../Assets/06/RèglesProfil.png)<br/>*Profil(s) d'application de la nouvelle règle.*
+
+7. Finalement, donnez un nom à cette nouvelle règle et une description au besoin.
+
+:::tip
+Il est tout à fait possible de créer de nouvelles règles du pare-feu en utilisant PowerShell. À cet effet, je vous invite à consulter [cette page](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps) où vous serez en mesure d'apprendre avec quelle commande nous pouvons y arriver, en plus d'y trouver plusieurs exemples pratiques.
+:::
+
+### Serveur Linux
+
+Sous Ubuntu, le pare-feu par défaut est *iptables*. Ce-dernier est très puissant et hautement paramétrable. Le problème, c'est que sa configuration peut rapidement devenir complexe pour un utilisateur moyen ou même un administrateur possédant peu d'expérience. C'est pourquoi on y a ajouté une couche supplémentaire pour plus de facilité à le configurer.
