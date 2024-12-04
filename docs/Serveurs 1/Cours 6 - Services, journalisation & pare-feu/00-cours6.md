@@ -98,14 +98,20 @@ Je vous résume les différentes informations affichées dans ce tableau:
 
 | Colonne | Description |
 |---------|-------------|
-| Crochet vert ✅ | Si vous repérez un crochet vert avant le nom de la règle, cela signifie que la règle est active et que le filtrage du port en question s'exécute. |
+| Crochet vert ✅ | Si vous repérez un crochet vert avant le nom de la règle, cela signifie que la règle est active et que le filtrage du traffic en question s'exécute. |
 | Nom | C'est le nom de la règle, tout simplement. |
 | Groupe | Certaines règles peuvent être regroupées ensemble par logique. C'est le cas notamment du partage de fichiers et d'imprimantes. On regroupe les règles qui ont un lien entre elles pour en faciliter la gestion.|
 | Profil | Il s'agit du ou des profils sur lesquels la règle concernée s'applique. Si le mot « tout » est inscrit, cela veut dire que la règle affectera les 3 profils.|
 | Activée | C'est l'équivalent du crochet vert. Cette colonne indique si la règle s'applique actuellement.|
 | Action | L'action que la règle applique. Celle-ci doit être en condordance avec le comportement par défaut du pare-feu. Par exemple, si le comportement par défaut du Pare-Feu est de bloquer tout les paquets à l'exception de ce qui est spécifiquement autorisé, il est inutile de créer des règles dont l'action est de bloquer puisque c'est déjà ce que fera le pare-feu par défaut.|
 | Remplacer | La colonne remplacer indique si le remplacement de la règle est autoriser lorsqu'une seconde correspondant aux mêmes critères est créée. |
-| Etc... | Plusieurs autres colonnes vous affiche de l'information concernant chacune des règles, à vous des les consulter 😉|
+| Etc... | Plusieurs autres colonnes vous affiche de l'information concernant chacune des règles, à vous des les consulter 😉 |
+
+:::note
+Une règle de pare-feu, quelque soit le système d'exploitation sur lequel celle-ci agit, possède toujours certains éléments clé:
+- **Une cible:** C'est-a-dire un élément que surveille la règle. Cela peut être un programme, un port ou même une adresse IP par exemple.
+- **Une action:** La règle appliquera cette action lorsque nécessaire.
+:::
 
 #### Créer une règle
 
@@ -115,16 +121,16 @@ La grande majorité du temps, il existe une règle prédéfini pour répondre à
 
 2. Cliquez à l'aide du bouton de droite de la souris sur les règles de traffic correspondantes (entrant ou sortant). Sélectionnez « Nouvelle règle... »
 
-3. Quatre types de règles, parmi lesquels vous devrez choisir, seront disponibles:
+3. Vous devrez choisir parmi les quatre cibles disponibles:
 
-    | Type | Description |
-    |------|-------------|
-    | Programme | Ce type de règle permet d'autoriser le traffic en fonction d'un programme. Tout le traffic généré, ou à destinantion, de ce programme sera autorisé à traverser le pare-feu. |
-    | Port | C'est une règle permettant l'ouverture d'un port (Porte 🚪) menant à votre ordinateur. |
-    | Prédéfinie | Cette option permet d'activer une règle ou un ensemble de règles prédéfinies. |
-    | Personnalisée | Cette option vous permet de créer une règle en fonction d'une combinaison d'éléments que vous déterminez vous-même. |
+    | Cible | Description |
+    |------|---------------|
+    | Programme | Cette cible permet d'appliquer une règle en fonction d'un programme. Tout le traffic en provenance, ou à destination, de ce programme sera autorisé à traverser le pare-feu. |
+    | Port | On appliquera l'action d'une règle directement sur un port, qui agira à titre de cible. |
+    | Prédéfinie | Cette option permet d'activer une règle ou un ensemble de règles prédéfinies. Ces règles possèdent différentes cibles et actions prédéterminées. |
+    | Personnalisée | Cette option vous permet de créer une règle en fonction d'une combinaison d'éléments (cibles et actions) que vous déterminez vous-même. |
 
-    ![Type de règles](../Assets/06/TypesRègles.png)<br/>*Représentation des types de règles lors de la création d'une nouvelle règle*
+    ![Type de règles](../Assets/06/TypesRègles.png)<br/>*Représentation des types (cibles) de règles lors de la création d'une nouvelle règle*
 
 4. Une fois le type de règle sélectionné, vous devrez en déterminer les paramètres (par exemple d'indiquer le programme concerné dans le cas d'une règle par programme).
 
@@ -144,6 +150,115 @@ La grande majorité du temps, il existe une règle prédéfini pour répondre à
 Il est tout à fait possible de créer de nouvelles règles du pare-feu en utilisant PowerShell. À cet effet, je vous invite à consulter [cette page](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2025-ps) où vous serez en mesure d'apprendre avec quelle commande nous pouvons y arriver, en plus d'y trouver plusieurs exemples pratiques.
 :::
 
-### Serveur Linux
+#### Désactiver ou supprimer une règle
 
-Sous Ubuntu, le pare-feu par défaut est *iptables*. Ce-dernier est très puissant et hautement paramétrable. Le problème, c'est que sa configuration peut rapidement devenir complexe pour un utilisateur moyen ou même un administrateur possédant peu d'expérience. C'est pourquoi on y a ajouté une couche supplémentaire pour plus de facilité à le configurer.
+Sous Windows, il est possible de désactiver une règle. Celle-ci ne s'appliquera donc plus mais il sera toujours possible de la réactiver. Dans le cas d'une suppression de règle, non seulement la règle ne s'appliquera plus, mais en plus, elle sera complètement supprimée du listing des règles dans le pare-feu. Dans tous les cas, ces actions sont disponibles depuis le menu contextuel (clic-droit) de la règle en question.
+
+![DésactivationRègle](../Assets/06/DésactivationSuppressionRègle.png)
+
+#### Journalisation
+
+Pour chacun des profils de connexion (public, privé ou domaine), il est possible d'enregistrer les paquets ignorés par le pare-feu et/ou les connexions réussies. C'est un outil très précieux lorsque vous voulez savoir si le pare-feu vous empêche d'établir une connexion par exemple. Dans la fenêtre du pare-feu Windows, sélectionnez « Pare-feu Windows Defender avec fonctions avancées de sécurité » :
+
+![SettingsPareFeu](../Assets/06/SettingsPareFeu.png)
+
+Dans le volet central de la fenêtre, cliquez sur « Propriétés du Pare-Feu Windows Defender ».
+
+![PropriétésPareFeu](../Assets/06/PropriétésWindowsDefender.png)
+
+Dans la fenêtre qui s'ouvre, vous retrouverez les paramètres de journalisation pour chacun des profils de connexion:
+
+![PropriétésProfiles](../Assets/06/PropriétésProfils.png)
+
+En cliquant sur « Personnaliser... » dans la section « Enregistrement », vous pourrez déterminez ce que vous désirez journaliser ou non. De plus, vous serez en mesure de voir dans quel fichier sont enregistrés ces événements.
+
+![LogsFirewall](../Assets/06/LogsFirewall.png)
+
+### Serveur Linux <FAIcon icon="fa-brands fa-linux" size="1x"/>
+
+Sous Ubuntu, le pare-feu par défaut est *iptables*. Ce-dernier est très puissant et hautement paramétrable. Le problème, c'est que sa configuration peut rapidement devenir complexe pour un utilisateur moyen ou même un administrateur possédant peu d'expérience. C'est pourquoi on y a ajouté une couche supplémentaire pour plus de facilité à le configurer. Cette couche, c'est *UFW* ( *Uncomplicated Firewall* ).
+
+#### Comportement par défaut
+
+Par défaut, *UFW* est **désactivé** sous Ubuntu. Il est possible de le constater en tapant la commande suivante:
+
+```bash
+sudo ufw status
+```
+
+:::danger
+Cela signifie que la machine ne bénéficie d'aucune protection de base suite à son installation. Évidemment, c'est une configuration à ne jamais laisser ainsi en entreprise. **Activez le pare-feu dès que possible!**
+:::
+
+Pour activer le pare-feu, il vous suffira d'entrer la commande suivante:
+
+```bash
+sudo ufw enable
+```
+
+:::important
+Par défaut, lorsque vous activerez le pare-feu, toutes les connexions entrantes seront bloquées alors que les sortantes seront autorisées.
+:::
+
+#### Créer une règle
+
+Au même titre qu'il existe plusieurs types de cible pour les règles du pare-feu Windows, il en existe également plusieurs pour le pare-feu *UFW* sous Linux.
+
+    | Cible | Description |
+    |------|-------------|
+    | Programme | Cette cible permet d'appliquer une règle en fonction d'un programme. Tout le traffic en provenance, ou à destination, de ce programme sera autorisé à traverser le pare-feu. |
+    | Adresse IP | Ce type de règle utilisera une adreses IP à titre de cible. |
+    | Port | On appliquera l'action d'une règle directement sur un port, qui agira à titre de cible. |
+    | Interfaces | Ce sont des règles qui s'appliquent en fonction d'une interface réseau. |
+
+Malgré certaines similitudes avec les règles de Windows, il y aussi des différences notables. C'est le cas notamment des actions que peuvent réaliser les règles sous Linux. Alors que les actions des règles de Windows sont de deux (autoriser ou interdire), nous en retrouverons quatre chez Linux.
+
+1. **Autoriser** (*allow*) - Sans surprise, il s'agit d'une règle qui autorise tout simplement le traffic.
+2. **Interdire** (*deny*) - Cette règle permet d'interdire le traffic.
+3. **Rejeter** (*reject*) - C'est l'équivalent d'interdire, cependant un message d'erreur sera renvoyé au destinataire.
+4. **Limiter** (*limit*) - Cette action autorise la connexion mais avec certaines restrictions: Pas plus de 6 tentatives de connexion au cours des 30 dernières secondes.
+
+Pour ajouter une règle au pare-feu dans Ubuntu, on utilisera la syntaxe suivante:
+
+```bash
+sudo ufw [action] [cible]
+```
+
+Voici quelques exemples:
+
+**Cible:** *Programme*
+```bash
+sudo ufw allow OpenSSH
+```
+
+**Cible:** *Adresse IP*
+```bash
+sudo deny from 192.168.21.200
+```
+:::caution
+L'ordre dans laquelle vous ajoutez les règles est très important sous Linux puisque ces règles ont un ordre de priorité. Les règles supérieures ont priorités sur les règles inférieures. Par exemple, si vous entrez une première règle pour interdire l'utilisation du port 22 (associé au service SSH), puis une seconde règle pour autoriser le service OpenSSH, vous ne serez pas en mesure d'utiliser un service SSH à moins de l'utiliser sur un autre port que celui par défaut.
+
+![ExemplePriorité](../Assets/06/ListUFW.png)
+:::
+
+#### Supprimer une règle
+
+La façon la plus efficace de supprimer une règle dans *UFW* est sans doute de l'identifier par son numéro puis de la supprimer. Pour identifier les règles par leur numéro, vous pouvez utiliser la commande suivante:
+
+```bash
+sudo ufw status numbered
+```
+
+Une fois la règle à supprimer identifiée, vous n'avez qu'à la supprimer en utilisant la commande suivante:
+
+```bash
+sudo ufw delete 6 #Le chiffre 6 est utilisé à titre d'exemple
+```
+
+:::caution
+Lorsque vous supprimez une règle par son numéro, les règles qui la suivent seront décrémentées. À titre d'exemple, en supprimant la règle #6, la règle #7 deviendra la nouvelle règle #6. La règle #8 deviendra la #7 et ainsi de suite.
+:::
+
+#### Journalisation
+
+Le pare-feu *UFW* d'Ubuntu possède cinq niveaux de journalisation. À chacun de ces nivaux, le taux d'information et le niveau de détails amassé augmentent.
