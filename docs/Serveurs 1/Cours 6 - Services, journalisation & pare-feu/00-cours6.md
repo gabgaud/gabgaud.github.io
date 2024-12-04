@@ -261,4 +261,36 @@ Lorsque vous supprimez une règle par son numéro, les règles qui la suivent se
 
 #### Journalisation
 
-Le pare-feu *UFW* d'Ubuntu possède cinq niveaux de journalisation. À chacun de ces nivaux, le taux d'information et le niveau de détails amassé augmentent.
+Le pare-feu *UFW* d'Ubuntu possède cinq niveaux de journalisation. À chacun de ces nivaux, le taux d'information et le niveau de détails amassé augmentent. Pour vérifier le niveau de journalisation sur lequel vous êtes, vous pouvez utilisez la commande suivante:
+
+```bash
+sudo ufw status verbose
+```
+
+Vous verrez alors le niveau suivant le terme *logging*:
+
+![Niveau de Log](../Assets/06/LogLevel.png)
+
+Les niveaux de journalisation possibles sont les suivants:
+
+| Niveau | Description |
+|:--------:|-------------|
+| off | Aucune journalisation |
+| low | Enregistre les paquets bloqués qui correspondent à la politique par défaut ainsi que les paquets bloqués qui correspondent aux règles définis par l'administrateur |
+| medium | Enregistre ce que le niveau *low* enregistre, en plus d'enregistrer les paquets autorisés qui correspondent à la politique par défaut, les paquets invalides et toutes les nouvelles connexions. |
+| high | Enregistre ce que le niveau *medium* sans limitation en plus des paquets avec limitation. |
+| full | Enregistre ce que le niveau *high* enregistre sans aucune limitation. |
+
+Les événements de *UFW* sont enregistrés dans le fichier `/var/log/ufw.log`. Voici ce à quoi cela peut ressembler (cliquez pour zoomer):
+
+![Enregistrement](../Assets/06/EnregistrementUFW.png)
+
+- Encadrés **<span class="red-text"> rouges: </span>** Dans les encadrés rouges sur l'image, vous pourrez repérer la date & l'heure à laquelle l'événement s'est produit ainsi que le type d'événement (ici le blocage d'un paquet).
+
+- Encadré **<span class="yellow-text"> jaune: </span>** Dans l'encadré jaune, vous pourrez repérer le sens du paquet (entrant / *in*) ainsi que l'interface réseau sur laquelle ce paquet a été intercepté.
+
+- Encadré **<span class="green-text"> vert: </span>** Dans l'encadré vert, on peut repérer l'adresse IP d'où provient le paquet qui a été bloqué.
+
+- Encadré **<span class="pink-text"> rose: </span>** Dans l'encadré rose, il est possible de voir l'adresse IP à qui était destiné le paquet, c'est-à-dire notre propre adresse.
+
+- Encadré **<span class="cyan-text"> turquoise: </span>** Dans cette encadré, nous pouvons voir sur quel port ce paquet tentait de traverser. Ici, il s'agit du port 22, le port associé au service SSH.

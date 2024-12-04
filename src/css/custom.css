@@ -68,3 +68,23 @@ h4, h5, h6 {
 [data-theme='dark'] .theme-color-icon {
   filter: invert(1) sepia(1) saturate(100%) hue-rotate(180deg);
 }
+
+.red-text{
+  color: red;
+}
+
+.yellow-text{
+  color: yellow;
+}
+
+.green-text{
+  color: lime;
+}
+
+.pink-text{
+  color: pink;
+}
+
+.cyan-text{
+  color: cyan;
+}
