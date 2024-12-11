@@ -105,7 +105,7 @@ Get-Service sshd | Set-Service -StartupType Automatic
 
 #### Tentative de connexion
 
-La première étape avant de vous connecter au serveur à l'aide du protocole SSH consiste à vérifier si vous êtes en mesure de communiquer avec ce-dernier. C'est exactement l'utilité de la commande `ping`: vérifier la capacité de deux hôtes de communiquer entre eux via le réseau.
+La première étape avant de vous connecter au serveur à l'aide du protocole SSH consiste à vérifier si vous êtes en mesure de communiquer avec ce-dernier. C'est exactement l'utilité de la commande `Test-NetConnection`: vérifier la capacité de deux hôtes de communiquer entre eux via le réseau.
 
 Ouvrez donc un terminal sous votre poste de travail Windows 10 et tapez la commande suivate:
 
@@ -137,3 +137,57 @@ Lorsque votre sessions SSH sera bien lancée, vous devriez obtenir une ligne de 
 Toutes les commandes lancées sur ce terminal seront exécutées sur le serveur à distance.
 
 ### Serveur Linux
+
+#### Préparation du serveur
+Avant de configurer le pare-feu de quelconque façon, vérifiez si vous possédez bien les paquets nécessaires à l'utilisation du protocole `ssh` sur votre serveur. Pour ce faire, nous utiliserons la commande `apt` pour lister les programmes installés. Nous passerons ensuite cette liste à travers la commande `grep` pour en récupérer le ou les paquets qui nous intéressent. Entrez donc la commande suivante:
+
+```bash
+sudo apt list --installed | grep 'openssh-server'
+```
+
+Si le paquet `openssh-server` n'est pas installé, procédez à son installation à l'aide de la commande `apt`.
+
+#### Ajustement des règles du pare-feu (SSH)
+*A prirori* le pare-feu est désactivé sous Ubuntu Serveur. Vous pouvez en avoir la confirmation en tapant la commande suivante:
+
+```bash
+sudo ufw status
+```
+
+![UFWDisable](../Assets/06/UFWDisable.png)
+
+Notre première tâche consistera donc à activer le pare-feu. Tel que nous l'avons abordé dans les notions du cours, la commande pour activer le pare-feu est:
+
+```bash
+sudo ufw enable
+```
+
+Une fois le pare-feu activé, aucune connexion entrante ne sera autorisé. Il faudra donc ajouter une règle au pare-feu, stipulant que nous autorisons les connexions entrantes sur le port 22 (SSH) si ces tentatives de connexions proviennent de notre poste de travail Windows. Pour ce faire, la règle à entrer sera la suivante:
+
+```bash
+sudo ufw allow from 192.168.21.110 to any port 22
+```
+
+Décortiquons cette règle:
+
+- **ufw allow**: Stipule que nous ajoutons une règle de type « autorisé »
+
+- **from 192.168.21.110**: La règle concerne seulement les paquets dont l'ip source est 192.168.21.110
+
+- **to any**: Indique que la règle s'applique à n'importe quelle interface réseau du serveur.
+
+- **22**: Il s'agit du numéro de port concerncé par la règle.
+
+**En résumé:** Nous autorisons les paquets arrivant de 192.168.21.110 à destination de n'importe quel carte réseau sur le serveur, visant le port 22, à entrer dans le serveur.
+
+:::important[Ubuntu Server et le PING]
+Contrairement à Windows, les paquets de type « PING » sous Ubuntu Serveur sont automatiquement approuvés. *Pourquoi?* Tout simplement parce que le « PING » est très souvent utilisé dans le débogage de réseau ou de services sur un serveur. Canonical, l'entreprise derrière Ubuntu, a donc décidé d'autoriser automatiquement ce genre de paquet. Néanmoins, vous pouvez très bien changer ce comportement au besoin et refuser systématiquement tous les paquets de type « PING ».
+:::
+
+#### Démarrage du service SSH
+
+Sous votre serveur Linux, assurez-vous que votre service `ssh` soit bien démarré et lancé automatiquement au démarrage du serveur. Il s'agit du service `ssh.service`. Vous avez besoin d'un rappel pour administrer les services ? Consultez [cette section.](/docs/OS/Linux/08-Services.md#administrer-les-services)
+
+#### Tentative de connexion
+
+Depuis votre poste de travail sous Windows 10, utilisez la commande `Test-NetConnection` pour valider la bonne communication entre le poste et votre serveur sous Ubuntu. Si tout se passe bien, tentez une connexion via SSH comme vous l'avez entrepris avec votre serveur Windows 10 plus tôt dans ce laboratoire.
