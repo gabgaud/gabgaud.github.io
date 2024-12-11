@@ -12,7 +12,7 @@ import ThemedImage from '@theme/ThemedImage';
 ## Objectif(s)
 - Octroyer un accès SSH au serveur Ubuntu **seulement** au poste de travail Windows 10.
 - Octroyer un accès SSH au serveur Windows **seulement** au poste de travail Windows 10.
-- Pemermettre aux clients du réseau local d'envoyer des *pings* aux serveurs.
+- Permettre aux clients du réseau local d'envoyer des *pings* aux serveurs.
 
 * * *
 ## Schéma
@@ -29,7 +29,7 @@ import ThemedImage from '@theme/ThemedImage';
 
 ## Étapes de réalisation
 
-Dans ce laboratoire, nous prendrons pour acquis le poste de travail sous Windows 10 est celui de l'administrateur des serveurs. Ce poste de travail <mark>doit posséder une adresse IP fixe.</mark>
+Dans ce laboratoire, nous tiendrons pour acquis le poste de travail sous Windows 10 est celui de l'administrateur des serveurs. Ce poste de travail <mark>doit posséder une adresse IP fixe.</mark>
 
 À titre d'exemple, voici les adresses IP que j'utiliserai pour mes exemples dans le cadre de ce laboratoire:
 
@@ -49,7 +49,7 @@ Dans ce laboratoire, nous prendrons pour acquis le poste de travail sous Windows
 
 #### Installation du service SSH sous Windows
 
-- Nous allons à présent installer un service SSH sur notre serveur Windows. Cela dit, ce service ne devra être accessible que par le poste de travail Windows 10 (le poste de l'administrateur). Ouvrez le panneau des parmètres Windows et dirigez-vous dans la section « Applications ». De là, cliquez sur « Fonctionnalités facultatives » puis « Ajouter une fonctionnalité ».
+- Nous allons à présent installer un service SSH sur notre serveur Windows. Cela dit, ce service ne devra être accessible que par le poste de travail Windows 10 (le poste de l'administrateur). Ouvrez le panneau des paramètres Windows et dirigez-vous dans la section « Applications ». De là, cliquez sur « Fonctionnalités facultatives » puis « Ajouter une fonctionnalité ».
 
 ![Installation SSH](../Assets/06/InstallSSH.png)
 
@@ -57,7 +57,7 @@ Dans ce laboratoire, nous prendrons pour acquis le poste de travail sous Windows
 
 #### Ajustement des règles du pare-feu (SSH)
 
-- Si vous ne faites aucune modification, quiconque possédant un compte et un mot de passe sur le serveur pourrait s'y connecter en utilisant le protocole SSH, et ce, depuis n'importe quel poste. Ce que nous souhaitons faire ici, c'est non seulement autorisé la connexion seulement aux gens possédant un compte et un mot de passe, mais en plus, limiter l'accès depuis un seul poste.
+- Si vous ne faites aucune modification, quiconque possédant un compte et un mot de passe sur le serveur pourrait s'y connecter en utilisant le protocole SSH, et ce, depuis n'importe quel poste. Ce que nous souhaitons faire ici, c'est non seulement autoriser la connexion seulement aux gens possédant un compte et un mot de passe, mais en plus, limiter l'accès depuis un seul poste.
 
 - Ouvrez les règles du pare-feu Windows en tapant la commande `wf.msc` depuis la fenêtre « Exécuter » que vous pouvez ouvrir à l'aide du raccourci clavier <kbd>&#8862; win</kbd>+<kbd>r</kbd>. Dans les règles de trafic entrant, repérez cette règle:
 
@@ -65,15 +65,15 @@ Dans ce laboratoire, nous prendrons pour acquis le poste de travail sous Windows
 
     Ouvrez les propriétés de la règle en effectuant un clic à l'aide du bouton de droite de votre souris sur celle-ci et en sélectionnant « propriétés ».
 
-- Dans les propriétés, sélectionnez l'onglet « Étendue » et modifiez la section « Adresse IP distante » pour n'autorisez que l'adresse IP du poste de travail sous Windows 10.
+- Dans les propriétés, sélectionnez l'onglet « Étendue » et modifiez la section « Adresse IP distante » pour n'autoriser que l'adresse IP du poste de travail sous Windows 10.
 
     ![RegleWindowsOpenSSH](../Assets/06/RegleWindowsOpenSSH.png)
 
-    > *Oui mais Gabriel, qu'en est-il des Adresses IP locales dans l'onglet étendue ? Doit-on également mettre une adresse IP particulière ici ?*
+    > *Oui, mais Gabriel, qu'en est-il des Adresses IP locales dans l'onglet étendue ? Doit-on également mettre une adresse IP particulière ici ?*
     >
     > *-Les étudiants*
 
-    Cette fenêtre réfère aux adresses IP impliquées lors de la connexion à travers le pare-feu. Il y a l'adresse IP qui tente de se connecter, l'adresse IP distante (le pc distant si vous préférez) et il y a l'adresse IP local, c'est-à-dire l'adresse IP concernée sur le serveur qui offre le service.
+    Cette fenêtre réfère aux adresses IP impliquées lors de la connexion à travers le pare-feu. Il y a l'adresse IP qui tente de se connecter, l'adresse IP distante (le pc distant si vous préférez) et il y a l'adresse IP locale, c'est-à-dire l'adresse IP concernée sur le serveur qui offre le service.
 
 #### Ajustement des règles du pare-feu (Ping)
 
@@ -105,9 +105,9 @@ Get-Service sshd | Set-Service -StartupType Automatic
 
 #### Tentative de connexion
 
-La première étape avant de vous connecter au serveur à l'aide du protocole SSH consiste à vérifier si vous êtes en mesure de communiquer avec ce-dernier. C'est exactement l'utilité de la commande `Test-NetConnection`: vérifier la capacité de deux hôtes de communiquer entre eux via le réseau.
+La première étape avant de vous connecter au serveur à l'aide du protocole SSH consiste à vérifier si vous êtes en mesure de communiquer avec ce dernier. C'est exactement l'utilité de la commande `Test-NetConnection`: vérifier la capacité de deux hôtes de communiquer entre eux via le réseau.
 
-Ouvrez donc un terminal sous votre poste de travail Windows 10 et tapez la commande suivate:
+Ouvrez donc un terminal sous votre poste de travail Windows 10 et tapez la commande suivante:
 
 ```Powershell
 Test-NetConnection 192.168.21.20
@@ -127,10 +127,10 @@ ssh Administrateur@192.168.21.20
 
 ![PremiereConnexion](../Assets/06/fisrtSSH.png)
 
-Ce message stipule que l'ordinateur auquel vous vous connectez n'est pas reconnu. C'est normal dans ce cas-ci puisque nous nous y sommes jamais connecté. Vous devez donc confirmer que vous désirez bien vous y connecter en entrant la réponse `yes` à la question. Sachez cependant que si vous obtenez ce message alors que ce n'est pas la première fois que vous vous connectez au serveur, il pourrait y avoir un enjeu de sécurité.
+Ce message stipule que l'ordinateur auquel vous vous connectez n'est pas reconnu. C'est normal dans ce cas-ci puisque nous ne nous y sommes jamais connectés. Vous devez donc confirmer que vous désirez bien vous y connecter en entrant la réponse `yes` à la question. Sachez cependant que si vous obtenez ce message alors que ce n'est pas la première fois que vous vous connectez au serveur, il pourrait y avoir un enjeu de sécurité.
 :::
 
-Lorsque votre sessions SSH sera bien lancée, vous devriez obtenir une ligne de commande semblable à celle-ci:
+Lorsque votre session SSH sera bien lancée, vous devriez obtenir une ligne de commande semblable à celle-ci:
 
 ![WindowsSessionSSH](../Assets/06/WinSessionSSH.png)
 
@@ -162,7 +162,7 @@ Notre première tâche consistera donc à activer le pare-feu. Tel que nous l'av
 sudo ufw enable
 ```
 
-Une fois le pare-feu activé, aucune connexion entrante ne sera autorisé. Il faudra donc ajouter une règle au pare-feu, stipulant que nous autorisons les connexions entrantes sur le port 22 (SSH) si ces tentatives de connexions proviennent de notre poste de travail Windows. Pour ce faire, la règle à entrer sera la suivante:
+Une fois le pare-feu activé, aucune connexion entrante ne sera autorisée. Il faudra donc ajouter une règle au pare-feu, stipulant que nous autorisons les connexions entrantes sur le port 22 (SSH) si ces tentatives de connexions proviennent de notre poste de travail Windows. Pour ce faire, la règle à entrer sera la suivante:
 
 ```bash
 sudo ufw allow from 192.168.21.110 to any port 22
@@ -176,12 +176,12 @@ Décortiquons cette règle:
 
 - **to any**: Indique que la règle s'applique à n'importe quelle interface réseau du serveur.
 
-- **22**: Il s'agit du numéro de port concerncé par la règle.
+- **22**: Il s'agit du numéro de port concerné par la règle.
 
-**En résumé:** Nous autorisons les paquets arrivant de 192.168.21.110 à destination de n'importe quel carte réseau sur le serveur, visant le port 22, à entrer dans le serveur.
+**En résumé:** Nous autorisons les paquets arrivant de 192.168.21.110 à destination de n'importe quelle carte réseau sur le serveur, visant le port 22, à entrer dans le serveur.
 
 :::important[Ubuntu Server et le PING]
-Contrairement à Windows, les paquets de type « PING » sous Ubuntu Serveur sont automatiquement approuvés. *Pourquoi?* Tout simplement parce que le « PING » est très souvent utilisé dans le débogage de réseau ou de services sur un serveur. Canonical, l'entreprise derrière Ubuntu, a donc décidé d'autoriser automatiquement ce genre de paquet. Néanmoins, vous pouvez très bien changer ce comportement au besoin et refuser systématiquement tous les paquets de type « PING ».
+Contrairement à Windows, les paquets de types « PING » sous Ubuntu Serveur sont automatiquement approuvés. *Pourquoi?* Tout simplement parce que le « PING » est très souvent utilisé dans le débogage de réseau ou de services sur un serveur. Canonical, l'entreprise derrière Ubuntu, a donc décidé d'autoriser automatiquement ce genre de paquet. Néanmoins, vous pouvez très bien changer ce comportement au besoin et refuser systématiquement tous les paquets de type « PING ».
 :::
 
 #### Démarrage du service SSH
