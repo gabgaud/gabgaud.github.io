@@ -75,7 +75,7 @@ Bien qu'elle accélère grandemment la résolution de certains noms de domaine, 
 Après avoir vérifié dans son fichier `hosts` ainsi que dans sa mémoire cache, si votre ordinateur n'est toujours pas en mesure de traduire le nom de domaine en adresse IP, il enverra une requête à votre propre serveur DNS. 
 
 :::tip[Le saviez-vous ?]
-Nous avons tous un serveur DNS à la maison. À moins que vous en ayez configuré un spécifique, il s'agit de votre modem-routeur. En effet, c'est à lui que sont transférés les requêtes DNS que votre ordinateur n'arrive pas à résoudre par lui-même.
+Nous avons tous un serveur DNS à la maison. À moins que vous en ayez configuré un spécifique, il s'agit de votre modem-routeur. En effet, c'est à lui que sont transférés les requêtes DNS que votre ordinateur n'arrive pas à résoudre par lui-même. On appelle ce serveur le **redirecteur DNS** (*Forwarder en anglais*). Son travail est simplement de vérifier s'il possède l'adresse IP associé au nom de domaine qu'il reçoit dans sa mémoire cache, sinon il redirigera la requête vers le serveur DNS récursif.
 :::
 
 <div style={{textAlign: 'center'}}>
@@ -92,16 +92,22 @@ Que fera votre modem/routeur avec cette requête DNS ? Deux choses:
  
 1. Votre modem/routeur possède, lui aussi, une mémoire cache. Il se peut que quelqu'un sur le réseau local ait déjà demandé à résoudre le nom de domaine que vous tentez de récupérer. Dans le cas échéant, le modem-routeur aura stocké le résultat de cette traduction dans sa mémoire et pourra donc vous fournir l'information adéquate.
 
-2. Dans le cas où le modem-routeur n'aurait pas l'information recherchée dans sa mémoire. Il entâmera un processus de résolution complet. Processus auquel nous nous attarderons dès maintenant.
+2. Dans le cas où le modem-routeur n'aurait pas l'information recherchée dans sa mémoire. Il redirigera la requête vers un autre serveur DNS, habituellement le serveur DNS récursif situé chez le FSI (*Fournisseur de Service Internet*).
 
-#### Étape 4 : Serveurs DNS racines
+#### Étape 4 : Serveur DNS récursif
 
-Lorsque nous avons abordé le FQDN un peu plus haut, vous avez peut-être remarqué que le nom de domaine se terminait par un point. Ce point est omniprésent, il représente la racine d'un nom DNS. Il s'agit du plus haut point de la hiérarchie DNS, rien n'existe au-dessus. On pourrait comparer ce point à la racine du système d'exploitation Windows par exemple (la lettre C:). Tout découle de la lettre `C:` dans le système Windows. Eh bien dans la structure DNS, tout découle de la racine aussi, représenté par un point.
+Jusqu'à maintenant, toutes les étapes vues précédemment impliquaient une tentative de résolution du nom puis un relais de l'information vers un autre serveur en cas d'échec. Or, le serveur DNS récursif prendra en charge la résolution d'un nom d'un bout à l'autre. Autrement dit, le serveur DNS récursif vérifiera dans sa mémoire cache s'il a déjà l'adresse IP qui correspond au nom de domaine recherché. Si ce n'est pas le cas, le serveur DNS récursif entâmera un processus de résolution itératif.
 
-Votre modem/routeur communiquera donc avec l'un des serveurs racines près de sa situation géographique. Le serveur racine ne sera pas en mesure de lui donner l'adresse IP correspondant à `www.patate.com.`. Cela dit, il saura quel serveur DNS contient les enregistrements se terminant par `.com` et lui indiquera l'adresse.
+:::important
+Il existe deux types de requête DNS:
 
-:::tip[Le saviez-vous ?]
-Les serveurs DNS racines maintiennent littéralement l'internet en vie. Ils sont administrés par 13 organisations mondiales publiques et privées. Parmi ces organisations, on retrouve la NASA, le département de la défense américaine ainsi que de grandes universités. Consultez [cette page](https://root-servers.org/) pour voir où sont situés les différents serveurs DNS racine et qui les administrent.
+- **Requêtes récursives:**
+    Lorsqu'un ordinateur ou un serveur émet une requête récursive, il attend une réponse finale. Par exemple, l'ordinateur qui émet une requête récursive pour le nom *www.patate.com* s'attend à recevoir l'adresse IP associée à ce nom.
+
+- **Requêtes itératives:**
+    Lorsqu'un ordinateur ou un serveur émet une requête itérative, il attend une réponse finale ou une portion de la réponse. Nous verrons ci-dessous comment il est possible d'obtenir une portion de la réponse.
+
+Cela dit, il est important de bien distinguer les deux types de requêtes.
 :::
 
 <div style={{textAlign: 'center'}}>
@@ -114,9 +120,15 @@ Les serveurs DNS racines maintiennent littéralement l'internet en vie. Ils sont
     />
 </div>
 
-#### Étape 5 : Serveurs DNS de haut niveau (TLD)
+#### Étape 5 : Serveurs DNS racines
 
-Le DNS racine n'a pas offert une réponse complète lorsqu'il a reçu votre requête pour `www.patate.com`. Cependant il nous a renvoyé une adresse IP: l'adresse du serveur DNS détenant les enregistrements se terminant par `.com`. Les serveurs DNS s'occupant de ces zones (.com, .ca, .org, etc...) se nomment les serveurs DNS de haut niveau ou *Top Level Domain*. Lorsque notre routeur ira consulter le serveur TLD vers lequel le serveur DNS racine l'a envoyé, il n'obtiendra toujours pas une réponse complète. Néanmoins, le serveur TLD le renverra vers un autre serveur DNS, le serveur ANS.
+Lorsque nous avons abordé le FQDN un peu plus haut, vous avez peut-être remarqué que le nom de domaine se terminait par un point. Ce point est omniprésent, il représente la racine d'un nom DNS. Il s'agit du plus haut point de la hiérarchie DNS, rien n'existe au-dessus. On pourrait comparer ce point à la racine du système d'exploitation Windows par exemple (la lettre C:). Tout découle de la lettre `C:` dans le système Windows. Eh bien dans la structure DNS, tout découle de la racine aussi, représenté par un point.
+
+Le serveur DNS récursif communiquera donc avec l'un des serveurs racines près de sa situation géographique. Le serveur racine ne sera pas en mesure de lui donner l'adresse IP correspondant à `www.patate.com.`. Cela dit, il saura quel serveur DNS contient les enregistrements se terminant par `.com` et lui indiquera l'adresse. Ce sera donc une première réponse partielle que le serveur DNS récursif obtiendra.
+
+:::tip[Le saviez-vous ?]
+Les serveurs DNS racines maintiennent littéralement l'internet en vie. Ils sont administrés par 13 organisations mondiales publiques et privées. Parmi ces organisations, on retrouve la NASA, le département de la défense américaine ainsi que de grandes universités. Consultez [cette page](https://root-servers.org/) pour voir où sont situés les différents serveurs DNS racine et qui les administrent.
+:::
 
 <div style={{textAlign: 'center'}}>
     <ThemedImage
@@ -126,4 +138,24 @@ Le DNS racine n'a pas offert une réponse complète lorsqu'il a reçu votre requ
             dark: useBaseUrl('/img/Serveurs1/5PremieresEtapes_D.gif'),
         }}
     />
+    *\*\*Les flèches roses désignent des requêtes itératives alors que les blanches représentent les récursives*\*\*
 </div>
+
+
+#### Étape 6 : Serveurs DNS de haut niveau (TLD)
+
+Le DNS racine n'offre pas de réponse complète lorsqu'il a reçu votre requête pour `www.patate.com` (il n'en offre jamais d'ailleurs). Cependant il nous a renvoyé une adresse IP: l'adresse du serveur DNS détenant les enregistrements se terminant par `.com`. Les serveurs DNS s'occupant de ces zones (.com, .ca, .org, etc...) se nomment les serveurs DNS de haut niveau ou *Top Level Domain*. Lorsque le serveur DNS récursif ira consulter le serveur TLD vers lequel le serveur DNS racine l'a envoyé, il n'obtiendra toujours pas une réponse complète. Néanmoins, le serveur TLD le renverra vers un autre serveur DNS, le serveur ANS.
+
+
+
+
+
+#### Étape 7 : Serveurs DNS Autoritaire (ANS)
+
+Nous avons maintenant l'adresse du serveur DNS autoritaire. Le serveur DNS autoritaire porte très bien son nom (*Authoritative Name Server*). C'est lui qui a autorité sur la zone DNS qui nous intéresse. Nous reviendrons très prochainement sur les concepts de zones DNS. En attendant, sachez qu'une zone DNS contient l'ensemble des enregistrements DNS d'un nom DNS donné. Par exemple, pour le nom de domaine `patate.com`, une zone pourrait contenir des enregistrements comme *www*, *cloud* ou même *voip*. C'est donc ce serveur qui pourra, finalement, nous donné l'adresse IP correspondant au non de domaine que l'on essaie d'obtenir.
+
+>*Pourquoi l'appelle-t-on le serveur DNS autoritaire ?*
+>
+>*-Les étudiants*
+
+Bonne question! Simplement parce que c'est le seul serveur autorisé à modifier la zone des enregistrements, nous y reviendrons.
