@@ -1,0 +1,29 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+
+# Laboratoire 7
+* * *
+## Installation d'un premier serveur DNS
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 6
+
+## Objectif(s)
+- Installer et configurer un premier serveur DNS.
+- Interroger un serveur DNS.
+
+* * *
+## Schéma
+
+<ThemedImage
+    alt="Schéma"
+    sources={{
+        light: useBaseUrl('/img/Serveurs1/Laboratoire7_W.svg'),
+        dark: useBaseUrl('/img/Serveurs1/Laboratoire7_D.svg'),
+    }}
+/>
+
+* * *
+
+## Étapes de réalisation

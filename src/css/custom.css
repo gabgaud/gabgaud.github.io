@@ -61,6 +61,12 @@ h4, h5, h6 {
   font-size: 1.2em;
 }
 
+.tabsborder{
+  border-color: #1a8870;
+  border-style: solid;
+  border-radius: 0.5em;
+}
+
 .theme-color-SVG {
   filter: invert(0) sepia(1) saturate(100%) hue-rotate(0deg);
 }

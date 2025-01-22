@@ -1,5 +1,8 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 
 # Cours 7
 
@@ -75,7 +78,7 @@ Bien qu'elle accélère grandemment la résolution de certains noms de domaine, 
 Après avoir vérifié dans son fichier `hosts` ainsi que dans sa mémoire cache, si votre ordinateur n'est toujours pas en mesure de traduire le nom de domaine en adresse IP, il enverra une requête à votre propre serveur DNS. 
 
 :::tip[Le saviez-vous ?]
-Nous avons tous un serveur DNS à la maison. À moins que vous en ayez configuré un spécifique, il s'agit de votre modem-routeur. En effet, c'est à lui que sont transférés les requêtes DNS que votre ordinateur n'arrive pas à résoudre par lui-même. On appelle ce serveur le **redirecteur DNS** (*Forwarder en anglais*). Son travail est simplement de vérifier s'il possède l'adresse IP associé au nom de domaine qu'il reçoit dans sa mémoire cache, sinon il redirigera la requête vers le serveur DNS récursif.
+Nous avons tous un serveur DNS à la maison. À moins que vous en ayez configuré un spécifique, il s'agit de votre modem-routeur. En effet, c'est à lui que sont transférés les requêtes DNS que votre ordinateur n'arrive pas à résoudre par lui-même. On appelle ce serveur le **redirecteur DNS** (*Forwarder en anglais*). Son travail est simplement de vérifier s'il possède l'adresse IP associé au nom de domaine qu'il reçoit dans sa mémoire cache, sinon il redirigera la requête vers un autre serveur DNS.
 :::
 
 <div style={{textAlign: 'center'}}>
@@ -144,9 +147,18 @@ Les serveurs DNS racines maintiennent littéralement l'internet en vie. Ils sont
 
 #### Étape 6 : Serveurs DNS de haut niveau (TLD)
 
-Le DNS racine n'offre pas de réponse complète lorsqu'il a reçu votre requête pour `www.patate.com` (il n'en offre jamais d'ailleurs). Cependant il nous a renvoyé une adresse IP: l'adresse du serveur DNS détenant les enregistrements se terminant par `.com`. Les serveurs DNS s'occupant de ces zones (.com, .ca, .org, etc...) se nomment les serveurs DNS de haut niveau ou *Top Level Domain*. Lorsque le serveur DNS récursif ira consulter le serveur TLD vers lequel le serveur DNS racine l'a envoyé, il n'obtiendra toujours pas une réponse complète. Néanmoins, le serveur TLD le renverra vers un autre serveur DNS, le serveur ANS.
+Le DNS racine n'a pas offert de réponse complète lorsqu'il a reçu votre requête pour `www.patate.com` (il n'en offre jamais d'ailleurs). Cependant il nous a renvoyé une adresse IP: l'adresse du serveur DNS détenant les enregistrements se terminant par `.com`. Les serveurs DNS s'occupant de ces zones (.com, .ca, .org, etc...) se nomment les serveurs DNS de haut niveau ou *Top Level Domain*. Lorsque le serveur DNS récursif ira consulter le serveur TLD vers lequel le serveur DNS racine l'a envoyé, il n'obtiendra toujours pas une réponse complète. Néanmoins, le serveur TLD le renverra vers un autre serveur DNS, le serveur ANS.
 
-
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/6PremieresEtapes_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/6PremieresEtapes_D.gif'),
+        }}
+    />
+    *\*\*Les flèches roses désignent des requêtes itératives alors que les blanches représentent les récursives*\*\*
+</div>
 
 
 
@@ -158,4 +170,111 @@ Nous avons maintenant l'adresse du serveur DNS autoritaire. Le serveur DNS autor
 >
 >*-Les étudiants*
 
-Bonne question! Simplement parce que c'est le seul serveur autorisé à modifier la zone des enregistrements, nous y reviendrons.
+Bonne question! Simplement parce que c'est le seul serveur autorisé à modifier la zone des enregistrements, nous étudierons les zones plus en profondeur très prochainement. Ceci étant dit, une fois que le serveur DNS récursif aura obtenu une correspondance entre le nom de domaine recherché et une adresse IP, celle-ci sera stocké dans sa mémoire cache. Il en va de même pour votre modem/routeur ainsi que votre ordinateur personnel.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/7PremieresEtapes_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/7PremieresEtapes_D.gif'),
+        }}
+    />
+    *\*\*Les flèches roses désignent des requêtes itératives alors que les blanches représentent les récursives*\*\*
+</div>
+
+## Pour en finir avec la cache
+
+À travers les différentes étapes d'une résolution de nom DNS, nous avons souvent parlé de mémoire cache. En effet, plusieurs mémoires caches sont réparties à travers tous le processus. Par exemple, votre ordinateur possède une mémoire cache pour le DNS, de même que votre navigateur (non, ce n'est pas la même!). Votre modem/routeur possède aussi une cache DNS, etc. L'Objectif de mettre en cache les correspondances noms : IP à plusieurs étapes du processus est d'accélérer et d'optimiser la résolution de nom au maximum. En 2020, on estimait qu'il y avait entre 10 et 15 milliards de requêtes DNS par jour dans le monde. Imaginez si chacune de ces requêtes devait traverser le processus de résolution en entier à chaque fois (DNS Racine, TLD puis ANS...). Cela ralentirait le web en entier. Les différentes mémoires caches éparpillées aux différentes étapes de résolution jouent donc un rôle essentiel.
+
+## Quelques commandes en matière de DNS
+
+Plusieurs commandes peuvent vous aider à résoudre des problèmes de DNS. Nous allons les analyser ensemble.
+
+### Résoudre un nom de domaine sous Windows
+
+Nul besoin d'ouvrir votre navigateur web si vous désirez tester le serveur DNS en place, il vous suffit d'utiliser la commande `resolve-dnsname` de PowerShell. Par exemple, si désire résoudre le nom www.cegepmontpetit.ca, je pourrais procéder comme suit:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Resolve-DnsName" label="Commande" default>
+            ```Powershell
+            resolve-dnsname -Name www.cegepmontpetit.ca
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Resolve-DnsName" label="Résultat">
+            ![ResolveDnsName](../Assets/07/resolve-dnsname.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Il est également possible d'utiliser la même commande tout en précisant le serveur DNS que l'on désire interroger:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Resolve-DnsName-Server" label="Commande" default>
+            ```Powershell
+            resolve-dnsname -Name www.facebook.com -Server 8.8.8.8
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Resolve-DnsName-Server" label="Résultat">
+            ![ResolveDnsNameServer](../Assets/07/resolve-dnsname-server.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+### Résoudre un nom de domaine sous Linux
+
+Sous Linux, nous utiliserons la commande `dig` pour résoudre des noms DNS. Cette commande possède beaucoup de paramètres possibles. Vous pourrez retrouver l'ensemble de ces paramètres assez aisément sur le web. En ce qui nous concerne, nous nous contenterons d'utiliser quelques-uns des paramètres seulement.
+
+À la base, vous pouvez utiliser la commande simplement en y ajoutant un nom de domaine. Vous obtiendrez alors une réponse très détaillée:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Dig-None" label="Commande" default>
+           ```bash
+            dig www.cegepmontpetit.ca
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Dig-None" label="Résultat">
+           ![DigNone](../Assets/07/Dig_None.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Les informations que retourne la commande sont très pertinentes bien que trop nombreuses. Heureusement, certains commutateurs nous seront très pratiques. Commençons par le commutateur `+short` qui nous permettra d'obtenir uniquement l'adresse IP correspondante au nom recherché.
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Dig-Short" label="Commande" default>
+           ```bash
+            dig +short www.cegepmontpetit.ca
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Dig-Short" label="Résultat">
+           ![DigShort](../Assets/07/Dig_Short.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Sans commutateur, la commande `dig` nous retournait trop d'informations, alors qu'avec le commutateur `+short` nous en avons très peu, voire pas suffisamment. Il y a toutefois moyen d'obtenir un entre-deux. Pour y arriver, nous utiliserons le commutateur `+noall` qui stipule de ne rien retourner à l'écran. Évidemment, nous utiliserons un deuxième commutateur, soit `+answer` qui nous retournera uniquement la section concernant la résolution du nom. Au final, nous obtenons quelque chose comme suit:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Dig-Mid" label="Commande" default>
+           ```bash
+            dig +noall +answer www.cegepmontpetit.ca
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Dig-Mid" label="Résultat">
+           ![DigShort](../Assets/07/Dig_Mid.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+
+## Vidéos et références
+
+- [Explication du DNS en vidéo du youtubeur Cookie connecté](https://youtu.be/qzWdzAvfBoo?si=KS5brGyet4w4dgrs)
+- [Explication du DNS en vidéo par DNS made easy (*Anglais*)](https://youtu.be/72snZctFFtA?si=d0YqaTTBYybJZIY_)
+- [Qu'est-ce que le DNS du groupe It-Connect](https://youtu.be/tyDxzzdKnsU?si=2IXJLleFfWdjLzaP)
