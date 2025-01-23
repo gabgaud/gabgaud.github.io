@@ -10,7 +10,7 @@ import ThemedImage from '@theme/ThemedImage';
 - Aucun
 
 ## Objectif(s)
-- Mettre en place une passerelle grâce au modèle fournis (PfSense)
+- Mettre en place une passerelle grâce au modèle fourni (PfSense)
 - Installer Windows Serveur 2022
 - Installer Windows 10
 * * *
@@ -48,7 +48,7 @@ Voici un exemple de configuration valable:<br/><br/>
 ![Réseaux Labinfo](../Assets/01/labinfo_reseaux.png)
 
 :::important[important - Vos réseaux virtuels]
-Chacun d'entre vous bénéficiez d'une dizaine de réseaux virtuels dans Labinfo. Tout au long de votre avancement dans votre parcours académique, vous serez appelé à créer divers laboratoires qui nécessiteront parfois plusieus interconnexions. C'est pourquoi vous avez accès à ces réseaux virtuels. Chacun de ces réseaux virtuels est un peu comme un commutateur auquel vous pouvez brancher un ordinateur ou un serveur dans labinfo.
+Chacun d'entre vous bénéficie d'une dizaine de réseaux virtuels dans Labinfo. Tout au long de votre avancement dans votre parcours académique, vous serez appelé à créer divers laboratoires qui nécessiteront parfois plusieurs interconnexions. C'est pourquoi vous avez accès à ces réseaux virtuels. Chacun de ces réseaux virtuels est un peu comme un commutateur auquel vous pouvez brancher un ordinateur ou un serveur dans labinfo.
 :::
 
 6. Lorsque votre passerelle sera cloné et prête, démarrez-la. Votre serveur Windows et votre poste de travail devront être branchés sur le même réseau virtuel afin de rejoindre cette dernière.
@@ -81,7 +81,7 @@ Chacun d'entre vous bénéficiez d'une dizaine de réseaux virtuels dans Labinfo
 
 1. Procédez à l'installation d'un poste de travail avec Windows 10 tel que vous l'avez appris dans le cadre du cours Système d'exploitation. Ce poste vous servira à effectuer vos opérations sur les différents serveurs que nous mettrons en place, le tout, à distance. Dans le langage courant, nous appelons cela un « jump box ». Un « jump box » est une machine qui nous permet de gérer les différents serveurs à distance, comme vous le ferez dans le cadre de ce cours.
 
-2. Utilisez la commande `Rename-Computer -NewName`*`NouveauNom`* dans PowerShell pour renommer votre ordinateur. Donnez lui un nom significatif.
+2. Utilisez la commande `Rename-Computer -NewName`*`NouveauNom`* dans PowerShell pour renommer votre ordinateur. Donnez-lui un nom significatif.
 
 3. Une fois votre ordinateur prêt, utilisez l'utilitaire de bureau à distance pour tenter d'ouvrir une session sur votre serveur Windows 2022.<br/><br/>
 ![RDPWindows](../Assets/01/rdp_client.png)<br/><br/>Alors ? Ça fonctionne ? Ça ne devrait pas 😉. Il faut d'abord apporter quelques modifications au pare-feu du serveur avant.
