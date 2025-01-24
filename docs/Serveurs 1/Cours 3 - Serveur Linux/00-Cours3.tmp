@@ -143,3 +143,7 @@ Pour installer le service SSH sur votre serveur Ubuntu, vous devez préalablemen
 ```bash
 sudo apt install openssh-server -y
 ```
+
+## Références
+
+- [Présentation PowerPoint du cours](../Assets/03/03-420-2S5-H25%20(Intro%20Ubuntu%20Server).pdf)
