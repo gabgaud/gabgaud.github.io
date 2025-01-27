@@ -36,19 +36,19 @@ Tel que nous en avons discuté en classe, le DNS est un système permettant de t
 
 Mettez en place le schéma du réseau présenté ci-dessus. Assurez-vous que le client sous Windows 10 et que le serveur Ubuntu possèdent un accès internet via votre passerelle. Au besoin, faites les mises à jour sur le serveur Ubuntu.
 
-### Adresse IP d'Ubuntu
+### Configuration de l'adresse IP d'Ubuntu
 
 Dans les cours précédents, nous avons étudié comment configurer une adresse IP statique sous Ubuntu Server. Comme il s'agit d'un serveur également dans ce laboratoire, assurez-vous de configurer une adresse IP statique au serveur Ubuntu. 
 
 **Recommandation: 192.168.21.10**
 
-### Le nom d'hôte d'Ubuntu
+### Configuration du nom d'hôte d'Ubuntu
 
 Le nom d'hôte est tout simplement le nom que l'on donne à un ordinateur ou un serveur. Par défaut, tout ordinateur (sous Windows ou sous Linux) en possède un qui a été attitré à l'installation. Dans la version serveur d'Ubuntu, on peut retrouver le nom d'hôte situé après le caractère « @ » dans la ligne de commande:
 
 ![Nom d'hôte](../Assets/07/hostname.png)
 
-Entrez la commande `ping` suivi du nom de votre ordinateur:
+Entrez la commande `ping` suivie du nom de votre ordinateur:
 
 <div className="tabsborder">
     <Tabs>
@@ -65,13 +65,13 @@ Entrez la commande `ping` suivi du nom de votre ordinateur:
 
 Appuyez simultanément sur les touches <kbd>ctrl</kbd>+<kbd>c</kbd> pour mettre fin à la commande `ping`. Remarquez-vous quelque chose d'étrange dans la réponse aux requêtes ping ? Observez l'adresse IP : 127.0.1.1
 
-:::tip[L'adresse de boucle local]
-L'adresse ip `127.0.0.1` est ce que l'on nomme l'adresse de boucle local (*loopback* en anglais). C'est une *fausse* adresse IP au sens où celle-ci renvoie vers votre propre machine. En gros, l'adresse `127.0.0.1` est un synonyme pour dire « ma propre machine ». Ceci est valable à travers tout les systèmes d'exploitation. Cependant, prenez le temps d'observez de nouveau le résultat de votre commande `ping`... Voyez-vous la différence ? L'adresse que l'on retrouve dans le résultat est 127.0.**1.1** et non pas 127.0.**0.1**. Quelle est la différence ? La différence est assez mineure. Sous Ubuntu Serveur 127.0.0.1 signifie `localhost` et 127.0.1.1 retourne le nom d'hôte.
+:::tip[L'adresse de boucle locale]
+L'adresse IP `127.0.0.1` est ce que l'on nomme l'adresse de boucle locale (*loopback* en anglais). C'est une *fausse* adresse IP au sens où celle-ci renvoie vers votre propre machine. En gros, l'adresse `127.0.0.1` est un synonyme pour dire « ma propre machine ». Ceci est valable à travers tous les systèmes d'exploitation. Cependant, prenez le temps d'observer de nouveau le résultat de votre commande `ping`... Voyez-vous la différence ? L'adresse que l'on retrouve dans le résultat est 127.0.**1.1** et non pas 127.0.**0.1**. Quelle est la différence ? La différence est assez mineure. Sous Ubuntu Serveur 127.0.0.1 signifie `localhost` et 127.0.1.1 retourne le nom d'hôte.
 :::
 
-Bien que votre machine possède son propre nom, elle ne possède pas, pour l'instant, de nom de domaine auquel elle pourrait appartenir. Pour faire une analogie, disons que le nom de domaine pourrait être comparable à votre nom de famille. Plusieurs personnes d'une même famille se partage ce nom. Cela distingue un « bob » d'un autre « bob ».
+Bien que votre machine possède son propre nom, elle ne possède pas, pour l'instant, de nom de domaine auquel elle pourrait appartenir. Pour faire une analogie, disons que le nom de domaine pourrait être comparable à votre nom de famille. Plusieurs personnes d'une même famille se partagent ce nom. Cela distingue un « bob » d'un autre « bob ».
 
-Les noms de domaines DNS (les noms de familles) sont constitués d'un nom suivi d'un suffixe:
+Les noms de domaines DNS (les noms de famille) sont constitués d'un nom suivi d'un suffixe:
  - exemple.com
  - patate.net
  - gabriel.local
@@ -139,9 +139,9 @@ Validez vos modifications en entrant les commandes suivantes:
     </Tabs>
 </div><br/>
 
-### Le nom d'hôte de W10
+### Configuration du nom d'hôte de W10
 
-Votre poste sous Windows 10 possède également un nom d'hôte. Néanmoins, vous n'aurez pas le luxe de le choisir lors de l'installation contrairement à Ubuntu Server. Windows crée plutôt un nom générique lors de l'installation. Il faudra cependant le modifier pour un nom plus convivial. Pour ce faire, nous utiliserons une commande PowerShell. **Attention cette commande provoquera un redémarrage de votre poste**:
+Votre poste sous Windows 10 possède également un nom d'hôte. Néanmoins, vous n'aurez pas le luxe de le choisir lors de l'installation contrairement à Ubuntu Server. Windows crée plutôt un nom générique lors de l'installation. Il faudra cependant le modifier pour un nom plus convivial. Pour ce faire, nous utiliserons une commande PowerShell. **Attention, cette commande provoquera un redémarrage de votre poste**:
 
 ```Powershell
 Rename-Computer -NewName "ClientW10" -Restart
@@ -162,13 +162,13 @@ Une fois que Windows aura redémarré, validez le nouveau nom en utilisant la co
     </Tabs>
 </div><br/>
 
-### L'adresse IP de W10
+### Configuration de l'adresse IP de W10
 
-Pour des raisons de simplicité, nous allons mettre l'adresse IP de Windows 10 en mode statique. Configurez donc l'adresse IP de votre poste sous Windows 10 avec l'adresse **192.168.21.100**
+Pour des raisons de simplicité, nous allons mettre l'adresse IP de Windows 10 en mode statique. Configurez donc l'adresse IP de votre poste sous Windows 10 avec l'adresse **192.168.21.200**
 
-### Résolution de nom avec le fichier hosts
+### Résolution d'un nom avec le fichier hosts
 
-Notre serveur Ubuntu possède désormais un nom de domaine complet et une adresse IP statique, de même que notre ordinateur sous Windows 10. Nous avons tous éléments pour effectuer une première résolution de nom. Rappelez-vous: La première étape d'une résolution DNS ne passe pas par un serveur de nom, mais par le fichier `/etc/hosts`.
+Notre serveur Ubuntu possède désormais un nom de domaine complet et une adresse IP statique, de même que notre ordinateur sous Windows 10. Nous avons tous les éléments pour effectuer une première résolution de nom. Rappelez-vous: la première étape d'une résolution DNS ne passe pas par un serveur de nom, mais par le fichier `/etc/hosts`.
 
 Dirigez-vous donc sur votre serveur Linux et ouvrez le fichier `/etc/hosts`, nous y ajouterons un enregistrement pour notre PC sous Windows 10.
 
@@ -176,7 +176,7 @@ Dirigez-vous donc sur votre serveur Linux et ouvrez le fichier `/etc/hosts`, nou
 127.0.0.1 localhost
 127.0.1.1 ubserver.gabriel.local ubserver
 # highlight-next-line
-192.168.21.100 clientw10.gabriel.local clientw10
+192.168.21.200 clientw10.gabriel.local clientw10
 
 # The following are desirable for IPv6 capable hosts
 ::1 ip6-localhost ip6-loopback
@@ -187,3 +187,24 @@ ff02::2 ip6-allrouters
 ```
 
 Une fois cette ligne ajoutée, enregistrez le fichier et quittez l'éditeur de texte. Tentez d'envoyer une requête `ping` de votre serveur Ubuntu vers votre client Windows 10 **en utilisant son nom complet, soit : clientw10.gabriel.local**
+
+```bash
+ping clientw10.gabriel.local
+```
+
+Alors ? Ça fonctionne...? Ça ne devrait pas. En effet, si vous n'avez pas préalablement manipulé les règles de votre pare-feu au sein de votre client sous Windows 10, celui-ci devrait bloquer les paquets de types `ping`. Il existe déjà des règles au sein du pare-feu Windows qui autorise ce genre de paquet, il ne suffit que de les activer. Pour ce faire, utilisez la commande suivante:
+
+```Powershell
+Set-NetFirewallRule -Name FPS-ICMP4-ERQ-In -Enabled True
+```
+
+Retentez votre commande `ping` initiale depuis votre serveur Ubuntu:
+
+![PingHost](../Assets/07/PingHost.png)
+
+**<span class="green-text">Ça fonctionne! Vous avez effectué une première traduction.</span>**
+
+Oui, mais ce n'est pas encore au point. Si je désirais ajouter d'autres postes à mon réseau, je devrais éditer les fichiers `hosts` de toutes les machines à chaque fois. Ce serait un travail colossal et peu efficace. 😭 
+Nous allons donc devoir nous tourner vers quelque chose de plus efficace: un véritable serveur DNS.
+
+### Installation du service DNS
