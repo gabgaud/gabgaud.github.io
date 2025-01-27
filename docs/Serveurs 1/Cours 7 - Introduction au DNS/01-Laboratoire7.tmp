@@ -1,5 +1,7 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Laboratoire 7
 * * *
@@ -34,7 +36,154 @@ Tel que nous en avons discuté en classe, le DNS est un système permettant de t
 
 Mettez en place le schéma du réseau présenté ci-dessus. Assurez-vous que le client sous Windows 10 et que le serveur Ubuntu possèdent un accès internet via votre passerelle. Au besoin, faites les mises à jour sur le serveur Ubuntu.
 
-### Le nom d'hôte
+### Adresse IP d'Ubuntu
+
+Dans les cours précédents, nous avons étudié comment configurer une adresse IP statique sous Ubuntu Server. Comme il s'agit d'un serveur également dans ce laboratoire, assurez-vous de configurer une adresse IP statique au serveur Ubuntu. 
+
+**Recommandation: 192.168.21.10**
+
+### Le nom d'hôte d'Ubuntu
 
 Le nom d'hôte est tout simplement le nom que l'on donne à un ordinateur ou un serveur. Par défaut, tout ordinateur (sous Windows ou sous Linux) en possède un qui a été attitré à l'installation. Dans la version serveur d'Ubuntu, on peut retrouver le nom d'hôte situé après le caractère « @ » dans la ligne de commande:
 
+![Nom d'hôte](../Assets/07/hostname.png)
+
+Entrez la commande `ping` suivi du nom de votre ordinateur:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="Ping-Home" label="Commande" default>
+           ```bash
+            ping ubserver
+            ```
+        </TabItem>
+        <TabItem value="Resultat-Ping-Home" label="Résultat">
+           ![Ping Hostname](../Assets/07/PingHostname.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Appuyez simultanément sur les touches <kbd>ctrl</kbd>+<kbd>c</kbd> pour mettre fin à la commande `ping`. Remarquez-vous quelque chose d'étrange dans la réponse aux requêtes ping ? Observez l'adresse IP : 127.0.1.1
+
+:::tip[L'adresse de boucle local]
+L'adresse ip `127.0.0.1` est ce que l'on nomme l'adresse de boucle local (*loopback* en anglais). C'est une *fausse* adresse IP au sens où celle-ci renvoie vers votre propre machine. En gros, l'adresse `127.0.0.1` est un synonyme pour dire « ma propre machine ». Ceci est valable à travers tout les systèmes d'exploitation. Cependant, prenez le temps d'observez de nouveau le résultat de votre commande `ping`... Voyez-vous la différence ? L'adresse que l'on retrouve dans le résultat est 127.0.**1.1** et non pas 127.0.**0.1**. Quelle est la différence ? La différence est assez mineure. Sous Ubuntu Serveur 127.0.0.1 signifie `localhost` et 127.0.1.1 retourne le nom d'hôte.
+:::
+
+Bien que votre machine possède son propre nom, elle ne possède pas, pour l'instant, de nom de domaine auquel elle pourrait appartenir. Pour faire une analogie, disons que le nom de domaine pourrait être comparable à votre nom de famille. Plusieurs personnes d'une même famille se partage ce nom. Cela distingue un « bob » d'un autre « bob ».
+
+Les noms de domaines DNS (les noms de familles) sont constitués d'un nom suivi d'un suffixe:
+ - exemple.com
+ - patate.net
+ - gabriel.local
+ - ti-jo.patate
+    
+Pour la suite de ce laboratoire, j'utiliserai le nom de domaine *gabriel.local*. Vous pouvez suivre mon exemple si vous le désirez.
+Je dois donc informer mon serveur que non seulement il possède un nom, qu'il connait déjà, mais qu'il possède également un nom de famille (un nom de domaine.)
+Pour ce faire, je vais donc éditer le fichier "hosts". Oui, oui, le fichier "hosts" dont on a parlé en classe. 
+
+À l'aide d'un éditeur de texte, je vais donc ouvrir ce fichier:
+
+```bash title='/etc/hosts (Fichier original)' showLineNumbers
+127.0.0.1 localhost
+127.0.1.1 ubserver
+
+# The following are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+
+Dans le cadre du cours, nous travaillerons en IPv4, c'est donc dans la section du haut que nous devons apporter des modifications. Dans l'encadré ci-dessous, vous retrouverez les modifications apportées à la section du haut du fichier:
+
+```bash title='/etc/hosts (Modification)' showLineNumbers
+127.0.0.1 localhost
+# highlight-next-line
+127.0.1.1 ubserver.gabriel.local ubserver
+
+# The following are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+Comme vous pouvez le constater, j'ai ajouté le nom de domaine au nom de ma machine. Ensuite, j'ai entré un espace et j'ai à nouveau le nom de ma machine. Cela permet de distinguer le nom complet (FQDN) et le nom d'hôte (hostname). Enregistrez vos modifications et quittez l'éditeur de texte.
+
+Validez vos modifications en entrant les commandes suivantes:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="HostnameCommand" label="Commande" default>
+           ```bash
+            hostname
+            ```
+        </TabItem>
+        <TabItem value="ResultatHostnameCommand" label="Résultat">
+           ![Hostname Command](../Assets/07/HostnameCommand.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="HostnameFullCommand" label="Commande" default>
+           ```bash
+            hostname -f
+            ```
+        </TabItem>
+        <TabItem value="ResultatHostnameFullCommand" label="Résultat">
+           ![Hostname Full Command](../Assets/07/HostnameFullCommand.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+### Le nom d'hôte de W10
+
+Votre poste sous Windows 10 possède également un nom d'hôte. Néanmoins, vous n'aurez pas le luxe de le choisir lors de l'installation contrairement à Ubuntu Server. Windows crée plutôt un nom générique lors de l'installation. Il faudra cependant le modifier pour un nom plus convivial. Pour ce faire, nous utiliserons une commande PowerShell. **Attention cette commande provoquera un redémarrage de votre poste**:
+
+```Powershell
+Rename-Computer -NewName "ClientW10" -Restart
+```
+
+Une fois que Windows aura redémarré, validez le nouveau nom en utilisant la commande suivante:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="ComputerName" label="Commande" default>
+           ```Powershell
+            $env:computername
+            ```
+        </TabItem>
+        <TabItem value="ResultatComputerName" label="Résultat">
+           ![ComputerName](../Assets/07/ComputerName.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+### L'adresse IP de W10
+
+Pour des raisons de simplicité, nous allons mettre l'adresse IP de Windows 10 en mode statique. Configurez donc l'adresse IP de votre poste sous Windows 10 avec l'adresse **192.168.21.100**
+
+### Résolution de nom avec le fichier hosts
+
+Notre serveur Ubuntu possède désormais un nom de domaine complet et une adresse IP statique, de même que notre ordinateur sous Windows 10. Nous avons tous éléments pour effectuer une première résolution de nom. Rappelez-vous: La première étape d'une résolution DNS ne passe pas par un serveur de nom, mais par le fichier `/etc/hosts`.
+
+Dirigez-vous donc sur votre serveur Linux et ouvrez le fichier `/etc/hosts`, nous y ajouterons un enregistrement pour notre PC sous Windows 10.
+
+```bash title='/etc/hosts (ajout Windows 10)' showLineNumbers
+127.0.0.1 localhost
+127.0.1.1 ubserver.gabriel.local ubserver
+# highlight-next-line
+192.168.21.100 clientw10.gabriel.local clientw10
+
+# The following are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+
+Une fois cette ligne ajoutée, enregistrez le fichier et quittez l'éditeur de texte. Tentez d'envoyer une requête `ping` de votre serveur Ubuntu vers votre client Windows 10 **en utilisant son nom complet, soit : clientw10.gabriel.local**
