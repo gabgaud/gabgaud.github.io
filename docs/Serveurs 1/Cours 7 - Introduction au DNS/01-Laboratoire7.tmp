@@ -27,3 +27,14 @@ import ThemedImage from '@theme/ThemedImage';
 * * *
 
 ## Étapes de réalisation
+
+Tel que nous en avons discuté en classe, le DNS est un système permettant de traduire les adresses IP en nom, vice-versa. Dans ce laboratoire et les suivants, vous aurez l'occasion d'expérimenter la mise en place de serveurs DNS et d'observer leur comportement dans différentes situations.
+
+### Mise en place du schéma
+
+Mettez en place le schéma du réseau présenté ci-dessus. Assurez-vous que le client sous Windows 10 et que le serveur Ubuntu possèdent un accès internet via votre passerelle. Au besoin, faites les mises à jour sur le serveur Ubuntu.
+
+### Le nom d'hôte
+
+Le nom d'hôte est tout simplement le nom que l'on donne à un ordinateur ou un serveur. Par défaut, tout ordinateur (sous Windows ou sous Linux) en possède un qui a été attitré à l'installation. Dans la version serveur d'Ubuntu, on peut retrouver le nom d'hôte situé après le caractère « @ » dans la ligne de commande:
+

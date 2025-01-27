@@ -122,6 +122,21 @@ import ThemedImage from '@theme/ThemedImage';
     ```Powershell
     Set-Item WSMan:\localhost\Client\TrustedHosts 192.168.21.20 -Concatenate
     ```
+    :::danger[En ligne - Accès refusé]
+    Certains étudiants ont rencontrés cette erreur durant le laboratoire:
+
+    ![Mauvais mot de passe](../Assets/02/Bad_Pass.png)
+    
+    Il s'agit d'une erreur d'authentification causé par le fait que votre PC tente de se connecter avec votre utilisateur et votre mot de passe actuel. Or, ces informations diffèrent parfois entre les deux machines. Pour résoudre ce problème, effectuez les étapes suivantes:
+
+    1. Faites un clic à l'aide du bouton de droite de la souris sur l'adresse IP affichée et sléectionnez « Gérer en tant que... »
+
+    2. Dans la fenêtre d'authentification, dans le champ utilisateur, entrez l'adresse IP du serveur, suivi du nom d'utilisateur du serveur, séparé par une barre oblique inverse. Exemple: 1.2.3.4\Administrateur
+
+    3. Entrez le mot de passe du compte Administrateur (généralement *Passw0rd*)
+    
+    4. Confirmez le tout, l'erreur devrait disparaitre au bout de quelques secondes.
+    :::
 
     Une fois cette commande validée, cliquez sur le bouton « rafraîchir » dans votre gestionnaire de serveur. Vous devriez être en mesure de gérer votre serveur à distance, c'est-à-dire y ajouter des rôles et entreprendre tout action comme si vous étiez directement sur celui-ci.
 
