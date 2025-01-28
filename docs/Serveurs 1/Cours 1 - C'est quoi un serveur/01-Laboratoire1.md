@@ -16,13 +16,15 @@ import ThemedImage from '@theme/ThemedImage';
 * * *
 ## Schéma
 
-<ThemedImage
-    alt="Schéma"
-    sources={{
-        light: useBaseUrl('/img/Serveurs1/Laboratoire1_W.svg'),
-        dark: useBaseUrl('/img/Serveurs1/Laboratoire1_D.svg'),
-    }}
-/>
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire1_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire1_D.svg'),
+        }}
+    />
+</div>
 * * *
 
 ## Étapes de réalisation

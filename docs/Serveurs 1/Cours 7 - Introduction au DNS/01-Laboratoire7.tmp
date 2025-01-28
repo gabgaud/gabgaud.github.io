@@ -18,13 +18,15 @@ import TabItem from '@theme/TabItem';
 * * *
 ## Schéma
 
-<ThemedImage
-    alt="Schéma"
-    sources={{
-        light: useBaseUrl('/img/Serveurs1/Laboratoire7_W.svg'),
-        dark: useBaseUrl('/img/Serveurs1/Laboratoire7_D.svg'),
-    }}
-/>
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire7_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire7_D.svg'),
+        }}
+    />
+</div>
 
 * * *
 
@@ -164,7 +166,14 @@ Une fois que Windows aura redémarré, validez le nouveau nom en utilisant la co
 
 ### Configuration de l'adresse IP de W10
 
-Pour des raisons de simplicité, nous allons mettre l'adresse IP de Windows 10 en mode statique. Configurez donc l'adresse IP de votre poste sous Windows 10 avec l'adresse **192.168.21.200**
+Pour des raisons de simplicité, nous allons mettre l'adresse IP de Windows 10 en mode statique. Configurez donc l'adresse IP de votre poste sous Windows 10 comme suit:
+
+|Item|Valeur|
+|----|------|
+|Adresse IP|192.168.21.200|
+|Masque|255.255.255.0|
+|Passerelle|192.168.21.1|
+|DNS|192.168.21.1|
 
 ### Résolution d'un nom avec le fichier hosts
 
@@ -207,4 +216,122 @@ Retentez votre commande `ping` initiale depuis votre serveur Ubuntu:
 Oui, mais ce n'est pas encore au point. Si je désirais ajouter d'autres postes à mon réseau, je devrais éditer les fichiers `hosts` de toutes les machines à chaque fois. Ce serait un travail colossal et peu efficace. 😭 
 Nous allons donc devoir nous tourner vers quelque chose de plus efficace: un véritable serveur DNS.
 
-### Installation du service DNS
+### Installation et configuration du service DNS
+
+Pour faire de notre serveur Ubuntu un véritable serveur DNS, il nous faudra installer quelques paquets supplémentaires. Nous utiliserons l'un des services DNS très populaire sur le marché: Bind9. Plus précisément, nous installerons 3 paquets:
+
+|Paquet|Définition|
+|----------|--------------|
+| bind9 | C'est le service DNS lui-même |
+| bind9utils | Ce sont des commandes supplémentaires qui peuvent être utiles lors de débogage par exemple. |
+| bind9-doc | L'ensemble de la documentation pour bind9 |
+
+Voici donc la commande à entrer pour installer les paquets en question:
+
+```bash
+sudo apt install bind9 bind9utils bind9-doc -y
+```
+
+Dès son installation, Bind9 passe en mode "cache DNS". Autrement dit, il commence à retenir les adresses IP dont il obtient la résolution DNS.
+    
+Notre objectif est évidemment d'utiliser cette mémoire cache qui est présente dans le serveur DNS bind9 pour optimiser la résolution des requêtes DNS sur notre réseau. Nous devons envoyer toutes nos requêtes DNS vers ce serveur dorénavant. Sauf que…
+    
+Notre serveur DNS, lui, fera quoi avec nos requêtes DNS ? Comment fera-t-il pour déterminer quelle est l'adresse IP du site rds.ca que je tente de joindre ? La vraie réponse, c'est qu'il en sera incapable… (pas fort pour un DNS😡). On va donc configurer ce que l'on nomme **un redirecteur.** Lorsque notre serveur DNS recevra une requête pour un site déterminé, celui-ci transférera la requête vers un DNS publique (ex: Google) et il attendra la réponse. Lorsqu'il recevra le résultat de la requête, soit l'adresse IP, il stockera celle-ci dans sa mémoire cache afin d'accélérer le processus de la prochaine requête.
+    
+Voici un petit schéma explicatif:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Labo7_Redirecteur_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Labo7_Redirecteur_D.gif'),
+        }}
+    />
+</div>
+
+Nous allons donc éditer l'un des fichiers de Bind9 afin que celui-ci comprenne qu'il doit rediriger les requêtes dont il ne connait pas la réponse. D'abord, voici le fichier original:
+
+```yaml title='/etc/bind/named.conf.options (fichier original)' showLineNumbers
+options {
+    directory "/var/cache/bind";
+
+    // if there is a firewall between you and nameservers you want
+    // to talk to, you may need to fix the firewall to allow multiple
+    // ports to talk. See http://www.kb.cert.org/vuls/id/800113
+
+    // If your ISP provided one or more IP addresses for stable
+    // nameservers, you probably want to use them as forwarders.
+    // Uncomment the following block, and insert the addresses replacing
+    // the all-0's placeholder.
+
+    //highlight-next-line
+    // forwarders {
+    //highlight-next-line
+    //      0.0.0.0;
+    //highlight-next-line
+    // };
+
+    //=======================================================================
+    // If BIND logs error messages about the root key being expired,
+    // you will need to update your keys. See https://www.isc.org/bind-keys
+    //=======================================================================
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+};
+```
+
+Chacune des lignes commençant par « // » représente un commentaire et n'est pas prise en compte par le service. Vous remarquerez que j'ai mis en évidence la section qui concerne les « forwarders » ou les redirecteurs en français. Il nous faudra donc décommenter ces lignes de configurations et y inscrire les adresses des serveurs DNS vers lesquels nous redirigerons nos requêtes. Pour le plaisir, nous utiliserons les serveurs DNS publics de Google. Apportez donc les modifications suivantes:
+
+```yaml title='/etc/bind/named.conf.options (fichier modifié)' showLineNumbers
+options {
+    directory "/var/cache/bind";
+
+    // if there is a firewall between you and nameservers you want
+    // to talk to, you may need to fix the firewall to allow multiple
+    // ports to talk. See http://www.kb.cert.org/vuls/id/800113
+
+    // If your ISP provided one or more IP addresses for stable
+    // nameservers, you probably want to use them as forwarders.
+    // Uncomment the following block, and insert the addresses replacing
+    // the all-0's placeholder.
+
+    //highlight-start
+    forwarders {
+          8.8.8.8;
+          8.8.4.4;
+    };
+
+    forward only;
+    //highlight-end
+
+    //=======================================================================
+    // If BIND logs error messages about the root key being expired,
+    // you will need to update your keys. See https://www.isc.org/bind-keys
+    //=======================================================================
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+};
+```
+
+Une fois les modifications apportées et le fichier bien enregistrés, nous pouvons faire une vérification de la syntaxe pour vous assurer que vous n'avez fait aucune erreur.
+
+```bash
+sudo named-checkconf /etc/bind/named.conf.options
+```
+
+Si la commande ne retourne rien, c'est que votre fichier de configuration ne comporte aucune erreur. Bravo! ✔
+
+Il ne nous reste plus qu'à faire en sorte que le service DNS démarre automatiquement lorsque le serveur démarrer. Nous avons vu comment nous pouvions activer le démarrage automatique de service lors du cours de système d'exploitation. Au besoin, consulter [cette section](../../OS/Linux/08-Services.md/#activer-ou-désactiver-le-démarrage-automatique). 
+
+:::tip
+Le nom du service est *named* et non Bind 😉
+:::
+
+Démarrez dès maintenant le service manuellement et vérifiez-en le statut.
+
+### Modification de l'adresse DNS sous W10
+
+Nous y voilà, nous allons tester le bon fonctionnement de votre tout nouveau serveur DNS. Allez modifiez la configuration IP de votre client sous Windows 10 pour lui configurer l'adresse de votre serveur Ubuntu en tant que DNS, **soit 192.168.21.10** si vous avez suivi ma recommandation au début de ce laboratoire. Une fois la nouvelle adresse du serveur DNS configuré, appliquez les modifications et tentez de naviguer sur le web avec votre poste de travail. Alors ? Ça fonctionne ?
