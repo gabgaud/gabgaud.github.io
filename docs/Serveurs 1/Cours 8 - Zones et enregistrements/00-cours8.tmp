@@ -50,7 +50,7 @@ Il existe deux types de zone de recherche:
  <span class="red-text">**-Principal:**</span>
  Une zone principal est ouverte en écriture. Les enregistrements qu'elle contient sont donc <u>modifiables.</u>
 
- <span class="green-text">**-Secondaire:**</span>
+ <span class="cyan-text">**-Secondaire:**</span>
  C'est une copie de la zone principale et elle n'est disponible qu'en lecture seule. Les zones secondaires permettent de distribuer la charge de travail entre les serveurs DNS.
 
 Voici ce à quoi peut ressembler un fichier de zone de recherche avec Bind:
@@ -62,7 +62,7 @@ $TTL    86400
                       3600       ; Refresh
                       1800       ; Retry
                       1209600    ; Expire
-                      86400 )    ; Minimum TTL
+                      86400 )    ; Negative Cache TTL
 
         IN      NS      ns1.exemple.com.
         IN      NS      ns2.exemple.com.
@@ -90,7 +90,7 @@ La première qui constitue le fichier de zone est celle qui concerne le *Time To
                       3600       ; Refresh
                       1800       ; Retry
                       1209600    ; Expire
-                      86400 )    ; Minimum TTL
+                      86400 )    ; Negative Cache TTL
 ```
 
 L'ennregistrement SOA est <u>obligatoire</u> à toute zone de recherche. Cet enregistrement contient des informations importantes concernant la zone. Commençons par analyser la ligne supérieure, celle qui débute par un « @ ». Il faut d'abord savoir que dans les fichiers de zone, le caractère « @ » est un alias qui correspond au nom du domaine. Dans l'exemple ci-dessus, je pourrais très bien changé le caractère « @ » par *exemple.com*, cela reviendrait exactement au même.
@@ -102,4 +102,20 @@ L'ennregistrement SOA est <u>obligatoire</u> à toute zone de recherche. Cet enr
 | SOA | C'est le type d'enregistrement, ici « SOA » *(Start of authority)*.|
 | ns1.exemple.com.| <span class="red-text">**C'est le serveur qui autorité sur la zone.**</span> C'est donc le seul serveur qui a l'autorisation de modifier ou d'ajouter des enregistrements.|
 |admin.exemple.com.| C'est l'adresse courriel de l'administrateur du serveur DNS. Étant donné que le caractère « @ » a une signification particulière, nous l'avons remplacé par un point. La véritable adresse courriel de l'administrateur est donc « admin@exemple.com. »
-| Serial | Il s'agit du numéro de série de la zone. <span class="green-text">Ce numéro est incrémenté à chaque modification.</span> Cela permet aux serveurs secondaires de savoir s'ils possèdent toujours une copie à jour de la zone. |
+| Serial | Il s'agit du numéro de série de la zone. <span class="red-text">Ce numéro est incrémenté à chaque modification.</span> Cela permet aux serveurs secondaires de savoir s'ils possèdent toujours une copie à jour de la zone. |
+| Refresh | C'est le temps, en secondes, que les serveurs secondaires doivent attendre avant de <span class="red-text">vérifier si des modifications ont été apportées à la zone (1h)</span> |
+| Retry | C'est le temps, en secondes, que les serveurs secondaires doivent attendre avant de <span class="red-text">réessayer de se mettre à jour suite à un échec de la requête initial. (15 min) </span>|
+| Expire | Il s'agit du temps, en secondes, après lequel une copie de <span class="red-text">la zone est considérée obsolète si aucune communication avec le serveur qui a autorité n'a pu être établie. (7 jours) </span>|
+| Negative Cache TTL | Le temps, en secondes, pour la <span class="red-text">mise en cache des domaines non-trouvées </span>dans les ordinateurs clients. Cela permet d'éviter le trop grand trafic que pourrait généré des requêtes répétées pour des domaines inexistants. <span class="red-text">(1 jour)</span>
+
+## Schéma de concept
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Concept_Zone_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Concept_Zone_D.gif'),
+        }}
+    />
+</div>

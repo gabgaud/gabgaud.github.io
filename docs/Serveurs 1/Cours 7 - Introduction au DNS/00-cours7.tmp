@@ -193,6 +193,7 @@ Plusieurs commandes peuvent vous aider à résoudre des problèmes de DNS. Nous 
 
 ### Résoudre un nom de domaine sous Windows
 
+#### Avec PowerShell
 Nul besoin d'ouvrir votre navigateur web si vous désirez tester le serveur DNS en place, il vous suffit d'utiliser la commande `resolve-dnsname` de PowerShell. Par exemple, si désire résoudre le nom www.cegepmontpetit.ca, je pourrais procéder comme suit:
 
 <div className="tabsborder">
@@ -221,7 +222,46 @@ Il est également possible d'utiliser la même commande tout en précisant le se
             ![ResolveDnsNameServer](../Assets/07/resolve-dnsname-server.png)
         </TabItem>
     </Tabs>
+</div>
+
+#### Avec nslookup
+La commande `nslookup` permet aussi d'interroger un serveur DNS. Cela dit, c'est une commande standard, elle n'appartient pas à la famille des commandes PowerShell. Néanmoins, elle demeure très intéressante puisqu'elle s'utilise autant sous Linux que sous Windows.
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="nslookup" label="Commande" default>
+            ```batch
+            nslookup www.cegepmontpetit.ca
+            ```
+        </TabItem>
+        <TabItem value="Resultat-nslookup" label="Résultat">
+            ![ResolveDnsNameServer](../Assets/07/nslookup.png)
+
+            :::caution
+            La réponse retournée comporte deux blocs:
+
+            - Le bloc du haut contient des informations sur le serveur DNS qui nous a répondu (son nom & son adresse).
+            - Le bloc du bas, quant à lui, contient la réponse que nous attendions, soit l'adresse IP correspondant à `www.cegepmontpetit.ca`. Avez-vous remarqué la mention **« réponse ne faisant pas autorité »** ? Cela signifie que la réponse nous provient d'un serveur DNS qui n'a pas l'autorité sur la zone cegepmonpetit.ca. Il peut s'agir d'un serveur secondaire ou tout simplement d'une réponse provenant de la cache d'un autre serveur.
+            :::
+         </TabItem>
+    </Tabs>
 </div><br/>
+
+Il a tout fait possible d'interroger des enregistrements DNS particuliers ou même des serveurs DNS particuliers avec la commande `nslookup` en ajoutant ces options aux bons endroits:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="nslookup_opt" label="Commande" default>
+            ```batch
+            nslookup -type=soa google.com 8.8.8.8
+            ```
+        </TabItem>
+        <TabItem value="Resultat-nslookup_opt" label="Résultat">
+            ![ResolveDnsNameServer](../Assets/07/nslookup_opt.png)
+        </TabItem>
+    </Tabs>
+</div>
+
 
 ### Résoudre un nom de domaine sous Linux
 
