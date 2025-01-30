@@ -1,0 +1,62 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 8
+* * *
+## Configuration d'une zone de recherche directe
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 7
+
+:::caution
+Nous repartirons du laboratoire précédent pour réaliser celui-ci. Assurez-vous donc votre laboratoire 7 soit 100% fonctionnel.
+:::
+
+## Objectif(s)
+- Mettre en place une zone de recherche directe
+- Configurer des enregistrements DNS statiques
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire8_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire8_D.svg'),
+        }}
+    />
+</div>
+
+* * *
+
+## Étapes de réalisation
+
+Lors du dernier laboratoire, vous avez créé un premier serveur DNS. Cela dit, ce serveur ne possédait aucune zone de recherche, il se contentait simplement de traiter les requêtes à l'aide de redirecteurs puis il stockait les réponses dans sa mémoire cache.
+
+Aujourd'hui nous modifierons ce serveur DNS pour qu'il gère une zone d'enregistrements. Avant toute chose, il faudra déterminer le nom de domaine que vous utiliserez. Dans mes différents exemples, j'utiliserai le nom : gabriel.local.
+
+### Retour sur le fichier hosts
+
+Commencez d'abord par éditer le fichier `/etc/hosts` de votre serveur sous Linux afin de <span class="red-text">supprimer l'entrée concernant votre premier client Windows 10.</span> Normalement, votre fichier `/etc/hosts` devrait être similaire à celui-ci:
+
+```bash title='/etc/hosts' showLineNumbers
+127.0.0.1 localhost
+127.0.1.1 ubserver.gabriel.local ubserver
+#highlight-next-line
+192.168.21.200 clientw10.gabriel.local clientw10 # <---Ligne à supprimer
+
+# The following are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+Enregistrez votre fichier une fois l'entrée supprimée.
+
+### Renommez les clients
