@@ -55,3 +55,33 @@ La commande nslookup fonctionne très bien avec des enregistrements PTR:
 Le fait d'avoir une zone de recherche inversée permettra également d'obtenir le nom du serveur lorsque vous faites des requêtes sur une zone de recherche directe:
 
 ![NomDeServeur](../Assets/09/ServerName.png)
+
+La commande `resolve-dnsname` permet, elle aussi, d'interroger la zone de recherche inversée:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="ReverseResolveDNSName" label="Commande" default>
+            ```Powershell
+            resolve-dnsname 192.168.21.201 -type PTR
+            ```
+        </TabItem>
+        <TabItem value="ResultatReverseResolveDNSName" label="Résultat">
+           ![ComputerName](../Assets/09/ReverseResolveDnsName.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Finalement, vous pourrez également interroger la zone de recherche inversée sous Linux avec la commande `dig`:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="ReverseDig" label="Commande" default>
+            ```bash
+            dig -x 192.168.21.201 +short
+            ```
+        </TabItem>
+        <TabItem value="ResultatReverseDig" label="Résultat">
+           ![ComputerName](../Assets/09/ReverseDig.png)
+        </TabItem>
+    </Tabs>
+</div><br/>

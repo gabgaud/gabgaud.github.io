@@ -1,0 +1,55 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 10
+
+## Retour sur différents concepts
+
+- Un serveur DNS a pour objectif de traduire des noms de domaine en adresse IP et des adresses IP en noms de domaine.
+
+- Il réalise cet exploit grâce aux enregistrements qu'il possède ou en transférant la requête vers d'autres serveurs DNS qui finiront par obtenir une réponse.
+
+- Les enregistrements du serveur DNS sont stockés dans des zones de recherches. Ces zones constituent des base de données.
+
+## Le service DNS est critique!
+
+Le service de résolution de nom DNS est crucial. Sans ce service, l'accès internet d'une entreprise ou même ses différents services d'administration pourraient ne plus fonctionner convenablement. Dans cette optique, on mettra souvent plus d'un serveur DNS en place au sein du réseau local afin de profiter d'une redondance du service.
+
+## Gestion de la charge de travail
+
+Ensemble, nous avons abordé les redirecteurs. Pour rappel, il s'agit d'un serveur DNS vers lequel nous pourrons rediriger nos requêtes dans le cas ou notre propre serveur n'y arriverait pas. Sachez qu'il est possible de poser des conditions à nos redirecteurs. En présence de plusieurs serveurs DNS, cela nous permet de gérer le travail de chacun de ceux-ci.
+
+À titre d'exemple, nous pourrions avoir deux serveurs DNS pour les requêtes au nom du domaine local et un serveur de cache DNS pour les requêtes externes:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/DNS_Multi_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/DNS_Multi_D.gif'),
+        }}
+    />
+</div>
+
+## Hiérarchie primaire-secondaire
+
+Dans l'exemple ci-dessus, deux serveurs gèrent la zone « gabriel.local ». Même si les deux serveurs se partagent le travail de répondre aux requêtes concernant cette zone, un seul est autorisé à effectuer des modifications sur les enregistrements. Il s'agit du serveur primaire.
+
+> *Mais Gabriel, comment le serveur secondaire pourra savoir si un enregistrement est changé dans le serveur primaire ?*
+>
+> *-Les étudiants*
+
+Bonne question. Le serveur DNS primaire fera ce que l'on nomme des transferts de zone.
+
+## Les transferts de zone
+
+Les transferts de zone peuvent fonctionner de deux façons:
+
+- En étant basé sur le temps.
+- En étant basé sur les notifications.
+
+### Basé sur le temps
+
+La valeur « refresh » définit dans l'enregistrement SOA indique aux serveurs secondaires combien de temps ils doivent laisser passer avant de demander au serveur primaire s'il y a eu des modifications sur la zone.
