@@ -43,11 +43,15 @@ La commande nslookup fonctionne très bien avec des enregistrements PTR:
     <Tabs>
         <TabItem value="ReverseNsLookup" label="Commande" default>
             ```batch
-            nslookup -type=PTR 192.168.21.200
+            nslookup -type=PTR 192.168.21.201
             ```
         </TabItem>
         <TabItem value="ResultatReverseNsLookup" label="Résultat">
-           ![ComputerName](../Assets/08/DNSTest.png)
+           ![ComputerName](../Assets/09/NslookupReverse.png)
         </TabItem>
     </Tabs>
 </div><br/>
+
+Le fait d'avoir une zone de recherche inversée permettra également d'obtenir le nom du serveur lorsque vous faites des requêtes sur une zone de recherche directe:
+
+![NomDeServeur](../Assets/09/ServerName.png)

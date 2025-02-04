@@ -137,10 +137,10 @@ options {
     directory "/var/cache/bind";
 
     //highlight-start
-    recursion yes; # Nous autorisons la résolution de requêtes récursives.
+    recursion yes;                                  # Nous autorisons la résolution de requêtes récursives.
     allow-recursion { 192.168.21.0/24;localhost; }; # Nous répondrons aux requêtes de ce sous-réseau seulement.
-    listen-on { any; }; # Nous écouterons les requêtes reçues sur n'importe quelle interface réseau.
-    allow-transfer { none; }; # Nous désactivons le tranfert de zone. Nous en reparlerons très bientôt.
+    listen-on { any; };                             # Nous écouterons les requêtes reçues sur n'importe quelle interface réseau.
+    allow-transfer { none; };                       # Nous désactivons le tranfert de zone. Nous en reparlerons très bientôt.
     //highlight-end
     
     // if there is a firewall between you and nameservers you want
@@ -190,11 +190,11 @@ Bien, il nous faut maintenant indiquer au service Bind9 qu'il est responsable d'
 // include "/etc/bind/zones.rfc1918";
 
 #highlight-start
-zone "gabriel.local" IN { # Déclaration de ma zone qui contiendra des enregistrements de classe IN.
-    type master; # Il s'agit d'une zone principale.
-    file "/etc/bind/zones/db.gabriel.local"; # Emplacement du fichier contenant les enregistrements de la zone.
-    allow-update { none; }; # Désactivation des mises à jour dynamiques. Nous y reviendrons bientôt.
-}; # Fin de la déclaration
+zone "gabriel.local" IN {                       # Déclaration de ma zone qui contiendra des enregistrements de classe IN.
+    type master;                                # Il s'agit d'une zone principale.
+    file "/etc/bind/zones/db.gabriel.local";    # Emplacement du fichier contenant les enregistrements de la zone.
+    allow-update { none; };                     # Désactivation des mises à jour dynamiques. Nous y reviendrons bientôt.
+};                                              # Fin de la déclaration
 #highlight-end
 ```
 Sauvegardez vos modifications et quittez l'éditeur de texte.
