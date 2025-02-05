@@ -1,0 +1,38 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 10
+* * *
+
+## Mise en place d'un second serveur DNS
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 9
+
+:::caution
+Nous repartirons du laboratoire précédent pour réaliser celui-ci. Assurez-vous donc que votre laboratoire 9 soit 100% fonctionnel.
+:::
+
+## Objectif(s)
+- Mettre en place un serveur DNS Secondaire
+- Configurer les notifications et les transferts de zone.
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire8_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire8_D.svg'),
+        }}
+    />
+</div>
+
+* * *
+
+## Étapes de réalisation
