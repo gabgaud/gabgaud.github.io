@@ -27,8 +27,8 @@ Nous repartirons du laboratoire précédent pour réaliser celui-ci. Assurez-vou
     <ThemedImage
         alt="Schéma"
         sources={{
-            light: useBaseUrl('/img/Serveurs1/Laboratoire8_W.svg'),
-            dark: useBaseUrl('/img/Serveurs1/Laboratoire8_D.svg'),
+            light: useBaseUrl('/img/Serveurs1/Laboratoire10_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire10_D.svg'),
         }}
     />
 </div>

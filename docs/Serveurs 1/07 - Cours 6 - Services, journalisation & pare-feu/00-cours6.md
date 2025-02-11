@@ -294,3 +294,7 @@ Les événements de *UFW* sont enregistrés dans le fichier `/var/log/ufw.log`. 
 - Encadré **<span class="pink-text"> rose: </span>** Dans l'encadré rose, il est possible de voir l'adresse IP à qui était destiné le paquet, c'est-à-dire notre propre adresse.
 
 - Encadré **<span class="cyan-text"> turquoise: </span>** Dans cet encadré, nous pouvons voir sur quel port ce paquet tentait de traverser. Ici, il s'agit du port 22, le port associé au service SSH.
+
+## Références
+
+- [Retrouvez le PowerPoint du cours ici](../Assets/06/06-420-2S5-H25%20(Services%20Journalisation%20FW).pdf)
