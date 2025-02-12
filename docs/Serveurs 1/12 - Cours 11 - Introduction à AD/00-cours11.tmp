@@ -1,0 +1,57 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 11
+
+## Le DNS jusqu'ici
+Jusqu'ici nous avons abordé les DNS avec Linux. En outre, nous avons appris qu'un domaine était un ensemble d'ordinateurs et de périphériques interconnectés les uns aux autres via un réseau local et représenté par une délimitation logique. Chaque appareil possède un nom qui lui est propre sur le domaine, constitué de son nom, suivi du nom de domaine.
+
+**Par exemple:**
+
+<div style={{textAlign: 'center'}}>
+<span class="lsp"><span class="yellow-text">**pc0001.**</span><span class="cyan-text">**gabriel.local.**</span></span>
+</div><br/>
+
+En jaune, nous avons le nom de l'appareil et en bleu, le nom du domaine. L'ensemble du nom est ce que l'on nomme le FQDN.
+
+## Active Directory
+
+Les services de Domaine Active Directory de Microsoft utilisent les délimitations d'un domaine pour faire l'administration de son contenu. Au-delà des ordinateurs, plusieurs autres objets peuvent faire partie d'un domaine Active Directory (utilisateurs, ordinateurs, imprimantes, etc). Active Directory offre un service centralisé de gestion d'identité, d'autorisation et d'authentification dans un réseau.
+
+### Comment ça marche ?
+
+AD répertorie, dans un annuaire, divers éléments composant le domaine, afin d'en faciliter la recherche:
+- Ordinateurs (serveurs et postes de travail)
+- Utilisateurs et groupes d'utilisateurs
+- Imprimantes
+- Dossiers partagés sur le réseau
+
+Cet annuaire est stocké dans une base de données distribuée et répliquée.
+
+### Historique
+
+Active Directory est apparu pour la première fois sous Windows 2000. À l'époque, le leader du produit le plus similaire était Novell Directory. Le fait qu'Active Directory soit directement intégré à Windows a mené à la perte de Novell Directory. Aujourd'hui plus de 90% des organisations et des entreprises utilisent Active Directory pour l'authentification et l'identification de ses utilisateurs.
+
+### Principaux services
+
+|Service|Définition|
+|:---------:|:-------------|
+|LDAP|Organisation et interrogation des objets (utilisateurs, ordinateurs, groupes, etc.) et leurs attributs dans une base de données de type annuaire.|
+|DNS|Résolution de noms des ordinateurs du réseau. Essentiel pour localiser les contrôleurs de domaine et autres serveurs.|
+|Kerberos| Authentification centralisée pour gérer l'accès aux ressources du domaine.|
+|DFS|Partage de fichiers distribués et répliqués entre plusieurs serveurs mais disposant d'un lien commun.|
+|NTP|Synchronisation des horloges système de tous les hôtes du réseau.|
+
+### Qu'est-ce qu'un domaine AD
+
+- Un domaine (zone DNS)
+- Un ou plusieurs contrôleurs de domaine
+- Des objets de divers types:
+    - Utilisateurs
+    - Ordinateurs
+    - Groupes
+    - Stratégies de groupe (GPO)
+    - Unités d'organisation (OU)
+    - Autres (imprimantes, partage de fichiers...)

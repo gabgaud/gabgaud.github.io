@@ -94,3 +94,7 @@ h4, h5, h6 {
 .cyan-text{
   color: cyan;
 }
+
+.lsp{
+  letter-spacing: 1em;
+}

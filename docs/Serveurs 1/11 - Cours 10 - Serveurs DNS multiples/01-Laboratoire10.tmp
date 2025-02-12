@@ -110,6 +110,40 @@ La ligne `allow-transfer { key "rndc-key"; };` stipule, quant à elle, que nous 
 
 La ligne `notify yes;` a pour effet d'activer les notifications. Lorsqu'une modification sera apportée à une zone, le serveur en avisera automatiquement les serveurs secondaires.
 
+#### Modification des déclarations de zone
+
+Nous devons modifier les déclarations de zone dans le serveur DNS primaire pour autoriser les transferts de celles-ci ainsi l'envoi de notifications. Dans le fichier `/etc/bind/named.conf.local`, modifiez les lignes suivantes:
+
+```yaml title='/etc/bind/named.conf.options' showLineNumbers
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+// include "/etc/bind/zones.rfc1918";
+
+zone "gabriel.local" IN {
+    type master;
+    file "/etc/bind/zones/db.gabriel.local";
+    allow-update { none; };
+    //highlight-start
+    allow-transfer { key "rndc-key"; };     #<---Ajoutez cette ligne
+    notify yes;                             #<---Ajoutez cette ligne
+    //highlight-end
+};
+
+zone "21.168.192.in-addr.arpa" IN {
+    type master;
+    file "/etc/bind/zones/db.21.168.192";
+    allow-update { none; };
+    //highlight-start
+    allow-transfer { key "rndc-key"; };     #<---Ajoutez cette ligne
+    notify yes;                             #<---Ajoutez cette ligne
+    //highlight-end
+};
+```
+
 #### Modification du fichier contenant la clé
 
 Nous serons bientôt prêts à finaliser la configuration de notre serveur DNS secondaire. Avant d'y être, il faut éditer notre fichier `rndc.key` pour indiquer à Bind qu'il devra utiliser cette clé pour demander les transferts de zone. Éditez donc le fichier `/etc/bind/rndc.key` pour y indiquer l'adresse de votre serveur DNS primaire ainsi que la clé à utiliser:
@@ -173,6 +207,9 @@ include "/etc/bind/rndc.key";
     //highlight-next-line
     allow-notify { 192.168.21.10; };
 
+    //highlight-next-line
+    masterfile-format text;
+
     // if there is a firewall between you and nameservers you want
     // to talk to, you may need to fix the firewall to allow multiple
     // ports to talk. See http://www.kb.cert.org/vuls/id/800113
@@ -230,3 +267,61 @@ zone "21.168.192.in-addr.arpa" IN {
 };
 ```
 
+:::info
+Vous aurez remarqué que l'on précise qu'il s'agit d'un serveur secondaire : `type slave;` et que l'on précise également l'adresse du ou des serveurs primaires : `masters`.
+
+Remarquez l'emplacement des fichiers de zone. Cet emplacement diffère du serveur principal, mais pourquoi ? C'est une question de droit, tout simplement. Nous devons stocker nos fichiers de zone dans un emplacement ouvert en écriture puisque ceux-ci seront régulièrement mis à jour.
+:::
+
+#### Création des fichiers de zone
+
+Créez le dossier `zones` à l'emplacement `/var/lib/bind`. Assurez-vous que le propriétaire et le groupe-propriétaire soient Bind. À l'aide de la commande `touch`, créez deux fichiers de zone dans le serveur DNS secondaire:
+
+```bash
+sudo touch /var/lib/bind/zones/db.gabriel.local /var/lib/bind/zones/db.21.168.192
+```
+
+Assurez-vous de configurer les bons droits et les bons propriétaires sur les deux fichiers de zone que vous venez de créer:
+
+```bash
+sudo chown bind:bind /var/lib/bind/zones/* && sudo chmod 644 /var/lib/bind/zones/*
+```
+
+### Validation et tests
+
+Redémarrez les services DNS sur le serveur primaire et secondaire.
+
+#### Preuves de fonctionnement dans les journaux
+
+Consultez les journaux sur votre serveur DNS secondaire à l'aide de la commande suivante:
+
+```bash
+sudo journalctl -u named.service | tail -50
+```
+
+Vous devriez être en mesure de repérez des événements de transfert de zone réussis:
+
+![Transfert réussi](../Assets/10/logtransfer.png)
+
+#### Preuves de transferts fonctionnels
+
+Au sein de votre serveur secondaire, vous devriez aussi être en mesure de consulter les fichiers de zone. <mark> Nous n'avons jamais entré d'enregistrements </mark>dans notre serveur secondaire. La présence de ceux-ci signifie donc qu'ils ont bel et bien été transférés depuis le serveur primaire. Ouvrez vos fichiers de zone avec la commande `cat` par exemple et inspectez-les:
+
+![Contenu d'une zone](../Assets/10/zonetransféré.png)
+
+#### Preuves de réponses valides
+
+À partir de l'un de vos clients sous Windows, interrogez le second serveur DNS. Par exemple:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="TestDNSSecondaire" label="Commande" default>
+            ```Powershell
+            Resolve-DnsName -Name pc0002.gabriel.local -Server ubserver2.gabriel.local
+            ```
+        </TabItem>
+        <TabItem value="ResultatTestDNSSecondaire" label="Résultat">
+           ![TestDNSSecondaire](../Assets/10/PowershellTestDNS.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
