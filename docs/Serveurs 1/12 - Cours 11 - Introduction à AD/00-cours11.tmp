@@ -36,13 +36,9 @@ Active Directory est apparu pour la première fois sous Windows 2000. À l'époq
 
 ### Principaux services
 
-|Service|Définition|
-|:---------:|:-------------|
-|LDAP|Organisation et interrogation des objets (utilisateurs, ordinateurs, groupes, etc.) et leurs attributs dans une base de données de type annuaire.|
-|DNS|Résolution de noms des ordinateurs du réseau. Essentiel pour localiser les contrôleurs de domaine et autres serveurs.|
-|Kerberos| Authentification centralisée pour gérer l'accès aux ressources du domaine.|
-|DFS|Partage de fichiers distribués et répliqués entre plusieurs serveurs mais disposant d'un lien commun.|
-|NTP|Synchronisation des horloges système de tous les hôtes du réseau.|
+|LDAP|DNS|Kerberos|DFS|NTP|
+|:--:|:-:|:------:|:-:|:-:|
+|Organisation et interrogation des objets (utilisateurs, ordinateurs, groupes, etc.) et leurs attributs dans une base de données de type annuaire.|Résolution de noms des ordinateurs du réseau. Essentiel pour localiser les contrôleurs de domaine et autres serveurs.| Authentification centralisée pour gérer l'accès aux ressources du domaine | Partage de fichiers distribués et répliqués entre plusieurs serveurs mais disposant d'un lien commun.|Synchronisation des horloges système de tous les hôtes du réseau.|
 
 ### Qu'est-ce qu'un domaine AD
 
@@ -55,3 +51,94 @@ Active Directory est apparu pour la première fois sous Windows 2000. À l'époq
     - Stratégies de groupe (GPO)
     - Unités d'organisation (OU)
     - Autres (imprimantes, partage de fichiers...)
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AD_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/AD_D.svg'),
+        }}
+    />
+</div>
+
+### Architecture multi-domaines
+
+Dans certaines entreprises ou organisations, il est possible de créer des infrastructures contenant des domaines et des sous-domaines. Il existe tout un vocabulaire pour décrire ces structures organisationnelles. Pour s'assurer de parler le même langage, il importe de définir quelques termes.
+
+
+#### Le domaine (racine)
+
+Peut-être l'avez vous déjà remarqué, mais si ce n'est pas le cas, sachez qu'un domaine est toujours représenté par la forme d'un triangle. L'infrastructure AD la plus simple possible est donc représenté par un triangle unique. Il s'agit d'un domaine, une zone DNS, unique dans laquelle nous ferons la gestion de différents objets.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Domain_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Domain_D.svg'),
+        }}
+    />
+</div>
+
+:::important
+Le premier domaine créé dans une infrastructure Active Directory est appelé: **Le domaine racine.** Ce domaine particulier possède une importance capitale. En effet, le domaine racine est un point central pour la gestion de la sécurité et la structure de la forêt.
+:::
+
+#### Le sous-domaine (arbre)
+
+Un sous-domaine est ni plus ni moins qu'un domaine dans un domaine. Dans le cas de *patate.net* par exemple, je pourrais créer un sous-domaine au nom de *quebec.patate.net*. Il existe quelques raisons pour créer un sous-domaine Active Directory:
+
+- La séparation des rôles et des responsabilités.
+- La délégation d'administration
+- Le contrôle de la sécurité et des stratégies de groupe (GPO)
+- Répartition géographique ou organisationnelle
+- etc.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/SousDomaine_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/SousDomaine_D.svg'),
+        }}
+    />
+</div>
+
+:::important
+On appelle un domaine parent ainsi que tout ses sous-domaines: **un arbre**
+:::
+
+#### La forêt
+
+La forêt est l'ensemble des domaines et sous-domaines sous une même administration Active Directory. Elle comprend donc le domaine racine, tous les domaines parents ainsi que leurs domaines enfants.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/InfraAD_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/InfraAD_D.svg'),
+        }}
+    />
+</div>
+
+### Nom du domaine
+
+Un domaine Active Directory possède deux noms:
+
+- Un nom **NETBIOS**:
+    - 15 caractères maximum
+    - Typiquement en majuscules
+    - Sert principalement à assurer une rétrocompatibilité
+    - Exemple: LABO
+
+- Nom **DNS**:
+    - Zone DNS dédiée au domaine Active Directory
+    - Typiquement un sous-domaine de la zone principale
+    - Maximum de 253 caractères
+    - Exemple: labo.gabriel.local
+
+### Utilisateurs et groupes AD
+
+Le domaine possède sa propre liste d'utilisateurs et de groupes. Ils peuvent être utilisés sur toutes les machines du domaine. 
