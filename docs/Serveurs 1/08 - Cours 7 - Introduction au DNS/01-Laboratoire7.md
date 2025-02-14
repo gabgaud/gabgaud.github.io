@@ -324,7 +324,7 @@ sudo named-checkconf /etc/bind/named.conf.options
 
 Si la commande ne retourne rien, c'est que votre fichier de configuration ne comporte aucune erreur. Bravo! ✔
 
-Il ne nous reste plus qu'à faire en sorte que le service DNS démarre automatiquement lorsque le serveur démarrer. Nous avons vu comment nous pouvions activer le démarrage automatique de service lors du cours de système d'exploitation. Au besoin, consulter [cette section](../../OS/Linux/08-Services.md/#activer-ou-désactiver-le-démarrage-automatique). 
+Il ne nous reste plus qu'à faire en sorte que le service DNS démarre automatiquement lorsque le serveur démarrer. Nous avons vu comment nous pouvions activer le démarrage automatique de service lors du cours de système d'exploitation. Au besoin, consulter [cette section](../../OS/Linux/08-Services.md#activer-ou-désactiver-le-démarrage-automatique) 
 
 :::tip
 Le nom du service est *named* et non Bind 😉
