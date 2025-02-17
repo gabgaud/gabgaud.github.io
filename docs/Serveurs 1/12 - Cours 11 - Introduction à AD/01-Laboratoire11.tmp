@@ -1,0 +1,37 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 11
+* * *
+
+## Installation et configuration d'un domaine Active Directory
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 10
+
+:::caution
+Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l'exception de votre passerelle, nous ne réutiliserons pas les machines précédentes.
+:::
+
+## Objectif(s)
+- Déployer un premier contrôleur de domaine Active Directory
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire11_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire11_D.svg'),
+        }}
+    />
+</div>
+
+* * *
+
+## Étapes de réalisation
