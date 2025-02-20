@@ -35,3 +35,38 @@ Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l
 * * *
 
 ## Étapes de réalisation
+
+### Initialisation d'un nouveau serveur
+
+Vous aurez besoin d'un serveur sous Windows pour créer votre premier contrôleur de domaine. <mark>**N'installez pas Windows Serveur depuis zéro.**</mark> Utilisez plutôt le modèle disponible sur LabInfo pour créer votre nouveau serveur Windows.
+
+![Modele](../Assets/11/Modele_Win2022.png)
+
+Une fois que votre machine sera fonctionnelle, assurez-vous de compléter quelques étapes initiales avant d'installer quoi que ce soit:
+
+1. Attribuez une adresse IP statique à votre serveur (Ex: 192.168.21.10) 
+
+    :::caution
+    L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
+    :::
+2. Renommez votre serveur avec un nom plus convivial (Ex: dc1)
+
+### Installation du rôle ADDS
+
+- Dans votre gestionnaire de serveur, cliquez sur « Ajouter des rôles et des fonctionnalités ».
+
+    ![RoleFonctionnalites](../Assets/11/AjouterRoleFonctionnalites.png)
+
+- Vous pouvez ignorer la page « Avant de commencer ».
+
+    ![AvantDeCommencer](../Assets/11/AvantDeCommencer.png)
+
+- Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
+
+    ![RoleBased](../Assets/11/RoleBased.png)
+
+- Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
+
+    ![ServeurDest](../Assets/11/ServeurDest.png)
+
+
