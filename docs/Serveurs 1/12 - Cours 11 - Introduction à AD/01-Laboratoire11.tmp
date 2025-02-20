@@ -69,4 +69,171 @@ Une fois que votre machine sera fonctionnelle, assurez-vous de compléter quelqu
 
     ![ServeurDest](../Assets/11/ServeurDest.png)
 
+- Dans la liste des rôles disponibles, sélectionnez les services ADDS et cliquez sur « suivant »
+
+    ![ServicesADDS](../Assets/11/ServicesADDS.png)
+
+- Dans la liste des fonctionnalités, vous n'avez rien à cocher. Contentez vous de cliquer sur « suivant »
+
+- Cliquez sur suivant à la page vous expliquant les services Active Directory, puis cliquez sur « Installer ».
+
+- Une fois l'installation terminée, cliquez sur « Fermer ».
+
+### Promotion du serveur en contrôleur de domaine
+
+Installer le rôle ADDS (*Active Directory Domain Services*) ne transforme pas, systématiquement, notre serveur en contrôleur de domaine. En effet, la mise en place d'un domaine racine ainsi l'initialisation du premier contrôleur de domaine est une étape que l'on nomme : La promotion vers le rôle de contrôleur de domaine.
+
+Suite à l'installation du rôle, vous remarquerez sans doute un point d'exclamation jaune près du menu « Outils ». Cliquez sur celui-ci afin de pouvoir entreprendre la promotion du serveur.
+
+![dcpromo](../Assets/11/DCPromo.png)
+
+#### Configuration du déploiement
+
+Vous aurez **3** possibilités de déploiement:
+
+**Ajouter un contrôleur de domaine à un domaine existant**<br/>
+Cette option vous permet de déployer un contrôleur supplémentaire dans une infrastructure AD déjà existante. Ce qui n'est pas notre cas ici.
+
+**Ajouter un nouveau domaine à une forêt existante**<br/> 
+Comme elle le mentionne bien, cette option permet d'ajouter un domaine supplémentaire. Cela dit, il nous faudrait déjà une forêt, ce que nous n'avons pas ici.
+
+**Ajouter une nouvelle forêt**<br/>
+Il s'agit de l'option à utiliser lorsque nous n'avons rien en place et que l'on démarre depuis zéro. C'est notre ca. Choisissez cette option.
+
+
+![NouvelleForet](../Assets/11/NewForest.png)
+
+:::danger
+Le nom d'un domaine, et c'est encore plus vrai dans le cas du domaine racine, est à peu près **inchangeable.** Vous ne pouvez donc pas vous permettre une erreur ici, sans quoi, vous devrez réinstaller toute la strucuture de l'AD. Choisissez donc consciensieusemment votre nom de domaine.
+:::
+
+#### Options du contrôleur de domaine
+
+##### Les niveaux fonctionnels
+
+Les niveaux fonctionnels (forêt et domaine racine), permettent d'adapter le fonctionnement de votre infrastructure en fonction de possibles autres contrôleurs de domaine que vous pourriez avoir sur votre réseau. Cela permet, par exemple, de faire fonctionner un contrôleur de domaine sous Windows Serveur 2008 avec un contrôleur de domaine sous Windows 2022 sans problème.
+
+Or, nous n'avons aucune infrastructure pour le moment et tout reste à construire. Vous pouvez donc laisser les niveaux fonctionnels ainsi.
+
+##### Les fonctionnalités de contrôleur de domaine
+
+Il vous faudra spécifier les fonctionnalités du contrôleur de domaine que vous voulez mette en place:
+
+**Serveur DNS:**<br/>
+Il s'agit d'une fonctionnalité obligatoire pour être en mesure d'utiliser Active Directory. Comme nous ne l'avons pas installé jusqu'à présent, nous n'avons guère le choix que de l'installer dès maintenant avec AD.
+
+**Catalogue global (GC):**<br/>
+Le catalogue global contient toutes les définitions d'objets ainsi que leurs attributs respectifs. Il est essentiel au fonctionnement de l'Active Directory. Il doit y avoir au moins un catalogue global dans une forêt. Vous l'aurez donc compris, nous devons laisser cette option cochée puisqu'à l'heure actuelle, nous n'avons aucune infrastructure.
+
+**Contrôleur de domaine en lecture seule (RODC):**<br/>
+Ce type de contrôleur de domaine est utilisé dans des cas bien particuliers. Vous aurez l'occasion de le mettre en place dans le cadre du cours Serveurs 3. Pour l'instant, cette fonctionnalité ne nous intéresse pas.
+
+##### Mot de passe DSRM
+
+Le mode de restauration des services d'annuaire est un mode spécial qui permet de restaurer ou de réparer une base de données Active Directory en cas de corruption ou de problème majeur. Définir un mot de passe permet de sécuriser ce mode et d'empêcher une restauration involontaire ou malveillante.
+
+![DCOptions](../Assets/11/DCOptions.png)
+
+#### Options DNS
+
+Les options DNS permettent de créer une délégation DNS. Ce type de délégation permet de déléguer le contrôle d'un sous-domaine à un serveur DNS précis. Or dans notre cas, nous n'avons pas de zone parente encore. Il est donc impossible de déléguer quoi que ce soit, cliquez simplement sur « suivant »:
+
+![DnsOptions](../Assets/11/DnsOPtions.png)
+
+#### Options supplémentaires
+
+Le nom de domaine NETBIOS est configuré pour assurer une rétrocompatibilité avec de vieux systèmes. Il n'est que très peu utilisé. Je vous recommande de laisser la configuration par défaut, qui correspond normalement à votre nom de domaine, en majuscules, sans suffixe.
+
+![Netbios](../Assets/11/NetBIOSName.png)
+
+#### Chemin d'accès
+
+Les chemins d'accès de la base de données, des fichiers journaux et du dossier SYSVOL ne devraient jamais être modifiés à moins de configurations ou de circonstances exceptionnelles. Laissez-les donc tels quels pour le moment.
+
+![CheminAcces](../Assets/11/CheminAcces.png)
+
+#### Examiner les options & Vérifications
+
+Les deux dernières étapes consistent à repasser vos propres configurations et à procéder à une validation de celles-ci. Lors de la vérification, il n'est pas rare de voir quelques avertissement apparaitre. Les deux avertissements les plus fréquents sont les suivants:
+
+:::caution[1er avertissement]
+<br/>
+![ChiffrementFaible](../Assets/11/AvertiisementChiffrement.png)
+
+Cet avertissement nous fait savoir que le contrôleur de domaine de Windows Server 2022 prend des mesures pour empêcher l'utilisation de méthodes de chiffrement faibles tout en permettant une compatibilité avec les anciennes versions de Windows. Cela renforce la sécurité tout en préservant l'interopérabilité avec des systèmes plus anciens. C'est une information intéressante plus qu'un réel avertissement.
+:::
+
+:::caution[2ème avertissement]
+<br/>
+![AvertissementDelegationDNS](../Assets/11/AvertissementDelegationDNS.png)
+
+Cet avertissement nous avise qu'il est impossible de créer une délégation DNS (oui, encore!) car la zone parente est inexistante ou introuvable. C'est tout à fait normal dans notre cas puisque le serveur DNS n'est pas encore installé ni configuré. Attardez vous donc à la fin du message : Sinon, aucune action n'est requise. 😉
+:::
+
+#### Installation
+
+Voilà, il ne nous reste qu'à cliquer sur « Installer ». Les services ADDS sont assez lourds. L'installation engendrera un redémarrage du serveur et cela peut vous demander de patienter un peu.
+
+![InstallPromoAD](../Assets/11/InstallPromoAD.png)
+
+### Première ouverture de session
+
+Lorsque le serveur aura terminé son redémarrage, il sera officiellement devenu un contrôleur de domaine Active Directory. Vous ouvrirez alors votre session non pas en tant qu'administrateur du serveur mais en tant qu'administrateur du domaine. Les administrateurs du domaine ont non seulement des privilèges d'administration sur les contrôleurs du domaine mais également sur tous les postes qui sont reliés au domaine.
+
+Appuyez donc sur les touches <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> pour faire apparaitre l'écran d'ouverture de session et vous identifier:
+
+![OuvertureSession](../Assets/11/OuvertureSession.png)
+
+### Création d'objets
+Ouvrez le menu `Outils` du gestionnaire de serveur et cliquez sur `Utilisateurs et ordinateurs Active Directory`. Vous vous retrouverez dans une console similaire à celle-ci:
+
+![ConsoleADUsers](../Assets/11/ConsoleADUsers.png)
+
+C'est dans cette console que nous créerons nos utilisateurs, nos groupes ainsi que nos unités d'organisation. 
+
+#### Création d'unités d'organisation
+
+Pour créer un nouvel objet dans la structure, il vous suffit d'utiliser le bouton de droite de la souris. Par exemple, pour créer une unité d'organisation nommé « patate » à la racine du domaine, je ferai un clic à l'aide du bouton de droite de la souris sur la racine de mon domaine:
+
+![ObjCreation](../Assets/11/CreerObj.png)
+
+#### Création des utilisateurs
+
+Les utilisateurs sont des objets relativement complexes car ils comportent un lot d'attributs importants. Pour créer un utilisateur, faites un clic à l'aide du bouton de droite de la souris sur l'unité d'organisation où vous désirez créer celui-ci. Sélectionnez « Nouveau », puis « Utilisateur ». Vous vous retrouverez avec une fenêtre comportant plusieurs champs à remplir:
+
+![CreationUtilisateur](../Assets/11/CreationUtilisateur.png)
+
+![CreationUtilisateur2](../Assets/11/UserPass.png)
+
+Une fois le mot de passe entré, vous pourrez confirmer la création de l'utilisateur et l'opération sera terminée.
+
+#### Création des groupes
+
+Les groupes sont plutôt rapides à créer­. Lorsque vous créez un nouveau groupe, il ne suffit que de lui octroyer un nom pour procéder à sa création. Cela dit, vous remarquerez également deux éléments à configurer: L'étendue et le type de groupe.
+|Élément|Description|
+|:------:|-------------------|
+| **Étendue** | L'étendue d'un groupe détermine sa portée. L'étendue spécifie où peut être utilisé un groupe. Vous aurez l'occasion d'explorer ces concepts en profondeur dans le cours Serveurs 3. Dans le cadre de ce cours, vous pouvez utiliser des groupes globaux sans problème. |
+| **Type** | Le type de groupe spécifie ce que nous avons l'intention de faire avec ce groupe. Le groupe de sécurité permet de donner des permissions ou des privilèges aux utilisateurs membre du groupe tandis que le groupe de type distribution est surtout utilisé dans le cadre d'envoi de messages électroniques à l'aide d'un serveur exchange par exemple. |
+
+![CreationGroupesAD](../Assets/11/CreationGroupes.png)
+
+#### Création des ordinateurs
+
+Les ordinateurs diffèrent des autres objets dans Active Directory. <mark>**Vous ne devez pas les créer manuellement.**</mark> Pour intégrer un ordinateur dans la strucutre des objets de l'AD, nous devons joindre ce dernier au domaine. Nous verrons un peu plus loin comment procéder pour effectuer cette action.
+
+- - - 
+
+Maintenant que nous avons vu ensemble comment créer les objets les plus communs dans Active Directory, créez la structure d'unités d'organisation, d'utilisateurs et de groupes suivante:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AD_Users_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/AD_Users_D.svg'),
+        }}
+    />
+</div>
+
+
 
