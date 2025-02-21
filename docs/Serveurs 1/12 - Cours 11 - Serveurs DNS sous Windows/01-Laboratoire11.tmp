@@ -41,52 +41,140 @@ N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle d
 
 ### Installation du rôle DNS
 
-1. Identifiez l'un de vos deux serveurs comme étant le serveur DNS principal. Renommez-le « **ns1** » et attribuez lui l'adresse statique **192.168.21.10**.
+Identifiez l'un de vos deux serveurs comme étant le serveur DNS principal. Renommez-le « **ns1** » et attribuez lui l'adresse statique **192.168.21.10**.
 
-    :::caution
-    L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
-    :::
+:::caution
+L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
+:::
 
-2. Dans votre gestionnaire de serveur, cliquez sur « **Ajouter des rôles et des fonctionnalités** ».
+Dans votre gestionnaire de serveur, cliquez sur « **Ajouter des rôles et des fonctionnalités** ».
 
-    ![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
+![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
 
-3. Vous pouvez ignorer la page « Avant de commencer ».
+Vous pouvez ignorer la page « Avant de commencer ».
 
-    ![AvantDeCommencer](../Assets/12/AvantDeCommencer.png)
+![AvantDeCommencer](../Assets/12/AvantDeCommencer.png)
 
-4. Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
+Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
 
-    ![RoleBased](../Assets/12/RoleBased.png)
+![RoleBased](../Assets/12/RoleBased.png)
 
-5. Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
+Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
 
-    ![ServeurDest](../Assets/11/ServeurDest.png)
+![ServeurDest](../Assets/11/ServeurDest.png)
 
-6. Dans la liste des rôles disponibles, sélectionnez « Serveur DNS » et cliquez sur « suivant »
+Dans la liste des rôles disponibles, sélectionnez « Serveur DNS » et cliquez sur « suivant »
 
-    ![RoleDNS](../Assets/11/RoleDNS.png)
+![RoleDNS](../Assets/11/RoleDNS.png)
 
-7. Cliquez sur suivant à la page vous expliquant le rôle du DNS, puis cliquez sur « Installer ».
+Cliquez sur suivant à la page vous expliquant le rôle du DNS, puis cliquez sur « Installer ».
 
 ### Configuration d'un redirecteur
 
-8. L'un des premiers éléments auquel il faut penser à mettre en place est un redirecteur. Notre serveur DNS devra rediriger les requêtes DNS dont il ne connait pas la réponse. Pour configurer le redirecteur, ouvrez le menu **outils** du gestionnaire de serveur puis cliquez sur **DNS**. La console **« Gestionnaire DNS »** s'ouvrira. 
+L'un des premiers éléments auquel il faut penser à mettre en place est un redirecteur. Notre serveur DNS devra rediriger les requêtes DNS dont il ne connait pas la réponse. Pour configurer le redirecteur, ouvrez le menu **outils** du gestionnaire de serveur puis cliquez sur **DNS**. La console **« Gestionnaire DNS »** s'ouvrira. 
 
-    ![ConsoleDNS](../Assets/11/ConsoleDNS.png)
+![ConsoleDNS](../Assets/11/ConsoleDNS.png)
 
-    Faites un clic à l'aide du bouton de droite de la souris sur votre serveur et dirigez-vous dans les propriétés:
+Faites un clic à l'aide du bouton de droite de la souris sur votre serveur et dirigez-vous dans les propriétés:
 
-    ![ProprietesServeurDNS](../Assets/11/ProprietesServeurDNS.png)
+![ProprietesServeurDNS](../Assets/11/ProprietesServeurDNS.png)
 
-    Une fois dans les propriétés de votre serveur DNS, cliquez sur l'onglet **« Redirecteurs »** puis sur le bouton **« Modifier »**:
+Une fois dans les propriétés de votre serveur DNS, cliquez sur l'onglet **« Redirecteurs »** puis sur le bouton **« Modifier »**:
 
-    ![Redirecteurs](../Assets/11/Redirecteurs.png)
+![Redirecteurs](../Assets/11/Redirecteurs.png)
 
-    Inscrivez l'adresse du service DNS public de Google comme redirecteur:
+Inscrivez l'adresse du service DNS public de Google comme redirecteur:
 
-    ![Quad8](../Assets/11/Quad8.png)
+![Quad8](../Assets/11/Quad8.png)
 
-    Appliquez vos configurations et fermez les propriétés du serveur.
+Appliquez vos configurations et fermez les propriétés du serveur.
 
-### Configuration d'une zone de recherche direct
+### Configuration d'une zone de recherche directe
+
+Pour créer une zone de recherche direct, faites un clic à l'aide du bouton de droite de la souris sur **« Zones de recherche directes »** et sélectionnez **« Nouvelle zone »** :
+
+![NouvelleZoneDirecte](../Assets/11/NouvelleZoneDirecte.png)
+
+Dans l'assistant de nouvelle zone, précisez que vous désirez créer une zone principale. C'est-à-dire une zone hébergée sur un serveur principal.
+
+![ZonePrincipale](../Assets/11/ZonePrincipal.png)
+
+Indiquez le nom de votre nouvelle zone : *votreprénom.local*
+
+![NomDeLaZone](../Assets/11/NomDeLaZone.png)
+
+Un fichier de zone sera alors créé pour votre nouvelle zone:
+
+![FichierDeZone](../Assets/11/FichierDeZone.png)
+
+:::tip[Le saviez vous ?]
+Le serveur DNS de Windows est le même que sous Linux: il s'agit de Bind9. Vous pouvez même retrouver les mêmes fichiers de configuration sous Windows. Ceux-ci se retrouvent dans C:\Windows\System32\DNS\\*nom_de_zone.dns*:
+
+![BindWindows](../Assets/11/BindWindows.png)
+:::
+
+Les mises à jour dynamiques des enregistrements permettent de maintenir les associations nom de domaine : adresse IP à jour lorsqu'un client voit son adresse IP être modifiée. Dans le cas ou ces mises à jour ne sont pas configurées, c'est l'administrateur qui doit modifier les associations lorsqu'une adresse IP est modifiée. Pour l'instant, c'est ainsi que nous fonctionnerons (sans mise à jour dynamique). Cela dit, vous ferez un laboratoire, sous peu, pour explorer les mises à jour dynamiques. En attendant, indiquez que vous désactiver cette fonctionnalité:
+
+![MAJDynamiques](../Assets/11/MAJDynamiques.png)
+
+### Configuration des enregistrements 
+
+Lorsque votre zone de recherche directe sera bel et bien créée, nous devrons mettre à jour quelques enregistrements et en créer de nouveaux.
+
+Le premier enregistrement qu'il vous faudra créer est un enregistrement de type **A** pour le serveur lui-même. Cliquez donc sur la zone que vous venez de créer à l'aide du bouton de droite de la souris et cliquez sur **« Nouvel hôte (A ou AAAA)...»**
+
+![NouvelHote](../Assets/11/NouvelHote.png)
+
+Remplissez les informations nécessaires à la création de l'enregistrement:
+
+![NewRecord](../Assets/11/NewRecord.png)
+
+Une fois cet enregistrement créé, vous devrez modifier l'enregistrement ns1 que le serveur a lui-même créé lorsque vous avez fait la zone. Double-cliquez sur l'enregistrement NS et apportez les modifications telles que présentées ci-dessous:
+
+![NSRecord](../Assets/11/NSRecord.png)
+
+Créez les enregistrements suivants dans votre zone de recherche directe:
+
+|Nom|Type|Valeur|
+|:---:|:----:|:------:|
+|pc0001|A|192.168.21.110|
+|pc0002|A|192.168.21.120|
+|ns2|A|192.168.21.20|
+|@|NS|ns2.*votreprenom.local*|
+
+![DirectRecords](../Assets/11/DirectRecords.png)
+
+### Configuration d'une zone de recherche inverse
+
+De la même façon que vous avez créé votre zone de recherche directe, créez une zone de recherche inversée pour le sous-réseau 192.168.21.0/24. Faites donc une zone principal sans mise à jour dynamique.
+
+### Configuration des enregistrements
+
+Créez un enregistrement **PTR** pour chaque enregistrement **A** que vous avez créé dans votre zone de recherche directe. Modifiez l'enregistrement ns1 comme vous l'avez également fait dans la zone de recherche directe:
+
+![ReverseRecords](../Assets/11/ReverseRecords.png)
+
+### Préparation des transferts de zone
+
+Dans le cadre de ce laboratoire, nous allons mettre en place un second serveur DNS afin de sécuriser le service et d'assurer une redondance. Avant de déployer le second serveur DNS, nous devons autoriser et préparer nos zones à être transférées.
+
+<mark>Répétez chacune des étapes suivantes sur vos deux zones : directe et inversée:</mark>
+
+- Faites un clic à l'aide du bouton de droite de la souris sur la zone concernée, puis sélectionnez **« Propriétés »**
+- Dirigez-vous dans l'onglet **« Transfert de zones »** et assurez vous que les transferts de zone soient autorisés vers les serveurs listés dans l'onglet « Serveurs de noms » :
+
+    ![Transfert de zone](../Assets/11/TransfertsZones.png)
+
+- Au bas de la fenêtre, cliquez sur « Notifier... » et assurez vous que les serveurs listés dans l'onglet « Serveurs de noms » soient bien notifiés lorsque des changements ont lieu:
+
+    ![Notification](../Assets/11/Notifications.png)
+
+- Confirmez que vos deux serveurs DNS apparaissent bien dans l'onglet « Serveurs de noms ».
+
+## Serveur DNS secondaire
+
+### Installation du rôle DNS
+
+Comme vous l'avez fait pour votre serveur DNS principal, configurez convenablement l'adresse IP statique du serveur **(n'oubliez pas l'adresse 127.0.0.1 pour le DNS)** et renommez le serveur ns2.
+
+
