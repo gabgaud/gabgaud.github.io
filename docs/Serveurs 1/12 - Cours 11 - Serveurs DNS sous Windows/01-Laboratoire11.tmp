@@ -1,0 +1,36 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 11
+* * *
+
+## Mise en place de serveurs DNS Windows
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 10
+
+## Objectif(s)
+- Mettre en place deux serveurs DNS sous Windows
+- Configurer les notifications et les transferts de zone.
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire10_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire10_D.svg'),
+        }}
+    />
+</div>
+
+* * *
+
+## Étapes de réalisation
+
+N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle de Windows Serveur disponible dans Labinfo.

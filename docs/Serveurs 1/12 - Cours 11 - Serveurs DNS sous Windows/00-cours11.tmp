@@ -1,0 +1,13 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 11
+
+## Similarités et différences
+
+Les concepts du service DNS restent les mêmes, et ce, peu importe le système d'exploitation qui héberge le service. Ce qui différera principalement, c'est la méthode de configuration du service.
+
+## Console du service DNS
+

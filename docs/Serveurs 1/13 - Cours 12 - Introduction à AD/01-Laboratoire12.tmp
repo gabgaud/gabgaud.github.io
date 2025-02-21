@@ -3,14 +3,14 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 11
+# Laboratoire 12
 * * *
 
 ## Installation et configuration d'un domaine Active Directory
 
 ## Préalable(s)
 
-- Avoir complété le laboratoire # 10
+- Avoir complété le laboratoire # 11
 
 :::caution
 Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l'exception de votre passerelle, nous ne réutiliserons pas les machines précédentes.
@@ -40,7 +40,7 @@ Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l
 
 Vous aurez besoin d'un serveur sous Windows pour créer votre premier contrôleur de domaine. <mark>**N'installez pas Windows Serveur depuis zéro.**</mark> Utilisez plutôt le modèle disponible sur LabInfo pour créer votre nouveau serveur Windows.
 
-![Modele](../Assets/11/Modele_Win2022.png)
+![Modele](../Assets/12/Modele_Win2022.png)
 
 Une fois que votre machine sera fonctionnelle, assurez-vous de compléter quelques étapes initiales avant d'installer quoi que ce soit:
 
@@ -55,23 +55,23 @@ Une fois que votre machine sera fonctionnelle, assurez-vous de compléter quelqu
 
 - Dans votre gestionnaire de serveur, cliquez sur « Ajouter des rôles et des fonctionnalités ».
 
-    ![RoleFonctionnalites](../Assets/11/AjouterRoleFonctionnalites.png)
+    ![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
 
 - Vous pouvez ignorer la page « Avant de commencer ».
 
-    ![AvantDeCommencer](../Assets/11/AvantDeCommencer.png)
+    ![AvantDeCommencer](../Assets/12/AvantDeCommencer.png)
 
 - Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
 
-    ![RoleBased](../Assets/11/RoleBased.png)
+    ![RoleBased](../Assets/12/RoleBased.png)
 
 - Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
 
-    ![ServeurDest](../Assets/11/ServeurDest.png)
+    ![ServeurDest](../Assets/12/ServeurDest.png)
 
 - Dans la liste des rôles disponibles, sélectionnez les services ADDS et cliquez sur « suivant »
 
-    ![ServicesADDS](../Assets/11/ServicesADDS.png)
+    ![ServicesADDS](../Assets/12/ServicesADDS.png)
 
 - Dans la liste des fonctionnalités, vous n'avez rien à cocher. Contentez vous de cliquer sur « suivant »
 
@@ -85,7 +85,7 @@ Installer le rôle ADDS (*Active Directory Domain Services*) ne transforme pas, 
 
 Suite à l'installation du rôle, vous remarquerez sans doute un point d'exclamation jaune près du menu « Outils ». Cliquez sur celui-ci afin de pouvoir entreprendre la promotion du serveur.
 
-![dcpromo](../Assets/11/DCPromo.png)
+![dcpromo](../Assets/12/DCPromo.png)
 
 #### Configuration du déploiement
 
@@ -101,7 +101,7 @@ Comme elle le mentionne bien, cette option permet d'ajouter un domaine suppléme
 Il s'agit de l'option à utiliser lorsque nous n'avons rien en place et que l'on démarre depuis zéro. C'est notre ca. Choisissez cette option.
 
 
-![NouvelleForet](../Assets/11/NewForest.png)
+![NouvelleForet](../Assets/12/NewForest.png)
 
 :::danger
 Le nom d'un domaine, et c'est encore plus vrai dans le cas du domaine racine, est à peu près **inchangeable.** Vous ne pouvez donc pas vous permettre une erreur ici, sans quoi, vous devrez réinstaller toute la strucuture de l'AD. Choisissez donc consciensieusemment votre nom de domaine.
@@ -132,25 +132,25 @@ Ce type de contrôleur de domaine est utilisé dans des cas bien particuliers. V
 
 Le mode de restauration des services d'annuaire est un mode spécial qui permet de restaurer ou de réparer une base de données Active Directory en cas de corruption ou de problème majeur. Définir un mot de passe permet de sécuriser ce mode et d'empêcher une restauration involontaire ou malveillante.
 
-![DCOptions](../Assets/11/DCOptions.png)
+![DCOptions](../Assets/12/DCOptions.png)
 
 #### Options DNS
 
 Les options DNS permettent de créer une délégation DNS. Ce type de délégation permet de déléguer le contrôle d'un sous-domaine à un serveur DNS précis. Or dans notre cas, nous n'avons pas de zone parente encore. Il est donc impossible de déléguer quoi que ce soit, cliquez simplement sur « suivant »:
 
-![DnsOptions](../Assets/11/DnsOPtions.png)
+![DnsOptions](../Assets/12/DnsOPtions.png)
 
 #### Options supplémentaires
 
 Le nom de domaine NETBIOS est configuré pour assurer une rétrocompatibilité avec de vieux systèmes. Il n'est que très peu utilisé. Je vous recommande de laisser la configuration par défaut, qui correspond normalement à votre nom de domaine, en majuscules, sans suffixe.
 
-![Netbios](../Assets/11/NetBIOSName.png)
+![Netbios](../Assets/12/NetBIOSName.png)
 
 #### Chemin d'accès
 
 Les chemins d'accès de la base de données, des fichiers journaux et du dossier SYSVOL ne devraient jamais être modifiés à moins de configurations ou de circonstances exceptionnelles. Laissez-les donc tels quels pour le moment.
 
-![CheminAcces](../Assets/11/CheminAcces.png)
+![CheminAcces](../Assets/12/CheminAcces.png)
 
 #### Examiner les options & Vérifications
 
@@ -158,14 +158,14 @@ Les deux dernières étapes consistent à repasser vos propres configurations et
 
 :::caution[1er avertissement]
 <br/>
-![ChiffrementFaible](../Assets/11/AvertiisementChiffrement.png)
+![ChiffrementFaible](../Assets/12/AvertiisementChiffrement.png)
 
 Cet avertissement nous fait savoir que le contrôleur de domaine de Windows Server 2022 prend des mesures pour empêcher l'utilisation de méthodes de chiffrement faibles tout en permettant une compatibilité avec les anciennes versions de Windows. Cela renforce la sécurité tout en préservant l'interopérabilité avec des systèmes plus anciens. C'est une information intéressante plus qu'un réel avertissement.
 :::
 
 :::caution[2ème avertissement]
 <br/>
-![AvertissementDelegationDNS](../Assets/11/AvertissementDelegationDNS.png)
+![AvertissementDelegationDNS](../Assets/12/AvertissementDelegationDNS.png)
 
 Cet avertissement nous avise qu'il est impossible de créer une délégation DNS (oui, encore!) car la zone parente est inexistante ou introuvable. C'est tout à fait normal dans notre cas puisque le serveur DNS n'est pas encore installé ni configuré. Attardez vous donc à la fin du message : Sinon, aucune action n'est requise. 😉
 :::
@@ -174,7 +174,7 @@ Cet avertissement nous avise qu'il est impossible de créer une délégation DNS
 
 Voilà, il ne nous reste qu'à cliquer sur « Installer ». Les services ADDS sont assez lourds. L'installation engendrera un redémarrage du serveur et cela peut vous demander de patienter un peu.
 
-![InstallPromoAD](../Assets/11/InstallPromoAD.png)
+![InstallPromoAD](../Assets/12/InstallPromoAD.png)
 
 ### Première ouverture de session
 
@@ -182,12 +182,12 @@ Lorsque le serveur aura terminé son redémarrage, il sera officiellement devenu
 
 Appuyez donc sur les touches <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> pour faire apparaitre l'écran d'ouverture de session et vous identifier:
 
-![OuvertureSession](../Assets/11/OuvertureSession.png)
+![OuvertureSession](../Assets/12/OuvertureSession.png)
 
 ### Création d'objets
 Ouvrez le menu `Outils` du gestionnaire de serveur et cliquez sur `Utilisateurs et ordinateurs Active Directory`. Vous vous retrouverez dans une console similaire à celle-ci:
 
-![ConsoleADUsers](../Assets/11/ConsoleADUsers.png)
+![ConsoleADUsers](../Assets/12/ConsoleADUsers.png)
 
 C'est dans cette console que nous créerons nos utilisateurs, nos groupes ainsi que nos unités d'organisation. 
 
@@ -195,15 +195,15 @@ C'est dans cette console que nous créerons nos utilisateurs, nos groupes ainsi 
 
 Pour créer un nouvel objet dans la structure, il vous suffit d'utiliser le bouton de droite de la souris. Par exemple, pour créer une unité d'organisation nommé « patate » à la racine du domaine, je ferai un clic à l'aide du bouton de droite de la souris sur la racine de mon domaine:
 
-![ObjCreation](../Assets/11/CreerObj.png)
+![ObjCreation](../Assets/12/CreerObj.png)
 
 #### Création des utilisateurs
 
 Les utilisateurs sont des objets relativement complexes car ils comportent un lot d'attributs importants. Pour créer un utilisateur, faites un clic à l'aide du bouton de droite de la souris sur l'unité d'organisation où vous désirez créer celui-ci. Sélectionnez « Nouveau », puis « Utilisateur ». Vous vous retrouverez avec une fenêtre comportant plusieurs champs à remplir:
 
-![CreationUtilisateur](../Assets/11/CreationUtilisateur.png)
+![CreationUtilisateur](../Assets/12/CreationUtilisateur.png)
 
-![CreationUtilisateur2](../Assets/11/UserPass.png)
+![CreationUtilisateur2](../Assets/12/UserPass.png)
 
 Une fois le mot de passe entré, vous pourrez confirmer la création de l'utilisateur et l'opération sera terminée.
 
@@ -215,7 +215,7 @@ Les groupes sont plutôt rapides à créer­. Lorsque vous créez un nouveau gro
 | **Étendue** | L'étendue d'un groupe détermine sa portée. L'étendue spécifie où peut être utilisé un groupe. Vous aurez l'occasion d'explorer ces concepts en profondeur dans le cours Serveurs 3. Dans le cadre de ce cours, vous pouvez utiliser des groupes globaux sans problème. |
 | **Type** | Le type de groupe spécifie ce que nous avons l'intention de faire avec ce groupe. Le groupe de sécurité permet de donner des permissions ou des privilèges aux utilisateurs membre du groupe tandis que le groupe de type distribution est surtout utilisé dans le cadre d'envoi de messages électroniques à l'aide d'un serveur exchange par exemple. |
 
-![CreationGroupesAD](../Assets/11/CreationGroupes.png)
+![CreationGroupesAD](../Assets/12/CreationGroupes.png)
 
 #### Création des ordinateurs
 
