@@ -33,4 +33,60 @@ import TabItem from '@theme/TabItem';
 
 ## Étapes de réalisation
 
-N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle de Windows Serveur disponible dans Labinfo.
+N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle de Windows Serveur disponible dans Labinfo pour vous créer deux serveurs distincts.
+
+![Modele](../Assets/12/Modele_Win2022.png)
+
+## Serveur DNS principal
+
+### Installation du rôle DNS
+
+1. Identifiez l'un de vos deux serveurs comme étant le serveur DNS principal. Renommez-le « **ns1** » et attribuez lui l'adresse statique **192.168.21.10**.
+
+    :::caution
+    L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
+    :::
+
+2. Dans votre gestionnaire de serveur, cliquez sur « **Ajouter des rôles et des fonctionnalités** ».
+
+    ![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
+
+3. Vous pouvez ignorer la page « Avant de commencer ».
+
+    ![AvantDeCommencer](../Assets/12/AvantDeCommencer.png)
+
+4. Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
+
+    ![RoleBased](../Assets/12/RoleBased.png)
+
+5. Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
+
+    ![ServeurDest](../Assets/11/ServeurDest.png)
+
+6. Dans la liste des rôles disponibles, sélectionnez « Serveur DNS » et cliquez sur « suivant »
+
+    ![RoleDNS](../Assets/11/RoleDNS.png)
+
+7. Cliquez sur suivant à la page vous expliquant le rôle du DNS, puis cliquez sur « Installer ».
+
+### Configuration d'un redirecteur
+
+8. L'un des premiers éléments auquel il faut penser à mettre en place est un redirecteur. Notre serveur DNS devra rediriger les requêtes DNS dont il ne connait pas la réponse. Pour configurer le redirecteur, ouvrez le menu **outils** du gestionnaire de serveur puis cliquez sur **DNS**. La console **« Gestionnaire DNS »** s'ouvrira. 
+
+    ![ConsoleDNS](../Assets/11/ConsoleDNS.png)
+
+    Faites un clic à l'aide du bouton de droite de la souris sur votre serveur et dirigez-vous dans les propriétés:
+
+    ![ProprietesServeurDNS](../Assets/11/ProprietesServeurDNS.png)
+
+    Une fois dans les propriétés de votre serveur DNS, cliquez sur l'onglet **« Redirecteurs »** puis sur le bouton **« Modifier »**:
+
+    ![Redirecteurs](../Assets/11/Redirecteurs.png)
+
+    Inscrivez l'adresse du service DNS public de Google comme redirecteur:
+
+    ![Quad8](../Assets/11/Quad8.png)
+
+    Appliquez vos configurations et fermez les propriétés du serveur.
+
+### Configuration d'une zone de recherche direct
