@@ -175,6 +175,60 @@ Dans le cadre de ce laboratoire, nous allons mettre en place un second serveur D
 
 ### Installation du rôle DNS
 
-Comme vous l'avez fait pour votre serveur DNS principal, configurez convenablement l'adresse IP statique du serveur **(n'oubliez pas l'adresse 127.0.0.1 pour le DNS)** et renommez le serveur ns2.
+Comme vous l'avez fait pour votre serveur DNS principal, configurez convenablement l'adresse IP statique du serveur et renommez le serveur ns2.
+
+:::caution
+Alors que pour le serveur principal, nous avions configuré **127.0.0.1** en tant que serveur DNS, ici nous allons configurer l'adresse de ns1 en tant que serveur DNS principal, c'est à dire **192.168.21.10**.
+:::
+
+Suivez les mêmes instructions que ci-dessus pour la mise en place du service DNS sur le serveur secondaire.
+
+### Configuration de la zone de recherche directe secondaire
+
+Créez une nouvelle zone de recherche directe comme vous l'avez fait dans votre serveur DNS principal. Lorsque viendra le temps de choisir votre type de zone, choisissez **« zone secondaire »**
+
+![ZoneSecondaire](../Assets/11/ZoneSecondaire.png)
+
+Entrez le nom de votre zone lorsque demandé (*votreprenom.local*)
+
+![NomZoneSecondaire](../Assets/11/NomZoneSecondaire.png)
+
+À la prochaine étape, on vous demandera d'entrer l'adresse IP ou le nom de domaine des serveurs DNS principaux. Comme nous n'avons qu'un seul serveur DNS principal, entrez son nom:
+
+![DNSMaster](../Assets/11/DNSMaster.png)
+
+:::caution
+Si vous utilisez le nom de domaine du serveur DNS principal, il se peut que vous ayez deux informations qui semblent contradictoires. Un nom de domaine validé et l'autre non-reconnu (voir l'image). L'hôte inconnu correspond à l'adresse IPv6 que nous n'avons pas configuré. Supprimez-la afin de pouvoir continuer l'assistant.
+
+![ipv6inconnu](../Assets/11/IPv6Inconnu.png)
+
+:::
+
+Confirmez vos configurations et terminez l'assistant.
+
+Laissez quelques minutes à votre serveur DNS secondaire pour recevoir les informations de la zone. Après 1 minute ou 2, vous devriez retoruver tous les enregistrements que vous avec créé dans le serveur DNS principal.
+
+![EnregistrementsSecondaire](../Assets/11/EnregistrementsSecondaire.png)
+
+:::danger[Échec du transfert de la zone]
+Il se peut que dans les premiers instants après la configuration de votre zone secondaire, vous ayez un message d'erreur stipulant que le transfert a échoué. C'est généralement un « faux-positif », votre transfert de zone n'a probablement pas terminé encore. Attendez encore quelques minutes et rafraichissez la page à l'aide de la touche **f5** de votre clavier. Les enregistrements finiront par apparaitre.
+:::
+
+### Configuration de la zone de recherche inversée secondaire
+
+Suivez les mêmes étapes que pour la configuration de votre zone de recherche directe secondaire afin de configurer la zone inversée secondaire.
+
+## Mise en place des clients
+
+Ce laboratoire implique deux postes de travail sous Windows 10. Vous devez évidemment configurer chacun de ces postes avec le bon nom et l'adresse IP correspondante.
+
+|Nom du poste|Adresse IP|Masque|Passerelle|DNS Primaire|DNS Auxiliaire|
+|------------|----------|-----------|-----------|------------|--------------|
+|pc0001.votredomaine.local|192.168.21.110|255.255.255.0|192.168.21.1|192.168.21.10|192.168.21.20|
+|pc0002.votredomaine.local|192.168.21.120|255.255.255.0|192.168.21.1|192.168.21.10|192.168.21.20|
+
+## Validations et vérifications
+
+Déjà, avec les configurations IP statiques sur les postes de travail, vous devriez avoir accès à internet. Si c'est le cas, c'est très bon signe.
 
 
