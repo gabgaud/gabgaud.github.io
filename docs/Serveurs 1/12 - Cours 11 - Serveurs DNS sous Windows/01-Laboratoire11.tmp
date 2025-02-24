@@ -41,7 +41,7 @@ N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle d
 
 ### Installation du rôle DNS
 
-Identifiez l'un de vos deux serveurs comme étant le serveur DNS principal. Renommez-le « **ns1** » et attribuez lui l'adresse statique **192.168.21.10**.
+Identifiez l'un de vos deux serveurs comme étant le serveur DNS principal. Renommez-le « **ns1** » et attribuez-lui l'adresse statique **192.168.21.10**.
 
 :::caution
 L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
@@ -91,7 +91,7 @@ Appliquez vos configurations et fermez les propriétés du serveur.
 
 ### Configuration d'une zone de recherche directe
 
-Pour créer une zone de recherche direct, faites un clic à l'aide du bouton de droite de la souris sur **« Zones de recherche directes »** et sélectionnez **« Nouvelle zone »** :
+Pour créer une zone de recherche directe, faites un clic à l'aide du bouton de droite de la souris sur **« Zones de recherche directes »** et sélectionnez **« Nouvelle zone »** :
 
 ![NouvelleZoneDirecte](../Assets/11/NouvelleZoneDirecte.png)
 
@@ -107,13 +107,13 @@ Un fichier de zone sera alors créé pour votre nouvelle zone:
 
 ![FichierDeZone](../Assets/11/FichierDeZone.png)
 
-:::tip[Le saviez vous ?]
+:::tip[Le saviez-vous ?]
 Le serveur DNS de Windows est le même que sous Linux: il s'agit de Bind9. Vous pouvez même retrouver les mêmes fichiers de configuration sous Windows. Ceux-ci se retrouvent dans C:\Windows\System32\DNS\\*nom_de_zone.dns*:
 
 ![BindWindows](../Assets/11/BindWindows.png)
 :::
 
-Les mises à jour dynamiques des enregistrements permettent de maintenir les associations nom de domaine : adresse IP à jour lorsqu'un client voit son adresse IP être modifiée. Dans le cas ou ces mises à jour ne sont pas configurées, c'est l'administrateur qui doit modifier les associations lorsqu'une adresse IP est modifiée. Pour l'instant, c'est ainsi que nous fonctionnerons (sans mise à jour dynamique). Cela dit, vous ferez un laboratoire, sous peu, pour explorer les mises à jour dynamiques. En attendant, indiquez que vous désactiver cette fonctionnalité:
+Les mises à jour dynamiques des enregistrements permettent de maintenir les associations nom de domaine : adresse IP à jour lorsqu'un client voit son adresse IP être modifiée. Dans le cas ou ces mises à jour ne sont pas configurées, c'est l'administrateur qui doit modifier les associations lorsqu'une adresse IP est modifiée. Pour l'instant, c'est ainsi que nous fonctionnerons (sans mise à jour dynamique). Cela dit, vous ferez un laboratoire, sous peu, pour explorer les mises à jour dynamiques. En attendant, indiquez que vous désactivez cette fonctionnalité:
 
 ![MAJDynamiques](../Assets/11/MAJDynamiques.png)
 
@@ -146,7 +146,7 @@ Créez les enregistrements suivants dans votre zone de recherche directe:
 
 ### Configuration d'une zone de recherche inverse
 
-De la même façon que vous avez créé votre zone de recherche directe, créez une zone de recherche inversée pour le sous-réseau 192.168.21.0/24. Faites donc une zone principal sans mise à jour dynamique.
+De la même façon que vous avez créé votre zone de recherche directe, créez une zone de recherche inversée pour le sous-réseau 192.168.21.0/24. Faites donc une zone principale sans mise à jour dynamique.
 
 ### Configuration des enregistrements
 
@@ -161,11 +161,11 @@ Dans le cadre de ce laboratoire, nous allons mettre en place un second serveur D
 <mark>Répétez chacune des étapes suivantes sur vos deux zones : directe et inversée:</mark>
 
 - Faites un clic à l'aide du bouton de droite de la souris sur la zone concernée, puis sélectionnez **« Propriétés »**
-- Dirigez-vous dans l'onglet **« Transfert de zones »** et assurez vous que les transferts de zone soient autorisés vers les serveurs listés dans l'onglet « Serveurs de noms » :
+- Dirigez-vous dans l'onglet **« Transfert de zones »** et assurez-vous que les transferts de zone soient autorisés vers les serveurs listés dans l'onglet « Serveurs de noms » :
 
     ![Transfert de zone](../Assets/11/TransfertsZones.png)
 
-- Au bas de la fenêtre, cliquez sur « Notifier... » et assurez vous que les serveurs listés dans l'onglet « Serveurs de noms » soient bien notifiés lorsque des changements ont lieu:
+- Au bas de la fenêtre, cliquez sur « Notifier... » et assurez-vous que les serveurs listés dans l'onglet « Serveurs de noms » soient bien notifiés lorsque des changements ont lieu:
 
     ![Notification](../Assets/11/Notifications.png)
 
@@ -178,7 +178,7 @@ Dans le cadre de ce laboratoire, nous allons mettre en place un second serveur D
 Comme vous l'avez fait pour votre serveur DNS principal, configurez convenablement l'adresse IP statique du serveur et renommez le serveur ns2.
 
 :::caution
-Alors que pour le serveur principal, nous avions configuré **127.0.0.1** en tant que serveur DNS, ici nous allons configurer l'adresse de ns1 en tant que serveur DNS principal, c'est à dire **192.168.21.10**.
+Alors que pour le serveur principal, nous avions configuré **127.0.0.1** en tant que serveur DNS, ici nous allons configurer l'adresse de ns1 en tant que serveur DNS principal, c'est-à-dire **192.168.21.10**.
 :::
 
 Suivez les mêmes instructions que ci-dessus pour la mise en place du service DNS sur le serveur secondaire.
@@ -198,7 +198,7 @@ Entrez le nom de votre zone lorsque demandé (*votreprenom.local*)
 ![DNSMaster](../Assets/11/DNSMaster.png)
 
 :::caution
-Si vous utilisez le nom de domaine du serveur DNS principal, il se peut que vous ayez deux informations qui semblent contradictoires. Un nom de domaine validé et l'autre non-reconnu (voir l'image). L'hôte inconnu correspond à l'adresse IPv6 que nous n'avons pas configuré. Supprimez-la afin de pouvoir continuer l'assistant.
+Si vous utilisez le nom de domaine du serveur DNS principal, il se peut que vous ayez deux informations qui semblent contradictoires. Un nom de domaine validé et l'autre non reconnu (voir l'image). L'hôte inconnu correspond à l'adresse IPv6 que nous n'avons pas configurée. Supprimez-la afin de pouvoir continuer l'assistant.
 
 ![ipv6inconnu](../Assets/11/IPv6Inconnu.png)
 
@@ -206,7 +206,7 @@ Si vous utilisez le nom de domaine du serveur DNS principal, il se peut que vous
 
 Confirmez vos configurations et terminez l'assistant.
 
-Laissez quelques minutes à votre serveur DNS secondaire pour recevoir les informations de la zone. Après 1 minute ou 2, vous devriez retoruver tous les enregistrements que vous avec créé dans le serveur DNS principal.
+Laissez quelques minutes à votre serveur DNS secondaire pour recevoir les informations de la zone. Après 1 minute ou 2, vous devriez retrouver tous les enregistrements que vous avec créé dans le serveur DNS principal.
 
 ![EnregistrementsSecondaire](../Assets/11/EnregistrementsSecondaire.png)
 
@@ -230,5 +230,46 @@ Ce laboratoire implique deux postes de travail sous Windows 10. Vous devez évid
 ## Validations et vérifications
 
 Déjà, avec les configurations IP statiques sur les postes de travail, vous devriez avoir accès à internet. Si c'est le cas, c'est très bon signe.
+
+### PC0001
+
+Depuis votre pc0001, entrez les commandes suivantes et observez les réponses:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="NslookupPC0002" label="Commande" default>
+           ```batch
+            nslookup pc0002.gabriel.local
+            ```
+        </TabItem>
+        <TabItem value="Resultat-NslookupPC0002" label="Résultat">
+           ![NsLookUpPC0002](../Assets/11/NsLookuppc0002.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="NslookupNS" label="Commande" default>
+           ```batch
+            nslookup -type=ns gabriel.local
+            ```
+        </TabItem>
+        <TabItem value="Resultat-NslookupNS" label="Résultat">
+           ![NsLookUpNS](../Assets/11/NslookupNS.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+### PC0002
+
+Ajustez les commandes de la section précédente et entrez-les dans votre deuxième PC pour confirmer que tout est fonctionnel de ce côté également.
+
+
+## Piste de réflexion
+
+Depuis l'un de vos deux clients, utilisez la commande `nslookup` pour interroger l'enregistrement SOA de votre zone et observez le nom du serveur principal ainsi que le courriel de l'administrateur. Pourquoi ces informations semblent erronées ?
+
+![SOAError](../Assets/11/ANSetMail.png)
 
 
