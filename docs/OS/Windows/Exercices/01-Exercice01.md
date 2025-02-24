@@ -17,3 +17,14 @@ Cet exercice est bâti de sorte à ce que vous vous corrigiez vous-mêmes. Si vo
 1. Trouvez le moyen de changer l'alignement de la barre des tâches afin que vous puissiez avoir votre menu démarrer à gauche tel que sur l'image ci-dessous:
 
     ![AlignementMenuD](../Assets/Exercices/01/AlignementMenuD.png)
+
+2. Faites afficher les icônes suivantes sur le bureau:
+    - Ce PC
+    - Panneau de configuration
+    - Corbeille
+    - Fichiers de l'utilisateur
+
+    
+    :::caution
+    Il ne s'agit pas de créer des raccourcis mais bien de faire afficher les icônes via les paramètres du système.
+    :::
