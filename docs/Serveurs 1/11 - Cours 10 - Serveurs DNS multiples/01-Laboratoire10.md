@@ -200,6 +200,7 @@ Ouvrez le fichier `/etc/bind/named.conf.options` et éditez le comme suit:
 ```yaml title='/etc/bind/named.conf.options' showLineNumbers
 //highlight-next-line
 include "/etc/bind/rndc.key";
+options {
     directory "/var/cache/bind";
     //highlight-next-line
     recursion no;

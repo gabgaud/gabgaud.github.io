@@ -84,3 +84,27 @@ Trouvez l'emplacement du fichier **calc.exe**. Il s'agit du programme de la calc
 Appuyez simultanément sur les touches du clavier <kbd>&#8862; win</kbd> et <kbd>r</kbd> pour lancer la fenêtre « **Exécuter** » et entrez la commande `ncpa.cpl` suivi de la touche <kbd>Entrée</kbd>.
 
 Dans la fenêtre qui s'ouvre, renommez votre carte réseau à l'aide du nom « **Local** ».
+
+### Question 9
+
+Appuyez simultanément sur les touches du clavier <kbd>&#8862; win</kbd> et <kbd>r</kbd> pour lancer la fenêtre « **Exécuter** » et entrez la commande `sysdm.cpl` suivie de la touche <kbd>Entrée</kbd>.
+
+Dans la fenêtre qui s'ouvre, trouvez comment renommer votre ordinateur et baptisez-le « **W11** ». Il se peut qu'un redémarrage soit nécessaire.
+
+### Question 10
+
+Créez un fichier texte que vous nommerez « **espace.txt** » sur votre bureau. À l'intérieur de ce fichier, inscrivez en Giga-octet <mark>l'espace disque utilisé</mark> sur votre disque dur principal. Par exemple, pour inscrire 15,72 Giga-octets, inscrivez 15,72Go <u>(attention à la virgule et à la typographie)</u>
+
+![EspaceHDD](../Assets/Exercices/01/EspaceHDD.png)
+
+### Question 11
+
+Trouvez comment désactiver complètement les notifications sur le système et procédez à la désactivation.
+
+### Question 12
+
+Trouvez comment vous pouvez faire en sorte que l'application « **OneDrive** » ne démarre pas automatiquement lors du démarrage de l'ordinateur et désactivez-le.
+
+## Correction
+
+Je vous déposerai un script de correction sous peu juste ici. Vous devrez le télécharger et l'exécuter sur votre machine virtuelle. Chacune des questions sera vérifiée par le script. Le script vous indiquera alors si vous avez réussi la question ou si vous avez fait une erreur dans la question. Malheureusement, il est impossible que le script puisse vérifier quelle est votre erreur. Tentez de la repérer et si vous n'y arrivez pas, communiquez avec moi au besoin.
