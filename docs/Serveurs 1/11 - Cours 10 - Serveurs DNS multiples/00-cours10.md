@@ -173,3 +173,7 @@ La technologie DNSSEC (*DNS Security Extension*) a été instaurée pour éviter
 ### Signature des transactions
 
 Les transferts de zones entre les serveurs DNS primaire et secondaire peuvent également être sécurisés grâce à une autre technologie de signature que l'on nomme « *transaction signature* ». Cette dernière technologie n'est pas intégrée à DNSSEC, cependant les deux technologies peuvent être complémentaires.
+
+## Références
+
+ - [Présentation du cours](../Assets/10/10-420-2S5-H25%20(DNS-Serveurs%20multiples).pdf)
