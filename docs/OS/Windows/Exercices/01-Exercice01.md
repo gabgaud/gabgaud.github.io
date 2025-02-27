@@ -105,6 +105,31 @@ Trouvez comment désactiver complètement les notifications sur le système et p
 
 Trouvez comment vous pouvez faire en sorte que l'application « **OneDrive** » ne démarre pas automatiquement lors du démarrage de l'ordinateur et désactivez-le.
 
+:::caution
+Il y a plus d'une réponse valable à cette question.
+:::
+
 ## Correction
 
-Je vous déposerai un script de correction sous peu juste ici. Vous devrez le télécharger et l'exécuter sur votre machine virtuelle. Chacune des questions sera vérifiée par le script. Le script vous indiquera alors si vous avez réussi la question ou si vous avez fait une erreur dans la question. Malheureusement, il est impossible que le script puisse vérifier quelle est votre erreur. Tentez de la repérer et si vous n'y arrivez pas, communiquez avec moi au besoin.
+1. Commencez par télécharger [le script de correction](../Assets/Exercices/01/Script_de_correction_exercice_01.ps1) sur votre machine virtuelle.
+
+2. Lorsque le script sera sur votre PC, consultez les propriétés du fichier et cochez la case « Débloquer ce fichier »:
+
+    ![UnblockScript](../Assets/Exercices/01/SecuriteScript.png)
+
+3. Appuyez simultanément sur les touches du clavier <kbd>&#8862; win</kbd> et <kbd>r</kbd> pour lancer la fenêtre « **Exécuter** » et entrez la commande `Powershell.exe -ExecutionPolicy Unrestricted` suivie de la touche <kbd>Entrée</kbd>. 
+
+    ![FenetrePS](../Assets/Exercices/01/FenetrePS.png)
+
+4. Dans la fenêtre de Powershell qui s'ouvre, utilisez la commande `set-location` suivi du chemin où le script se situe dans votre PC. Par exemple, si vous avez téléchargé le script dans votre dossier téléchargement, il vous faudrait entrez la commande `Set-Location C:\Users\Utilisateur\Downloads`
+
+    ![SetLocationDesktop](../Assets/Exercices/01/SetLocationDesktop.png)
+
+5. Entrez maintenant la commande suivante pour exécuter le script:
+
+    ![CommandeScript](../Assets/Exercices/01/CommandeScript.png)
+
+6. L'exécution devrait ressembler à ceci:
+
+    ![Correction](../Assets/Exercices/01/Correction.png)
+
