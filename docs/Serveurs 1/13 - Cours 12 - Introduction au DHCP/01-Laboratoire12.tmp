@@ -5,3 +5,34 @@ import TabItem from '@theme/TabItem';
 
 # Laboratoire 12
 * * *
+## Ajout d'un serveur DHCP dans votre infrastructure
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 11
+- <mark>Utiliser la passerelle MODELE_pfSense (Sans DHCP)</mark>
+
+## Objectif(s)
+- Mettre en place un service DHCP aux côtés de vos serveurs DNS
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire12_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire12_D.svg'),
+        }}
+    />
+</div>
+
+## Étapes de réalisation
+
+Ce laboratoire implique plusieurs étapes. Il nous faudra d'abord procéder au remplacement de la passerelle puisque celle-ci offre actuellement un service DHCP. Ensuite, nous devrons mettre en place le nouveau serveur qui fera office de service DHCP.
+
+### Remplacement de la passerelle
+
+
+
