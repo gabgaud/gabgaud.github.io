@@ -3,7 +3,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 14
+# Cours 13
 
 ## Le DNS jusqu'ici
 Jusqu'ici nous avons abordé les DNS avec Linux. En outre, nous avons appris qu'un domaine était un ensemble d'ordinateurs et de périphériques interconnectés les uns aux autres via un réseau local et représenté par une délimitation logique. Chaque appareil possède un nom qui lui est propre sur le domaine, constitué de son nom, suivi du nom de domaine.
@@ -160,7 +160,7 @@ Pour être pris en charge, on doit joindre les ordinateurs au domaine. On dit al
 
 Il y a deux façons de joindre le domaine, soit par l'interface graphique (sysdm.cpl) ou via PowerShell (Add-Computer).
 
-![sysdm](../Assets/12/sysdm.png)
+![sysdm](../Assets/13/sysdm.png)
 
 :::caution
 Pour joindre un domaine AD, il faut impérativement que les machines membres soient en mesure de résoudre le nom du domaine dans leur configuration DNS. Autrement dit, les machines doivent utiliser le serveur DNS fournit par le contrôleur du domaine.
@@ -189,7 +189,7 @@ Plusieurs outils sont accessibles à partir du gestionnaire de serveur sur un co
 - Domaines et approbations Active Directory
 - Modification ADSI
 
-![GPO](../Assets/12/OutilsAD.png)
+![GPO](../Assets/13/OutilsAD.png)
 
 ### Les objets
 
@@ -199,7 +199,7 @@ Nous avons vu ensemble qu'un domaine Active Directory était constitué de plusi
 
 Les objets AD sont organisés dans une arborescence similaire à un système de fichiers, composée de conteneurs et d'unités organisationnelles (OU).
 
-![OrganisationObj](../Assets/12/Organisation.png)
+![OrganisationObj](../Assets/13/Organisation.png)
 
 :::caution
 Les unités d'organisation et les conteneurs sont représentés par un icône de dossier. Cela dit, faites bien attention de ne pas confondre les dossiers du système et les objets d'Active Directory.
@@ -209,7 +209,7 @@ Les unités d'organisation et les conteneurs sont représentés par un icône de
 
 L'objet utilisateur représente un compte pouvant s'authentifier sur le domaine. On pourra généralement attribuer l'accès à différentes ressources à ce compte.
 
-![User](../Assets/12/Utilisateur.png)
+![User](../Assets/13/Utilisateur.png)
 
 #### Objet : Groupe
 
@@ -240,7 +240,7 @@ Les objets de type ordinateur sont l'équivalent d'un compte d'utilisateur mais 
 
 Selon le protocole LDAP, les objets AD sont identifiés par un DN qui décrit sa position dans l’annuaire.
 
-![DN](../Assets/12/DN.png)
+![DN](../Assets/13/DN.png)
 
 Dans le cas de l'utilisateur Vincent Carrier, son **DN** irait comme suit:
 

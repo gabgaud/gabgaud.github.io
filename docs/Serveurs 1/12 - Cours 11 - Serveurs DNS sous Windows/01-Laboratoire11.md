@@ -39,7 +39,7 @@ Vous pouvez supprimer les machines virtuelles en lien avec vos laboratoires pré
 
 N'installez pas des serveurs Windows depuis zéro. Utilisez plutôt le modèle de Windows Serveur disponible dans Labinfo pour vous créer deux serveurs distincts.
 
-![Modele](../Assets/12/Modele_Win2022.png)
+![Modele](../Assets/13/Modele_Win2022.png)
 
 ## Serveur DNS principal
 
@@ -53,15 +53,15 @@ L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adre
 
 Dans votre gestionnaire de serveur, cliquez sur « **Ajouter des rôles et des fonctionnalités** ».
 
-![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
+![RoleFonctionnalites](../Assets/13/AjouterRoleFonctionnalites.png)
 
 Vous pouvez ignorer la page « Avant de commencer ».
 
-![AvantDeCommencer](../Assets/12/AvantDeCommencer.png)
+![AvantDeCommencer](../Assets/13/AvantDeCommencer.png)
 
 Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
 
-![RoleBased](../Assets/12/RoleBased.png)
+![RoleBased](../Assets/13/RoleBased.png)
 
 Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
 

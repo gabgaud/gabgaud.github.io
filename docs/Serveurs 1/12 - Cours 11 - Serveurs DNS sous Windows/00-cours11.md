@@ -15,7 +15,7 @@ La théorie de ce cours est donc assez limité puisqu'évidemment, les notions r
 
 Comme la grande majorité de services ou des rôles sous le serveur Windows, l'installation devra se faire via le gestionnaire de serveur en cliquant sur « Ajouter des rôles et des fonctionnalités ».
 
-![RoleFonctionnalites](../Assets/12/AjouterRoleFonctionnalites.png)
+![RoleFonctionnalites](../Assets/13/AjouterRoleFonctionnalites.png)
 
 ## Console du service DNS
 
