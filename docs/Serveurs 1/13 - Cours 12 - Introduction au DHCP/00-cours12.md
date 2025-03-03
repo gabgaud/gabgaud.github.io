@@ -35,7 +35,7 @@ Le processus DHCP se traduit par 4 étapes (**DORA**):
 4. **Acquittement** (*Acknowledge*):<br/>
     Le serveur confirme le prêt et enregistre l'information dans sa base de données.
 
-![ProcessusDHCP](../Assets/12/DHCP.gif)
+![ProcessusDHCP](../Assets/13/DHCP.gif)
 
 ### Rappel sur les adresses MAC et IP
 
@@ -88,7 +88,7 @@ Chaque étendue dans le serveur DHCP possède ses propriétés, lesquelles peuve
 
 Le bassin d'adresses représente l'ensemble des adresses IP pouvant être assignées par le serveur DHCP au sein d'une étendue.
 
-![BassinAdresses](../Assets/12/BassinAdresses.png)
+![BassinAdresses](../Assets/13/BassinAdresses.png)
 
 #### Les exclusions
 
@@ -183,3 +183,7 @@ Sous Linux (Ubuntu), c'est la commande `ip a` qui vous permet d'avoir un résum�
 
 - `dhclient -v`
     Cette commande relance l'entièreté du processus DHCP, soit les 4 étapes DORA.
+
+## Références
+
+- [Présentation du cours](../Assets/12/12-420-2S5-H25%20(DHCP).pdf)

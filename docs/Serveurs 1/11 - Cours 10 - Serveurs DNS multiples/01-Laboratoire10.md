@@ -114,7 +114,7 @@ La ligne `notify yes;` a pour effet d'activer les notifications. Lorsqu'une modi
 
 Nous devons modifier les déclarations de zone dans le serveur DNS primaire pour autoriser les transferts de celles-ci ainsi l'envoi de notifications. Dans le fichier `/etc/bind/named.conf.local`, modifiez les lignes suivantes:
 
-```yaml title='/etc/bind/named.conf.options' showLineNumbers
+```yaml title='/etc/bind/named.conf.local' showLineNumbers
 //
 // Do any local configuration here
 //

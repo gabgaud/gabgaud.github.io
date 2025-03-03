@@ -10,10 +10,10 @@ import TabItem from '@theme/TabItem';
 
 ## Préalable(s)
 
-- Avoir complété le laboratoire # 11
+- Avoir complété le laboratoire # 12
 
 :::caution
-Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l'exception de votre passerelle, nous ne réutiliserons pas les machines précédentes.
+Nous repartirons du laboratoire #12 pour réaliser ce laboratoire. Assurez-vous donc d'avoir complété ce dernier laboratoire avant d'entreprendre celui-ci.
 :::
 
 ## Objectif(s)
@@ -26,8 +26,8 @@ Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l
     <ThemedImage
         alt="Schéma"
         sources={{
-            light: useBaseUrl('/img/Serveurs1/Laboratoire11_W.svg'),
-            dark: useBaseUrl('/img/Serveurs1/Laboratoire11_D.svg'),
+            light: useBaseUrl('/img/Serveurs1/Laboratoire12_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire12_D.svg'),
         }}
     />
 </div>
@@ -36,48 +36,35 @@ Vous pouvez supprimer les machines virtuelles créées jusqu'à maintenant. À l
 
 ## Étapes de réalisation
 
-### Initialisation d'un nouveau serveur
+Dans le cadre de ce laboratoire, nous utiliserons nos deux serveurs DNS actuels pour mettre en place les services de domaine Active Directory.
 
-Vous aurez besoin d'un serveur sous Windows pour créer votre premier contrôleur de domaine. <mark>**N'installez pas Windows Serveur depuis zéro.**</mark> Utilisez plutôt le modèle disponible sur LabInfo pour créer votre nouveau serveur Windows.
+### Installation du rôle ADDS su NS1
 
-![Modele](../Assets/13/Modele_Win2022.png)
+Commençons par le serveur DNS principal, soit ns1.domaine.local. Dirigez-vous dans le gestionnaire de serveur et cliquez sur « Ajouter des rôles et des fonctionnalités »
 
-Une fois que votre machine sera fonctionnelle, assurez-vous de compléter quelques étapes initiales avant d'installer quoi que ce soit:
+![RoleFonctionnalites](../Assets/13/AjouterRoleFonctionnalites.png)
 
-1. Attribuez une adresse IP statique à votre serveur (Ex: 192.168.21.10) 
+Vous pouvez ignorer la page « Avant de commencer ».
 
-    :::caution
-    L'adresse du serveur DNS doit être 127.0.0.1. Pour rappel, il s'agit d'une adresse IP de type alias qui signifier « moi-même ». Notre serveur Windows sera donc, lui-même, son propre serveur DNS.
-    :::
-2. Renommez votre serveur avec un nom plus convivial (Ex: dc1)
+![AvantDeCommencer](../Assets/13/AvantDeCommencer.png)
 
-### Installation du rôle ADDS
+Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
 
-- Dans votre gestionnaire de serveur, cliquez sur « Ajouter des rôles et des fonctionnalités ».
+![RoleBased](../Assets/13/RoleBased.png)
 
-    ![RoleFonctionnalites](../Assets/13/AjouterRoleFonctionnalites.png)
+Sélectionnez votre serveur de destination et cliquez sur suivant
 
-- Vous pouvez ignorer la page « Avant de commencer ».
+![ServeurDest](../Assets/11/ServeurDest.png)
 
-    ![AvantDeCommencer](../Assets/13/AvantDeCommencer.png)
+Dans la liste des rôles disponibles, sélectionnez les services ADDS et cliquez sur « suivant »
 
-- Sélectionnez « Installation basée sur un rôle ou une fonctionnalité »
+![ServicesADDS](../Assets/13/ServicesADDS.png)
 
-    ![RoleBased](../Assets/13/RoleBased.png)
+Dans la liste des fonctionnalités, vous n'avez rien à cocher. Contentez vous de cliquer sur « suivant »
 
-- Le serveur de destination ne peut être que le seul que vous avez installé. Sélectionnez-le et cliquez sur suivant
+Cliquez sur suivant à la page vous expliquant les services Active Directory, puis cliquez sur « Installer ».
 
-    ![ServeurDest](../Assets/13/ServeurDest.png)
-
-- Dans la liste des rôles disponibles, sélectionnez les services ADDS et cliquez sur « suivant »
-
-    ![ServicesADDS](../Assets/13/ServicesADDS.png)
-
-- Dans la liste des fonctionnalités, vous n'avez rien à cocher. Contentez vous de cliquer sur « suivant »
-
-- Cliquez sur suivant à la page vous expliquant les services Active Directory, puis cliquez sur « Installer ».
-
-- Une fois l'installation terminée, cliquez sur « Fermer ».
+Une fois l'installation terminée, cliquez sur « Fermer ».
 
 ### Promotion du serveur en contrôleur de domaine
 
@@ -98,13 +85,13 @@ Cette option vous permet de déployer un contrôleur supplémentaire dans une in
 Comme elle le mentionne bien, cette option permet d'ajouter un domaine supplémentaire. Cela dit, il nous faudrait déjà une forêt, ce que nous n'avons pas ici.
 
 **Ajouter une nouvelle forêt**<br/>
-Il s'agit de l'option à utiliser lorsque nous n'avons rien en place et que l'on démarre depuis zéro. C'est notre ca. Choisissez cette option.
+Il s'agit de l'option à utiliser lorsque nous n'avons aucun élément d'Active Directory en place. C'est notre cas. Choisissez cette option.
 
 
 ![NouvelleForet](../Assets/13/NewForest.png)
 
 :::danger
-Le nom d'un domaine, et c'est encore plus vrai dans le cas du domaine racine, est à peu près **inchangeable.** Vous ne pouvez donc pas vous permettre une erreur ici, sans quoi, vous devrez réinstaller toute la strucuture de l'AD. Choisissez donc consciensieusemment votre nom de domaine.
+Le nom d'un domaine, et c'est encore plus vrai dans le cas du domaine racine, est à peu près **inchangeable.** Vous ne pouvez donc pas vous permettre une erreur ici, sans quoi, vous devrez réinstaller toute la strucuture de l'AD.
 :::
 
 #### Options du contrôleur de domaine
@@ -136,7 +123,7 @@ Le mode de restauration des services d'annuaire est un mode spécial qui permet 
 
 #### Options DNS
 
-Les options DNS permettent de créer une délégation DNS. Ce type de délégation permet de déléguer le contrôle d'un sous-domaine à un serveur DNS précis. Or dans notre cas, nous n'avons pas de zone parente encore. Il est donc impossible de déléguer quoi que ce soit, cliquez simplement sur « suivant »:
+Les options DNS permettent de créer une délégation DNS. Ce type de délégation permet de déléguer le contrôle d'un sous-domaine à un serveur DNS précis. Or dans notre cas, nous souhaitons que le contrôleur de domaine soit également DNS. Il est donc inutile de créer une délégation DNS.
 
 ![DnsOptions](../Assets/13/DnsOPtions.png)
 
@@ -163,13 +150,6 @@ Les deux dernières étapes consistent à repasser vos propres configurations et
 Cet avertissement nous fait savoir que le contrôleur de domaine de Windows Server 2022 prend des mesures pour empêcher l'utilisation de méthodes de chiffrement faibles tout en permettant une compatibilité avec les anciennes versions de Windows. Cela renforce la sécurité tout en préservant l'interopérabilité avec des systèmes plus anciens. C'est une information intéressante plus qu'un réel avertissement.
 :::
 
-:::caution[2ème avertissement]
-<br/>
-![AvertissementDelegationDNS](../Assets/13/AvertissementDelegationDNS.png)
-
-Cet avertissement nous avise qu'il est impossible de créer une délégation DNS (oui, encore!) car la zone parente est inexistante ou introuvable. C'est tout à fait normal dans notre cas puisque le serveur DNS n'est pas encore installé ni configuré. Attardez vous donc à la fin du message : Sinon, aucune action n'est requise. 😉
-:::
-
 #### Installation
 
 Voilà, il ne nous reste qu'à cliquer sur « Installer ». Les services ADDS sont assez lourds. L'installation engendrera un redémarrage du serveur et cela peut vous demander de patienter un peu.
@@ -184,8 +164,16 @@ Appuyez donc sur les touches <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> pour 
 
 ![OuvertureSession](../Assets/13/OuvertureSession.png)
 
+### Installation du rôle ADDS su NS2
+
+Installez le rôle *Active Directory* sur NS2 également. <mark>**Attention toutefois**</mark>, vous n'installez pas une nouvelle forêt cette fois. Vous ajoutez plutôt un contrôleur de domaine à un domaine existant:
+
+![DeploiementNS2](../Assets/13/DeploiementNS2.png)
+
+Une fois votre deuxième contrôleur de domaine sera en place, les notions primaires et secondaire des DNS ne seront plus valables car <u>**tous les contrôleurs de domaines sont autorisés à modifier les enregistrements dans les zones intégérées à Active Directory.**</u>
+
 ### Création d'objets
-Ouvrez le menu `Outils` du gestionnaire de serveur et cliquez sur `Utilisateurs et ordinateurs Active Directory`. Vous vous retrouverez dans une console similaire à celle-ci:
+Depuis votre contrôleur de domaine NS1 ou NS2 (ça n'a guère d'importance...), ouvrez le menu `Outils` du gestionnaire de serveur et cliquez sur `Utilisateurs et ordinateurs Active Directory`. Vous vous retrouverez dans une console similaire à celle-ci:
 
 ![ConsoleADUsers](../Assets/13/ConsoleADUsers.png)
 
@@ -235,5 +223,59 @@ Maintenant que nous avons vu ensemble comment créer les objets les plus communs
     />
 </div>
 
+### Intégration des serveurs et des ordinateurs
 
+Lorsqu'on met en place un domaine *Active Directory*, toutes les machines doivent obligatoirement y être intégrées pour pouvoir bénéficier des services offerts sur le domaine.
+
+#### Intégration du serveur DHCP
+
+Dirigez-vous sur votre serveur DHCP et appuyez simultanément sur les touches <kbd>&#8862; win</kbd>+<kbd>r</kbd>. Dans la fenêtre « Exécuter... », tapez la commande `sysdm.cpl` et appuyez sur la touche <kbd>Entrée</kbd>.
+
+![DHCPSysdm](../Assets/13/DHCPSydm.png)
+
+Cliquez sur « Modifier... » afin de pouvoir modifier le nom de domaine du serveur. Dans la fenêtre qui s'ouvrira, cochez l'option domaine et entrez votre nom domaine. Vous devrez vous identifier en tant qu'Administrateur du domaine ( *Administrateur@domaine.local* ).
+
+![uac](../Assets/13/uac.png)
+
+Si vous avez entré correctement vos informations, vous obtiendrez un message de bienvenue comme celui-ci:
+
+![bienvenue](../Assets/13/bienvenue.png)
+
+Une fois le serveur DHCP redémarré, vous devriez retrouver un objet ordinateur à son nom dans l'unité d'organisation « Computers » de la console « Utilissateurs et ordinateurs Active Directory » dans NS1 ou NS2 :
+
+![Computers](../Assets/13/Computers.png)
+
+#### Autorisation du service sur le domaine
+
+À l'heure actuel, votre service DHCP n'opère plus 😨. La raison en est fort simple: nous ne l'avons explicitement autorisé à opérer ce service sur notre domaine *Active Directory*.
+
+Pour remettre le service opérationnel, il faudra utiliser le compte **Administrateur du domaine** et autoriser le serveur DHCP à opérer. Ouvrez donc votre session avec cet utilisateur sur le serveur dhcp.
+
+Une fois votre session ouverte, dirigez-vous dans la console DHCP:
+
+![DHCPDown](../Assets/13/Dhcp_Down..png)
+
+Faites un clic à l'aide du bouton de droite au haut de la console sur le petit icône DHCP et sélectionnez « Gérer les serveurs autorisés... »
+
+![DHCPAutorisé](../Assets/13/DHCPAutorisé.png)
+
+Dans la petite fenêtre qui s'ouvrira, cliquez sur « Autoriser...» et ajoutez le nom de domaine de votre serveur DHCP.
+
+![DHCPAdded](../Assets/13/DHCPAdded.png)
+
+Une fois votre serveur ajouté dans la liste, redémarrez le service DHCP et celui-ci sera à nouveau opérationnel:
+
+![DHCPRestart](../Assets/13/RestartDHCP.png)
+
+#### Intégration des ordinateurs (clients)
+
+Intégrez vos ordinateurs, pc0001 et pc0002, au domaine comme vous l'avez fait pour intégrer votre serveur DHCP. Une fois qu'ils auront bien été ajoutés au domaine, tentez d'ouvrir une session avec l'un des utilisateurs que vous avez créé un peu plus tôt.
+
+#### Mise à jour dynamique du DNS
+
+Vous vous souvenez comment nous avions terminé le laboratoire 12 ? Nous avions en place deux serveurs DNS ainsi qu'un serveur DHCP. Cela dit, nous étions incapable de mettre en place des mises à jour dynamique des enregistrements DNS. Dans le laboratoire 12, nous avions statué que pc0001 aurait l'adresse 192.168.21.101 et que pc0002 aurait l'adresse 192.168.21.102.
+
+Êtes-vous retourner voir vos enregistrements DNS ? Je crois que vous devriez 😉
+
+![DNSUpdated](../Assets/13/DNSUpdated.png)
 
