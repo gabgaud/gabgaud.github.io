@@ -53,7 +53,7 @@ Trouvez la commande appropriée pour ajouter le texte **« Powershell, c'est fan
 
 ### Question 8
 
-Toujours avec PowerShell, faites une copie du dossier `C:\Windows\Exploitation\` sur votre bureau.
+Toujours avec PowerShell, faites une copie du dossier `C:\Exploitation\` et de son contenu sur votre bureau (1 seule commande).
 
 ### Question 9
 
@@ -61,7 +61,7 @@ Renommez le dossier que vous venez tout juste de déplacer sur votre bureau par 
 
 ### Question 10
 
-Avec la bonne commande PowerShell, trouvez comment vous pouvez supprimer seulement le fichier `C:\Windows\Exploitation\Powershell.txt`. 
+Avec la bonne commande PowerShell, trouvez comment vous pouvez supprimer seulement le fichier `C:\Exploitation\Powershell.txt`. 
 
 ### Question 11
 
@@ -71,3 +71,10 @@ Trouvez la commande PowerShell pour afficher le message « Windows 11 possède u
 
 Trouvez comment effacer tout ce qui est affiché dans le terminal PowerShell à l'aide la commande appropriée.
 
+### Question 13
+
+Dans l'objectif de pouvoir vous corriger, exécutez cette commande <mark>**avant**</mark> de fermer votre fenêtre PowerShell:
+
+```Powershell
+Get-History | ConvertTo-Json | Set-Content -Path $env:USERPROFILE\Desktop\Exercice02.json
+```
