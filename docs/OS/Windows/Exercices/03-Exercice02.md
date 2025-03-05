@@ -78,3 +78,7 @@ Dans l'objectif de pouvoir vous corriger, exécutez cette commande <mark>**avant
 ```Powershell
 Get-History | ConvertTo-Json | Set-Content -Path $env:USERPROFILE\Desktop\Exercice02.json
 ```
+
+## Correction
+
+Voici un script de correction pour valider votre exercice. [Téléchargez-le](../Assets/Exercices/02/ScriptCorrection_Ex02.ps1) et utilisez-le de la même façon que vous avez procédé pour l'exercice #1.
