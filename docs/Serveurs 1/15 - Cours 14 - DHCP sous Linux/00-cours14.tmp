@@ -4,3 +4,19 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Cours 14
+
+## Similarités et différences
+
+Les principes du DHCP restent exactement les mêmes, peu importe le système d'exploitation. Tout comme dans le cas du service DNS, ce qui changera, ce sera la méthode de configuration. Sous Linux, vous n'aurez pas le luxe de l'interface graphique, mais ça, vous le saviez déjà 😉
+
+## DHCP avec KEA
+
+KEA DHCP est le service que nous utiliserons pour notre serveur sous Ubuntu. L'une des particularités intéressantes de KEA, c'est que sa configuration est stocké dans un fichier JSON. Dans un fichier JSON, il est possible de décrire des objets ainsi que leurs propriétés. C'est un type de fichier que l'on utilise particulièrement dans les scripts et la programmation. Vous en apprendrez davantage à ce sujet lors de cours « 420-3T5 Automatisation de tâches ».
+
+### Installation
+
+L'installation de KEA se fait via le gestionnaire de paquet `APT` en utilisant la commande suivante:
+
+```bash
+sudo apt install kea-dhcp4-server -y
+```

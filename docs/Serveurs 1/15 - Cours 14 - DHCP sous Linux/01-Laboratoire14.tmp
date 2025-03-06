@@ -1,0 +1,63 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 14
+* * *
+
+## Mise en place d'un serveur DHCP avec Linux
+
+## Préalable(s)
+
+- Avoir complété le laboratoire # 13
+- Lire la page [« Cours 14 »](../15%20-%20Cours%2014%20-%20DHCP%20sous%20Linux/00-cours14.md) du site du cours
+
+
+## Objectif(s)
+- Déployer un premier serveur DHCP sous Linux
+
+* * *
+## Schéma
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Laboratoire14_W.svg'),
+            dark: useBaseUrl('/img/Serveurs1/Laboratoire14_D.svg'),
+        }}
+    />
+</div>
+
+* * *
+
+## Étapes de réalisation
+
+Pour compléter ce laboratoire, vous devez obligatoirement utiliser une passerelle qui n'offre pas de service DHCP, puisque nous en mettrons un en place. Vous pouvez réutiliser la passerelle que vous avez utiliser dans les laboratoires 11 & 12 sans problème. Une fois votre passerelle bien en place, concentrons-nous sur notre serveur Linux.
+
+## Mise en place du serveur
+
+Utilisez le modèle de machine virtuelle sous Ubuntu Serveur 24.04 mis à votre disposition pour éviter l'installation complète du serveur. Une fois la machine fonctionnelle, **vous devrez évidemment vous configurer une adresse IP manuellement puisqu'au serveur DHCP ne fonctionne sur le réseau.** Configurez donc l'adresse <mark> 192.168.21.30 </mark>sur votre serveur.
+
+## Installation et configuration du DHCP
+
+Nous y voici. Lors des prochaines étapes, nous allons mettre en place notre service DHCP.
+
+### Téléchargement des paquets
+
+Lancez la commande suivante pour amorcer le téléchargement des paquets:
+
+```bash
+sudo apt install kea-dhcp4-server -y
+```
+
+Une fois les paquets nécessaires téléchargés et installés, votre service devrait démarré automatiquement. Vous pouvez valider cela en entrant la commande suivante:
+
+```bash
+sudo systemctl status kea-dhcp-server.service
+```
+
+### Configuration du serveur DHCP
+
+Le fichier de configuration 
