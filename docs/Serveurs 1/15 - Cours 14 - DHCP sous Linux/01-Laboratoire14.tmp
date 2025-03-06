@@ -60,4 +60,83 @@ sudo systemctl status kea-dhcp-server.service
 
 ### Configuration du serveur DHCP
 
-Le fichier de configuration 
+Le fichier de configuration initial du service DHCP comporte beaucoup d'informations dont nous n'aurons pas besoin. Nous allons repartir depuis un fichier vide. Renommez donc le fichier initial comme suit:
+
+```bash
+sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bkp
+```
+
+Créez un nouveau fichier de configuration avec votre éditeur de texte préféré.
+
+:::tip
+VIM supporte la syntaxe des fichiers JSON. Ça peut être très utile dans notre cas 😉. Pour activer la colorisation de la syntaxe, vous aurez deux commandes à entrer dans VIM:
+1. :syntax on
+2. :set filetype=json
+
+Si vous avez besoin de rappel concernant VIM, consultez [cette section.](../06%20-%20Cours%205%20-%20Quiz,%20Vim%20et%20temps%20de%20complétion/00-cours5.md)
+:::
+
+```bash
+sudo vim /etc/kea/kea-dhcp4.conf
+```
+
+Voici le contenu qu'il vous faut inscrire dans le fichier que vous venez de créer. Je vous explique par la suite chacune des lignes:
+
+```json title='/etc/kea/kea-dhcp4.conf' showLineNumbers
+{
+ "Dhcp4": {
+
+    "interfaces-config": {
+        "interfaces": [ "ens192" ]
+    },
+
+    "valid-lifetime": 259200,
+    "renew-timer": 129600,
+    "rebind-timer": 220320,
+    "authoritative": true,
+
+    "lease-database": {
+        "type": "memfile",
+        "persist": true,
+        "name": "/var/lib/kea/kea-leases4.csv",
+        "lfc-interval": 3600
+    },
+            "subnet4": [
+            {
+                "subnet": "192.168.21.0/24",
+                "pools": [ { "pool": "192.168.21.100 - 192.168.21.200" } ],
+                "option-data": [
+                    {
+                        "name": "routeurs",
+                        "data": "192.168.21.1"
+                    },
+                    {
+                        "name": "domain-name-servers",
+                        "data": "192.168.21.1"
+                    },
+                    {
+                        "name": "domain-search",
+                        "data": "gabriel.local"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+Le fichier contient beaucoup d'éléments certes, mais il contient surtout beaucoup de ponctuation, soyez donc très vigilants! Décortiquons l'ensemble des informations présentées ici ensemble.
+
+La syntaxe du fichier JSON demande à ce que tout soit entre accolades, c'est pourquoi nous retrouvons une accolade ouvrante dès la première ligne. Après quoi, nous retrouvons la déclaration d'un bloc nommé `"Dhcp4"` qui contiendra toute l'information relative à la configuration de notre service. Les deux accolades ouvertes ici sont refermées à la toute fin du fichier:
+
+```json
+{
+    "Dhcp4": {
+        ...
+        ...
+        ...
+        ...
+    }
+}
+```
+
