@@ -258,3 +258,7 @@ Les objets possèdent des attributs. Certains de ces attributs sont exposés dan
 ### Admins du domaine
 
 Le groupe des admins du domaine est le plus puissant du domaine, car il permet de contrôler tout l’AD. Par défaut, dans Active Directory, tous les admins du domaine sont aussi admins locaux de tous les ordinateurs membres du domaine.
+
+## Références
+
+- [Présentation du cours](../Assets/13/13-420-2S5-H25%20(Intro-Active%20Directory).pdf)
