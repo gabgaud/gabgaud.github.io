@@ -140,3 +140,98 @@ La syntaxe du fichier JSON demande à ce que tout soit entre accolades, c'est po
 }
 ```
 
+La portion `"interfaces-config"` vous permettra de définir sur quelle(s) interface(s) vous désirez que le service DHCP soit actif. **Vous devez inscrire le nom de votre propre interface** et non le nom de mon interface 😉.
+
+```json
+...
+    "interfaces-config": {
+        "interfaces": [ "ens192" ]
+    },
+...
+```
+
+Ensuite, viennent les informations concernant les baux DHCP:
+
+- **valid-lifetime:**<br/>
+Il s'agit de la durée du bail, définit en secondes.
+
+- **renew-timer:**<br/>
+Il s'agit du temps, en secondes, que le client attendra avant d'entamer son processus de renouvèlement du bail. (généralement, 50% de la durée du bail.)
+
+- **rebind-timer:**<br/>
+Définit le moment où le client débute un processus de réengagement avec n'importe quel serveur DHCP. En d'autres mots, si le client n'arrive pas à renouveler son bail, il cherchera à communiquer avec n'importe quel serveur DHCP afin d'éviter de perdre sa connexion. (Cette valeur doit être définit au moins à 85% de la durée du bail.)
+
+- **Authoritative:**<br/>
+Précise qu'il s'agit du serveur DHCP principal sur le réseau.
+
+**Exemple de bail:**
+- Bail de **3 jours** (valid-lifetime à **259 200** secondes).
+- Renouvèlement à **50%** (renew-timer à **129 600** secondes).
+- Cherche un autre serveur à **90%** (rebind-timer à **233 280** secondes).
+
+```json
+...
+    "valid-lifetime": 259200,
+    "renew-timer": 129600,
+    "rebind-timer": 220320,
+    "authoritative": true,
+...
+```
+
+La section suivante concerne la méthode avec laquelle nous allons conserver les baux DHCP:
+
+```json
+...
+    "lease-database": {
+        "type": "memfile",
+        "persist": true,
+        "name": "/var/lib/kea/kea-leases4.csv",
+        "lfc-interval": 3600
+    },
+...
+```
+
+La base de données des baux DHCP sera stocké en mémoire et non pas dans une base de données (`"type": "memfile"`). Néanmoins, celle-ci sera tout de même persistante (`"persist": true`), c'est-à-dire que les baux ne seront pas perdus en cas de redémarrage du serveur car les données seront conservées dans le fichier */var/lib/kea/kea-leases4.csv* (`"name": "/var/lib/kea/kea-leases4.csv"`). Finalement, un nettoyage de ce fichier se fera toutes les heures (`"lfc-interval": 3600`) par le processur LFC (*Lease File Cleanup*).
+
+Vous l'aurez sans doute deviné, il ne nous reste plus qu'à déclarer notre étendue DHCP:
+
+```json
+...
+    ...
+            "subnet4": [
+            {
+                "subnet": "192.168.21.0/24",
+                "pools": [ { "pool": "192.168.21.100 - 192.168.21.200" } ],
+                "option-data": [
+                    {
+                        "name": "routeurs",
+                        "data": "192.168.21.1"
+                    },
+                    {
+                        "name": "domain-name-servers",
+                        "data": "192.168.21.1"
+                    },
+                    {
+                        "name": "domain-search",
+                        "data": "gabriel.local"
+                    }
+                ]
+            }
+        ]
+    ...
+...
+```
+
+Le bloc *Subnet4* (`"subnet4":`) permet de déclarer les étendues que devra gérer le serveur DHCP. Pour chaque étendue déclarée (`"subnet": "192.168.21.0/24"`), il vous faudra définir les ou le bassin d'adresses disponibles (`"pools": [ { "pool": "192.168.21.100 - 192.168.21.200" } ]`).
+
+Enfin, vous serez amené à configurer les options à fournir à vos clients (`"option-data": [...]`) (passerelle, DNS, etc...).
+
+Une fois vos configurations en place, redémarrez votre service DHCP à l'aide de la commande suivante:
+
+```bash
+sudo systemctl restart kea-dhcp4-server.service
+```
+
+## Déploiement des clients
+
+Déployez vos deux clients sous Windows 10 en vous référant au schéma du laboratoire. Vous devriez recevoir les informations nécessaires à votre adressage IP automatiquement.

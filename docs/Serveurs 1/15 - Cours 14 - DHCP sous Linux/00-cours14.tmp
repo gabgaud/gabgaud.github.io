@@ -20,3 +20,31 @@ L'installation de KEA se fait via le gestionnaire de paquet `APT` en utilisant l
 ```bash
 sudo apt install kea-dhcp4-server -y
 ```
+
+### Configuration via JSON
+
+La configuration du serveur DHCP KEA sous Linux passe par la mise en place d'un fichier JSON. Ce format de fichier est souvent utilisé dans le cadre de langage de programmation orienté objet. En effet il permet, grâce à sa syntaxe minutieuse de décrire différents objets et attributs. Néanmoins, la syntaxe de JSON n'est pas parfaite. Elle comporte énormément de ponctuation et ne prend pas en compte les commentaires. Il vous faudra donc être rigoureux lors de votre configuration.
+
+Exemple de syntaxe JSON:
+```json
+    "subnet4": [
+        {
+            "subnet": "192.168.14.0/24",
+            "pools": [ { "pool": "192.168.14.100 - 192.168.14.120" } ],
+            "option-data": [
+                {
+                    "name": "domain-name-servers",
+                    "data": "192.168.14.201"
+                },
+                {
+                    "name": "domain-search",
+                    "data": "it-connect.local"
+                },
+                {
+                    "name": "routers",
+                    "data": "192.168.14.2"
+                }
+            ]
+        }
+    ]
+```
