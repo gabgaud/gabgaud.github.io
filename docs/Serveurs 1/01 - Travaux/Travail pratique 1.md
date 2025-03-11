@@ -1,7 +1,7 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 
-# Travail pratique
+# Travail pratique - 25%
 
 Pour la réalisation de ce travail, l'infrastructure vous ait complètement fourni. Les serveurs DNS et DHCP sont prêts et à utiliser tel quel et il en va de même pour les clients. Un nom de domaine a déjà été sélectionné et tous les ordinateurs possèdent leur propre FQDN.
 
