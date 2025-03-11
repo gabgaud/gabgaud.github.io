@@ -5,6 +5,18 @@ import ThemedImage from '@theme/ThemedImage';
 
 Pour la réalisation de ce travail, l'infrastructure vous ait complètement fourni. Les serveurs DNS et DHCP sont prêts et à utiliser tel quel et il en va de même pour les clients. Un nom de domaine a déjà été sélectionné et tous les ordinateurs possèdent leur propre FQDN.
 
+L'ensemble des ordinateurs virtuels nécessaires à la réalisation de ce TP sont disponible directement dans Labinfo dans la section MODÈLES > 420-2S5 > TP.
+
+Voici les informations de chacune des machines virtuelles:
+
+|Nom de la machine|Nom d'utilisateur|Mot de passe|Adapteur réseau 1|Adapteur réseau 2|
+|-----------------|-----------------|------------|-----------------|-----------------|
+|MODELE_PASSERELLE_2S5_TP1| N/A | N/A | Acces-Internet-1 | Votre réseau privé |
+|MODELE_PC0001_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_PC0002_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_UbuntuServeur_2S5_TP1| utilisateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_WindowsServeur_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
+
 ## Mandat
 
 Après avoir déployé les machines virtuelles fournies, répondez à chacune des questions présentées dans [ce document](../Assets/Travaux/Travail%20pratique.docx). Vous devez me remettre ce document dûment rempli via Teams, dans la section « Devoirs » avant l'échéance indiqué.
@@ -33,7 +45,7 @@ Voici l'infrastructure sur laquelle vous vous apprêtez à travailler:
 
 2. Déployez les autres machines virtuelles dans l'autre que vous le souhaitez. Cependant, n'oubliez pas de modifier l'adapteur réseau afin de relier celui-ci à votre réseau privé.
 
-3. Vous n'avez aucune adresse IP à modifier ni de nom d'ordinateur à configuré. Changez-les à vos risques!
+3. <mark>**Vous n'avez aucune adresse IP à modifier ni de nom d'ordinateur à configuré. Changez-les à vos risques!**</mark>
 
 ## Correction et pondération
 
