@@ -54,7 +54,7 @@ Vous l'aurez sans doute compris à travers les différents avantages et inconvé
 À travers vos différents laboratoires tout au long de vos études, vous aurez plusieurs laboratoires à réaliser et plusieurs ordinateurs à installer (virtuel ou non). Il est tout à fait inutile d'y relier votre compte Microsoft puisque vous ne bénéficierez pas toujours d'une connexion internet. Qui plus est, la majorité de ces machines de laboratoires seront détruites et réinstallées rapidement. Il est donc inutile d'y lier votre compte Microsoft.
 :::
 
-Ceci étant dit, Microsoft ne vous proposera pas, d'entré de jeu, de créer un compte local. Il faudra faire une petite « passe-passe ». 
+Ceci étant dit, Microsoft ne vous proposera pas, d'entrée de jeu, de créer un compte local. Il faudra faire une petite « passe-passe ». 
 
 1. Cliquez sur « Options de connexion » :
 

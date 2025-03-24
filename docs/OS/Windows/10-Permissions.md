@@ -5,7 +5,7 @@ import TabItem from '@theme/TabItem';
 
 # Permissions 🔐
 
-Sous Windows, les fichiers et les dossiers possède une liste d'accès discrétionnaire (*DACL*). Dans le jargon informatique, il se peut que vous entendiez parler d'*ACL*, c'est la même chose, du moins en ce qui concerne Windows. Les *DACL* nous permettent d'**<span class='green-text'>accorder</span>** ou de **<span class='red-text'>refuser</span>** certaines permissions à des utilisateurs ou des groupes.
+Sous Windows, les fichiers et les dossiers possèdent une liste d'accès discrétionnaire (*DACL*). Dans le jargon informatique, il se peut que vous entendiez parler d'*ACL*, c'est la même chose, du moins en ce qui concerne Windows. Les *DACL* nous permettent d'**<span class='green-text'>accorder</span>** ou de **<span class='red-text'>refuser</span>** certaines permissions à des utilisateurs ou des groupes.
 
 ## Accéder à la liste de contrôle d'accès
 
@@ -13,7 +13,7 @@ Pour accéder à la liste des permissions d'un item, il nous suffit généraleme
 
 ![PropertiesFolderRights](../Windows/Assets/10/PropertiesFolderRights.png)
 
-Vous trouverez à cet endroit une vue d'ensemble des permissions qui sont attribuées sur l'élément concerné. Au haut de la fenêtre, nous retrouvons les utilisateurs et les groupes d'utilisateurs qui possèdent certaines autorisations. En bas, nous voyons la liste des principales autorisations qui sont générablement attribuées ainsi que deux colonnes: **<span class='green-text'>Autoriser</span>** et **<span class='red-text'>Refuser.</span>**
+Vous trouverez à cet endroit une vue d'ensemble des permissions qui sont attribuées sur l'élément concerné. Au haut de la fenêtre, nous retrouvons les utilisateurs et les groupes d'utilisateurs qui possèdent certaines autorisations. En bas, nous voyons la liste des principales autorisations qui sont généralement attribuées ainsi que deux colonnes: **<span class='green-text'>Autoriser</span>** et **<span class='red-text'>Refuser.</span>**
 
 Vous pouvez également obtenir la liste de contrôle d'accès à l'aide de PowerShell en utilisant la commande `Get-ACL`:
 
@@ -36,18 +36,18 @@ Concentrons-nous d'abord sur les différentes autorisations et leurs impacts:
 
 | Permission                  | Description |
 |-----------------------------|------------|
-| **Contrôle total**          | Permet de lire, modifier, supprimer et changer les permissions du dossier et des fichiers. |
+| **Contrôle total**          | Permets de lire, modifier, supprimer et changer les permissions du dossier et des fichiers. |
 | **Modification**            | Autorise la modification et la suppression des fichiers, mais pas la gestion des permissions. |
-| **Lecture et exécution**    | Permet d'ouvrir et d'exécuter les fichiers (utile pour les applications). |
+| **Lecture et exécution**    | Permets d'ouvrir et d'exécuter les fichiers (utile pour les applications). |
 | **Affichage du contenu du dossier** | Autorise la navigation dans le dossier sans ouvrir les fichiers. |
-| **Lecture**                 | Permet de lire les fichiers et leurs propriétés, mais sans modification. |
+| **Lecture**                 | Permets de lire les fichiers et leurs propriétés, mais sans modification. |
 | **Écriture**                | Autorise la création et la modification de fichiers sans pouvoir les supprimer. |
 
 ### Autoriser, refuser ou rien ?
 
-À la base, il faut autoriser une permission à un utilisateur ou à un groupe d'utilisateurs pour permettre à ce dernier de lire, modifier ou écrire dans un dossier ou un fichier. Si l'autorisation n'est pas accordée, le comportement par défaut est un refus. Alors pourquoi **refuser** expréssement une permission en utilisant la colonne à cet effet ?
+À la base, il faut autoriser une permission à un utilisateur ou à un groupe d'utilisateurs pour permettre à ce dernier de lire, modifier ou écrire dans un dossier ou un fichier. Si l'autorisation n'est pas accordée, le comportement par défaut est un refus. Alors, pourquoi **refuser** expressément une permission en utilisant la colonne à cet effet ?
 
-D'abord, l'utilisation de la colonne **refuser** n'est pas une chose commune et elle est peu recommandée. Le refus d'une permission aura toujours préséance sur une autorisation. Nous analyserons un exemple un peu plus loins ou la colonne refuser pourrait nous jouer des tours à notre insu.
+D'abord, l'utilisation de la colonne **refuser** n'est pas une chose commune et elle est peu recommandée. Le refus d'une permission aura toujours préséance sur une autorisation. Nous analyserons un exemple un peu plus loin ou la colonne refuser pourrait nous jouer des tours à notre insu.
 
 ### Bonnes pratiques
 
@@ -108,11 +108,11 @@ Une fois l'héritage des droits désactivés pour l'élément concerné, toutes 
 
 ### Bonnes pratiques
 
-Si vous désactivez l'héritage des droits, gardez en tête que les administrateurs d'un système, ainsi que le système lui-même, devraient posséder la grande majorité des accès sur un système. En d'autres mots, le compte `Système` et le groupe `Administrateurs` devraient toujours apparaître dans votre liste de groupes et d'utilisateurs et posséder à peu près toutes les permissions.
+Si vous désactivez l'héritage des droits, gardez en tête que les administrateurs d'un système, ainsi que le système lui-même, devraient posséder la grande majorité des accès sur un système. En d'autres mots, le compte `Système` et le groupe `Administrateurs` devrait toujours apparaître dans votre liste de groupes et d'utilisateurs et posséder à peu près toutes les permissions.
 
 ## Propriétaire
 
-Le propriétaire d'un fichier ou d'un dossier peut toujours modifier la liste de contrôle d'accès *(ACL)*. Généralement, c'est l'utilisateur qui a créé l'item qui en est le propriétaire. Néanmoins, un administrateur peut en prendre possession s'il le désir.
+Le propriétaire d'un fichier ou d'un dossier peut toujours modifier la liste de contrôle d'accès *(ACL)*. Généralement, c'est l'utilisateur qui a créé l'item qui en est le propriétaire. Néanmoins, un administrateur peut en prendre possession s'il le désire.
 
 L'identité du propriétaire d'un item est repérable dans les paramètres de sécurité avancés:
 
@@ -120,7 +120,7 @@ L'identité du propriétaire d'un item est repérable dans les paramètres de s�
 
 ## Autorisations avancées
 
-Les paramètres de sécurité avancés permettent également de faire l'administration de permissions avancées. Quoique la grande majorité du temps les permissions de base suffisent à faire une administration plutôt juste des listes d'accès, il est possible d'administrer ces-dernières de manière beaucoup plus granulaire.
+Les paramètres de sécurité avancés permettent également de faire l'administration de permissions avancées. Quoique la grande majorité du temps les permissions de base suffisent à faire une administration plutôt juste des listes d'accès, il est possible d'administrer ces dernières de manière beaucoup plus granulaire.
 
 Dans la fenêtre des paramètres de sécurité avancés, sélectionnez un groupe d'utilisateurs ou un utilisateur et cliquez sur « Modifier »:
 
@@ -138,17 +138,17 @@ Voici une brève description pour chacune de ces permissions:
 
 | Permission                                      | Description |
 |------------------------------------------------|-------------|
-| **Contrôle total**                             | Permet de lire, modifier, supprimer et gérer les permissions et propriétaires du dossier et des fichiers. |
+| **Contrôle total**                             | Permets de lire, modifier, supprimer et gérer les permissions et propriétaires du dossier et des fichiers. |
 | **Parcours du dossier/exécuter le fichier**    | Autorise la navigation dans les dossiers et l’exécution des fichiers. |
-| **Liste du dossier/lecture de données**        | Permet d'afficher le contenu du dossier et de lire les fichiers. |
-| **Attributs de lecture**                       | Autorise la lecture des attributs de fichiers (ex. : lecture seule, caché). |
-| **Lecture des attributs étendus**              | Permet de voir les attributs avancés d'un fichier définis par certaines applications. |
-| **Création de fichier/écriture de données**    | Autorise la création de nouveaux fichiers et l'écriture dans les fichiers existants. |
-| **Création de dossier/ajout de données**       | Permet de créer de nouveaux sous-dossiers et d'ajouter des fichiers dans un dossier. |
+| **Liste du dossier/lecture de données**        | Permets d'afficher le contenu du dossier et de lire les fichiers. |
+| **Attributs de lecture**                       | Autorise la lecture des attributs de fichiers (ex. : lecture seule, cachée). |
+| **Lecture des attributs étendus**              | Permets de voir les attributs avancés d'un fichier définis par certaines applications. |
+| **Création de fichiers/écriture de données**    | Autorise la création de nouveaux fichiers et l'écriture dans les fichiers existants. |
+| **Création de dossiers/ajout de données**       | Permets de créer de nouveaux sous-dossiers et d'ajouter des fichiers dans un dossier. |
 | **Attributs d’écriture**                       | Autorise la modification des attributs des fichiers et dossiers. |
-| **Écriture d’attributs étendus**               | Permet de modifier les attributs avancés d'un fichier définis par certaines applications. |
+| **Écriture d’attributs étendus**               | Permets de modifier les attributs avancés d'un fichier définis par certaines applications. |
 | **Suppression de sous-dossier et fichier**     | Autorise la suppression des fichiers et des sous-dossiers même si l'utilisateur ne peut pas modifier leur contenu. |
-| **Suppression**                                | Permet de supprimer les fichiers et dossiers. |
-| **Autorisations de lecture**                   | Permet de voir les permissions appliquées sur le fichier ou le dossier. |
+| **Suppression**                                | Permets de supprimer les fichiers et dossiers. |
+| **Autorisations de lecture**                   | Permets de voir les permissions appliquées sur le fichier ou le dossier. |
 | **Modifier les autorisations**                 | Autorise le changement des permissions d'accès sur les fichiers et dossiers. |
-| **Appropriation**                              | Permet de devenir propriétaire d’un fichier ou d’un dossier et d’en modifier les permissions. |
+| **Appropriation**                              | Permets de devenir propriétaire d’un fichier ou d’un dossier et d’en modifier les permissions. |
