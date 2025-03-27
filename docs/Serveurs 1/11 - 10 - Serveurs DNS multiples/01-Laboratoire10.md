@@ -144,23 +144,6 @@ zone "21.168.192.in-addr.arpa" IN {
 };
 ```
 
-#### Modification du fichier contenant la clé
-
-Nous serons bientôt prêts à finaliser la configuration de notre serveur DNS secondaire. Avant d'y être, il faut éditer notre fichier `rndc.key` pour indiquer à Bind qu'il devra utiliser cette clé pour demander les transferts de zone. Éditez donc le fichier `/etc/bind/rndc.key` pour y indiquer l'adresse de votre serveur DNS primaire ainsi que la clé à utiliser:
-
-```yaml title='/etc/bind/rndc.key' showLineNumbers
-key "rndc-key" {
-    algorithm hmac-sha256;
-    secret "votre clé secrète est ici";
-};
-
-//highlight-start
-server 192.168.21.10 {
-    keys { rndc-key; };
-};
-//highlight-end
-```
-
 #### Envoi de la clé au serveur secondaire
 
 Comme mentionné plus tôt, seuls les détenteurs de la clé de chiffrement (rndc-key) pourront demander un transfert de zone. Il faudra donc s'assurer de transférer celle-ci sur votre serveur secondaire. Pour ce faire, nous utiliseront le protocole SCP depuis le serveur DNS primaire. Voici la commande à utiliser:
@@ -198,8 +181,6 @@ Maitenant, déplacez le fichier `rndc.key` que vous avez envoyé depuis le serve
 Ouvrez le fichier `/etc/bind/named.conf.options` et éditez le comme suit:
 
 ```yaml title='/etc/bind/named.conf.options' showLineNumbers
-//highlight-next-line
-include "/etc/bind/rndc.key";
 options {
     directory "/var/cache/bind";
     //highlight-next-line
@@ -246,7 +227,7 @@ Généralement, la redirection des requêtes vers l'extérieur et la récursivit
 
 Nous allons à présent déclarer nos zones de recherche sur le serveur DNS secondaire. Éditez donc le fichier `/etc/bind/named.conf.local` pour y spécifier les configurations des zones:
 
-```yaml title='/etc/bind/named.conf.options' showLineNumbers
+```yaml title='/etc/bind/named.conf.local' showLineNumbers
 //
 // Do any local configuration here
 //
@@ -254,6 +235,11 @@ Nous allons à présent déclarer nos zones de recherche sur le serveur DNS seco
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 // include "/etc/bind/zones.rfc1918";
+
+//highlight-start
+include "/etc/bind/rndc.key";
+server 192.168.21.10 { keys rndc-key; };
+//highlight-end
 
 zone "gabriel.local" IN {
     type slave;
@@ -276,16 +262,10 @@ Remarquez l'emplacement des fichiers de zone. Cet emplacement diffère du serveu
 
 #### Création des fichiers de zone
 
-Créez le dossier `zones` à l'emplacement `/var/lib/bind`. Assurez-vous que le propriétaire et le groupe-propriétaire soient Bind. À l'aide de la commande `touch`, créez deux fichiers de zone dans le serveur DNS secondaire:
+Créez le dossier `zones` à l'emplacement `/var/lib/bind`. Assurez-vous que le propriétaire et le groupe-propriétaire soient Bind.
 
 ```bash
-sudo touch /var/lib/bind/zones/db.gabriel.local /var/lib/bind/zones/db.21.168.192
-```
-
-Assurez-vous de configurer les bons droits et les bons propriétaires sur les deux fichiers de zone que vous venez de créer:
-
-```bash
-sudo chown bind:bind /var/lib/bind/zones/* && sudo chmod 644 /var/lib/bind/zones/*
+sudo mkdir /var/lib/bind/zones && sudo chown bind:bind /var/lib/bind/zones
 ```
 
 ### Validation et tests
@@ -306,7 +286,7 @@ Vous devriez être en mesure de repérez des événements de transfert de zone r
 
 #### Preuves de transferts fonctionnels
 
-Au sein de votre serveur secondaire, vous devriez aussi être en mesure de consulter les fichiers de zone. <mark> Nous n'avons jamais entré d'enregistrements </mark>dans notre serveur secondaire. La présence de ceux-ci signifie donc qu'ils ont bel et bien été transférés depuis le serveur primaire. Ouvrez vos fichiers de zone avec la commande `cat` par exemple et inspectez-les:
+Au sein de votre serveur secondaire, vous devriez aussi être en mesure de consulter les fichiers de zone. La présence de ceux-ci signifie donc qu'ils ont bel et bien été transférés depuis le serveur primaire. Ouvrez vos fichiers de zone avec la commande `cat` par exemple et inspectez-les:
 
 ![Contenu d'une zone](../Assets/10/zonetransféré.png)
 
