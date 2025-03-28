@@ -68,8 +68,6 @@ Il faudra désormais effectuer des transferts de zone entre les deux serveurs DN
 Éditez donc le fichier `/etc/bind/named.conf.options` pour y ajouter les éléments surlignés ci-dessous:
 
 ```yaml title='/etc/bind/named.conf.options' showLineNumbers
-//highlight-next-line
-include "/etc/bind/rndc.key";       #<------Ajoutez cette ligne
 options {
     directory "/var/cache/bind";
 
@@ -104,8 +102,6 @@ options {
     listen-on-v6 { any; };
 };
 ```
-La ligne `include "/etc/bind/rndc.key";` indique a Bind9 qu'il doit prendre en compte ce fichier dans sa configuration. Ce fichier (rndc.key) contient une clé de chiffrement que nous utiliserons pour signer nos transferts de zone et ainsi, garantir une sécurité supplémentaire. Cette clé de chiffrement est générée automatiquement à l'installation de Bind9.
-
 La ligne `allow-transfer { key "rndc-key"; };` stipule, quant à elle, que nous autorisons les transferts de zone seulement pour les détenteurs de la clé de chiffrement.
 
 La ligne `notify yes;` a pour effet d'activer les notifications. Lorsqu'une modification sera apportée à une zone, le serveur en avisera automatiquement les serveurs secondaires.
@@ -122,6 +118,11 @@ Nous devons modifier les déclarations de zone dans le serveur DNS primaire pour
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 // include "/etc/bind/zones.rfc1918";
+
+//highlight-start
+include "/etc/bind/rndc.key";
+server 192.168.21.10 { keys rndc-key; };
+//highlight-end
 
 zone "gabriel.local" IN {
     type master;
@@ -143,6 +144,7 @@ zone "21.168.192.in-addr.arpa" IN {
     //highlight-end
 };
 ```
+La ligne `include "/etc/bind/rndc.key";` indique a Bind9 qu'il doit prendre en compte ce fichier dans sa configuration. Ce fichier (rndc.key) contient une clé de chiffrement que nous utiliserons pour signer nos transferts de zone et ainsi, garantir une sécurité supplémentaire. Cette clé de chiffrement est générée automatiquement à l'installation de Bind9.
 
 #### Envoi de la clé au serveur secondaire
 
