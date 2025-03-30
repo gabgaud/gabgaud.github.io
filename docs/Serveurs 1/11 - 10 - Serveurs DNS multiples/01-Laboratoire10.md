@@ -241,7 +241,6 @@ Nous allons à présent déclarer nos zones de recherche sur le serveur DNS seco
 //highlight-start
 include "/etc/bind/rndc.key";
 server 192.168.21.10 { keys rndc-key; };
-//highlight-end
 
 zone "gabriel.local" IN {
     type slave;
@@ -254,6 +253,7 @@ zone "21.168.192.in-addr.arpa" IN {
     file "/var/lib/bind/zones/db.21.168.192";
     masters { 192.168.21.10; };
 };
+//highlight-end
 ```
 
 :::info
