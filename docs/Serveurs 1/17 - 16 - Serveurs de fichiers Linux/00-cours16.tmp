@@ -170,3 +170,36 @@ Sous Windows, on utilisera un chemin UNC pour accéder à un partage SMB :
     />
 </div>
 
+:::caution[Nom de partage]
+Faites bien attention de distinguer le nom d'un dossier et le nom du partage de celui-ci. Je peux très bien posséder un dossier tel que `C:\Users\Administrateur\Patate` et le partager sous le nom `\\SERVEUR\travaux`. Le nom d'un item n'a pas forcémment de lien avec le nom de son partage.
+:::
+
+#### Dans l'explorateur Windows
+
+En inscrivant seulement le nom du serveur au format UNC dans l'explorateur Windows, vous serez en mesure de consulter les partages disponibles. Notez cependant que les noms de partage se terminant par le caractère « $ » sont invisibles. Vous n'aurez d'autre choix que de connaître leur nom pour accéder à leur contenu.
+
+![Explorateur](../Assets/16/Explorateur.png)
+
+#### Console de partages sous Windows
+
+Sous Windows, vous aurez accès à la console des partages. Celle-ci est disponible dans la console de gestion de l'ordinateur ou entrant la commande `fsmgmt.msc` directement dans l'invite de commande. Cette console vous permettra d'administrer vos partages, d'en changer les permissions, de les supprimer ou même d'en créer de nouveau.
+
+![ConsoleFS](../Assets/16/ConsoleFS.png)
+
+Dans l'image ci-dessus, vous pouvez voir certains partages créés par Windows lui-même. Ce sont des **partages administratifs**. Ces partages permettent d'accéder au système à travers le réseau, à condition d'y être autorisé. Voici les partages administratifs que vous repérerez régulièrement ainsi qu'une brève description:
+
+| Partage      | Description |
+|-------------|------------|
+| `C$`, `D$`, etc. | Partages cachés des lecteurs locaux, accessibles uniquement aux administrateurs. |
+| `ADMIN$`    | Utilisé pour la gestion à distance de l'ordinateur via des outils comme la console MMC ou PowerShell. Il pointe vers le dossier `C:\Windows`. |
+| `IPC$`      | Permet la communication entre processus pour la gestion des connexions réseau et l'administration à distance. |
+| `PRINT$`    | Utilisé pour partager des fichiers liés aux pilotes d'imprimantes sur le réseau. |
+
+#### Permissions
+
+Pour accéder à un dossier partagé à distance, un utilisateur devra y être autorisé dans deux types de permissions distinctes:
+
+1. Les permissions du partage.
+2. Les permissions du système de fichier.
+
+Voici des schémas visuels qui pourront vous aider à comprendre les enjeux de sécurité dont nous parlons:
