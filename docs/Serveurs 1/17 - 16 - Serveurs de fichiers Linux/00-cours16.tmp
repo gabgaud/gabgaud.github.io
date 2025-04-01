@@ -202,4 +202,129 @@ Pour accéder à un dossier partagé à distance, un utilisateur devra y être a
 1. Les permissions du partage.
 2. Les permissions du système de fichier.
 
-Voici des schémas visuels qui pourront vous aider à comprendre les enjeux de sécurité dont nous parlons:
+Prenons l'exemple de Bob:
+
+**<span class='green-text'>Exemple 1:</span> Bob tente d'accéder à un dossier à distance sans droit de partage ni permissions locales:**
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AucunDroitDistant_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/AucunDroitDistant_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 2:</span> Bob tente d'accéder à un dossier localement sans droit de partage ni permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AucunDroitLocal_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/AucunDroitLocal_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 3:</span> Bob tente d'accéder à un dossier à distance sans droit de partage mais avec des permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/DroitLocalDistant_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/DroitLocalDistant_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 4:</span> Bob tente d'accéder à un dossier à localement sans droit de partage mais avec des permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/DroitLocalLocal_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/DroitLocalLocal_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 5:</span> Bob tente d'accéder à un dossier à distance avec des droits de partage mais sans permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/DroitDistantDistant_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/DroitDistantDistant_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 6:</span> Bob tente d'accéder à un dossier localement avec des droits de partage mais sans permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/DroitDistantLocal_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/DroitDistantLocal_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 7:</span> Bob tente d'accéder à un dossier à distance avec des droits de partage et des permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AccesDistantDistant_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/AccesDistantDistant_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<br/>
+
+**<span class='green-text'>Exemple 8:</span> Bob tente d'accéder à un dossier localement avec des droits de partage et des permissions locales:**
+<br/>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/AccesLocalLocal_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/AccesLocalLocal_D.gif'),
+        }}
+    />
+</div>
+
