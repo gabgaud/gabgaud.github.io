@@ -107,7 +107,7 @@ Voici le contenu qu'il vous faut inscrire dans le fichier que vous venez de cré
                 "pools": [ { "pool": "192.168.21.100 - 192.168.21.200" } ],
                 "option-data": [
                     {
-                        "name": "routeurs",
+                        "name": "routers",
                         "data": "192.168.21.1"
                     },
                     {
