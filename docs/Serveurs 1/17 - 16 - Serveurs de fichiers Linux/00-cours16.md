@@ -331,3 +331,7 @@ Prenons l'exemple de Bob:
 ### Conclusion
 
 La seule façon d'accéder à un partage à distance est de posséder des permissions locales **<span class='red-text'>ET</span>** de posséder des permissions sur le partage. Si l'un ou l'autre des éléments est manquant, l'item ne sera pas accessible à distance.
+
+## Références
+
+- [Présentation du cours](../Assets/16/16-420-2S5-H25%20(ServeursDeFichiers).pdf)
