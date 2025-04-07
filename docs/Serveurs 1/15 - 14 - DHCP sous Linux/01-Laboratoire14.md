@@ -55,7 +55,7 @@ sudo apt install kea-dhcp4-server -y
 Une fois les paquets nécessaires téléchargés et installés, votre service devrait démarré automatiquement. Vous pouvez valider cela en entrant la commande suivante:
 
 ```bash
-sudo systemctl status kea-dhcp-server.service
+sudo systemctl status kea-dhcp4-server.service
 ```
 
 ### Configuration du serveur DHCP
