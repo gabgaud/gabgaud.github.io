@@ -8,11 +8,8 @@ import TabItem from '@theme/TabItem';
 Lorsqu'on installe un système d'exploitation, qu'on ajoute un disque dur ou qu'on veut organiser ses fichiers, la gestion des disques devient essentielle. Une bonne maîtrise des partitions permet de :
 
 - Préparer un disque pour l'installation d'un système d'exploitation.
-
 - Séparer les données personnelles des fichiers système.
-
 - Optimiser l'utilisation de l'espace disque.
-
 - Sécuriser ou organiser les données (sauvegardes, chiffrement, etc.).
 
 Dans Windows, plusieurs outils sont à notre disposition pour gérer les disques, que ce soit en mode graphique ou en ligne de commande.
@@ -53,12 +50,12 @@ C'est un format de table de partition qui est sur le point de disparaitre. Cepen
 - Format plus récent, faisant partie de la norme UEFI
 - Supporte jusqu'à 128 partitions sur Windows
 - Limite de taille des partitions de 9.4Zo (9.4 milliards de Terra-octets 🤯)
-- Plus robutste: stocke plusieurs copie de la table de partition
+- Plus robuste: stocke plusieurs copies de la table de partition
 - Obligatoire pour démarrage avec UEFI
 
 ## Les types de partition
 
-Lorsque vous utilisez une table de partition GPT, il n'y a qu'un seul type de partition : primaire! Néanmoins, lorsque vous utilisez une table de partition de type MBR, il existe plus d'un type de partition dépendemment de ce que vous désirez accomplir:
+Lorsque vous utilisez une table de partition GPT, il n'y a qu'un seul type de partition : primaire! Néanmoins, lorsque vous utilisez une table de partition de type MBR, il existe plus d'un type de partition dépendamment de ce que vous désirez accomplir:
 
 - **Partition primaire:**
     - Peut contenir un système d'exploitation ou des données.
@@ -70,24 +67,56 @@ Lorsque vous utilisez une table de partition GPT, il n'y a qu'un seul type de pa
     - N'existe qu'au sein d'une partition étendue.
     - Ne peut contenir que des données (pas de OS)
 
+## Disques de base vs disques dynamiques ⚙️
+
+### Disques de base (par défaut)
+
+- Utilisent les partitions traditionnelles (MBR ou GPT).
+- Simples, compatibles avec tous les systèmes d'exploitation.
+- Chaque volume correspond à une partition.
+- Suffisants pour la plupart des usages.
+
+### Disques dynamiques
+
+Les disques dynamiques permettent une gestion plus avancée des volumes. C'est une technologie permettant d'ajouter une couche d'abstraction supplémentaire, ce qui ajoute une plus grande flexibilité dans l'administration des stockages.
+
+#### Avantages
+
+- Création de **volumes fractionnés (spanned)** : étendent un volume sur plusieurs disques.
+- Création de **volumes répartis (striped)** (RAID 0) : performances accrues.
+- Création de **volumes en miroir (mirrored)** (RAID 1) : redondance des données.
+- Gestion de **volumes RAID-5** (en version serveur seulement).
+
+#### Caractéristiques
+
+- Fonctionnement sans partitions traditionnelles, avec des volumes dynamiques.
+- Possibilité de redimensionner et combiner des volumes plus librement.
+- Conversion possible depuis un disque de base (attention, changement irréversible sans perte de données sans outil tiers).
+- Incompatibilité avec d'autres OS ou environnement de récupération si Windows ne démarre pas.
+
+#### Recommandations
+
+- À éviter sur des systèmes multiboot ou des disques externes.
+- Aujourd’hui, **Storage Spaces** est souvent préféré pour les fonctionnalités similaires, mais plus modernes et flexibles.
+
 ## Les systèmes de fichiers 🍕
 
-J'aime bien faire la comparaison entre un système de fichiers et une pizza. Peu importe votre restaurant préféré, une pizza pépéronni fromage restera toujours une pizza pépéronni fromage. Pourtant, chaque chef de restaurant vous dira que c'est leur recette la meilleure. Pourquoi ? Certains vous diront que c'est parce qu'ils commencent avec un ingrédient avant d'en mettre un second alors que d'autres vous diront que le secret est dans la sauce.
+J'aime bien faire la comparaison entre un système de fichiers et une pizza. Peu importe votre restaurant préféré, une pizza pepperoni fromage restera toujours une pizza pepperoni fromage. Pourtant, chaque chef de restaurant vous dira que c'est leur recette la meilleure. Pourquoi ? Certains vous diront que c'est parce qu'ils commencent avec un ingrédient avant d'en mettre un second alors que d'autres vous diront que le secret est dans la sauce.
 
 Les systèmes de fichiers, c'est sensiblement pareil. C'est la manière dont les fichiers sont organisés et stockés sur un volume. Il existe une panoplie de système de fichiers. Certains sont plus axés sur la sécurité, d'autres sur la capacité de stockage, etc. Ils ont tous leur recette 😉
 
 - **NTFS (New Technology File System):**
     - Système de fichiers par défaut de Windows.
-    - Supporte les fichiers plus grand que 4Go.
+    - Supporte les fichiers plus grands que 4Go.
 - **FAT32:**
-    - Ancien mais encore utilisé pour la compatibilité (ex: Clé USB)
-    - Taille des fichiers limité à plus ou moins 3,8Go
-    - Taille des partitions limité à 32Go sous Windows
-    - Compatible avec Windows, Linux, MacOS et plusieurs consoles de jeux
+    - Ancien, mais encore utilisé pour la compatibilité (ex.: Clé USB)
+    - Taille des fichiers limitée à plus ou moins 3,8Go
+    - Taille des partitions limitée à 32Go sous Windows
+    - Compatible avec Windows, Linux, macOS et plusieurs consoles de jeux
 - **exFAT (Extended File Allocation Table):**
-    - Conçu pour les supports amovibles (clé USB, disques externes, etc)
+    - Conçu pour les supports amovibles (clé USB, disques externes, etc.)
     - Pas de limite de taille de fichier ou de partition
-    - Compatible avec Windows, MacOS et Linux
+    - Compatible avec Windows, macOS et Linux
 
 ## Point de montage
 
@@ -105,11 +134,37 @@ La gestion des disques sous Windows peut se faire via plusieurs interfaces, chac
 
 La console de gestion des disques de Windows est accessible directement depuis la console de gestion de l'ordinateur ou en entrant la commande `diskmgmt.msc` de la fenêtre *Exécuter...* 
 
-La console possède certaines fonctionnalités intéressantes mais demeure asssez limité lorsque vient le temps d'effectuer des opérations avancées.
+La console possède certaines fonctionnalités intéressantes, mais demeure assez limitée lorsque vient le temps d'effectuer des opérations avancées.
 
 **Fonctionnalités principales:**
 - Affiche tous les disques physiques et leurs partitions.
-- Permet de créer, supprimer, formater des partitions.
-- Permet de modifier la lettre d'un volume.
-- etc...
+- Permets de créer, supprimer, formater des partitions.
+- Permets de modifier la lettre d'un volume.
+- etc.
 
+![GestionDesDisques](../Windows/Assets/11/GestionDesDisques.png)
+
+### DiskPart (Invite de commande classique)
+
+L'outil DiskPart s'utilise à travers l'invite de commande classique de Windows. C'est un outil relativement puissant qui vous permettra d'entreprendre plus d'actions que via la console de gestion des disques.
+
+Pour utiliser DiskPart, ouvrez une invite de commande en tant qu'Administrateur et tapez simplement la commande `diskpart`. Voici quelques commandes utiles à expérimenter avec DiskPart:
+
+- `list disk` : Affiche tous les disques.
+- `select disk 1` : Sélectionne le disque 1.
+- `create partition primary size=10240` : Crée une partition de type primaire de 10Go.
+- `format fs=ntfs quick` : Formate la partition rapidement en NTFS.
+
+### PowerShell
+
+PowerShell offre évidemment des cmdlets modernes pour la gestion des disques. Le principal avantage de l'utilisation de PowerShell est la possibilité de scripter les actions à entreprendre sur les disques, ce qui peut s'avérer très intéressant dans les environnements d'entreprise.
+
+**Quelques cmdlets utiles:**
+
+- `Get-Disk`: Affiche les disques détectés.
+- `Get-Partition`: Affiche les partitions.
+- `New-Partition` : Crée une nouvelle partition.
+- `Format-Volume` : Formate une partition.
+- `Assign-DriveLetter` : Associe une lettre à un volume. 
+
+Vous aurez la possibilité d'expérimenter quelques-unes de ces commandes dans le laboratoire d'aujourd'hui.

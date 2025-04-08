@@ -1,0 +1,87 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Exercice 06
+
+## Disques et partitions
+
+Dans cet exercice, vous vous pratiquerez à administrer les stockages sous Windows à l'aide de différents outils
+
+## Prélables
+
+Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle. Importez un modèle au besoin.
+
+## Étapes de réalisation
+
+Pour réaliser les différentes étapes qui suivront, vous aurez besoin d'ajouter <mark>trois</mark> disques durs à votre machine virtuelle. Vous devez ajouter ces périphériques <span class='red-text'>**lorsque la machine virtuelle est éteinte.**</span> Pour ce faire, dirigez-vous dans les configurations de votre machine virtuelle, sous l'onglet stockage, puis cliquez sur *Ajouter un périphérique*:
+
+![AddHDDVM](../Assets/Exercices/06/AddHDDVM.png)
+
+Vous devez évidemment sélectionner **Disque Dur**. Lorsque ce sera fait, une nouvelle fenêtre apparaitra afin que vous puissiez sélectionner le nouveau disque à ajouter. Or, il faudra plutôt le créer.
+
+![CreateHDD](../Assets/Exercices/06/CreateHDD.png)
+
+Vous serez alors amené à choisir le type de fichier à créer pour votre nouveau stockage (*laissez l'option par défaut*), à définir le type d'allocation (*pre-allocate Full Size*) et finalement la taille (Un disque de 15Go et deux autres de 10Go).
+
+![CreateSteps](../Assets/Exercices/06/HDDProperties.png)
+
+Finalement, ajouter le disque nouvèlement créé à votre configuration de machine virtuelle:
+
+![AttachHDD](../Assets/Exercices/06/AttachHDD.png)
+
+**<u>Répétez ces étapes pour les trois disques durs à ajouter, sois un disque dur de 15Go et deux de 10Go</u>**
+
+### Configuration du disque dur supplémentaire de 15 Go
+
+Lorsque que vous ajoutez des disques durs neufs au système d'exploitation Windows, ceux-ci ne seront pas détectés par le système puisqu'ils ne possèdent pas de table de partition. La première étape, lorsque nous ajoutons un disque dur neuf au système, est donc de mettre en place une table de partition.
+
+#### Création de la table de partition
+
+*A priori*, il vous faudra obtenir les numéros d'identification de vos disques durs avant d'entreprendre une quelconque action. Pour ce faire, utilisez la commande `Get-Disk` dans un terminal PowerShell en tant qu'Administrateur. Vous obtiendrez la liste des disques détectés dans votre pc.
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="GetDisk" label="Commande" default>
+            ```Powershell
+            Get-Disk
+            ```
+        </TabItem>
+        <TabItem value="ResultatGetDisk" label="Résultat">
+           ![GetDisk](../Assets/Exercices/06/GetDisk.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+Une fois que vous aurez déterminé quel est le numéro du disque dur de 15Go (*dans mon cas c'est le disque 1*), nous utiliserons la commande `initialize-disk` pour créer la table de partition sur ce disque.
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="InitializeDisk" label="Commande" default>
+            ```Powershell
+            Initialize-Disk -Number 1 -PartitionStyle GPT
+            ```
+        </TabItem>
+        <TabItem value="ResultatInitializeDisk" label="Résultat">
+           ![InitializeDisk](../Assets/Exercices/06/InitializeDisk.png)
+        </TabItem>
+    </Tabs>
+</div><br/>
+
+#### Création de partitions
+
+Notre disque dur est désormais prêt à accueillir des partitions. Nous allons créer deux partitions et séparer l'espace disque équitablement (*approximativement*). Pour créer une première partition avec PowerShell, procédez comme suit:
+
+<div className="tabsborder">
+    <Tabs>
+        <TabItem value="NewPartition" label="Commande" default>
+            ```Powershell
+            New-Partition -DiskNumber 1 -Size 7500 MB
+            ```
+        </TabItem>
+        <TabItem value="ResultatNewPartition" label="Résultat">
+           <!--![NewPartition](../Assets/Exercices/06/NewPartition.png)-->
+        </TabItem>
+    </Tabs>
+</div><br/>
