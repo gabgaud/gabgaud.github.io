@@ -120,14 +120,14 @@ Remettez les éléments suivants :
 
 | **Critère**                             | **Points** | **Détails évalués** |
 |-----------------------------------------|------------|----------------------|
-| **Installation/désinstallation de logiciels** | 6 pts | - Installation de LibreOffice avec `winget` (1 pt)<br>- Installation de 7-Zip via `winget` (1 pt)<br>- Installation de Spotify via le Microsoft Store (1 pt)<br>- Installation de Notepad++ via internet (1 pt)<br>- Preuves de provenance claires (2 pts) |
+| **Installation/désinstallation de logiciels** | 6 pts | - Installation de LibreOffice avec `winget` (1 pt)<br/>- Installation de 7-Zip via `winget` (1 pt)<br/>- Installation de Spotify via le Microsoft Store (1 pt)<br/>- Installation de Notepad++ via internet (1 pt)<br/>- Preuves de provenance claires (2 pts) |
 | **Architecture du système**             | 4 pts | - Réponses claires, précises et personnalisées aux questions (1 pt chacune) |
-| **Services et processus**               | 4 pts | - Désactivation du spouleur d'impression (1 pt)<br>- Numéro de processus `wuauserv` (1 pt)<br>- Description du service `LanmanServer` (1 pt)<br>- Bonne rédaction dans le rapport (1 pt) |
-| **PowerShell (fichiers et dossiers)**   | 6 pts | - Création du fichier (1 pt)<br>- Contenu pertinent (1 pt)<br>- Copie/suppression (1 pt)<br>- Création de dossier (1 pt)<br>- Déplacement de fichier (1 pt)<br>- Utilisation correcte de PowerShell (1 pt) |
-| **Gestion des utilisateurs et groupes** | 6 pts | - Création des utilisateurs (2 pts)<br>- Création du groupe `Stagiaires` (1 pt)<br>- Ajout des utilisateurs au groupe (2 pts)<br>- Cohérence générale (1 pt) |
-| **Permissions (ACL)**                   | 6 pts | - Structure de dossiers correcte (1 pt)<br>- Héritage désactivé (1 pt)<br>- Permissions configurées (3 pts)<br>- Sortie `Get-ACL` dans le rapport (1 pt) |
-| **Gestion du stockage**                | 6 pts | - Ajout et initialisation du disque (1 pt)<br>- Création et formatage de la partition (2 pts)<br>- Attribution de lettre (1 pt)<br>- Fichier `stockage.txt` présent (2 pts) |
-| **Clarté et exactitude du rapport**     | 2 pts | - Organisation, grammaire, précision (1 pt)<br>- Cohérence avec actions (1 pt) |
+| **Services et processus**               | 4 pts | - Désactivation du spouleur d'impression (1 pt)<br/>- Numéro de processus `wuauserv` (1 pt)<br/>- Description du service `LanmanServer` (1 pt)<br/>- Bonne rédaction dans le rapport (1 pt) |
+| **PowerShell (fichiers et dossiers)**   | 6 pts | - Création du fichier (1 pt)<br/>- Contenu pertinent (1 pt)<br/>- Copie/suppression (1 pt)<br/>- Création de dossier (1 pt)<br/>- Déplacement de fichier (1 pt)<br/>- Utilisation correcte de PowerShell (1 pt) |
+| **Gestion des utilisateurs et groupes** | 6 pts | - Création des utilisateurs (2 pts)<br/>- Création du groupe `Stagiaires` (1 pt)<br/>- Ajout des utilisateurs au groupe (2 pts)<br/>- Cohérence générale (1 pt) |
+| **Permissions (ACL)**                   | 6 pts | - Structure de dossiers correcte (1 pt)<br/>- Héritage désactivé (1 pt)<br/>- Permissions configurées (3 pts)<br/>- Sortie `Get-ACL` dans le rapport (1 pt) |
+| **Gestion du stockage**                | 6 pts | - Ajout et initialisation du disque (1 pt)<br/>- Création et formatage de la partition (2 pts)<br/>- Attribution de lettre (1 pt)<br/>- Fichier `stockage.txt` présent (2 pts) |
+| **Clarté et exactitude du rapport**     | 2 pts | - Organisation, grammaire, précision (1 pt)<br/>- Cohérence avec actions (1 pt) |
 
 ---
 
