@@ -75,7 +75,7 @@ Dans le fichier `/etc/hosts`, remplacez l'adresse 127.0.1.1 par la véritable IP
 Comme nous configurerons Samba en tant que contrôleur de domaine, celui-ci aura son propre service de résolution DNS. Nous allons donc désactiver la résolution DNS d'Ubuntu pour éviter qu’il y ait des conflits entre ces deux services:
 
 ```bash
-sudo systemctl disable --nom systemd-resolved
+sudo systemctl disable systemd-resolved
 ```
 
 Supprimez également le raccourci vers le fichier `/etc/resolv.conf` avec la commande:
