@@ -225,7 +225,7 @@ Créez un nouveau fichier du même nom dans lequel vous inscrirez ces lignes:
     dns_lookup_kdc = false
     dns_lookup_realm = false
 [realms]
-    GABRIEL.LOCAL {
+    GABRIEL.LOCAL = {
     kdc = 127.0.0.1
     kdc = 192.168.21.10 # Premier dc
     }
@@ -258,6 +258,7 @@ sudo unlink /etc/resolv.conf
 Nous allons ensuitre mettre en place un fichier `/etc/resolv.conf` (après tout, il nous faut encore être en mesure de résoudre des noms de domaine). Inscrivez ce contenu à l'intérieur:
 
 ```yaml title='/etc/resolv.conf' showLineNumbers
+nameserver 192.168.21.10 #Le DNS primaire
 nameserver 192.168.21.20 #Nous-mêmes, car nous serons éventuellement un serveur DNS
 search gabriel.local #Notre nom de domaine
 ```
