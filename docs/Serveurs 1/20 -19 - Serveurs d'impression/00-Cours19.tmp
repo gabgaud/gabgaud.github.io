@@ -76,6 +76,51 @@ Une **imprimante logique** est une configuration logicielle qui représente une 
 
 Par exemple, on pourrait configurer deux imprimantes logiques, avec des configuration disctintes (couleur, format de papier, etc.), pointant vers la même imprimante physique.
 
-#### Les ports
+#### Les ports 🔌
 
-Un **port d'impression** est le canal de communication par lequel les données sont envoyées à l'imprimante physique 
+Un **port d'impression** est le canal de communication par lequel les données sont envoyées à l'imprimante physique. Il en existe plusieurs types, dont les trois principaux:
+
+- **USB**: Destinés aux imprimantes modernes, branchés localement.
+- **LPT et COM**: Anciens ports paralèlles et séries (pratiquement disparus).
+- **TCP/IP**: Pour les imprimantes qui sont dotés d'une interface réseau.
+
+#### Les pilotes ⚙️
+
+Les **pilotes d'imprimante** sont des petits logiciels installés dans le système d'exploitation. Comme nous l'avons mentionné un peu plus haut, leur rôle consiste à **traduire les commandes d'impression** dans un format compréhensible pour l'imprimante. Ceci étant dit, je prends soin d'aborder une nouvelle fois les pilotes puisqu'ils font également parties des composantes structurant l'imprimante logique.
+
+#### Les utilisateurs 
+
+Les utilisateurs possèdent des permissions sur les imprimantes. Parmi ces permissions, nous retrouverons:
+
+- **Imprimer** (permission de base)
+- **Gérer ses propres travaux d'impression** (annuler, suspendre...)
+- **Gérer les travaux des autres** (habituellement réservé aux admins.)
+- **Administrer l'imprimante** (changer les pilotes, paramètres, etc.)
+
+### Examen du spouleur d'impression 🔨
+
+Le **spouleur d'impression** (ou *print spooler* en anglais) est un service du système d'exploitation responsable de la **gestion des travaux d'impression en arrière-plan**. Il agit comme un intermédiaire logiciel qui reçoit les documents à imprimer, les places dans une file d'attente, et les envoie à l'imprimante lorsque celle-ci est prête.
+
+Pour rappel, sous Windows ce service le nom de `Spooler`. Sous Linux, son équivalent le plus répandu est **CUPS** (*Common UNIX Printing System*).
+
+#### Responsabilités principales
+
+Voici ce que gère le spouleur d'impression:
+
+- **Réception des travaux d'impression** depuis les applications.
+- **Stockage temporaire** des travaux dans une file d'attente (souvent sous forme de fichiers `.SPL` et `.SHD` dans Windows).
+- **Gestion de l'ordre d'impression** - généralement selon le principe **FIFO** (*First In, First Out*), c'est-à-dire que le **premier travail arrivé** sera le **premier imprimé**.
+- **Envoi des travaux à l'imprimante** lorsqu'elle devient disponible.
+- **Notification à l'utilisateur** en cas de problème (imprimante hors ligne, bourrage, plus de papier, etc.).
+
+#### Et dans les coulisses
+
+1. L'application **envoie le travail d'impression** au spouleur.
+2. Le spouleur **convertit le document** via le pilote d'impression, puis le **place dans un fichier temporaire**.
+3. Le document est mis en **file d'attente**.
+4. Le spouleur attend que l'imprimante sois prête, puis **transmet les données**.
+5. Une fois l'impression terminée, **les fichiers temporaires sont supprimés**.
+
+#### Sur un serveur d'impression
+
+Sur un **serveur d'impression,** le spouleur joue un rôle **encore plus central**. En outre, il doit **gérer des dizaines, voire des centaines de travaux simultanés** et permet **d'éviter la surcharge** des imprimantes ou de l'interface réseau.
