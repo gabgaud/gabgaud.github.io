@@ -422,8 +422,6 @@ Une fois les paquets installés, lancez la commande d'intégration au domaine:
 sudo realm join --user=Administrator gabriel.local
 ```
 
-Vous devrez modifier légèrement le fichier `/etc/sssd/sssd.conf` pour mettre l'ouverture de session des utilisateurs. En effet, changez la valeur de la ligne `ldap_id_mapping` de *True* à *False*.
-
 Finalement, nous indiquerons à Linux qu'il doit créer un profil lorsqu'un utilisateur du domaine ouvre une session. Pour ce faire, entrez la commande:
 
 ```bash
