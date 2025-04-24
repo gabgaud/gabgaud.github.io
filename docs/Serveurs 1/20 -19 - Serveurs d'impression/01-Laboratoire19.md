@@ -178,10 +178,10 @@ Renommez votre fichier de configuration `/etc/samba/smb.conf` en `/etc/samba/smb
 
 Ne créez pas de partage pour l'instant, nous y reviendrons.
 
-Redémarrez les services de Samba et de Winbind:
+Redémarrez les services de Samba:
 
 ```bash
-sudo systemctl restart smbd nmbd winbind
+sudo systemctl restart smbd nmbd
 ```
 
 #### Jonction au domaine

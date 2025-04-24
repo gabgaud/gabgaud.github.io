@@ -184,16 +184,7 @@ sudo systemctl enable samba-ad-dc #Possible que le service soit déjà activé a
 
 ### Tests & validations
 
-Une fois votre serveur redémarré, le meilleur moyen de savoir si celui-ci fonctionne bien est de simuler une connexion au domaine. Pour ce faire, nous utiliserons notre compte `administrator`.
-
-Sur votre contrôleur de domaine, entrez la commande suivante:
-
-```bash
-kinit administrator
-```
-Vous devriez alors avoir à entrer le mot de passe du compte puis recevoir un message vous indiquant quand le mot de passe sera expiré.
-
-Vous pouvez également tester la connexion internet sur vos clients, ce qui confirmera que votre serveur DNS fonctionne bien.
+À l'aide d'un client sous Windows, tentez de joindre le domaine Active Directory que vous venez tout juste de créer.
 
 ## Mise en place du second contrôleur de domaine
 
