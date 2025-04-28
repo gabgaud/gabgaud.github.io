@@ -214,7 +214,7 @@ wbinfo -g
 
 Interroger 1 utilisateur AD:
 ```bash
-getent bob@exemple.local
+getent passwd bob@exemple.local
 ```
 
 #### Activer l'authentification avec AD

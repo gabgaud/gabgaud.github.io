@@ -71,7 +71,7 @@ En mode actif, <u>c'est le serveur FTP qui initie l'échange de données</u>
 - **Étape 4:** Le serveur envoie un accusé de réception au client et l'échange démarre.
 
 :::important
-En mode actif, <u>c'est le client qui initie l'échange de données</u>
+En mode passif, <u>c'est le client qui initie l'échange de données</u>
 :::
 
 <div style={{textAlign: 'center'}}>
