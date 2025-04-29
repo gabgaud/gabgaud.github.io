@@ -1,0 +1,46 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 22
+
+Il n'est pas rare, dans différents contextes de réseau, que vous vous retrouviez en situation de débogage. D'ailleurs, régler des problèmes de réseau sera fort probablement une grande partie de votre travail. Ceci étant dit, il est important d'effectuer des vérifications dans un ordre logique pour arriver à mettre le doigt sur ce qui ne fonctionne pas. Voici donc un schéma pour vous aider dans vos futures situations problématiques.
+
+<div class="zoomable-mermaid">
+
+```mermaid
+%%{ init: { "flowchart": { "curve": "basis" } } }%%
+flowchart TD
+  A([🔍 Début]) --> B{Adresse IP présente ? *ipconfig /all* <br/><br/>❗**Attention APIPA**❗ }
+  
+  B -- ❌ Non --> C{Utilisez-vous un DHCP ?}
+  C -- ✅ Oui --> D[📡 Vérifier serveur DHCP : service actif ? VM en fonction ? Réseau *L-NNN-01* ? Options d'étendue valides ?]
+  C -- ❌ Non --> E[⚙️ Validez votre configuration statique incluant *ip, masque, passerelle et DNS*]
+
+
+  B -- ✅ Oui --> H{Passerelle configurée ?}
+  H -- ✅ Oui --> I{Passerelle joignable ? <br/> *Ping*}
+  H -- ❌ Non --> C
+
+
+  I -- ✅ Oui --> J{Ping IP externe fonctionne ? *Ex: 8.8.8.8*}
+  I -- ❌ Non --> K[🔍 Vérifiez la liaison vers la passerelle]
+
+  J -- ✅ Oui --> L{Ping nom de domaine ex: google.com}
+  J -- ❌ Non --> M[🔴 Problème avec la passerelle]
+
+  L -- ✅ Oui --> N([✅ Connectivité fonctionnelle])
+  L -- ❌ Non --> O{Serveurs DNS configurés ?}
+
+  O -- ❌ Non --> C
+  O -- ✅ Oui -->P{Serveurs DNS joignables ?}
+
+  P -- ❌ Non --> Q[🔍 Vérifiez la liaison vers les serveurs DNS]
+```
+
+</div>
+
+
+À travers les différents cours de **Serveurs 1**, vous avez été en contact à de nombreuses reprises avec un service `DHCP`. Pour rappel, il s'agit d'un service essentiel, voire critique, dans plusieurs réseaux locaux. Alors, comment réagir et que pouvons-nous faire lorsque le serveur DHCP ne semble pas fonctionner.
+

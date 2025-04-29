@@ -224,14 +224,6 @@ Créez un nouveau fichier du même nom dans lequel vous inscrirez ces lignes:
 
 **Redémarrez votre serveur**
 
-Effectuez un premier test pour joindre le domaine en entrant la commande suivante:
-
-```bash
-kinit administrator
-```
-
-Si on vous demande un mot de passe et que vous obtenez un message lorsque vous entrez celui-ci stipulant que votre mot de passe expirera dans quelques jours, ça veut dire que tout va pour le mieux.
-
 ### Désactivation du résolveur DNS intégré à Ubuntu
 
 Comme nous l'avons fait pour le contrôleur de domaine primaire, nous devons désactiver le résolveur DNS par défaut d'Ubuntu.
