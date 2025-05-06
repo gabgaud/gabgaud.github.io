@@ -206,3 +206,73 @@ Voici quelques exemples d'utilisation:
 ### Interface et accès
 
 Vous pouvez accéder au planificateur de tâches via le menu démarrer ou en tapant la commande `taskschd.msc` via la fenêtre `Exécuter`.
+
+![Planificateur](./Assets/16/Planif.png)
+
+### Structure d'une tâche
+
+Les tâches sont constituées de plusieurs éléments. Chacun de ces éléments doit être analysé et configuré au besoin pour assurer l'exécution de la tâche au moment opportun.
+
+#### Le déclencheur (*trigger*)
+
+Le déclencheur est un événement qui provoquera l'exécution de la tâche planifiée. Il peut s'agir simplement d'une date ou d'une heure, mais cela peut également être un élément plus complexe tel que l'apparition d'un événement particulier dans les journaux Windows.
+
+#### L'action
+
+Définit qu'est-ce que la tâche doit accomplir. Il s'agit généralement de lancer un script ou un logiciel. Le script contiendre l'ensemble des actions à effectuer.
+
+#### Les conditions 
+
+Les conditions permettent d'ajouter des contraintes supplémentaires. Lorsque que le déclencheur tentera de lancer l'exécution de la tâche, les contraintes devront elles aussi, être respectées pour que la tâche puis être lancée. Exemple:
+
+- **Déclencheur:** Tous les jours à 2h00 du matin
+- **Action:** Lancer le script *sauvegarde.ps1*
+- **Conditions:** Uniquement si le PC est branché sur l'alimentation électrique (portable)
+
+#### Paramètres
+
+Les paramètres sont des options additionnelles pour affiner le comportement d'une tâche dans des circonstances et des contextes précis. Voici quelques exemples:
+
+- Arrêter la tâche si elle dépasse un temps donné.
+- Recommencer la tâche si elle échoue.
+- Exécuter la tâche même si l'utilisateur concerné n'est pas connecté.
+
+### Création d'une tâche
+
+Ouvrez le planificateur de tâche et cliquez sur *Créer une tâche...*
+
+![CreerTache](./Assets/16/CreerTache.png)
+
+Dans l'onglet « **Général** », vous devrez donner un nom à votre tâche, une petite description ainsi que configurer quelques options de sécurité:
+
+![ProprietesTache](./Assets/16/ProprietesTache.png)
+
+Dans l'onglet « **Déclencheurs** », vous devrez configurer <u>au moins un déclencheur.</u>(il peut y en avoir plusieurs!) Les déclencheurs peuvent posséder des propriétés spécifiques comme *répétition de la tâche*, *arrêt après x temps*, etc.
+
+![Déclencheur](./Assets/16/Declencheur.png)
+
+Évidemment, il nous faudra définir l'action à entreprendre dans l'onglet « **Actions** ». Pour l'exemple, je ne ferai qu'afficher un peu de texte dans une fenêtre Powershell.
+
+![Action](./Assets/16/Action.png)
+
+:::caution
+Remarquez que pour lancer un script *PowerShell*, je dois lancer `PowerShell.exe`, puis préciser le fichier à exécuter avec l'argument `-File`.
+:::
+
+Validez les conditions de la tâche et ajoutez celles dont vous avez besoin:
+
+![Conditions](./Assets/16/Conditions.png)
+
+Faites de même pour les paramètres:
+
+![Params](./Assets/16/Params.png)
+
+### Tests et validation
+
+Dans la section « *Paramètres* », vous pouvez cocher l'option « *Autoriser l'exécution de la tâche à la demande* ». Cela vous permettra de lancer l'exécution de la tâche et de valider l'exécution de celle-ci:
+
+![Resultat](./Assets/16/Resultat.png)
+
+:::info
+Vous souvenez-vous m'avoir vu cocher la case « *Exécuter avec les autorisations maximales* » lorsque j'ai créé la tâche ? Remarquez que celle-ci s'est exécutée avec des privilèges élevés.
+:::
