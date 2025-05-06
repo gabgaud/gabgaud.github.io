@@ -7,11 +7,11 @@ import TabItem from '@theme/TabItem';
 
 ## Démarrage de Windows
 
-Pour l'administrateur d'un système (serveur et/ou pc), connaître et comprendre les différents processus sous-jacents au démarrage est primordiale. Cela vous aidera à établir des diagnostics justes et fondés. 
+Pour l'administrateur d'un système (serveur et/ou pc), connaître et comprendre les différents processus sous-jacents au démarrage est primordial. Cela vous aidera à établir des diagnostics justes et fondés. 
 
 ### Firmware
 
-Lorsqu'un ordinateur démarre, le premier programme exécuté est stocké sur une puce mémoire soudée sur la carte mère. Ce programme s'appelle un *firmware*. Aujourd'hui, il existe deux type de *firmware*: 
+Lorsqu'un ordinateur démarre, le premier programme exécuté est stocké sur une puce mémoire soudée sur la carte mère. Ce programme s'appelle un *firmware*. Aujourd'hui, il existe deux types de *firmware*: 
 - Le BIOS (*Basic Input/Output System*)
 
 - Le UEFI (*Unified Extensible Firmware Interface*)
@@ -24,9 +24,9 @@ Le rôle du BIOS et du UEFI consiste, ni plus ni moins, à exécuter dans un ord
 >
 > *-Les étudiants*
 
-Le BIOS (*Basic Input Output System*) est un *firmware* datant des premiers PC (années 80). Fonctionnant en mode 16 bits, avec seulement plus ou moins ~ 1 Mo d'espace adressable, le BIOS offre une interface texte très basique pour l'administrateur. Pour démarrer un système d'exploitation, le BIOS nécessite que le stockage en place utilise une table de partition de type `MBR` limité à 4 partititons (3 primaires et 1 étendue). De plus, la table de partition de type `MBR` est incapable d'adresser des disques durs de plus de 2,2 To.<br/> ([Besoin d'un rappel sur les tables de partition ?](./11-Disques%20et%20partitions.md#la-table-de-partition--mbr-vs-gpt))
+Le BIOS (*Basic Input Output System*) est un *firmware* datant des premiers PC (années 80). Fonctionnant en mode 16 bits, avec seulement plus ou moins ~ 1 Mo d'espace adressable, le BIOS offre une interface texte très basique pour l'administrateur. Pour démarrer un système d'exploitation, le BIOS nécessite que le stockage en place utilise une table de partition de type `MBR` limité à 4 partitions (3 primaires et 1 étendue). De plus, la table de partition de type `MBR` est incapable d'adresser des disques durs de plus de 2,2 To.<br/> ([Besoin d'un rappel sur les tables de partition ?](./11-Disques%20et%20partitions.md#la-table-de-partition--mbr-vs-gpt))
 
-Lors du démarrage, le BIOS effectue d'abord et avant tout le **POST** (*Power On Self-Test*) qui assurera une série de tests sur les différentes composantes du PC. Une fois cette série de tests effectuées, le *firmware* chargera en mémoire le contenu de la table de partition `MBR` et localisera la partition active sur le disque dur avant de charger celle-ci à son tour et de lancer le chargeur du système d'exploitation.
+Lors du démarrage, le BIOS effectue d'abord et avant tout le **POST** (*Power On Self-Test*) qui assurera une série de tests sur les différentes composantes du PC. Une fois cette série de tests effectuée, le *firmware* chargera en mémoire le contenu de la table de partition `MBR` et localisera la partition active sur le disque dur avant de charger celle-ci à son tour et de lancer le chargeur du système d'exploitation.
 
 ![bios](./Assets/16/bios-setup-screen.jpg)
 
@@ -34,9 +34,9 @@ Lors du démarrage, le BIOS effectue d'abord et avant tout le **POST** (*Power O
 
 Le UEFI (*Unified Extensible Firmware Interface*) est le successeur du BIOS. Ce dernier a été standardisé à partir des années 2000. Ce type de *firmware* possède une interface graphique (souris/clavier). L'UEFI a été conçu pour apporter de nouvelles fonctionnalités absentes du BIOS. Par exemple, l'UEFI supporte la technologie *Secure Boot* et le réseau nativement.
 
-L'interface UEFI permet également la lecture de la table de partition `GPT` sur laquelle plus de 128 partitions peuvent être créées et qui supporte des disques dur de très grandes tailles.
+L'interface UEFI permet également la lecture de la table de partition `GPT` sur laquelle plus de 128 partitions peuvent être créées et qui supporte des disques durs de très grandes tailles.
 
-Lors du démarrage, le UEFI effectue lui aussi un **POST**. Ensuite, le **firmware** montera la partition `.EFI` correspondant à l'entrée trouvée dans la *nvram*. Dans cette partition, se trouve le chargeur d'amorce du système d'exploitation.
+Lors du démarrage, le UEFI effectue lui aussi un **POST**. Ensuite, le **firmware** montera la partition `.EFI` correspondant à l'entrée trouvée dans la *nvram*. Dans cette partition se trouve le chargeur d'amorce du système d'exploitation.
 
 ![bios](./Assets/16/uefi-setup-screen.jpg)
 
@@ -54,7 +54,7 @@ Lors du démarrage, le UEFI effectue lui aussi un **POST**. Ensuite, le **firmwa
 
 L'amorçage d'un système d'exploitation est une véritable symphonie où tous les musiciens doit suivre le rythme pour que cela fonctionne. Analysons cela de plus près:
 
-- <span class='fonttaller'><span class='orange-text'>**Phase 1 : Pré-amorçage**</span></span>
+- <span class='fonttaller'><span class='orange-text'>**Phase 1 : Préamorçage**</span></span>
     - Exécution du POST par le BIOS/UEFI (*Power-On Self Test*)
     - Identification de l'information pour l'amorçage:
         - **BIOS**: Lit la table de partition `MBR` du disque dur et charge le gestionnaire de démarrage de Windows.
@@ -121,16 +121,88 @@ Il existe plusieurs méthodes pour accéder à l'environnement de récupération
 
 - **Réparation du démarrage (Startup Repair)** : analyse et corrige automatiquement certains problèmes courants de démarrage (par exemple un secteur de boot corrompu ou un fichier BCD manquant).
 
-- **Invite de commandes (Command Prompt)** : permet d'exécuter des commandes avancées pour diagnostiquer et réparer le système (ex. : bootrec, chkdsk, sfc, etc.).
+- **Invite de commande (Command Prompt)** : permets d'exécuter des commandes avancées pour diagnostiquer et réparer le système (ex. : bootrec, chkdsk, sfc, etc.).
 
 - **Restaurer le système (System Restore)** : retourne l’ordinateur à un état antérieur en utilisant un point de restauration (utile après une mise à jour ou un pilote problématique).
 
-- **Paramètres de démarrage (Startup Settings)** : permet de redémarrer Windows en activant des options spéciales comme le mode sans échec, le débogage, ou la désactivation de la vérification des signatures de pilotes.
+- **Paramètres de démarrage (Startup Settings)** : permets de redémarrer Windows en activant des options spéciales comme le mode sans échec, le débogage, ou la désactivation de la vérification des signatures de pilotes.
 
 - **Désinstaller des mises à jour (Uninstall Updates)** : option pour supprimer la dernière mise à jour de qualité ou de fonctionnalité si celle-ci empêche Windows de démarrer correctement.
 
-- **Paramètres du micrologiciel UEFI (UEFI Firmware Settings)** : permet de redémarrer directement dans les paramètres UEFI de la carte mère afin de modifier l’ordre de démarrage ou d’activer des fonctionnalités comme Secure Boot.
+- **Paramètres du micrologiciel UEFI (UEFI Firmware Settings)** : permets de redémarrer directement dans les paramètres UEFI de la carte mère afin de modifier l’ordre de démarrage ou d’activer des fonctionnalités comme Secure Boot.
 
 #### Mode sans échec
 
+Le mode sans échec peut être utilisé lorsque Windows n'arrive pas à démarrer. Ce mode démarre Windows avec un minimum de dépendances afin d'augmenter les probabilités de réussir un démarrage du système d'exploitation. Une fois le système démarré, on peut alors essayer de repérer la source du problème dans les journaux.
+
+Le mode sans échec est offert en 3 saveurs:
+
+- Sans réseau
+- Avec réseau
+- Sans interface graphique (invite de commande)
+
+Pour passer en mode sans échec, accédez à **WinRE**, puis cliquez sur `Paramètres` dans le menu des `Options avancées`.
+
+![OptionAvancees](./Assets/16/OptionsAvancees.png)
+
 ### Programmes au démarrage
+
+Il existe différentes façons de lancer des logiciels au démarrage de Windows:
+
+- Via le dossier démarrage d'un utilisateur
+- Via le dossier démarrage commun
+- Via le registre (que vous avez expérimenté)
+- Via les tâches planifiées
+
+#### Dossier démarrage
+
+Il existe un dossier de démarrage par utilisateur, qui peut s'avérer utile dans le cas où nous voudrions programmer le démarrage automatique d'un logiciel ou d'un script pour un utilisateur particulier. Le chemin de ce dossier est le suivant : 
+
+`C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+
+Tous les logiciels et/ou scripts qui y seront déposés seront systématiquement lancés à l'ouverture de session de l'utilisateur concerné.
+
+Dans le cas où vous auriez besoin de lancer un même logiciel pour tous les utilisateurs d'un PC, vous pourriez alors utiliser le dossier de démarrage commun situé à l'emplacement suivant:
+
+`C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp`
+
+La méthode de fonctionnement est exactement la même avec ce dossier. Vous y déposez vos scripts ou vos logiciels et ils seront lancés à l'ouverture de session d'un utilisateur.
+
+#### Registre
+
+Il est tout à fait possible d'utiliser le registre pour lancer des logiciels ou des scripts au démarrage de Windows. Vous l'avez d'ailleurs expérimenté lors de votre dernier exercice. Néanmoins, tout comme avec les dossiers de démarrage, là encore, il y a moyen de cibler un utilisateur ou plusieurs utilisateurs.
+
+`HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`
+
+Les entrées effectuées dans cette clé de registre servent à lancer des scripts ou des logiciels à l'ouverture de session de l'utilisateur concerné par la ruche **HKCU**.
+
+`HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce`
+
+À la différence de la clé `Run`, la clé `RunOnce` permet de lancer un logiciel ou un script automatiquement aussi à l'ouverture de session, mais ce ne sera fait qu'**une seule fois**. Cela permet de lancer une opération sans nécessairement la répéter à chaque ouverture de session. À titre d'exemple, l'installation d'un logiciel se prêterait très bien à cette façon de procéder puisqu'on ne l'installera qu'une seule fois.
+
+De la même façon, nous pouvons utiliser des clés de registre similaires aux précédentes pour mettre en place des démarrages automatiques pour **tous les utilisateurs du système.** Pour ce faire, nous utiliserons les clés de registre suivantes:
+
+`HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`
+
+`HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce`
+
+Ces dernières s'utilisent exactement de la même façon que celles dont nous avons discuté précédemment, mais elles auront une incidence sur tous les utilisateurs plutôt qu'un seul.
+
+#### Tâches planifiées
+
+Les tâches planifiées permettent non seulement de programmer le lancement de scripts et de logiciels lorsque certaines conditions sont remplies, mais elles permettent également de lancer des exécutables au démarrage de Windows. Nous analyserons de plus près le planificateur de tâches dans la prochaine section de cette page.
+
+## Planification de tâches ⏲
+
+Le planificateur de tâches est un composant Windows qui permet de lancer automatiquement des programmes, des scripts ou des commandes à des moments précis ou selon certains événements système.
+
+Voici quelques exemples d'utilisation:
+
+- Lancer un script de sauvegarde tous les jours à 2h du matin
+- Nettoyer les fichiers temporaires au démarrage du système
+- Exécuter une tâche administrative lors de la connexion d'un utilisateur
+- Réinitialiser un service s'il venait à échouer
+
+### Interface et accès
+
+Vous pouvez accéder au planificateur de tâches via le menu démarrer ou en tapant la commande `taskschd.msc` via la fenêtre `Exécuter`.
