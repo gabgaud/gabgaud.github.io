@@ -15,7 +15,7 @@ L'interface web de Proxmox suit un modèle découpé en trois panneaux:
 
 - **Panneau de gauche:** Arborescence des ressources
 - **Panneau central:** Contenu principal et onglets
-- **Panneau en bas:** Informations contextuelles
+- **Panneau en bas:** Journaux récents
 
 ![Interface](../Assets/03/Interface.png)
 
@@ -105,3 +105,16 @@ Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parler
 - **Local network :** Réseau local du datacenter
 - **VLAN networks :** Réseaux segmentés par VLAN
 - **SDN (Software Defined Network):** Réseaux virtuels avancés
+
+### Le panneau central
+
+Le panneau central diffère dépendemment de l'élément de la structure hiérarchique sélectionné.
+
+#### Niveau Datacenter - Gestion globale
+
+**Rôle:** Tableau de bord général de l'infrastructure. Il offre une vision d'ensemble et permet de surveiller la charge de travail.
+
+- Statistiques globales: nombre de *VMs*, conteneurs, noeuds
+- Utilisation des ressources totales (CPU, RAM, Stockage)
+- Graphiques de performance consolidés
+- État de santé global du cluster

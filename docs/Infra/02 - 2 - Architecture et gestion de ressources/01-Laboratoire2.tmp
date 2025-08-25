@@ -117,3 +117,11 @@ Une fois que vous aurez entrez vos identifiants et ouvert une session, vous verr
 ![NoValidSubscription](../Assets/02/NoValidSubscription.png)
 
 À partir d'ici, vous avez accès à l'entièreté du système. Explorez-le! Naviguez dans les menus, observez les différentes options et les paramètres auxquels vous avez accès.
+
+### Téléchargement d'ISO
+
+Pour installer des machines virtuelles dans Proxmox, vous aurez besoin d'images d'installation (iso). Proxmox permet le téléchargement de celles-ci directement depuis le web.
+Dans le volet de gauche, sélectionnez le stockage nommé `local`, puis sélectionnez `ISO Images`. Cliquez sur `Download from URL` et utilisez les URL ci-dessous pour procéder à vos téléchargements:
+
+URL Ubuntu desktop : https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso?_gl=1*1c316wo*_gcl_au*MTI2NjMyOTgzMi4xNzU2MTQ3NzY2
+URL Windows 10: 
