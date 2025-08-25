@@ -1,0 +1,107 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 3
+
+## Prise en main de Proxmox
+
+Au dernier cours, nous avons analysé ensemble les différentes composantes qui constituaient un hyperviseur tel que Proxmox. Aujourd'hui, nous nous attarderons un peu plus à la prise en main de Proxmox. Autrement dit, une fois que l'hyperviseur est installé, il nous faut l'initialiser correctement.
+
+## Vue d'ensemble de l'interface
+
+L'interface web de Proxmox suit un modèle découpé en trois panneaux:
+
+- **Panneau de gauche:** Arborescence des ressources
+- **Panneau central:** Contenu principal et onglets
+- **Panneau en bas:** Informations contextuelles
+
+![Interface](../Assets/03/Interface.png)
+
+### Arborescence des ressources 🌳
+
+L'arborescence des ressources est une structure hiérarchique pouvant contenir différents éléments:
+
+#### Datacenter (centre de données) 🏢
+
+**Rôle:** Point central de gestion de toute l'infrastructure.
+
+**Fonctions:**
+- Configure les paramètres globaux qui s'appliquent à tous les nœuds
+- Gère les utilisateurs et leurs permissions d'accès
+- Définit les politiques de sauvegarde pour toutes les VMs
+- Coordonne les clusters (groupes de serveurs)
+- Centralise la surveillance et les alertes
+
+**<u>Sans le *datacenter*, il est impossible de gérer plusieurs serveurs ensemble ou de partager des ressources entre eux.</u>**
+
+#### Noeuds (serveurs physiques) 🪢
+
+**Rôle:** Machines physiques qui hébergent les *VMs* et les conteneurs.
+
+**Fonctions:**
+- Fournissent les ressources matérielles (CPU, RAM, Stockage).
+- Exécutent l'hyperviseur.
+- Communiquent entre eux lorsqu'ils sont en cluster.
+- Gèrent localement leurs *VMs* et conteneurs.
+
+#### *VMs* (machines virtuelles) 💻
+
+**Rôle:** Ordinateurs virtuels complets avec leur propre système d'exploitation
+
+**Fonctions:**
+- Émulent un ordinateur physique complet
+- Possèdent leur BIOS/UEFI, disque dur virtuel, carte réseau virtuelle, etc.
+- Peuvent faire tourner leur propre système d'exploitation.
+- Isolées les unes des autres.
+
+#### Conteneurs LXC 📦
+
+**Rôle:** Environnements légers partageant le noyau du système hôte
+
+**Fonctions:**
+- Consomment moins de ressources que les *VMs* standards
+- Démarrent plus rapidement
+- Partagent le noyaux Linux de Proxmox (l'hôte)
+- Idéaux pour les applications Linux
+
+:::caution[LXC ≠ DOCKER]
+Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parlerons un peu plus tard dans le cours. Ne faites pas l'erreur de les confondre. Le niveau de conteneurisation n'est pas le même. Nous aurons l'occasion d'en reparler, mais en attendant, sachez les distinguer.
+:::
+
+#### Stockages 💾
+
+**Rôle:** Espaces de stockage où sont conservées les données
+
+**Fonctions:**
+
+- Stockent les disques durs virtuels des *VMs*
+- Conservent les sauvegardes et les *snapshots*
+- Peuvent être locaux ou partagés
+- Gèrent la réplication des données
+
+**Types courants:**
+
+- **Local:** Disque dur du serveur
+- **NFS:** Stockage réseau partagé
+- **iSCSI:** Stockage SAN professionnel
+- **Ceph:** Stockage distribué haute disponibilité
+
+#### Réseaux (*Localnetwork*) 🛜
+
+**Rôle:** Interfaces et segments réseau configurés sur le noeud
+
+**Fonctions:**
+
+- Définissent la connectivité réseau des *VMs* et conteneurs
+- Gèrent les VLANs et la segmentation réseau
+- Contrôlent l'accès internet et inter-VMs
+- Configurent les ponts (*bridges*) réseau
+
+**Types de réseaux:**
+
+- **vmbr0, vmbr1...:** Ponts réseau principaux (bridges)
+- **Local network :** Réseau local du datacenter
+- **VLAN networks :** Réseaux segmentés par VLAN
+- **SDN (Software Defined Network):** Réseaux virtuels avancés
