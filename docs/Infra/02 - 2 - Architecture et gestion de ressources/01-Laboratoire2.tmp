@@ -123,5 +123,9 @@ Une fois que vous aurez entrez vos identifiants et ouvert une session, vous verr
 Pour installer des machines virtuelles dans Proxmox, vous aurez besoin d'images d'installation (iso). Proxmox permet le téléchargement de celles-ci directement depuis le web.
 Dans le volet de gauche, sélectionnez le stockage nommé `local`, puis sélectionnez `ISO Images`. Cliquez sur `Download from URL` et utilisez les URL ci-dessous pour procéder à vos téléchargements:
 
-URL Ubuntu desktop : https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso?_gl=1*1c316wo*_gcl_au*MTI2NjMyOTgzMi4xNzU2MTQ3NzY2
-URL Windows 10: 
+**URL Ubuntu desktop :** https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-desktop-amd64.iso?_gl=1*1c316wo*_gcl_au*MTI2NjMyOTgzMi4xNzU2MTQ3NzY2<br/><br/>
+**URL Windows 10:** https://cloud.tonprof.ca/index.php/s/TCfQqKiEJPJWQaq/download/W10_22H2_FR_x64.iso
+
+![iso](../Assets/02/iso.png)
+
+![queryURL](../Assets/02/queryURL.png)

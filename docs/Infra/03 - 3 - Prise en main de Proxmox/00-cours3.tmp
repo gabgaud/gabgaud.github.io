@@ -25,46 +25,96 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 #### Datacenter (centre de données) 🏢
 
-**Rôle:** Point central de gestion de toute l'infrastructure.
+<table>
+    <tr>
+        <th>Rôle</th>
+        <th>Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="5">Point central de gestion de toute l'infrastructure.</td>
+        <td>1. Configure les paramètres globaux qui s'appliquent à tous les nœuds</td>
+    </tr>
+    <tr>
+        <td>2. Gère les utilisateurs et leurs permissions d'accès</td>
+    </tr>
+    <tr>
+        <td>3. Définit les politiques de sauvegarde pour toutes les VMs</td>
+    </tr>
+    <tr>
+        <td>4. Coordonne les clusters (groupes de serveurs)</td>
+    </tr>
+    <tr>
+        <td>5. Centralise la surveillance et les alertes</td>
+    </tr>
+</table>
 
-**Fonctions:**
-- Configure les paramètres globaux qui s'appliquent à tous les nœuds
-- Gère les utilisateurs et leurs permissions d'accès
-- Définit les politiques de sauvegarde pour toutes les VMs
-- Coordonne les clusters (groupes de serveurs)
-- Centralise la surveillance et les alertes
-
-**<u>Sans le *datacenter*, il est impossible de gérer plusieurs serveurs ensemble ou de partager des ressources entre eux.</u>**
+**<mark>Sans le *datacenter*, il est impossible de gérer plusieurs serveurs ensemble ou de partager des ressources entre eux.</mark>**
 
 #### Noeuds (serveurs physiques) 🪢
 
-**Rôle:** Machines physiques qui hébergent les *VMs* et les conteneurs.
-
-**Fonctions:**
-- Fournissent les ressources matérielles (CPU, RAM, Stockage).
-- Exécutent l'hyperviseur.
-- Communiquent entre eux lorsqu'ils sont en cluster.
-- Gèrent localement leurs *VMs* et conteneurs.
+<table>
+    <tr>
+        <th>Rôle</th>
+        <th>Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="4">Machines physiques qui hébergent les *VMs* et les conteneurs.</td>
+        <td>1. Fournissent les ressources matérielles (CPU, RAM, Stockage).</td>
+    </tr>
+    <tr>
+        <td>2. Exécutent l'hyperviseur.</td>
+    </tr>
+    <tr>
+        <td>3. Communiquent entre eux lorsqu'ils sont en cluster.</td>
+    </tr>
+    <tr>
+        <td>4. Gèrent localement leurs *VMs* et conteneurs.</td>
+    </tr>
+</table>
 
 #### *VMs* (machines virtuelles) 💻
 
-**Rôle:** Ordinateurs virtuels complets avec leur propre système d'exploitation
-
-**Fonctions:**
-- Émulent un ordinateur physique complet
-- Possèdent leur BIOS/UEFI, disque dur virtuel, carte réseau virtuelle, etc.
-- Peuvent faire tourner leur propre système d'exploitation.
-- Isolées les unes des autres.
+<table>
+    <tr>
+        <th>Rôle</th>
+        <th>Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="4">Ordinateurs virtuels complets avec leur propre système d'exploitation</td>
+        <td>1. Émulent un ordinateur physique complet</td>
+    </tr>
+    <tr>
+        <td>2. Possèdent leur BIOS/UEFI, disque dur virtuel, carte réseau virtuelle, etc.</td>
+    </tr>
+    <tr>
+        <td>3. Peuvent faire tourner leur propre système d'exploitation.</td>
+    </tr>
+    <tr>
+        <td>4. Isolées les unes des autres.</td>
+    </tr>
+</table>
 
 #### Conteneurs LXC 📦
 
-**Rôle:** Environnements légers partageant le noyau du système hôte
-
-**Fonctions:**
-- Consomment moins de ressources que les *VMs* standards
-- Démarrent plus rapidement
-- Partagent le noyaux Linux de Proxmox (l'hôte)
-- Idéaux pour les applications Linux
+<table>
+    <tr>
+        <th>Rôle</th>
+        <th>Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="4">Environnements légers partageant le noyau du système hôte</td>
+        <td>Consomment moins de ressources que les *VMs* standards</td>
+    </tr>
+    <tr>
+        <td>Démarrent plus rapidement</td>
+    </tr>
+    <tr>
+        <td>Partagent le noyaux Linux de Proxmox (l'hôte)</td>
+    </tr>
+    <tr>
+        <td>Idéaux pour les applications Linux</td>
+    </tr>
+</table>
 
 :::caution[LXC ≠ DOCKER]
 Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parlerons un peu plus tard dans le cours. Ne faites pas l'erreur de les confondre. Le niveau de conteneurisation n'est pas le même. Nous aurons l'occasion d'en reparler, mais en attendant, sachez les distinguer.
@@ -106,7 +156,11 @@ Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parler
 - **VLAN networks :** Réseaux segmentés par VLAN
 - **SDN (Software Defined Network):** Réseaux virtuels avancés
 
-### Le panneau central
+<div style={{textAlign: 'center'}}>
+    ![ProxmoxContent](../Assets/03/ProxmoxContent.png)
+</div>
+
+### Le panneau central 📊
 
 Le panneau central diffère dépendemment de l'élément de la structure hiérarchique sélectionné.
 
@@ -118,3 +172,39 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 - Utilisation des ressources totales (CPU, RAM, Stockage)
 - Graphiques de performance consolidés
 - État de santé global du cluster
+
+**Quelques sections à connaitre dès maintenant:** 
+
+1️⃣ **Notes: Documentation centralisée** 👇
+    - Notes sur la configuration du serveur
+    - Procédures de maintenance
+    - Contacts et informations importantes
+    - Historique des changements majeurs
+
+2️⃣ **Cluster: Coordination des noeuds** 👇
+    - Ajouter/retirer des noeuds au cluster
+    - Gérer la haute disponibilité (HA)
+    - Synchroniser les configurations
+    - Élection du noeud maître
+
+3️⃣ **Stockage: Configuration centralisée des espaces de stockage** 👇
+    - Ajout de nouveaux stockages (NFS, iSCSI, Ceph)
+    - Configuration des permissions d'accès
+    - Définition des types de contenu (images, sauvegardes, ISO)
+    - Monitoring de l'espace disponible
+
+4️⃣ **Sauvegardes: Planification automatisée des backups** 👇
+    - Création de tâches de sauvegarde récurrentes
+    - Sélection des VMs/conteneurs à sauvegarder
+    - Configuration de la rétention (combien de backups garder)
+    - Notification en cas d'échec
+
+5️⃣ **Permissions: Contrôle d'accès et sécurité** 👇
+    - Création d'utilisateurs et groupes
+    - Attribution de rôles (administrateur, utilisateur, lecture seule)
+    - Définition des permissions sur les ressources
+    - Configuration de l'authentification (LDAP, Active Directory)
+
+![PanneauCentralDataCenter](../Assets/03/PanneauCentralDataCenter.png)
+
+
