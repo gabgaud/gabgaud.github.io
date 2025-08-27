@@ -146,7 +146,7 @@ Carte réseau: "Paquet envoyé sur le réseau"
 Le module de sécurité assure l'isolation entre les *VMs*. On pourrait le comparer à un système de sécurité d'immeuble qui garantit que chaque locataire reste dans son appartement.
 
 Fonctions techniques:
-- **Isolation de la mémoire:** empêche les *VMs* d'accéder à la mémoire des autres.
+- **Isolation des machines virtuelles:** empêche les *VMs* d'accéder à la mémoire des autres.
 - **Contrôle des privilèges:** validation des instructions sensibles.
 - **IOMMU (Input-Output Memory Management Unit):** isolation de l'accès aux différents périphériques physiques.
 - **Audit et Logging:** traçabilité des événements
@@ -224,3 +224,16 @@ Type de données collectées:
 - **Logs applicatifs :** messages d'erreur, warnings, informations de debug
 - **Seuils et alertes :** notifications automatiques quand quelque chose dépasse les limites
 
+### 3. Hyperviseur Explosé 💥
+
+Je fais partie de ces gens qui ont besoin d'un support visuel pour intégrer certains apprentissages. Je vous offre un schéma récapitulatif où vous pourrez voir les différents éléments d'un hyperviseur ainsi que les relations entre eux.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/Hyperviseur_W.svg'),
+            dark: useBaseUrl('/img/Virtu/Hyperviseur_D.svg'),
+        }}
+    />
+</div>
