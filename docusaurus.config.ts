@@ -117,6 +117,12 @@ const config: Config = {
           position: 'left',
           label: 'Infrastructure Virtuelle',
         },
+        { 
+          type: 'docSidebar',
+          sidebarId: 'TutoSidebar',
+          position: 'left',
+          label: 'Tutoriels',
+        },
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
@@ -145,6 +151,10 @@ const config: Config = {
             {
               label: 'Infrastructure Virtuelle',
               to: 'Infra/Mot%20de%20section',
+            },
+            {
+              label: 'Tutoriels',
+              to: 'Tutos/Mot%20de%20section',
             }
           ],
         },

@@ -27,11 +27,11 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 <table>
     <tr>
-        <th>Rôle</th>
-        <th>Fonctions</th>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
     </tr>
     <tr>
-        <td rowspan="5">Point central de gestion de toute l'infrastructure.</td>
+        <td rowspan="5"><b>Point central de gestion de toute l'infrastructure.</b></td>
         <td>1. Configure les paramètres globaux qui s'appliquent à tous les nœuds</td>
     </tr>
     <tr>
@@ -54,11 +54,11 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 <table>
     <tr>
-        <th>Rôle</th>
-        <th>Fonctions</th>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
     </tr>
     <tr>
-        <td rowspan="4">Machines physiques qui hébergent les *VMs* et les conteneurs.</td>
+        <td rowspan="4"><b>Machines physiques qui hébergent les *VMs* et les conteneurs.</b></td>
         <td>1. Fournissent les ressources matérielles (CPU, RAM, Stockage).</td>
     </tr>
     <tr>
@@ -76,11 +76,11 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 <table>
     <tr>
-        <th>Rôle</th>
-        <th>Fonctions</th>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
     </tr>
     <tr>
-        <td rowspan="4">Ordinateurs virtuels complets avec leur propre système d'exploitation</td>
+        <td rowspan="4"><b>Ordinateurs virtuels complets avec leur propre système d'exploitation</b></td>
         <td>1. Émulent un ordinateur physique complet</td>
     </tr>
     <tr>
@@ -98,21 +98,21 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 <table>
     <tr>
-        <th>Rôle</th>
-        <th>Fonctions</th>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
     </tr>
     <tr>
-        <td rowspan="4">Environnements légers partageant le noyau du système hôte</td>
-        <td>Consomment moins de ressources que les *VMs* standards</td>
+        <td rowspan="4"><b>Environnements légers partageant le noyau du système hôte</b></td>
+        <td>1. Consomment moins de ressources que les *VMs* standards</td>
     </tr>
     <tr>
-        <td>Démarrent plus rapidement</td>
+        <td>2. Démarrent plus rapidement</td>
     </tr>
     <tr>
-        <td>Partagent le noyaux Linux de Proxmox (l'hôte)</td>
+        <td>3. Partagent le noyaux Linux de Proxmox (l'hôte)</td>
     </tr>
     <tr>
-        <td>Idéaux pour les applications Linux</td>
+        <td>4. Idéaux pour les applications Linux</td>
     </tr>
 </table>
 
@@ -122,16 +122,27 @@ Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parler
 
 #### Stockages 💾
 
-**Rôle:** Espaces de stockage où sont conservées les données
+<table>
+    <tr>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>Espaces de stockage où sont conservées les données</b></td>
+        <td>1. Stockent les disques durs virtuels des *VMs*</td>
+    </tr>
+    <tr>
+        <td>2. Conservent les sauvegardes et les *snapshots*</td>
+    </tr>
+    <tr>
+        <td>3. Peuvent être locaux ou partagés</td>
+    </tr>
+    <tr>
+        <td>4. Gèrent la réplication des données</td>
+    </tr>
+</table>
 
-**Fonctions:**
-
-- Stockent les disques durs virtuels des *VMs*
-- Conservent les sauvegardes et les *snapshots*
-- Peuvent être locaux ou partagés
-- Gèrent la réplication des données
-
-**Types courants:**
+**Types courants de stockage sous Proxmox:**
 
 - **Local:** Disque dur du serveur
 - **NFS:** Stockage réseau partagé
@@ -140,16 +151,27 @@ Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parler
 
 #### Réseaux (*Localnetwork*) 🛜
 
-**Rôle:** Interfaces et segments réseau configurés sur le noeud
+<table>
+    <tr>
+        <th class="green-text">Rôle</th>
+        <th class="green-text">Fonctions</th>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>Interfaces et segments réseau configurés sur le noeud</b></td>
+        <td>1. Définissent la connectivité réseau des *VMs* et conteneurs</td>
+    </tr>
+    <tr>
+        <td>2. Gèrent les VLANs et la segmentation réseau</td>
+    </tr>
+    <tr>
+        <td>3. Contrôlent l'accès internet et inter-VMs</td>
+    </tr>
+    <tr>
+        <td>4. Configurent les ponts (*bridges*) réseau</td>
+    </tr>
+</table>
 
-**Fonctions:**
-
-- Définissent la connectivité réseau des *VMs* et conteneurs
-- Gèrent les VLANs et la segmentation réseau
-- Contrôlent l'accès internet et inter-VMs
-- Configurent les ponts (*bridges*) réseau
-
-**Types de réseaux:**
+**Types de réseaux sous Proxmox:**
 
 - **vmbr0, vmbr1...:** Ponts réseau principaux (bridges)
 - **Local network :** Réseau local du datacenter
@@ -175,31 +197,31 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 
 **Quelques sections à connaitre dès maintenant:** 
 
-1️⃣ **Notes: Documentation centralisée** 👇
+1️⃣ **Notes: Documentation centralisée** 
     - Notes sur la configuration du serveur
     - Procédures de maintenance
     - Contacts et informations importantes
     - Historique des changements majeurs
 
-2️⃣ **Cluster: Coordination des noeuds** 👇
+2️⃣ **Cluster: Coordination des noeuds** 
     - Ajouter/retirer des noeuds au cluster
     - Gérer la haute disponibilité (HA)
     - Synchroniser les configurations
     - Élection du noeud maître
 
-3️⃣ **Stockage: Configuration centralisée des espaces de stockage** 👇
+3️⃣ **Stockage: Configuration centralisée des espaces de stockage** 
     - Ajout de nouveaux stockages (NFS, iSCSI, Ceph)
     - Configuration des permissions d'accès
     - Définition des types de contenu (images, sauvegardes, ISO)
     - Monitoring de l'espace disponible
 
-4️⃣ **Sauvegardes: Planification automatisée des backups** 👇
+4️⃣ **Sauvegardes: Planification automatisée des backups** 
     - Création de tâches de sauvegarde récurrentes
     - Sélection des VMs/conteneurs à sauvegarder
     - Configuration de la rétention (combien de backups garder)
     - Notification en cas d'échec
 
-5️⃣ **Permissions: Contrôle d'accès et sécurité** 👇
+5️⃣ **Permissions: Contrôle d'accès et sécurité** 
     - Création d'utilisateurs et groupes
     - Attribution de rôles (administrateur, utilisateur, lecture seule)
     - Définition des permissions sur les ressources
@@ -208,3 +230,96 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 ![PanneauCentralDataCenter](../Assets/03/PanneauCentralDataCenter.png)
 
 
+#### Niveau Noeud - Gestion du serveur physique
+
+**Rôle:** Monitoring en temps réel du serveur physique. Il affiche en temps réel:
+
+- Utilisation CPU par coeur
+- Consommation de la mémoire (utilisée/totale/disponible)
+- Charge système et processus actifs
+- Température et ventilation
+- Trafic réseau par interface.
+
+**Quelques sections à connaître dès maintenant:**
+
+1️⃣ **Shell: Accès au noeud en ligne de commande**
+    - Configuration avancée non accessible via l'interface web
+    - Diagnostique et dépannage système
+    - Installation de paquets supplémentaires
+    - Scripts d'administration personnalisés
+
+2️⃣ **Système: Configuration système et réseau**
+    - Réseau : Configuration des interfaces, VLAN, ponts, etc.
+    - DNS: Serveurs DNS et résolution de noms
+    - Temps: Synchro. NTP et fuseau horaire
+    - Syslog: Configuration des logs système
+
+3️⃣ **Mises à jour: Gestion des paquets logiciels**
+    - Mise à jour de Proxmox VE
+    - Installation de paquets additionnels
+    - Configuration des dépôts (APT)
+
+![PanneauCentralNoeud](../Assets/03/PanneauCentralNode.png)
+
+#### Niveau VM/Conteneur - Gestion individuelle
+
+**Rôle:** Monitoring spécifique d'une *VM* ou d'un conteneur à l'aide de différentes métriques telles que:
+
+- Utilisation du CPU en pourcentage
+- Consommation de mémoire effective
+- I/O disque (lecture/écriture)
+- Trafic réseau
+- *Uptime*
+
+**Quelques sections à connaître dès maintenant:**
+
+1️⃣ **Console: Accès direct à l'écran de la VM**
+    - Console web : via le navigateur
+    - Console Spice: Protocole haute performance
+
+2️⃣ **Hardware: Configuration des composants virtuels**
+    - Processeur: Nombre de coeurs, type d'émulation
+    - Mémoire: RAM Allouée, *balloning*
+    - Disques durs: Taille, type (IDE, SCSI, VirtIO), cache
+    - Réseau: Interfaces, modèles de cartes, VLAN
+    - CD/DVD: Lecteurs virtuels et images ISO
+
+3️⃣ **Options: Paramètres et réglages avancés**
+    - Démarrage: Ordre de boot, délai, démarrage automatique
+    - Sécurité: Protection contre la suppression
+    - Performance: Priorités CPU, optimisations I/O
+
+4️⃣ **Sauvegardes: Gestion des backups spécifiques à cette VM**
+    - Liste des sauvegardes existantes
+    - Restauration depuis une sauvegarde
+    - Création d'une sauvegarde immédiate
+    - Configuration des exclusions
+
+5️⃣ **Instantanés: Points de restauration rapides**
+    - Création avant une modification risquée
+    - Test de mises à jour avec possibilité de retour arrière
+    - Sauvegarde de l'état à un moment précis
+    - Restauration rapide
+
+![PanneauCentralVM](../Assets/03/PanneauCentralVM.png)
+
+### Journal des activités 📰
+
+Le journal des activités (aussi appelé "Task Log" ou "Journal des tâches") est un panneau d'information en temps réel qui affiche toutes les opérations et processus en cours d'exécution sur votre cluster Proxmox (même si votre cluster n'est composé que d'un seul noeud). Il s'agit d'un système de monitoring intégré qui permet aux administrateurs de suivre l'état des tâches système.
+
+![JournalActivites](../Assets/03/JournalActivites.png)
+
+Vous y retrouverez deux onglets contenant des informations distinctes
+
+| Aspect | Onglet Tasks | Onglet Cluster Log |
+|--------|---------------|----------------------------------|
+| **Type de contenu** | Tâches administratives et opérationnelles initiées par les utilisateurs ou le système | Messages système de bas niveau du cluster entier |
+| **Niveau d'abstraction** | Vue orientée utilisateur des opérations de haut niveau | Vue technique système du cluster |
+| **Exemples de contenu** | • Création/suppression de VMs<br/>• Sauvegardes et restaurations<br/>• Migrations de VMs<br/>• Mises à jour de packages<br/>• Tâches planifiées | • Messages de corosync<br/>• Événements de santé du cluster<br/>• Alertes de haute disponibilité (HA)<br/>• Événements de synchronisation<br/>• Messages de services système |
+| **Format d'affichage** | Tableau structuré avec colonnes :<br/>- Type<br/>- Nœud<br/>- Utilisateur<br/>- Statut<br/>- Durée | Format de log traditionnel :<br/>- Timestamp<br/>- Message texte |
+| **Fonctionnalités** | • ID unique par tâche<br/>• Logs détaillés cliquables<br/>• Indicateurs visuels de statut<br/>• Possibilité d'arrêter des tâches<br/>• Filtrage avancé | • Messages chronologiques<br/>• Informations de débogage<br/>• État de communication inter-nœuds<br/>• Événements critiques système |
+| **Public cible** | Administrateurs pour le suivi opérationnel quotidien | Débogage avancé et diagnostics techniques |
+| **Fréquence d'utilisation** | Consultation quotidienne normale | Consultation lors de problèmes spécifiques |
+| **Ce que ça montre** | **Ce que vous faites** (actions utilisateur) | **Comment le système réagit** (infrastructure) |
+
+### Barre supérieure 👆
