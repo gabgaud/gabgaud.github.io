@@ -323,3 +323,19 @@ Vous y retrouverez deux onglets contenant des informations distinctes
 | **Ce que ça montre** | **Ce que vous faites** (actions utilisateur) | **Comment le système réagit** (infrastructure) |
 
 ### Barre supérieure 👆
+
+La barre au haut de l'interface graphique comporte également plusieurs éléments intéressants:
+
+- Un endroit pour effectuer une recherche à travers votre infrastructure. Cela peut sembler banal, mais si vous gérez plusieurs centaines de machines virtuelles et de conteneurs, cela s'avère très pratique pour en repérer une rapidement.
+
+- Un bouton vers <mark>**toute la documentation**</mark> de l'hyperviseur Proxmox. Cette documentation vaut de l'or. Si vous avez une question quant à une action à réaliser ou une opération à effectuer, la réponse s'y trouve forcémment.
+
+- Deux boutons pour la création de *VMs* et de conteneurs.
+
+- Plusieurs boutons pour interragir avec vos *VMs* et conteneurs:
+    - Démarrage
+    - Arrêt
+    - Accès à la console
+    - etc.
+
+![BarreSuperieur](../Assets/03/BarreSuperieure.png)

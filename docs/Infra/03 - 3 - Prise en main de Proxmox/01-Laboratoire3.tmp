@@ -1,0 +1,18 @@
+# Laboratoire 3
+
+* * *
+
+## Création d'une première machine virtuelle sous Proxmox
+
+## Préalables
+
+- Avoir un hyperviseur Proxmox prêt à être utilisé.
+- Avoir consulté la théorie en lien avec ce cours.
+
+## Objectifs
+
+- Faire l'installation d'une première machine virtuelle sous Proxmox
+
+## Étapes de réalisation
+
+Dans ce laboratoire, nous passerons ensemble les différentes étapes nécessaires à la création d'une première machine virtuelle dans Proxmox.
