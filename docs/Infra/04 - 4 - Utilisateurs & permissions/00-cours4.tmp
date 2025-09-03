@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 ### Objectifs de ce cours ✅
 
-À la fin de ce cours vous serez capable de:
+À la fin de ce cours, vous serez capable de:
 
 - Comprendre les mécanismes d'authentification et d'autorisation dans Proxmox VE
 - Expliquer la différence entre utilisateurs, groupes, rôles et permissions
@@ -80,7 +80,7 @@ PAM est un système d'authentification flexible utilisé par Linux (Ubuntu par e
 
 **Inconvénients:**
 
-- L'utilisateur doit exister sur **chaque noeud** du cluster (pas pratique!)
+- L'utilisateur doit exister sur **chaque nœud** du cluster (pas pratique!)
 - Gestion manuelle des utilisateurs sur chaque serveur
 - Pas de gestion centralisée des mots de passe.
 
@@ -90,9 +90,9 @@ Système de gestion des mots de passe intégré directement dans Proxmox VE.
 
 **Comment ça fonctionne:**
 
-1. Les informations utilisateur sont stockés dans `/etc/pve/user.cfg`.
+1. Les informations utilisateur sont stockées dans `/etc/pve/user.cfg`.
 2. Les mots de passe sont hachés (SHA-256) et stockés dans `/etc/pve/priv/shadow.cfg`.
-3. Ces fichiers sont automatiquement synchronisés entre tous les noeuds du cluster (Un gros avantage!).
+3. Ces fichiers sont automatiquement synchronisés entre tous les nœuds du cluster (Un gros avantage!).
 4. Les utilisateurs peuvent changer leur mot de passe via l'interface web.
 
 **Avantages:**
@@ -111,4 +111,23 @@ Système de gestion des mots de passe intégré directement dans Proxmox VE.
 
 #### LDAP (Lightweight Directory Access Protocol)
 
-Comme vous l'avez étudié dans le cours **Serveurs 3: Administration Centralisée**, LDAP est un protocole standard pour accéder à des annuaires d'entreprise, tel que *Active Directory* par exemple.
+Comme vous l'avez étudié dans le cours **Serveurs 3: Administration Centralisée**, LDAP est un protocole standard pour accéder à des annuaires d'entreprise, tel que *Active Directory* par exemple. Ce type d'annuaire est particulièrement intéressant et utilisé dans de grandes entreprises. Il permet de centraliser la gestion des comptes et de l'authentification.
+
+En entreprise, il est plutôt rare (mais pas impossible...) que vous arriviez nez à nez avec un serveur OpenLDAP étant donné la domination de Microsoft avec *Active Directory* dans cette sphère.
+
+#### Microsoft Active Directory
+
+Je crois que je n'ai plus besoin de vous le présenter 😉... Tel que mentionné ci-dessus, *Active Directory* est un ensemble de services (dont LDAP) permettant de centraliser et de sécuriser les différents comptes d'utilisateur d'une entreprise. *Active Directory* possède plus de fonctionnalités que le simple protocole LDAP.
+
+Le principal avantage d'*AD*, c'est qu'il est généralement déjà implanté dans la plupart des entreprises. En l'intégrant à Proxmox, les utilisateurs pourraient conserver leur nom d'utilisateur ainsi que leur mot de passe pour ouvrir une session sur Proxmox. C'est un avantage assez considérable.
+
+#### OpenID Connect
+
+OpenID Connect est un protocole moderne d'authentification qui permet **l'authentification unique** (Single Sign-On ou SSO). Ce principe vous permet d'utiliser l'authentification d'un site tiers pour vous connecter à Proxmox.
+
+**Comment ça fonctionne:**
+
+1. L'utilisateur clique sur « Se connecter avec Google » dans Proxmox VE.
+2. Il est redirigé vers Google pour s'authentifier
+3. Google confirme ou infirme l'identité à Proxmox VE.
+4. L'utilisateur se voit autorisé ou refusé dans le système.
