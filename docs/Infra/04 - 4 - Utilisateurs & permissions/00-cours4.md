@@ -1,0 +1,114 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 4
+
+## Utilisateurs & permissions 👨‍👩‍👧‍👦
+
+### Objectifs de ce cours ✅
+
+À la fin de ce cours vous serez capable de:
+
+- Comprendre les mécanismes d'authentification et d'autorisation dans Proxmox VE
+- Expliquer la différence entre utilisateurs, groupes, rôles et permissions
+- Créer et configurer des utilisateurs avec différents systèmes d'authentification
+- Mettre en place une architecture de permissions sécurisée et maintenable
+- Implémenter l'authentification à deux facteurs pour renforcer la sécurité
+- Automatiser la gestion des utilisateurs via les outils en ligne de commande
+
+### Pourquoi ? 🤔
+
+Dans un environnement de virtualisation comme Proxmox VE (ou VMware), plusieurs personnes peuvent avoir besoin d'accéder au système avec des besoins différents :
+
+- **Administrateurs de l'hyperviseur:** Accès complet pour la maintenance et la configuration.
+
+- **Administrateurs de VMs:** Gestion des machines virtuelles sans accès aux paramètres système.
+
+- **Utilisateurs finaux:** Accès limité à leurs propres *VMs* (démarrer/arrêter, console)
+
+- **Comptes d'application:** Accès automatisé via API pour l'intégration avec d'autres systèmes.
+
+Une gestion granulaire permet de respecter le **principe du moindre privilège** : chaque utilisateur n'a que les permissions strictement nécessaires à ses fonctions.
+
+### Principe RBAC 👍
+
+Tout comme vous l'avez appris dans le cours *Serveurs 3 : Administration Centralisée*, Proxmox adopte aussi la méthode **RBAC** (*Role Base Access Control*). Cette méthodologie de gestion adopte une architecture à quatre niveaux:
+
+```yaml
+Utilisateur --> Groupe --> Rôle --> Permissions sur les ressources
+```
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/RBAC_W.svg'),
+            dark: useBaseUrl('/img/Virtu/RBAC_D.svg'),
+        }}
+    />
+</div>
+
+Cette façon de procéder permet une gestion plus granulaire des permissions et évite de perdre de vue quels utilisateurs possèdent quelles permissions.
+
+### Domaine d'authentification 🔑
+
+Un **domaine d'authentification** (ou *realm* en anglais) définit où et comment les identifiants des utilisateurs sont stockés et vérifiés. Proxmox permet l'utilisation de plusieurs domaines d'authentification pour se connecter. On distinguera alors l'utilisateur et le domaine d'authentification grâce au caractère `@`.
+
+Exemples:
+
+- `admin@pve` : Utilisateur « Admin » dans le domaine d'authentification Proxmox VE interne.
+- `john@pam` : Utilisateur « John » dans le domaine d'authentification PAM.
+- `marie@patate-ldap` : Utilisateur « Marie » dans le domaine LDAP de l'entreprise patate.
+
+#### Linux PAM (Pluggable Authentication Modules)
+
+PAM est un système d'authentification flexible utilisé par Linux (Ubuntu par exemple) pour vérifier l'identité des utilisateurs. Quand vous vous connectez à un système Linux avec votre nom d'utilisateur et mot de passe, c'est PAM qui vérifie vos informations.
+
+**Comment ça fonctionne:**
+
+1. L'utilisateur entre ses informations de connexion.
+2. Proxmox VE interroge PAM pour vérifier le mot de passe.
+3. PAM consulte les fichiers système `/etc/passwd` et `/etc/shadow`.
+
+**Avantages:**
+
+- Simple à configurer pour de petites installations.
+- Utilise l'infrastructure existante du système.
+- Sécurité éprouvée de Linux
+
+**Inconvénients:**
+
+- L'utilisateur doit exister sur **chaque noeud** du cluster (pas pratique!)
+- Gestion manuelle des utilisateurs sur chaque serveur
+- Pas de gestion centralisée des mots de passe.
+
+#### Serveur d'authentification Proxmox VE
+
+Système de gestion des mots de passe intégré directement dans Proxmox VE.
+
+**Comment ça fonctionne:**
+
+1. Les informations utilisateur sont stockés dans `/etc/pve/user.cfg`.
+2. Les mots de passe sont hachés (SHA-256) et stockés dans `/etc/pve/priv/shadow.cfg`.
+3. Ces fichiers sont automatiquement synchronisés entre tous les noeuds du cluster (Un gros avantage!).
+4. Les utilisateurs peuvent changer leur mot de passe via l'interface web.
+
+**Avantages:**
+
+- Gestion centralisée (un seul endroit pour tous les utilisateurs).
+- Synchronisation automatique dans le cluster.
+- Interface web conviviale pour les utilisateurs.
+- Parfait pour les installations de petite à moyenne envergure.
+
+**Inconvénients:**
+
+- Limité à Proxmox VE (pas d'intégration avec d'autres systèmes)
+- Gestion manuelle des utilisateurs.
+
+**Cas d'usage typique:** Une entreprise avec 10-50 utilisateurs qui n'ont besoin d'accéder qu'à Proxmox VE.
+
+#### LDAP (Lightweight Directory Access Protocol)
+
+Comme vous l'avez étudié dans le cours **Serveurs 3: Administration Centralisée**, LDAP est un protocole standard pour accéder à des annuaires d'entreprise, tel que *Active Directory* par exemple.
