@@ -115,8 +115,8 @@ Implémentez la matrice des permissions suivante:
 
 |**Groupe**|**Pool/Ressource**|**Rôle**|**Justification**|
 |----------|------------------|--------|-----------------|
-|dev-team|pool-ecommerce-dev|PVEVMAdmin|Contrôle total de leur environnement de dev|
-|dev-team|pool-crm-dev|PVEVMAdmin|Contrôle total de leur environnement de dev|
+|dev-team|pool-ecommerce-dev|PVEVMAdmin <mark>& PVEPoolUser</mark>|Contrôle total de leur environnement de dev|
+|dev-team|pool-crm-dev|PVEVMAdmin <mark>& PVEPoolUser</mark>|Contrôle total de leur environnement de dev|
 |ops-team|/(racine)|PVEAdmin|Administration générale|
 |support-team|/vms|PVEVMUser|Accès console et power management|
 |project-managers|pool-ecommerce-prod|PVEAuditor|Visualisation seule de la production|
