@@ -334,3 +334,21 @@ ENFIN! Nous y voilà. Révisez vos paramètres et confirmez la création de votr
 Allez, lancez votre installation Windows! J'imagine qu'en session 5, vous ne devriez pas avoir besoin que je vous guide pas à pas pour installer Windows *right*?...*right?*.......*right*? 😉😉😉
 
 *psssst:* On aurait pas ajouté un fichier *iso* contenant des pilotes durant la création de la *VM* nous ? 🤔
+
+:::caution[Réseau instable sous Windows]
+Durant la création des exercices pour ce cours, j'ai rencontré des difficultés avec la carte réseau paravirtualisé configuré pour Windows. Une minute j'avais un accès internet, puis l'autre minute pas d'accès. C'était très instable. En faisant mes recherches sur le web, j'ai découvert que certains paramètres avancés de Windows quant aux périphériques réseaux pouvaient nuire à la bonne fonctionnalité de la paravirtualisation.
+
+Si vous avez, vous aussi, de la difficulté à avoir un réseau stable avec la carte paravirtualisé, voici ce que vous pouvez entreprendre comme actions pour régler la situation:
+- Ouvrez le gestionnaire de périphériques dans la *VM* Windows.
+- Faites un clic à l'aide du bouton de droite sur la carte réseau *Red Hat VirtIO Ethernet Adapter*
+- Sélectionnez **propriétés** puis allez dans l'onglet **avancé**.
+- Modifiez les propriétés suivantes:
+    - *Large Send Offload V2 (IPv4)*: **Disabled**
+    - *IPv4 Checksum Offload*: **Disabled**
+    - *Offload.Rx.Checksum*: **Disabled**
+    - *Offload.Tx.Checksum*: **Disabled**
+    - *TCP Checksum Offload (IPv4)*: **Disabled**
+    - *UDP Checksum Offload (IPv4)*: **Disabled**
+
+Une fois ces modifications apportées, vous devriez retrouver une meilleure stabilité du réseau.
+:::
