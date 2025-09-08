@@ -106,11 +106,64 @@ vzdump-lxc-105-2025_09_08-10_47_09.tar.gz
 
 Le choix du mode de sauvegarde représente un compromis entre la cohérence des données et le temps d'arrêt du service. Proxmox VE propose trois modes principaux, chacun adapté à des besoins spécifiques.
 
-#### Mode STOP (Arrêt complet)
+#### Mode STOP (arrêt) 🛑
 
-<span class="green-text">**Pour les machines virtuelles:**</span><br/><br/>
+<span class="green-text fonttaller">**Pour les *VMs*:**</span><br/><br/>
 
-1. **Arrêt propre :** La VM reçoit un signal d'extinction normale
-2. **Processus QEMU de sauvegarde :** Un processus dédié lit les disques virtuels
-3. **Redémarrage :** La VM redémarre automatiquement après le début de la sauvegarde
-4. **Sauvegarde en arrière-plan :** Utilise les capacités de sauvegarde live de QEMU
+1. Arrêt propre : La VM reçoit un signal d'extinction normale
+2. Processus QEMU de sauvegarde : Un processus dédié lit les disques virtuels
+3. Redémarrage : La VM redémarre automatiquement après le début de la sauvegarde
+4. Sauvegarde en arrière-plan : Utilise les capacités de sauvegarde live de QEMU
+<br/>
+
+|**Avantages**|**Inconvénients**|
+|-------------|-----------------|
+|**Cohérence maximale:** Aucune écriture pendant la lecture des données| **Temps d'arrêt:** Service indisponible pendant l'arrêt et le redémarrage|
+|**Fiabilité absolue:** Pas de risque d'incohérence des données| **Durée variable:** Dépend de la taille des données et de la vitesse du stockage|
+|**Simplicité:** Processus linéaire et prévisible||
+
+**Cas d'usage recommandés:**
+- Serveurs de base de données critiques
+- Sauvegardes de maintenance programmées
+- Lorsque les données priment
+
+<span class="green-text fonttaller">**Pour les conteneurs LXC:**</span><br/><br/>
+
+- Arrêt complet du conteneur pendant toute la durée de la sauvegarde
+- Temps d'arrêt potentiellement très long selon la taille des données
+- Recommandé uniquement pour les petits conteneurs ou les maintenances
+
+#### Mode SUSPEND (Suspension) ⏸️
+
+<span class="green-text fonttaller">**Pour les *VMs*:**</span><br/><br/>
+
+:::important
+Ce mode est maintenu pour compatibilité, mais le mode snapshot est généralement préférable car il offre une meilleure performance avec une cohérence similaire.
+:::
+
+<span class="green-text fonttaller">**Pour les conteneurs LXC:**</span><br/><br/>
+
+**Processus en trois étapes :**
+
+1. **Première copie rsync :**
+    - Copie des données vers un répertoire temporaire
+    - Le conteneur continue de fonctionner normalement
+    - Capture la majorité des données
+
+2. **Suspension et synchronisation :**
+    - Arrêt temporaire du conteneur
+    - Deuxième rsync pour capturer les modifications
+    - Temps d'arrêt minimal grâce à la pré-copie
+
+3. **Reprise et archivage :**
+    - Redémarrage immédiat du conteneur
+    - Création de l'archive finale en arrière-plan
+
+|**Avantages**|**Inconvénients**|
+|-------------|-----------------|
+|**Temps d'arrêt minimal:** Seulement pour la synchronisation finale| **Espace temporaire requis:** Besoin d'un espace supplémentaire pour la copie|
+|**Cohérence:** Capture un état cohérent du système de fichiers| **Performance réseau médiocre:** Pour les stockages NFS/CIFS |
+
+#### Mode SNAPSHOT (Instantané) 📸
+
+Le mode snapshot représente le meilleur compromis pour la plupart des cas d'usage en production.

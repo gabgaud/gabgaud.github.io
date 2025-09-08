@@ -307,6 +307,12 @@ Faire une sauvegarde ou prendre un instantané, telle est la question. Même si 
 |**Restauration**| ⚡ Immédiate | 🐌 Plus long|
 |**Impact performance**| ⚠️ Léger impact | ✅ Aucun impact |
 
+:::caution[Snapshot ≠ Backup en mode snapshot]
+Faites bien attention de ne pas confondre les *snapshots* et les sauvegardes de type *snapshots*. Même s'ils ont un nom similaire, ce n'est pas du tout la même chose. Le *snapshot* traditionnel est une fonctionnalité de stockage. Un *snapshot* est une image d'un volume à un moment donné. Cette image est condamnée à rester sur le système de stockage.
+
+Le mode de sauvegarde *snapshot* dans Proxmox, quant à lui, crée une archive complète et portable d'une machine virtuelle. La confusion du nom vient du fait que les deux technologies utilisent des techniques similaires, **mais ce n'est PAS un *snapshot* au sens traditionnel du stockage**.
+:::
+
 ## Clonage et template de *VMs*
 
 Les *templates* (modèles) permettent de déployer rapidement des *VMs* standardisées. Par exemple, si vous utilisez régulièrement des machines virtuelles sous Windows 10 pour effectuer des tests, vous pourriez en faire un modèle pour éviter de toujours installer Windows.
