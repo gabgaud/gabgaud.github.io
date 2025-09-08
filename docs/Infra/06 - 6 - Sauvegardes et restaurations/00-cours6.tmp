@@ -101,3 +101,16 @@ vzdump-lxc-105-2025_09_08-10_47_09.tar.gz
 - Identification rapide du contenu
 - Tri chronologique automatique
 - Compatibilité avec les scripts d'automatisation
+
+### Modes de sauvegarde - Concepts fondamentaux
+
+Le choix du mode de sauvegarde représente un compromis entre la cohérence des données et le temps d'arrêt du service. Proxmox VE propose trois modes principaux, chacun adapté à des besoins spécifiques.
+
+#### Mode STOP (Arrêt complet)
+
+<span class="green-text">**Pour les machines virtuelles:**</span><br/><br/>
+
+1. **Arrêt propre :** La VM reçoit un signal d'extinction normale
+2. **Processus QEMU de sauvegarde :** Un processus dédié lit les disques virtuels
+3. **Redémarrage :** La VM redémarre automatiquement après le début de la sauvegarde
+4. **Sauvegarde en arrière-plan :** Utilise les capacités de sauvegarde live de QEMU
