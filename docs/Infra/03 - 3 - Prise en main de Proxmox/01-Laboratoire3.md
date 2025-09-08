@@ -15,11 +15,11 @@
 
 ## Étapes de réalisation
 
-Dans ce laboratoire, nous passerons ensemble les différentes étapes nécessaires à la création d'une première machine virtuelle dans Proxmox. Nous analyserons les fenêtres et les options qui s'offrent à vous en prenant soins de les décortiquer.
+Dans ce laboratoire, nous passerons ensemble les différentes étapes nécessaires à la création d'une première machine virtuelle dans Proxmox. Nous analyserons les fenêtres et les options qui s'offrent à vous en prenant soin de les décortiquer.
 
 ### Étape 1 - Mise à jour de l'hyperviseur
 
-Avant de se lancer dans la création de notre première *VM*, nous allons nous assurez que l'hyperviseur est bien à jour. Dans le volet de gauche, cliquez sur votre noeud, puis dans le panneau central, cliquez sur `Repositories`.
+Avant de se lancer dans la création de notre première *VM*, nous allons nous assurer que l'hyperviseur est bien à jour. Dans le volet de gauche, cliquez sur votre nœud, puis dans le panneau central, cliquez sur `Repositories`.
 
 ![Repo](../Assets/03/Repo.png)
 
@@ -29,11 +29,11 @@ Vous verrez un avertissement concernant le catalogue de mise à jour *enterprise
 
 Proxmox vous avisera alors que vous n'avez plus accès à aucune mise à jour de l'hyperviseur. Pour régler cela, cliquez sur `Add` puis sélectionnez le catalogue `No-Subscription`. Cliquez sur `Reload` pour vous assurez que vos changements ont été pris en compte.
 
-Cliquez maintenant sur `Updates` (juste au dessus de `Repositories`). Cliquez sur `Refresh` pour effectuer une vérification des mises à jour et finalement sur `>_ Upgrade` pour lancer le processus de mise à jour du système.
+Cliquez maintenant sur `Updates` (juste au-dessus de `Repositories`). Cliquez sur `Refresh` pour effectuer une vérification des mises à jour et finalement sur `>_ Upgrade` pour lancer le processus de mise à jour du système.
 
 ![Upgrade](../Assets/03/Upgrade.png)
 
-La console du noeud s'ouvrira automatiquement. Remarquez la commande qui a été lancée au haut de la fenêtre.
+La console du nœud s'ouvrira automatiquement. Remarquez la commande qui a été lancée au haut de la fenêtre.
 
 Que vous lanciez cette commande directement dans la console ou que vous passiez par l'interface graphique, le processus est exactement le même. Appuyez sur <kbd>enter</kbd> pour confirmer l'installation des mises à jour.
 
@@ -74,11 +74,11 @@ Les options *Start order* et *Startup delay* ne sont valables que si l'option *S
 
 Dans la fenêtre OS, vous pourrez sélectionner votre ISO d'installation. Dans le cas présent, l'ISO de Windows 10 22H2. Par défaut, l'iso que vous avez téléchargé se trouve dans votre stockage nommé **Local**. Sélectionnez-le.
 
-Dans la section *Guest OS* de la fenêtre, il vous faudra indiqué que vous comptez installer Windows 10. Lorsque ce sera fait, une case supplémentaire fera son apparition. *Add additional drive for VirtIO drivers*. Les *VirtIO drivers* sont des pilotes qui permettent d'effectuer de la paravirtualisation, ce que Windows ne supporte pas toujours nativement. La paravirtualisation permet une meilleur gestion de l'accès au matériel physique. Par exemple, la technique du *ballooning* que le *memory manager* peut effectuer dans l'hyperviseur afin d'optimiser la mémoire vive est réalisée grâce à un pilote paravirtualisé.
+Dans la section *Guest OS* de la fenêtre, il vous faudra indiquer que vous comptez installer Windows 10. Lorsque ce sera fait, une case supplémentaire fera son apparition. *Add additional drive for VirtIO drivers*. Les *VirtIO drivers* sont des pilotes qui permettent d'effectuer de la paravirtualisation, ce que Windows ne supporte pas toujours nativement. La paravirtualisation permet une meilleure gestion de l'accès au matériel physique. Par exemple, la technique du *ballooning* que le *memory manager* peut effectuer dans l'hyperviseur afin d'optimiser la mémoire vive est réalisée grâce à un pilote paravirtualisé.
 
 Pour en connaître davantage sur les différences entre une émulation de pilote complète et la paravirtualisation, [consultez cette page.](https://developer.ibm.com/articles/l-virtio/)
 
-Pour bénéficier de pilotes paravirtualisés sous Windows, il existe des pilotes libre de droits, disponibles sous un iso téléchargeable à partir de [ce lien](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.271-1/virtio-win.iso). Au cours précédent, vous avez appris comment il était possible de télécharger un fichier iso directement sous Proxmox...à vous de jouer 😉
+Pour bénéficier de pilotes paravirtualisés sous Windows, il existe des pilotes libres de droits, disponibles sous un iso téléchargeable à partir de [ce lien](https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.271-1/virtio-win.iso). Au cours précédent, vous avez appris comment il était possible de télécharger un fichier iso directement sous Proxmox...à vous de jouer 😉
 
 ![OngletOS](../Assets/03/OngletOS.png)
 
@@ -95,14 +95,14 @@ Comme nous avons l'intention d'installer une série de pilotes paravirtualisés 
 |**Default**|Standard VGA|Usage général, minimaliste|Facilité d'utilisation et installation automatique|Performances graphiques limitées, pas de 3D ni d'accélération|
 |**VGA Basique**| VGA Standard|Bureau, applications légères et basiques|Large compatibilité, simple à configurer|Pas d'accélération graphique, performances limitées|
 |**VMware Compatible**|Compatible VMware|Applications avec besoin de compatibilité VMware|Compatible avec les outils VMware, bonne compatibilité|Limitations graphiques, pas d'accélération 3D|
-|**Spice (1 ou plusieurs moniteurs)**|Spice|Utilisation avec plusieurs moniteurs ou environnement graphique de bureau|Support des environnements virtuels multi-moniteurs, bonne interaction avec Spice|Moins performant graphiquement que d'autres solutions, dépend de Spice|
+|**Spice (1 ou plusieurs moniteurs)**|Spice|Utilisation avec plusieurs moniteurs ou environnement graphique de bureau|Support des environnements virtuels multimoniteurs, bonne interaction avec Spice|Moins performant graphiquement que d'autres solutions, dépend de Spice|
 |**Serial Terminal**|Terminal série|Accès au terminal en ligne, sans interface graphique|Léger, utilisé pour administration à distance sans graphique|Pas d'interface graphique, ne supporte pas les applications graphiques|
 |**VirtIO-GPU**|Paravirtualisé|Applications avec besoin d'une accélération légère (vidéos, graphiques légers)|Bonne accélération graphique, léger sur les ressources| Performances 3D limitées pour les applications lourdes|
 |**VirGL GPU**|GPU partagé (OpenGL)|Accélération 3D, jeux légers, modélisation 3D|Meilleure performance graphique 3D, bon rendu OpenGL|Configuration plus complexe, nécessite un GPU hôte compatible|
 
 <span class="green-text">**Machine**</span><br/><br/>
 
-L'option `Machine` devrait plutôt se nommer *chipset*, car c'est vraiment ce dont on parle ici. L'option par défaut ici n'est pas le plus performant. En effet, le *chipset* **i440fx** en est un vieux. Ce *chipset* était utilisé sur des anciennes cartes mère où l'on retrouvait principalement des processeurs en architecture x86. C'est très compatible, mais réellement peu performant avec des systèmes considérés modernes tels que Windows 10 ou Windows 11.
+L'option `Machine` devrait plutôt se nommer *chipset*, car c'est vraiment ce dont on parle ici. L'option par défaut ici n'est pas la plus performante. En effet, le *chipset* **i440fx** en est un vieux. Ce *chipset* était utilisé sur d’anciennes cartes mères où l'on retrouvait principalement des processeurs en architecture x86. C'est très compatible, mais réellement peu performant avec des systèmes considérés modernes tels que Windows 10 ou Windows 11.
 
 Le *chipset* **q35** est plus moderne et prend en charge des technologies plus récentes telles que le **PCIe** ou même le **USB3**. Il est beaucoup plus adapté à des systèmes d'exploitation récents comme Windows 10 & 11.
 
@@ -112,9 +112,9 @@ Le *chipset* **q35** est plus moderne et prend en charge des technologies plus r
 
 Les différences entre le BIOS et le UEFI sont nombreuses. Si vous avez besoin de vous rafraichir la mémoire, [une section du cours de systèmes d'exploitation](../../OS/Windows/16-Démarrage.md#firmware) explique bien ces différences. Vous pouvez relire ces sections au besoin.
 
-Dans notre cas, nous opterons pour l'option **UEFI**. J'imagine que vous savez très bien pourquoi car vous avez pris soin de relire la section proposée ci-dessus...n'est-ce pas ? 😉
+Dans notre cas, nous opterons pour l'option **UEFI**. J'imagine que vous savez très bien pourquoi, car vous avez pris soin de relire la section proposée ci-dessus... n'est-ce pas ? 😉
 
-Or, un firmware de type **UEFI** a nécessairement besoin d'un espace de stockage. Sélectionnez tout simplement votre stockage `local-lvm`. L'option `Pre-Enroll Keys` permet de spécifier des clés qui seront ajoutées au démarrage sécurisé (*Secure Boot*) pour permettre la validation de certains fichiers de boot ou noyaux non signés ou signés de manière personnalisée. Dans le cas où nous n'utlisons pas *Secure Boot*, ou si nous n'avons pas de besoins spécifiques de sécurité pour l'environnement de machine virtuelle que nous déployons, cette option peut être ignorée.
+Or, un firmware de type **UEFI** a nécessairement besoin d'un espace de stockage. Sélectionnez tout simplement votre stockage `local-lvm`. L'option `Pre-Enroll Keys` permet de spécifier des clés qui seront ajoutées au démarrage sécurisé (*Secure Boot*) pour permettre la validation de certains fichiers de boot ou noyaux non signés ou signés de manière personnalisée. Dans le cas où nous n'utilisons pas *Secure Boot*, ou si nous n'avons pas de besoins spécifiques de sécurité pour l'environnement de machine virtuelle que nous déployons, cette option peut être ignorée.
 
 * * *
 
@@ -137,7 +137,7 @@ Dans le cas présent, nous utiliserons **VirtIO SCSI Single** qui correspond mie
 
 <span class="green-text">**QEMU Agent**</span><br/><br/>
 
-L'agent QEMU est un service qui s'exécute dans la machine virtuelle et communique avec Proxmox. Il permet, par exemple, de faire des arrêts de machines virtuelles dit « propres » et d'obtenir de l'information plus précise sur la *VM* en question.
+L'agent QEMU est un service qui s'exécute dans la machine virtuelle et communique avec Proxmox. Il permet, par exemple, de faire des arrêts de machines virtuelles dits « propres » et d'obtenir de l'information plus précise sur la *VM* en question.
 
 <mark>La case en question n'installe pas l'agent.</mark> Elle ne fait que préciser à l'hyperviseur si oui ou non la *VM* utilise l'agent qemu. L'installation de l'agent doit se faire une fois le système d'exploitation installé.
 
@@ -145,7 +145,7 @@ L'agent QEMU est un service qui s'exécute dans la machine virtuelle et communiq
 
 <span class="green-text">**TPM**</span><br/><br/>
 
-Le **TPM** est un composant récent que l'on retrouve sur plusieurs cartes mère modernes. D'ailleurs, ce composant est devenu obligatoire pour l'installation de Windows 11. Si vous devez vous rafraichir la mémoire quant au **TPM**, vous pouvez consulter ­[cette section du site.](../../OS/Windows/12-Securite.md#-tpm-trusted-platform-module-20)
+Le **TPM** est un composant récent que l'on retrouve sur plusieurs cartes mères modernes. D'ailleurs, ce composant est devenu obligatoire pour l'installation de Windows 11. Si vous devez vous rafraichir la mémoire quant au **TPM**, vous pouvez consulter ­[cette section du site.](../../OS/Windows/12-Securite.md#-tpm-trusted-platform-module-20)
 
 Pour la création de notre *VM* aujourd'hui, le **TPM** est facultatif.
 
@@ -177,38 +177,38 @@ Comme nous avons sélectionné un contrôleur de disque **VirtIO SCSI Single** �
 
 Il s'agit ni plus ni moins du stockage sur lequel le disque dur de notre *VM* sera créé. Il peut s'agir de disques locaux (comme dans notre cas), ou distants (Ceph, NFS, ZFS, etc.)
 
-L'option *Disk Size*, quant à elle, vous aurez évidemment compris qu'il s'agit de l'espace maximal que l'on désir allouer à la machine virtuelle.
+L'option *Disk Size*, quant à elle, vous aurez évidemment compris qu'il s'agit de l'espace maximal que l'on désire allouer à la machine virtuelle.
 
 Finalement, le format du disque (*grisé dans notre cas*), permet de sélectionner deux formats de disques distincts:
 
 - **RAW:** Plus rapide, mais ne supporte pas les snapshots de plus haut niveau.
 - **qcow2:** Supporte les snapshots de haut niveau, mais un peu moins rapide.
 
-> *Oui mais Gabriel, est-ce qu'on va pouvoir faire des snapshots avec cette machine ?*
+> *Oui, mais Gabriel, est-ce qu'on va pouvoir faire des snapshots avec cette machine ?*
 >
 > *-Les étudiants*
 
-**OUI!**, mais proxmox en fera la gestion différemment. Il fera des *snapshots* de type **LVM-Thin**. Ce sont des snapshots de plus bas niveau. Ils ne peuvent pas être compressés ou même renommées. Le format du disque dur est grisé car nous stockons le disque dur de la *VM* sur un stockage de type *LVM*. Lorsque nous faisons cela, nous sommes contraints d'utiliser le format **RAW**.
+**OUI!**, mais proxmox en fera la gestion différemment. Il fera des *snapshots* de type **LVM-Thin**. Ce sont des snapshots de plus bas niveau. Ils ne peuvent pas être compressés ou même renommés. Le format du disque dur est grisé, car nous stockons le disque dur de la *VM* sur un stockage de type *LVM*. Lorsque nous faisons cela, nous sommes contraints d'utiliser le format **RAW**.
 
 * * *
 
 <span class="green-text">**Cache, Discard & IO thread**</span><br/><br/>
 
-La mémoire cache est une mémoire temporaire situé en le système d'exploitation et le disque dur. Son objectif est d'améliorer la vitesse de lecture et d'écriture sur le disque dur. Cela dit, elle peut aussi poser un risque supplémentaire dans la perte de données involontaire. Dans Proxmox, voici comment se traduisent les options de cache:
+La mémoire cache est une mémoire temporaire située en le système d'exploitation et le disque dur. Son objectif est d'améliorer la vitesse de lecture et d'écriture sur le disque dur. Cela dit, elle peut aussi poser un risque supplémentaire dans la perte de données involontaire. Dans Proxmox, voici comment se traduisent les options de cache:
 
 - **No Cache:**
     - **Cache hôte (proxmox):** Désactivé ❌
     - **Cache disque physique:** Activé ✅
     - **Performance:** Bonne 🙂
     - **Sécurité:** Moyenne 😐
-    - **Description:** Ce mode désactive le cache côté hôte (le système Proxmox) mais laisse actif le cache du disque physique. Cela permet une bonne performance tout en réduisant les risques de corruption en cas de panne. C’est le mode par défaut depuis Proxmox 2.x.
+    - **Description:** Ce mode désactive le cache côté hôte (le système Proxmox), mais laisse actif le cache du disque physique. Cela permet une bonne performance tout en réduisant les risques de corruption en cas de panne. C’est le mode par défaut depuis Proxmox 2.x.
 
 - **Direct Sync:**
     - **Cache hôte (proxmox):** Désactivé ❌
     - **Cache disque physique:** Désactivé ❌
     - **Performance:** Faible 😒
     - **Sécurité:** Très élevée 😃
-    - **Description:** Le plus sûr mais aussi **le plus lent.** Chaque écriture est directement synchronisée sur le disque physique sans passer par aucun cache. Idéal pour les environnements critiques où la **perte de données est inacceptable**, mais déconseillé si la performance est une priorité.
+    - **Description:** Le plus sûr, mais aussi **le plus lent.** Chaque écriture est directement synchronisée sur le disque physique sans passer par aucun cache. Idéal pour les environnements critiques où la **perte de données est inacceptable**, mais déconseillée si la performance est une priorité.
 
 - **Write Through:**
     - **Cache hôte (proxmox):** Activé (lecture uniquement) ✅
@@ -251,13 +251,13 @@ L'option **IO Thread** permet d'activer un *thread* dédiée pour chaque disque 
 
 <span class="green-text">**SSD Emulation, Read-Only, Backup, Replication & Async IO**</span><br/><br/>
 
-L'option `SSD Emulation` présentera votre disque dur comme un SSD au système d'exploitation invité. Cela peut permettre au système d'exploitation d'ajuster certains de ses comportements (optimisation, alignement, *trim*, etc.). Cette option est recommandée si le stockage réel est effictement un SSD. Ce n'est pas notre cas ici.
+L'option `SSD Emulation` présentera votre disque dur comme un SSD au système d'exploitation invité. Cela peut permettre au système d'exploitation d'ajuster certains de ses comportements (optimisation, alignement, *trim*, etc.). Cette option est recommandée si le stockage réel est effectivement un SSD. Ce n'est pas notre cas ici.
 
 L'option `Read-only` permet de monter votre disque dur en lecture seule. Ce n'est utile que lorsque vous effectuez du débogage ou des tests.
 
 L'option `Backup` permet d'inclure automatiquement ce disque dur dans les sauvegardes automatiques de Proxmox. C'est une option intéressante si vous désirez protéger vos données.
 
-`Skip replication` permet d'ignorer la réplication de ce disque dur dans le cas où vous auriez un cluster, donc plusieurs noeuds Proxmox. Ce n'est pas notre cas ici. Cette option n'aura donc aucune incidence pour le moment.
+`Skip replication` permet d'ignorer la réplication de ce disque dur dans le cas où vous auriez un cluster, donc plusieurs nœuds Proxmox. Ce n'est pas notre cas ici. Cette option n'aura donc aucune incidence pour le moment.
 
 L'option `Async IO` est très technique, mais elle peut avoir une incidence sur les performances. Cette option décrit les mécanismes d'accès aux disques durs virtuels. Les systèmes d'exploitation modernes supportent le mode *io_uring*. Pour les systèmes un peu plus vieux, vous pouvez utiliser l'option *threads* pour assurer une compatibilité.
 
@@ -269,19 +269,19 @@ Allons-y maintenant avec la configuration du CPU. Si, comme moi, vous avez coch�
 
 - **Sockets / Cores**
     - **Sockets:** nombre de processeurs virtuels simulés (Équivalent de CPU physiques pour la VM).
-    - **Cores:** nombre de coeurs par processeur physique.
+    - **Cores:** nombre de cœurs par processeur physique.
 
 :::caution
 Respecter les ressources physiques que vous avez à votre disposition!
 :::
 
-- **Type:** Définit le modèle de CPU virtuel exposé à la *VM*. Même si cette option peut paraitre simpliste, elle peut avoir un impact important. Je vous recommande d'utiliser le processeur fournit par défaut car ce-dernier sera facilement compatible et migrable vers un autre serveur Proxmox. Si vous avez besoin de plus de performances, vous pouvez utiliser le type `host`. Dans ce cas, Proxmox utilisera le modèle physique de votre CPU. Cela réduit le besoin d'émulation et l'élimine parfois complètement.
+- **Type:** Définit le modèle de CPU virtuel exposé à la *VM*. Même si cette option peut paraitre simpliste, elle peut avoir un impact important. Je vous recommande d'utiliser le processeur fourni par défaut, car ce dernier sera facilement compatible et migrable vers un autre serveur Proxmox. Si vous avez besoin de plus de performances, vous pouvez utiliser le type `host`. Dans ce cas, Proxmox utilisera le modèle physique de votre CPU. Cela réduit le besoin d'émulation et l'élimine parfois complètement.
 
-- **VCPUs:** Nombre d'unités de traitement virtuelles allouées à la *VM*. Généralement égal au nombre de coeurs, mais peut être ajusté pour limiter l'utilisation du CPU.
+- **VCPUs:** Nombre d'unités de traitement virtuelles allouées à la *VM*. Généralement égal au nombre de cœurs, mais peut être ajusté pour limiter l'utilisation du CPU.
 
 - **CPU Limit:** Permet de restreindre la puissance CPU maximale que la VM peut utiliser. Peut éviter qu’une VM monopolise le CPU, mais réduit la performance.
 
-- **Enable NUMA:** Active la topologie NUMA (Non-Uniform Memory Access). Améliore la performance sur les serveurs multi-socket. À considérer pour les *VMs* gourmandes en ressources.
+- **Enable NUMA:** Active la topologie NUMA (Non-Uniform Memory Access). Améliore la performance sur les serveurs multisocket. À considérer pour les *VMs* gourmandes en ressources.
 
 - **CPU Affinity:** - Permet de lier la VM à des cœurs spécifiques du CPU physique. Peut améliorer la performance ou l’isolation dans des cas spécifiques.
 
@@ -297,9 +297,9 @@ Dans l'onglet mémoire, vous pourrez évidemment octroyer une quantité de mémo
 
 - **Minimum Memory**: C'est la quantité de mémoire minimale que l'hyperviseur garantira à la machine en cas de *ballooning*.
 
-Cela nous permet donc de surprovisionner la RAM. Lorsque vous avez créé votre serveur Proxmox, vous avez configuré 16Go de RAM. Nous allons donc en allouer 8Go à Windows, **MAIS** nous allons utiliser le *balloning* pour faire des économies. Dans le champ `Memory`, inscrivez donc 8192. Puis, dans le champ `Minimum memory`. inscrivez 4096.
+Cela nous permet donc de surapprovisionner la RAM. Lorsque vous avez créé votre serveur Proxmox, vous avez configuré 16Go de RAM. Nous allons donc en allouer 8Go à Windows, **MAIS** nous allons utiliser le *balloning* pour faire des économies. Dans le champ `Memory`, inscrivez donc 8192. Puis, dans le champ `Minimum memory`. inscrivez 4096.
 
-Le champ `Shares` quant à lui, détermine les priorités des *VMs* par rapport au *ballooning*.
+Le champ, `Shares` quant à lui, détermine les priorités des *VMs* par rapport au *ballooning*.
 
 Par exemple:
 
@@ -333,10 +333,10 @@ ENFIN! Nous y voilà. Révisez vos paramètres et confirmez la création de votr
 
 Allez, lancez votre installation Windows! J'imagine qu'en session 5, vous ne devriez pas avoir besoin que je vous guide pas à pas pour installer Windows *right*?...*right?*.......*right*? 😉😉😉
 
-*psssst:* On aurait pas ajouté un fichier *iso* contenant des pilotes durant la création de la *VM* nous ? 🤔
+*psssst:* On n’aurait pas ajouté un fichier *iso* contenant des pilotes durant la création de la *VM* nous ? 🤔
 
 :::caution[Réseau instable sous Windows]
-Durant la création des exercices pour ce cours, j'ai rencontré des difficultés avec la carte réseau paravirtualisé configuré pour Windows. Une minute j'avais un accès internet, puis l'autre minute pas d'accès. C'était très instable. En faisant mes recherches sur le web, j'ai découvert que certains paramètres avancés de Windows quant aux périphériques réseaux pouvaient nuire à la bonne fonctionnalité de la paravirtualisation.
+Durant la création des exercices pour ce cours, j'ai rencontré des difficultés avec la carte réseau paravirtualisé configurée pour Windows. Une minute j'avais un accès internet, puis l'autre minute pas d'accès. C'était très instable. En faisant mes recherches sur le web, j'ai découvert que certains paramètres avancés de Windows quant aux périphériques réseau pouvaient nuire à la bonne fonctionnalité de la paravirtualisation.
 
 Si vous avez, vous aussi, de la difficulté à avoir un réseau stable avec la carte paravirtualisé, voici ce que vous pouvez entreprendre comme actions pour régler la situation:
 - Ouvrez le gestionnaire de périphériques dans la *VM* Windows.

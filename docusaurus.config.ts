@@ -99,18 +99,18 @@ const config: Config = {
         srcDark: 'img/hipster_w.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'OsSidebar',
-          position: 'left',
-          label: 'Systèmes d\'exploitation',
-        },
-        {
-          type: 'docSidebar',
-          sidebarId: 'Serveur1Sidebar',
-          position: 'left',
-          label: 'Serveurs 1',
-        },
+       //{
+          //type: 'docSidebar',
+          //sidebarId: 'OsSidebar',
+          //position: 'left',
+          //label: 'Systèmes d\'exploitation',
+        //},
+        //{
+          //type: 'docSidebar',
+          //sidebarId: 'Serveur1Sidebar',
+          //position: 'left',
+          //label: 'Serveurs 1',
+        //},
         {
           type: 'docSidebar',
           sidebarId: 'InfraSidebar',
@@ -140,14 +140,14 @@ const config: Config = {
         {
           title: 'Sections',
           items: [
-            {
-              label: 'Systèmes d\'exploitation',
-              to: 'OS/Mot%20de%20section',
-            },
-            {
-              label: 'Serveurs 1',
-              to: 'Serveurs 1/Mot%20de%20section',
-            },
+            //{
+              //label: 'Systèmes d\'exploitation',
+              //to: 'OS/Mot%20de%20section',
+            //},
+            //{
+              //label: 'Serveurs 1',
+              //to: 'Serveurs 1/Mot%20de%20section',
+            //},
             {
               label: 'Infrastructure Virtuelle',
               to: 'Infra/Mot%20de%20section',

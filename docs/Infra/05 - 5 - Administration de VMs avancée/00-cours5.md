@@ -5,9 +5,7 @@ import TabItem from '@theme/TabItem';
 
 # Cours 5
 
-## Administration de VMs avancée
-
-### Introduction à l'administration avancée des VMs ⚙️
+## Administration avancée des VMs ⚙️
 
 Proxmox stocke toutes les configurations de VMs dans un répertoire centralisé: `/etc/pve/qemu-server/`
 
@@ -15,8 +13,8 @@ Proxmox stocke toutes les configurations de VMs dans un répertoire centralisé:
 
 - Chaque fichier `.conf` correspond à une *VM* identifiée par son VMID (VM ID)
 - Ces fichiers contiennent toute la configuration : CPU, Mémoire, disques, réseau, etc.
-- Le répertoire `/etc/pve` est synchronisé automatiquement entre tous les noeuds du cluster.
-- Les modifications sont propagées en temps réel à tous les noeuds.
+- Le répertoire `/etc/pve` est synchronisé automatiquement entre tous les nœuds du cluster.
+- Les modifications sont propagées en temps réel à tous les nœuds.
 
 **<span class="green-text fonttaller">Exemple d'une partie d'un fichier de configuration d'une VM:</span>**
 
@@ -25,11 +23,11 @@ Proxmox stocke toutes les configurations de VMs dans un répertoire centralisé:
 Si vous observez attentivement l'image ci-dessus 👆, vous reconnaitrez sans doute quelques éléments:
 
 - `bios: ovmf` : Firmware de type **UEFI**
-- `balloon: 4096` : Quantité minimal de mémoire à laisser à la *VM* en cas de *ballooning*
+- `balloon: 4096` : Quantité minimale de mémoire à laisser à la *VM* en cas de *ballooning*
 - `cpu: host` : Type de CPU de la *VM*
 - etc.
 
-### Commandes `qm`
+## Commandes `qm`
 
 La commande `qm` (QEMU Manager) est l'outil principal pour gérer les machines virtuelles dans Proxmox. Elle communique directement avec le système de virtualisation QEMU/KVM.
 
@@ -39,7 +37,7 @@ La commande `qm` (QEMU Manager) est l'outil principal pour gérer les machines v
 qm <commande> <VMID> [options]
 ```
 
-#### Listage d'informations
+### Listage d'informations
 
 Lister les *VMs* avec `qm list`
 
@@ -68,7 +66,7 @@ qm config 100
 ```
 
 
-#### Gestion de l'état des VMs
+### Gestion de l'état des VMs
 
 La commande `qm` permet également de poser une action quant à l'état d'une machine.
 
@@ -103,7 +101,7 @@ qm stop 105
 qm reboot 111
 ```
 
-#### Modification de configuration
+### Modification de configuration
 
 La commande `qm` permet aussi de modifier directement la configuration d'un *VM* sans passer par l'interface graphique.
 
@@ -131,11 +129,11 @@ qm set 110 --scsi1 local-lvm:50
 Je ne peux malheureusement pas analyser toutes les possibilités offertes par la commande `qm` avec vous. Par contre, je vous invite à consulter [la documentation](https://pve.proxmox.com/pve-docs/qm.1.html) de celle-ci. Vous verrez, `qm` vous réserve sans doute plusieurs surprises.
 :::
 
-### Consoles et accès aux VMs 🖥️
+## Consoles et accès aux VMs 🖥️
 
 Proxmox offre plusieurs méthodes pour accéder à vos machines virtuelles, chacune ayant ses avantages selon le contexte d'utilisation. 
 
-#### Console NoVNC via l'interface web
+### Console NoVNC via l'interface web
 
 La console NoVNC intégrée dans l'interface web Proxmox est la méthode la plus courante:
 
@@ -146,7 +144,7 @@ La console NoVNC intégrée dans l'interface web Proxmox est la méthode la plus
 
 Pour accéder à la console NoVNC, sélectionnez votre *VM* dans l'interface Proxmox et cliquez sur Console dans le menu.
 
-#### Console SPICE
+### Console SPICE
 
 SPICE (*Simple Protocol for Independent Computing Environments*) offre de meilleures performances que NoVNC:
 
@@ -155,11 +153,11 @@ SPICE (*Simple Protocol for Independent Computing Environments*) offre de meille
 - Transfert de fichiers par glisser-déposer
 - Nécessite un client SPICE installé
 
-##### Utiliser SPICE avec une *VM* Windows
+#### Utiliser SPICE avec une *VM* Windows
 
 Pour utiliser SPICE avec une *VM* Windows hébergé sous Proxmox, il faut suivre quelques étapes:
 
-1. Installer les [SPICE Guest Tools](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe) sur votre machine virtuelle Windows hébergé sous Proxmox. Cet installateur contient des pilotes et des services qui optimiseront l'uitilisation de SPICE ainsi que son intégration.
+1. Installer les [SPICE Guest Tools](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe) sur votre machine virtuelle Windows hébergée sous Proxmox. Cet installateur contient des pilotes et des services qui optimiseront l'utilisation de SPICE ainsi que son intégration.
 
 2. Dans la section *Hardware* de votre machine virtuelle, changez l'option *Display* pour SPICE:
 
@@ -175,17 +173,17 @@ Les changements qui apparaissent en jaune-orange nécessitent un redémarrage de
 
 ![SpiceVV](../Assets/05/SpiceFile.png)
 
-Le fichier que vous venez d'utilisé pour ouvrir votre session via le protocole **SPICE** n'est utilisable qu'une seule fois, après quoi il s'auto-détruira.
+Le fichier que vous venez d'utiliser pour ouvrir votre session via le protocole **SPICE** n'est utilisable qu'une seule fois, après quoi il s'autodétruira.
 
-> *Oui mais Gabriel, ce n'est pas pratique cette façon de travailler. Pourquoi ne peut-on tout simplement pas ouvrir le logiciel remote-viewer, entrer l'ip concerné et nous y connecté ?*
+> *Oui, mais Gabriel, ce n'est pas pratique cette façon de travailler. Pourquoi ne peut-on tout simplement pas ouvrir le logiciel remote-viewer, entrer l'IP concerné et nous y connecter ?*
 >
 > *-Les étudiants*
 
-<u>C'est une excellente question.</u> Surtout lorsqu'on provient d'un environnement Windows où il est assez facile de se brancher en **RDP** ou même via **SSH** à d'autres machines et serveurs. Cependant, souvenez-vous que nous nous connectons présentement à une machine virtuelle hébergé par un hyperviseur. Dans les cours précédents, nous avons vu que cet hyperviseur administre des ressources, des utilisateurs, des groupes et des permissions. Pour vous identifier, et ainsi, savoir quelles sont les ressources auxquelles vous avez droit, vous devez ouvrir une session sur l'interface de Proxmox. Une fois que ce sera fait, vous pourrez alors récupérer le fichier `*.vv` qui contiendra votre *token* d'accès et d'autres informations nécessaires à Proxmox. Ceci étant dit, c'est vrai que ce n'est pas très efficace comme méthodologie de travail.
+<u>C'est une excellente question.</u> Surtout lorsqu'on provient d'un environnement Windows où il est assez facile de se brancher en **RDP** ou même via **SSH** à d'autres machines et serveurs. Cependant, souvenez-vous que nous nous connectons présentement à une machine virtuelle hébergée par un hyperviseur. Dans les cours précédents, nous avons vu que cet hyperviseur administre des ressources, des utilisateurs, des groupes et des permissions. Pour vous identifier, et ainsi, savoir quelles sont les ressources auxquelles vous avez droit, vous devez ouvrir une session sur l'interface de Proxmox. Une fois que ce sera fait, vous pourrez alors récupérer le fichier `*.vv` qui contiendra votre *token* d'accès et d'autres informations nécessaires à Proxmox. Ceci étant dit, c'est vrai que ce n'est pas très efficace comme méthodologie de travail.
 
 Or, Proxmox possède une API. Il serait possible de créer un script PowerShell générer le fichier de connexion **SPICE**.
 
-#### Console série
+### Console série
 
 La console série permet un accès direct à la console d'une machine virtuelle qui ne possède pas d'interface graphique. <u>**Attention**</u>, pour utiliser la console série, le système d'exploitation invité doit être configuré pour rediriger sa sortie vers le port série. Sur la plupart des distributions Linux modernes, cela se fait automatiquement.
 
@@ -198,11 +196,11 @@ qm terminal 100
 La console série n'est pas recommandée pour **Windows** tout simplement parce que l'interface graphique de Windows n'est pas accessible via une console série comme c'est le cas dans plusieurs systèmes Linux.
 :::
 
-#### Console xterm.js
+### Console xterm.js
 
 Proxmox utilise xterm.js pour fournir une expérience de terminal moderne directement dans le navigateur web. Cette technologie offre plusieurs avantages par rapport aux consoles traditionnelles.
 
-##### Caractéristiques de xterm.js dans Proxmox
+#### Caractéristiques de xterm.js dans Proxmox
 
 - **Terminal moderne**: Émulation complète d'un terminal VT100/VT220
 - **Support UTF-8**: Affichage correct des caractères spéciaux et émojis
@@ -214,11 +212,11 @@ Proxmox utilise xterm.js pour fournir une expérience de terminal moderne direct
 Pour la même raison que la console série n'est pas utilisable avec une machine virtuelle Windows, il en va de même pour la console xterm.js
 :::
 
-### Gestion des snapshots 📸
+## Gestion des snapshots 📸
 
 Les *snapshots* (instantanés en français) permettent de capturer l'état complet d'une *VM* à un moment donné, facilitant les tests et la récupération en cas de problème. Comme c'est le cas de la majorité des hyperviseurs, Proxmox offre également cette fonctionnalité.
 
-#### Via l'interface graphique
+### Via l'interface graphique
 
 1. Sélectionnez votre *VM*
 2. Allez dans l'onglet **Snapshots**
@@ -226,7 +224,7 @@ Les *snapshots* (instantanés en français) permettent de capturer l'état compl
 
 ![TakeSnapShot](../Assets/05/TakeSnapShot.png)
 
-#### Via la ligne de commande
+### Via la ligne de commande
 
 <span class="green-text">**Prendre un nouveau snapshot**</span>
 
@@ -259,11 +257,11 @@ La restauration d'un snapshot **supprime définitivement** toutes les données c
 qm delsnapshot 101 pre-update
 ```
 
-### Système de sauvegarde intégré 💾
+## Système de sauvegarde intégré 💾
 
 Proxmox intègre un système de sauvegarde robuste qui permet de protéger vos machines virtuelles. Nous reviendrons plus en profondeur sur les sauvegardes dès le prochain cours. Je vais donc me contenter de vous présenter les grandes lignes ici.
 
-#### Types de sauvegarde
+### Types de sauvegarde
 
 <span class="green-text">**Proxmox VE (vzdump)**</span>
 Les sauvegardes Proxmox VE sont toujours des sauvegardes complètes contenant la configuration de la VM/CT et toutes les données. Il n'y a **pas** de sauvegarde différentielle ou incrémentielle native dans Proxmox VE.
@@ -274,7 +272,7 @@ Pour obtenir des fonctionnalités avancées de sauvegarde, Proxmox propose le **
 - Déduplication automatique des données pour éviter la redondance et minimiser l'espace de stockage utilisé
 - Optimisation pour transférer seulement les chunks non présents dans la sauvegarde précédente
 
-#### Sauvegarde manuelle via `qm`
+### Sauvegarde manuelle via `qm`
 
 ```bash
 # Sauvegarde complète de la VM 101
@@ -287,7 +285,7 @@ vzdump 101 --storage backup-storage --mode snapshot
 - `--mode suspend`: Met en pause la VM pendant la sauvegarde
 - `--mode stop`: Arrête la VM avant la sauvegarde
 
-#### Sauvegarde manuelle via l'interface graphique
+### Sauvegarde manuelle via l'interface graphique
 
 1. Sélectionnez votre *VM*
 2. Allez dans l'onglet **Backup**
@@ -295,9 +293,9 @@ vzdump 101 --storage backup-storage --mode snapshot
 
 ![BackupNow](../Assets/05/BackupNow.png)
 
-### Différencier Snapshots et Backups 🤔
+## Différencier Snapshots et Backups 🤔
 
-Faire une sauvegarde ou prendre un instantané, telle est la question. Même si les deux technologies ont des similitudes, il ne faut absolument pas les mélanger car on risque de mauvaises surprises. Voici donc un tableau pour vous aider à les distinguer et à les utiliser aux moments appropriés.
+Faire une sauvegarde ou prendre un instantané, telle est la question. Même si les deux technologies ont des similitudes, il ne faut absolument pas les mélanger, car on risque de mauvaises surprises. Voici donc un tableau pour vous aider à les distinguer et à les utiliser aux moments appropriés.
 
 |**Critère**|**Snapshot**|**Backup**|
 |-----------|------------|----------|
@@ -309,13 +307,13 @@ Faire une sauvegarde ou prendre un instantané, telle est la question. Même si 
 |**Restauration**| ⚡ Immédiate | 🐌 Plus long|
 |**Impact performance**| ⚠️ Léger impact | ✅ Aucun impact |
 
-### Clonage et template de *VMs*
+## Clonage et template de *VMs*
 
 Les *templates* (modèles) permettent de déployer rapidement des *VMs* standardisées. Par exemple, si vous utilisez régulièrement des machines virtuelles sous Windows 10 pour effectuer des tests, vous pourriez en faire un modèle pour éviter de toujours installer Windows.
 
 Un clone, quant à lui, n'est ni plus ni moins une copie d'une machine virtuelle existante. Sous Proxmox, il en existe deux types que nous verrons ci-dessous.
 
-#### Créer un *template*
+### Créer un *template*
 1. Préparez votre *VM* de base (installation, configuration)
 2. Arrêtez la *VM*
 3. Convertissez-la en *template*
@@ -324,9 +322,9 @@ Un clone, quant à lui, n'est ni plus ni moins une copie d'une machine virtuelle
 qm template 101
 ```
 
-Une fois convertie en *template*, la *VM* ne peut plus être démarrées directement. Elle sert uniquement de base pour créer de nouvelles *VMs*.
+Une fois convertie en *template*, la *VM* ne peut plus être démarrée directement. Elle sert uniquement de base pour créer de nouvelles *VMs*.
 
-#### Cloner une *VM*
+### Cloner une *VM*
 
 ```bash
 # Clonage complet de la VM 101 vers une nouvelle VM 201
@@ -341,7 +339,7 @@ qm clone 101 202 --name "Clone-TestServer"
 - **Full Clone:** Copie complète indépendante, plus d'espace disque requis
 - **Linked clone:** Partage les données communes avec l'original, économe en espace
 
-### Logs et dépannage 🔍
+## Logs et dépannage 🔍
 
 Les journaux demeurent la meilleure façon de repérer différentes problématiques avec Proxmox ou même avec un client virtualisé.
 

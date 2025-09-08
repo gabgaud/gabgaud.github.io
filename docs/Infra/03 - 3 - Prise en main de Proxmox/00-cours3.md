@@ -50,7 +50,7 @@ L'arborescence des ressources est une structure hiérarchique pouvant contenir d
 
 **<mark>Sans le *datacenter*, il est impossible de gérer plusieurs serveurs ensemble ou de partager des ressources entre eux.</mark>**
 
-#### Noeuds (serveurs physiques) 🪢
+#### Nœuds (serveurs physiques) 🪢
 
 <table>
     <tr>
@@ -184,13 +184,13 @@ Les conteneurs LXC ne sont pas identiques aux conteneurs Docker dont nous parler
 
 ### Le panneau central 📊
 
-Le panneau central diffère dépendemment de l'élément de la structure hiérarchique sélectionné.
+Le panneau central diffère dépendamment de l'élément de la structure hiérarchique sélectionné.
 
 #### Niveau Datacenter - Gestion globale
 
 **Rôle:** Tableau de bord général de l'infrastructure. Il offre une vision d'ensemble et permet de surveiller la charge de travail.
 
-- Statistiques globales: nombre de *VMs*, conteneurs, noeuds
+- Statistiques globales: nombre de *VMs*, conteneurs, nœuds
 - Utilisation des ressources totales (CPU, RAM, Stockage)
 - Graphiques de performance consolidés
 - État de santé global du cluster
@@ -203,7 +203,7 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
     - Contacts et informations importantes
     - Historique des changements majeurs
 
-2️⃣ **Cluster: Coordination des noeuds** 
+2️⃣ **Cluster: Coordination des nœuds** 
     - Ajouter/retirer des noeuds au cluster
     - Gérer la haute disponibilité (HA)
     - Synchroniser les configurations
@@ -230,11 +230,11 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 ![PanneauCentralDataCenter](../Assets/03/PanneauCentralDataCenter.png)
 
 
-#### Niveau Noeud - Gestion du serveur physique
+#### Niveau Nœud - Gestion du serveur physique
 
 **Rôle:** Monitoring en temps réel du serveur physique. Il affiche en temps réel:
 
-- Utilisation CPU par coeur
+- Utilisation CPU par cœur
 - Consommation de la mémoire (utilisée/totale/disponible)
 - Charge système et processus actifs
 - Température et ventilation
@@ -242,7 +242,7 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 
 **Quelques sections à connaître dès maintenant:**
 
-1️⃣ **Shell: Accès au noeud en ligne de commande**
+1️⃣ **Shell: Accès au nœud en ligne de commande**
     - Configuration avancée non accessible via l'interface web
     - Diagnostique et dépannage système
     - Installation de paquets supplémentaires
@@ -305,7 +305,7 @@ Le panneau central diffère dépendemment de l'élément de la structure hiérar
 
 ### Journal des activités 📰
 
-Le journal des activités (aussi appelé "Task Log" ou "Journal des tâches") est un panneau d'information en temps réel qui affiche toutes les opérations et processus en cours d'exécution sur votre cluster Proxmox (même si votre cluster n'est composé que d'un seul noeud). Il s'agit d'un système de monitoring intégré qui permet aux administrateurs de suivre l'état des tâches système.
+Le journal des activités (aussi appelé "Task Log" ou "Journal des tâches") est un panneau d'information en temps réel qui affiche toutes les opérations et processus en cours d'exécution sur votre cluster Proxmox (même si votre cluster n'est composé que d'un seul nœud). Il s'agit d'un système de monitoring intégré qui permet aux administrateurs de suivre l'état des tâches système.
 
 ![JournalActivites](../Assets/03/JournalActivites.png)
 
@@ -328,11 +328,11 @@ La barre au haut de l'interface graphique comporte également plusieurs élémen
 
 - Un endroit pour effectuer une recherche à travers votre infrastructure. Cela peut sembler banal, mais si vous gérez plusieurs centaines de machines virtuelles et de conteneurs, cela s'avère très pratique pour en repérer une rapidement.
 
-- Un bouton vers <mark>**toute la documentation**</mark> de l'hyperviseur Proxmox. Cette documentation vaut de l'or. Si vous avez une question quant à une action à réaliser ou une opération à effectuer, la réponse s'y trouve forcémment.
+- Un bouton vers <mark>**toute la documentation**</mark> de l'hyperviseur Proxmox. Cette documentation vaut de l'or. Si vous avez une question quant à une action à réaliser ou une opération à effectuer, la réponse s'y trouve forcément.
 
 - Deux boutons pour la création de *VMs* et de conteneurs.
 
-- Plusieurs boutons pour interragir avec vos *VMs* et conteneurs:
+- Plusieurs boutons pour interagir avec vos *VMs* et conteneurs:
     - Démarrage
     - Arrêt
     - Accès à la console

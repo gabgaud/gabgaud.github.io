@@ -1,0 +1,103 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 6
+
+## Sauvegardes et restaurations 💾
+
+Les sauvegardes constituent un élément fondamental de tout déploiement informatique sérieux. Dans l'environnement de virtualisation Proxmox VE, la sauvegarde devient encore plus critique car elle protège non seulement les données, mais également l'infrastructure virtuelle complète.
+
+<span class="green-text fonttaller">**Pourquoi sauvegarder dans un environnement virtualisé ?**</span><br/><br/>
+
+- Protection contre les pannes matérielles du serveur hôte
+- Récupération rapide après une corruption de données
+- Migration vers de nouveaux équipements
+- Tests et développement sur des copies exactes de production
+- Conformité aux politiques de sécurité informatique
+
+### Caractéristiques du système de sauvegarde Proxmox VE
+
+Proxmox VE offre une solution de sauvegarde complètement intégrée qui présente plusieurs avantages distinctifs :
+
+<span class="green-text fonttaller">**Sauvegardes complètes uniquement:**</span><br/><br/>
+
+- Chaque sauvegarde contient l'intégralité de la machine virtuelle ou du conteneur
+- Inclut automatiquement la configuration de la VM/CT et toutes les données
+- Pas de gestion complexe de sauvegardes incrémentales ou différentielles
+- Simplicité de restauration : une seule archive suffit
+
+<span class="green-text fonttaller">**Intégration native:**</span><br/><br/>
+
+- Utilise les capacités spécifiques de chaque type de stockage
+- S'adapte aux différents types de systèmes invités (VM et conteneurs)
+- Interface graphique et ligne de commande disponibles
+- Gestion centralisée depuis l'interface web
+
+## Architecture et stockage des sauvegardes
+
+### Types de stockage pour les sauvegardes
+
+Avant de pouvoir effectuer une sauvegarde, il est impératif de configurer un stockage de sauvegarde. Proxmox VE supporte deux approches principales :
+
+#### Proxmox Backup Server 
+
+Le Proxmox Backup Server représente la solution la plus avancée :
+
+<span class="green-text">**Avantages techniques:**</span><br/><br/>
+
+- **Déduplication de données :** Les blocs identiques ne sont stockés qu'une seule fois, économisant considérablement l'espace
+- **Stockage des métadonnées :** Les informations de structure sont séparées des données
+- **Chiffrement côté client :** Sécurité maximale des données sauvegardées
+- **Vérification d'intégrité :** Contrôles automatiques de l'intégrité des sauvegardes
+
+<span class="green-text">**Mise en oeuvre recommandée:**</span><br/><br/>
+
+- Déploiement sur un serveur dédié pour optimiser les performances
+- Réseau haute vitesse entre Proxmox VE et le Backup Server
+- Stockage local rapide sur le serveur de sauvegarde
+
+#### Stockage de niveau fichier
+
+Alternative plus simple utilisant des systèmes de fichiers classiques :
+
+<span class="green-text">**Options disponibles:**</span><br/><br/>
+
+- **NFS :** Solution réseau éprouvée, facile à mettre en œuvre
+- **SMB/CIFS :** Compatible avec les environnements Windows
+- **Stockage local :** Performance maximale mais pas de protection contre les pannes du serveur
+
+<span class="green-text">**Considérations pratiques:**</span><br/><br/>
+
+- Les sauvegardes sont stockées comme des fichiers réguliers
+- Possibilité de copie vers bande magnétique pour archivage hors site
+- Gestion manuelle de l'espace disque nécessaire
+
+### Nomenclature des fichiers de sauvegarde
+
+Proxmox VE utilise une convention de nommage standardisée qui encode des informations importantes :
+
+<span class="green-text">**Format standard:**</span><br/><br/>
+
+```
+vzdump-[type]-[vmid]-[date]-[heure].[extension]
+```
+
+<span class="green-text">**Exemple concret:**</span><br/><br/>
+
+```
+vzdump-lxc-105-2025_09_08-10_47_09.tar.gz
+```
+
+- `lxc`: Type de système (conteneur Linux)
+- `105`: Identifiant numérique de la VM/conteneur
+- `2025_09_08`: Date de création (8 septembre 2025)
+- `10_47_09`: Heure de création (10:47:09)
+- `.tar.gz`: Format et compression utilisés
+
+<span class="green-text">**Avantages de cette nomenclature:**</span><br/><br/>
+- Stockage multiple dans le même répertoire
+- Identification rapide du contenu
+- Tri chronologique automatique
+- Compatibilité avec les scripts d'automatisation

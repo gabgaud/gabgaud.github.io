@@ -117,7 +117,7 @@ En entreprise, il est plutôt rare (mais pas impossible...) que vous arriviez ne
 
 #### Microsoft Active Directory
 
-Je crois que je n'ai plus besoin de vous le présenter 😉... Tel que mentionné ci-dessus, *Active Directory* est un ensemble de services (dont LDAP) permettant de centraliser et de sécuriser les différents comptes d'utilisateur d'une entreprise. *Active Directory* possède plus de fonctionnalités que le simple protocole LDAP.
+Je crois que je n'ai plus besoin de vous le présenter 😉... Comme mentionné ci-dessus, *Active Directory* est un ensemble de services (dont LDAP) permettant de centraliser et de sécuriser les différents comptes d'utilisateur d'une entreprise. *Active Directory* possède plus de fonctionnalités que le simple protocole LDAP.
 
 Le principal avantage d'*AD*, c'est qu'il est généralement déjà implanté dans la plupart des entreprises. En l'intégrant à Proxmox, les utilisateurs pourraient conserver leur nom d'utilisateur ainsi que leur mot de passe pour ouvrir une session sur Proxmox. C'est un avantage assez considérable.
 
@@ -169,8 +169,8 @@ L'utilisateur `root@pam` est l'administrateur suprême de Proxmox VE:
 **Caractéristiques spéciales:**
 - Ne peut jamais être supprimé
 - A automatiquement tous les privilèges
-- Reçoit tous les e-mails système importants
-- Peut toujours se connecter même si les autres domaine d'authentification sont en panne
+- Reçoit tous les courriels système importants
+- Peut toujours se connecter même si les autres domaines d'authentification sont en panne
 
 **Bonnes pratiques:**
 - 🚨 **<mark>Utilisez le <u>uniquement pour la configuration initiale et les urgences</u></mark>** 🚨
@@ -250,7 +250,7 @@ Les groupes viennent résoudre ce problème:
 - **Maintenance:** Ajouter/retirer un utilisateur d'un groupe = changer ses permissions
 - **Lisibilité:**  Plus facile de comprendre qui a accès à quoi
 
-La méthodologie **RBAC** nous a appris que le (ou les) rôle d'affaire qu'occupe un employé doit déterminer les permissions de cet utilisateur. Sous Proxmox, les permissions regroupés en rôles (PVEVMUser par exemple). Ces rôles peuvent, à leur tour, être attitrés à des groupes d'utilisateurs. Ainsi, lorsque vous déterminez le, ou les groupes auxquels appartient un utilisateur, vous déterminez du même coup ses permissions.
+La méthodologie **RBAC** nous a appris que le (ou les) rôle d'affaires qu'occupe un employé doit déterminer les permissions de cet utilisateur. Sous Proxmox, les permissions regroupées en rôles (PVEVMUser par exemple). Ces rôles peuvent, à leur tour, être attitrés à des groupes d'utilisateurs. Ainsi, lorsque vous déterminez le, ou les groupes auxquels appartient un utilisateur, vous déterminez du même coup ses permissions.
 
 #### Via l'interface Web
 
@@ -314,24 +314,24 @@ pveum user modify marie@pve --groups "vm-admins,project-beta"
 
 Un **privilège** représente une action spécifique qu'un utilisateur peut effectuer. C'est le niveau le plus granulaire des permissions. Voici les principales catégories:
 
-#### Privilèges liés aux noeuds et au système
+#### Privilèges liés aux nœuds et au système
 
 |Nom du privilège|Description|Permet de...|
 |----------------|-----------|------------|
-|`Sys.PowerMgmt`|Contrôle de l'alimentation des noeuds|Redémarrer, arrêter, mettre en veille un serveur Proxmox|
-|`Sys.Console`|Accès à la console du noeud|Ouvrir une session shell sur le serveur Proxmox<br/> ⚠️**Attention, le shell est en accès root**⚠️|
-|`Sys.Audit`|Consultation des informations système|Voir l'état des noeuds, la configuration du cluster et les logs|
-|`Sys.Modify`|Modification de la configuration réseau des noeuds.|Configuration des *bonds* ou des *bridges*|
+|`Sys.PowerMgmt`|Contrôle de l'alimentation des nœuds|Redémarrer, arrêter, mettre en veille un serveur Proxmox|
+|`Sys.Console`|Accès à la console du nœud|Ouvrir une session shell sur le serveur Proxmox<br/> ⚠️**Attention, le shell est en accès root**⚠️|
+|`Sys.Audit`|Consultation des informations système|Voir l'état des nœuds, la configuration du cluster et les logs|
+|`Sys.Modify`|Modification de la configuration réseau des nœuds.|Configuration des *bonds* ou des *bridges*|
 
 :::danger
-Les permissions relatives à la gestion des noeuds ne devraient en aucune circonstance être attribuées à la légère. Des mauvaises manipulations sur les noeuds peuvent aisément mettre en péril la production d'une entreprise.
+Les permissions relatives à la gestion des nœuds ne devraient en aucune circonstance être attribuées à la légère. De mauvaises manipulations sur les nœuds peuvent aisément mettre en péril la production d'une entreprise.
 :::
 
 #### Privilèges liés aux machines virtuelles
 
 |Nom du privilège|Description|Permet de...|
 |----------------|-----------|------------|
-|`VM.Allocate`|Création et suppression de *VMs*|Créér de nouvelles *VMs*, supprimer des *VMs* existantes|
+|`VM.Allocate`|Création et suppression de *VMs*|Créer de nouvelles *VMs*, supprimer des *VMs* existantes|
 |`VM.PowerMgmt`|Gestion de l'alimentation des *VMs*|Démarrer, arrêter, redémarrer, mettre en pause des *VMs*|
 |`VM.Console`|Accès à la console des *VMs*|Ouvrir une session console dans la *VM*|
 |`VM.Config.*`|Modification de la configuration des *VMs*|`VM.Config.Disk`: Ajouter/Modifier/Supprimer des disques<br/>`VM.Config.Network`: Modifier la configuration réseau<br/> `VM.Config.Memory`: Changer la quantité de RAM<br/>`VM.Config.CPU`: Modifier les paramètres CPU|
@@ -349,7 +349,7 @@ Un **rôle** est un ensemble cohérent de privilèges regroupés. Au lieu d'attr
 
 |Nom du rôle|Description|Privilèges|Notes|
 |-----------|-----------|----------|-----|
-|Administrator|Accès complet à tout le système|<span class="red-text">**TOUS**</span>|Généralement réservé aux administrateurs système senior|Ces utilisateurs peuvent détruire le système au complet|
+|Administrator|Accès complet à tout le système|<span class="red-text">**TOUS**</span>|Généralement réservé aux administrateurs système seniors|Ces utilisateurs peuvent détruire le système au complet|
 |PVEAdmin|Administration générale sans les privilèges système critiques|Tous sauf `Sys.PowerMgmt`, `Sys.Modify` et `Permissions.Modify`|Ne peut pas modifier les permissions ou encore éteindre les serveurs|
 |PVEVMAdmin|Administration complète des machines virtuelles|Tous les privilèges préfixés `VM.*`|Peut créer, configurer, démarrer et sauvegarder les *VMs*|
 |PVEVMUser|Utilisation basique des *VMs*|`VM.Console`, `VM.PowerMgmt`, `VM.Config.CDROM`|Peut démarrer/arrêter leurs *VMs*, accéder à la console, changer les CD-ROMS|
@@ -423,7 +423,7 @@ Dans Proxmox VE, chaque ressource est identifiée par un **chemin hiérarchique*
 :::important
 Certains chemins peuvent contenir des **variables** qui sont remplacées dynamiquement selon le contexte :
 
-**\{node\}**-Remplacé par le nom du noeud:<br/>
+**\{node\}**-Remplacé par le nom du nœud:<br/>
 `/nodes/{node}/status` devient alors `/nodes/pve1/status`
 
 **\{vmid\}**-Remplacé par le nom de la *VM*:<br/>
@@ -439,7 +439,7 @@ L'héritage permet qu'une permission accordée à un niveau supérieur soit auto
 
 **Exemple d'héritage:**
 
-Un utilisateur se voit accordé les permissions sur `/vms` avec le rôle **PVEVMAdmin**<br/>
+Un utilisateur se voit accorder les permissions sur `/vms` avec le rôle **PVEVMAdmin**<br/>
 ⬇️ (héritage)<br/>
 L'utilisateur aura donc les permissions du rôle **PVEVMAdmin** sur `/vms/100`, `/vms/101`, `/vms/102`, etc.
 
@@ -449,7 +449,7 @@ L'utilisateur aura donc les permissions du rôle **PVEVMAdmin** sur `/vms/100`, 
 
 * * *
 
-2. <span class='green-text'>**La permission spécifique prime sur la permission général.**</span><br/><br/>Le groupe *DEVS* possède le rôle **PVEVMAdmin** sur `/vms`.<br/><br/> Le même groupe possède le rôle **PVEVMUser** sur `/vms/100`.<br/>Au final, le groupe *DEVS* aura **PVEVMUser** sur `/vms/100`.
+2. <span class='green-text'>**La permission spécifique prime sur la permission générale.**</span><br/><br/>Le groupe *DEVS* possède le rôle **PVEVMAdmin** sur `/vms`.<br/><br/> Le même groupe possède le rôle **PVEVMUser** sur `/vms/100`.<br/>Au final, le groupe *DEVS* aura **PVEVMUser** sur `/vms/100`.
 
 * * *
 
@@ -496,7 +496,7 @@ Pour donner accès aux ressources à l'équipe de travail, nous devrions créer 
 3. Permissions d'administration sur la VM102
 4. Permissions d'utilisation du *datastore* e-commerce data
 
-La création d'un *pool*, quant à elle, nous permettrais de rassembler toutes ces ressources dans un bassin et d'attribuer une seule permission sur l'entièreté de celui-ci. L'utilisation des *pools* nous permet donc de:
+La création d'un *pool*, quant à elle, nous permettrait de rassembler toutes ces ressources dans un bassin et d'attribuer une seule permission sur l'entièreté de celui-ci. L'utilisation des *pools* nous permet donc de:
 
 - **Simplifier les permissions**: Une permission au lieu de plusieurs
 - **Créer une cohérence**: Toutes les ressources du projet ont les mêmes accès
@@ -536,12 +536,12 @@ Lorsque vous aurez créé votre *pool*, celui-ci apparaitra dans le volet de gau
 ![AddPoolMember](../Assets/04/AddPoolMember.png)
 
 :::tip
-Vous pouvez ajouter une machine virtuelle à un *pool* dès sa création en sélectionnant ce-dernier au moment approprié lors du processus de création.
+Vous pouvez ajouter une machine virtuelle à un *pool* dès sa création en sélectionnant ce dernier au moment approprié lors du processus de création.
 :::
 
 ##### Stratégies d'organisation
 
-Il existe différente méthode de travail en ce qui concerne l'organisation des ressources. Voici différentes façons d'organiser vos ressources:
+Il existe différentes méthodes de travail en ce qui concerne l'organisation des ressources. Voici différentes façons d'organiser vos ressources:
 
 ###### Organisation par projet
 
