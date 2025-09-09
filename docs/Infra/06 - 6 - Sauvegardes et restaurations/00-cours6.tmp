@@ -166,4 +166,47 @@ Ce mode est maintenu pour compatibilité, mais le mode snapshot est généraleme
 
 #### Mode SNAPSHOT (Instantané) 📸
 
-Le mode snapshot représente le meilleur compromis pour la plupart des cas d'usage en production.
+Le mode snapshot représente le meilleur compromis pour la plupart des cas d'usage en production. Imaginez que vous photographiez un paysage depuis une voiture en mouvement. Le mode snapshot fait exactement cela : il "photographie" les données d'une VM pendant qu'elle continue de fonctionner.
+
+<span class="green-text fonttaller">**Pour les *VMs* :**</span><br/><br/>
+
+**Comment ça fonctionne concrètement:**
+
+**Étape 1: Installation du surveillant**
+- La *VM* fonctionne normalement. 
+- QEMU installe un « intercepteur » qui surveille tous les disques.
+- La *VM* ne remarque rien et continue son travail.
+
+**Étape 2: Processus de copie intelligent**
+- Le processus de sauvegarde démarre et commence à lire le disque
+- La VM continue d'écrire sur le disque en même temps !
+- **Solution :** quand la VM veut écrire sur une zone pas encore copiée, l'intercepteur dit "STOP ! Je copie d'abord l'ancienne version"
+- Une fois l'ancienne version copiée, la VM peut écrire la nouvelle
+
+**Rôle de l'agent invité (optionnel mais recommandé):**
+
+L'agent **QEMU** permet d'améliorer le processus de sauvegarde en mode *snapshopt* en maintenant une communication avec l'hperviseur. Voici le flux des étapes d'une sauvegarde dans ce mode avec l'agent **QEMU** installé:
+
+1. L'agent reçoit le signal: « Prépare-toi pour une sauvegarde ».
+2. L'agent dit aux applications: « Videz vos mémoires caches respectives ».
+3. L'agent gèle le système de fichiers (2-3 secondes).
+4. La sauvegarde démarre avec un état cohérent.
+5. L'agent dégèle le système.
+
+:::caution[Avec Windows]
+Windows peut avoir plusieurs logiciels qui « gèlent » le système (antivirus, autres sauvegardes). L'agent QEMU coordonne tout cela pour éviter les conflits.
+:::
+
+<span class="green-text fonttaller">**Pour les conteneurs LXC :**</span><br/><br/>
+
+:::caution
+Pour les conteneurs, le mode « snapshot » utilise les vraies fonctionnalités de snapshot du système de stockage. Il s'agit donc d'un véritable *snapshot* et non pas d'une sauvegarde de type *snapshot*. 
+
+Voir [cette section](../05%20-%205%20-%20Administration%20de%20VMs%20avancée/00-cours5.md#différencier-snapshots-et-backups-) pour bien distinguer les deux concepts sans ambiguité.
+:::
+
+## Fonctionnalités avancées 🛠️
+
+### *VM* Backup Fleecing - Accélérateur de sauvegarde
+
+Imaginez que vous voulez sauvegarder une machine virtuelle sans l'arrêter
