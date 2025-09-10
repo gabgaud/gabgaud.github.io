@@ -207,6 +207,137 @@ Voir [cette section](../05%20-%205%20-%20Administration%20de%20VMs%20avancée/00
 
 ## Fonctionnalités avancées 🛠️
 
-### *VM* Backup Fleecing - Accélérateur de sauvegarde
+### *VM Backup Fleecing* - Accélérateur de sauvegarde 🏎️
 
-Imaginez que vous voulez sauvegarder une machine virtuelle sans l'arrêter
+Imaginez que vous voulez sauvegarder une machine virtuelle pendant qu'elle tourne et offre des services. Éventuellement, la *VM* aura besoin de modifier un fichier sur le disque dur en cour de sauvegarde. L'agent interviendra alors et mentionne qu'il doit d'abord sauvegarder l'ancienne version. Cette sauvegarde de l'ancienne version peut causer un temps d'attente important, surtout si le stockage est externe. Les utilisateurs auront donc l'impression que leur ordinateur virtuel fonctionne mal et/ou est très lent.
+
+**La solution ?** <u>Une mémoire cache intermédiaire!</u>
+
+Le *fleecing* permet de déterminer un stockage tampon qui accueillera les fichiers en sauvegarde rapidement pour les relayer vers un périphérique plus lent par la suite.
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/Fleecing_W.svg'),
+            dark: useBaseUrl('/img/Virtu/Fleecing_D.svg'),
+        }}
+    />
+</div>
+
+#### Gestion de l'espace en *Fleecing*
+
+Tout comme pour les machines virtuelles, l'espace que vous allouée au *fleecing* peut employer une stratégie *thin provisionning* ou *thick provisionning*
+
+<span class="green-text fonttaller">**Thin provisionning :**</span><br/>
+
+Rien ne vaut un exemple pour rendre ces concepts un peu plus concrets. Disons que nous avons une machine virtuelle avec un poids de 100Go à sauvegarder. L'espace de *fleecing* commencera à 0Go et grandira selon les besoins. Ces besoins varieront en fonction de la vitesse avec laquelle les données passeont de l'espace de *fleecing* vers le stockage permanent. Évidemment, l'espace de *fleecing* ne dépassera jamais la taille de la machine virtuelle à sauvegarder. Une fois la sauvegarde terminé, l'espace de *fleecing* utilisé pourra être récupéré pour le même objectif dans le cas de la sauvegarde d'une autre *VM*.
+
+<span class="green-text fonttaller">**Thick provisionning :**</span><br/>
+
+Dans le cas du *thick provisionning*, c'est assez simple. Si nous avons une machine virtuelle avec un poids de 100Go, cette même valeur sera aussitôt réservée dans l'espace de *fleecing* et aucune autre machine virtuelle ne pourra y avoir accès.
+
+#### Scénarios
+
+- L'entreprise possède une infrastructure virtuelle sous Proxmox.
+- Un serveur de base de données virtuel tourne à l'intérieur de l'hyperviseur (Poids: 500Go).
+- Un disque dur NVMe est aussi présent dans Proxmox pour effectuer du *fleecing*.
+- Les sauvegardes sont stockés à distance sur un NAS.
+
+Sans *fleecing* :
+```bash
+vzdump 100 --storage nas-backup
+# Résultat : Base de données très lente pendant 2h de sauvegarde
+# Utilisateurs se plaignent des performances
+```
+Avec *fleecing* :
+```bash
+vzdump 100 --fleecing enabled=1,storage=nvme-local --storage nas-backup
+# Résultat : Base de données normale, sauvegarde discrète
+# Utilisateurs ne remarquent rien
+```
+
+Ce qui se passe :
+1. *VM* écrit → Ancienne donnée va sur NVMe local (rapide)
+2. *VM* continue normalement
+3. En arrière-plan : NVMe → NAS (sans impact sur la *VM*)
+4. Fin sauvegarde : Image de *fleecing* supprimée automatiquement
+
+## Compression et optimisation 🗜️
+
+Il est possible (et recommandé) de compresser les sauvegardes de vos machines virtuelles sous Proxmox. Je vous dresse ici les différents formats disponibles, ainsi que leurs caractéristiques respectives:
+
+|Algorithme|Format|Caractéristiques|
+|:----------:|:------:|----------------|
+|Lempel-Ziv-Oberhumer|LZO|<ul><li>Compression rapide avec faible utilisation CPU</li><li>Ratio de compression modéré</li><li>Excellent pour les environnements avec CPU limité</li><li>Installation par défaut sur la plupart des systèmes</li></ul>|
+|Gzip|GZ|<ul><li>Compression éprouvée basée sur l'algorithme DEFLATE</li><li>Bon équilibre compression/performance</li><li>Compatible universellement</li></ul>|
+|Pigz|TGZ|<ul><li>Remplacement de gzip</li><li>Utilisation de multiples cœurs CPU</li><li>Accélération significative sur matériel moderne</li></ul>|
+|Zstandard|ZST|<ul><li>Le plus rapide des algorithmes sous Proxmox</li><li>Parallélisation intégrée (Multithreading)</li><li>Excellent équilibre taille/vitesse</li><li>Adoption croissante dans l'industrie</li></ul>|
+
+## Planification et automatisation 🤖
+
+### Création de tâches de sauvegarde
+
+Via l'interface graphique: **Datacenter → Backup → Add**
+
+![BackupJob](../Assets/06/BackupJob.png)
+
+1. Serveur spécifique ou tous les nœuds du cluster
+2. Destination des sauvegardes
+3. Individuelle, par pool, ou toutes
+4. Format calendrier similaire à systemd
+
+### Options avancées
+
+![BackupAdvOptions](../Assets/06/BackupAdvOptions.png)
+
+#### Bandwith Limit 🕛
+Limite l'utilisation de la bande passante I/O ( **<span class="red-text">Attention:</span>** La bande passante I/O n'est pas forcémment lié au réseau ). Cela vous permet de ne pas surcharger un stockage partagé entre sauvegardes et machines virtuelles par exemple. Si vous laissez l'option par défaut, il n'y a pas de limite.
+
+#### Zstd Threads 🤹
+Il s'agit du nombre de *threads* (coeurs logiques) utilisés en parallèles par l'algorithme de compression Zstandard pendant la sauvegarde. Si vous indiquez `0`, la moitié des coeurs logiques seront utilisés pour la compression. Par exemple:
+
+**Serveur de 4 coeurs**
+```
+zstd: 0 → Utilise 2 threads (4÷2)
+zstd: 1 → Utilise 1 thread
+zstd: 4 → Utilise 4 threads
+```
+
+#### IO-Workers 🚧
+Un *IO-Worker* est un processus qui lit les données du disque dur de la VM pendant la sauvegarde. C'est différent de la compression!
+
+<span class="green-text fonttaller">**Comment ça fonctionne:**</span><br/><br/>
+
+**1 Worker (séquentiel):**
+```
+Lit bloc 1 → Attend compression → Lit bloc 2 → Attend compression...
+
+Timeline : |████|░░░░|████|░░░░|████|░░░░|
+            Read Wait Read Wait Read Wait
+```
+
+**Résultat:** Lent car beaucoup d'attente
+
+**4 Workers (parallèle):**
+```
+Worker 1 : |████|    |████|    |████|
+Worker 2 :      |████|    |████|    |████|
+Worker 3 :           |████|    |████|    |████|
+Worker 4 :                |████|    |████|    |
+Timeline : |██████████████████████████████████|
+```
+
+**Résultat:** Plus rapide car lecture continue
+
+:::caution[+ de workers ≠ + de performances automatiquement]
+En regardant les schémas ci-dessus, on aurait tendance à vouloir mettre la quantitée de *workers* au maximum. Néanmoins, selon les ressources physiques dont vous disposez, cela pourrait être une mauvaise idée. Tout dépend du type de disque(s) dur(s) que vous avez en place pour la sauvegarde.
+:::
+
+**Exemples de configurations possibles:**
+
+|Type de stockage|IO-Workers|Facteurs à considérer|
+|:--------------:|:--------:|---------------------|
+|NVMe / SSD| 32 | <ul><li>SSD peut gérer beaucoup d'accès parallèles</li><li>Pas de tête de lecture physique à déplacer</li><li>Latence très faible</li></ul>|
+|HDD Mécanique| 4 | <ul><li>Tête de lecture doit se déplacer physiquement</li><li>Trop de workers = thrashing (va-et-vient permanent)</li><li>Performance dégradée avec trop de parallélisme</li></ul>|
+|Stockage réseau| 8 | <ul><li>Latence réseau</li><li>Bande passante partagée</li><li>Capacité du stockage distant</li></ul>|
