@@ -361,8 +361,145 @@ La rétention définie la durée de conservation des sauvegardes selon différen
 - Protection contre les sauvegardes multiples avant maintenance
 
 <span class="green-text">**Rétention temportelle:**</span>
-- `keep-hourly` : Dernières N heures (une sauvegarde par heure max)
-- `keep-daily` : Derniers N jours (une sauvegarde par jour max)
-- `keep-weekly` : Dernières N semaines (une sauvegarde par semaine max)
-- `keep-monthly` : Derniers N mois (une sauvegarde par mois max)
-- `keep-yearly` : Dernières N années (une sauvegarde par an max)
+- `keep-hourly` : Dernières N heures (une sauvegarde par heure max.)
+- `keep-daily` : Derniers N jours (une sauvegarde par jour max.)
+- `keep-weekly` : Dernières N semaines (une sauvegarde par semaine max.)
+- `keep-monthly` : Derniers N mois (une sauvegarde par mois max.)
+- `keep-yearly` : Dernières N années (une sauvegarde par an max.)
+
+### Exemples avec scénarios
+
+<span class="green-text fonttaller">**Premier scénario:**</span>
+
+**Planification:** Une sauvegarde, une fois par jour, à 1h00 am.<br/>
+
+**Options:**
+- `keep-daily`: 7
+- `keep-weekly`: 2
+- `keep-monthly`: 1
+
+<table>
+    <tr>
+        <td>Dim. 05 Oct. 2025<br/><mark>keep-daily 1</mark></td>
+        <td>Sam. 04 Oct. 2025<br/><mark>keep-daily 2</mark></td>
+        <td>Ven. 03 Oct. 2025<br/><mark>keep-daily 3</mark></td>
+        <td>Jeu. 02 Oct. 2025<br/><mark>keep-daily 4</mark></td>
+        <td>Mer. 01 Oct. 2025<br/><mark>keep-daily 5</mark></td>
+        <td>Mar. 30 Sept. 2025<br/><mark>keep-daily 6</mark></td>
+        <td>Lun. 29 Sept. 2025<br/><mark>keep-daily 7</mark></td>
+    </tr>
+    <tr>
+        <td>Dim. 28 Sept. 2025<br/><span style={{background: '#3eaf51ff'}}>keep-weekly 1</span></td>
+        <td>Sam. 27 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Ven. 26 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Jeu. 25 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mer. 24 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mar. 23 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Lun. 22 Sept. 2025<br/><s>backup 1:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 21 Sept. 2025<br/><span style={{background: '#3eaf51ff'}}>keep-weekly 2</span></td>
+        <td>Sam. 20 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Ven. 19 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Jeu. 18 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mer. 17 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mar. 16 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Lun. 15 Sept. 2025<br/><s>backup 1:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 14 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Sam. 13 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Ven. 12 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Jeu. 11 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mer. 10 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mar. 09 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Lun. 08 Sept. 2025<br/><s>backup 1:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 07 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Sam. 06 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Ven. 05 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Jeu. 04 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mer. 03 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Mar. 02 Sept. 2025<br/><s>backup 1:00</s></td>
+        <td>Lun. 01 Sept. 2025<br/><s>backup 1:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 31 Août 2025<br/><span style={{background: '#1e90ff'}}>keep-monthly 1</span></td>
+        <td>Sam. 30 Août. 2025<br/><s>backup 1:00</s></td>
+        <td>Ven. 29 Août 2025<br/><s>backup 1:00</s></td>
+        <td>Jeu. 28 Août 2025<br/><s>backup 1:00</s></td>
+        <td>Mer. 27 Août 2025<br/><s>backup 1:00</s></td>
+        <td>Mar. 26 Août 2025<br/><s>backup 1:00</s></td>
+        <td>Lun. 25 Août 2025<br/><s>backup 1:00</s></td>
+    </tr>
+</table>
+
+<span class="green-text fonttaller">**Deuxième scénario:**</span>
+
+**Planification:** Une sauvegarde, deux fois par jour, chaque 12h.<br/>
+
+**Options:**
+- `keep-hourly`: 4
+- `keep-daily`: 5
+- `keep-weekly`: 2
+
+<table>
+    <tr>
+        <td>Dim. 05 Oct. 2025<br/><span style={{background: '#800080'}}>keep-hourly 1<br/>keep-hourly 2</span></td>
+        <td>Sam. 04 Oct. 2025<br/><span style={{background: '#800080'}}>keep-hourly 3<br/>keep-hourly 4</span></td>
+        <td>Ven. 03 Oct. 2025<br/><mark>keep-daily 1</mark><br/><s>backup 0:00</s></td>
+        <td>Jeu. 02 Oct. 2025<br/><mark>keep-daily 2</mark><br/><s>backup 0:00</s></td>
+        <td>Mer. 01 Oct. 2025<br/><mark>keep-daily 3</mark><br/><s>backup 0:00</s></td>
+        <td>Mar. 30 Sept. 2025<br/><mark>keep-daily 4</mark><br/><s>backup 0:00</s></td>
+        <td>Lun. 29 Sept. 2025<br/><mark>keep-daily 5</mark><br/><s>backup 0:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 28 Sept. 2025<br/><span style={{background: '#3eaf51ff'}}>keep-weekly 1</span><br/><s>backup 0:00</s></td>
+        <td>Sam. 27 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Ven. 26 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Jeu. 25 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mer. 24 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mar. 23 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Lun. 22 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 21 Sept. 2025<br/><span style={{background: '#3eaf51ff'}}>keep-weekly 2</span><br/><s>backup 0:00</s></td>
+        <td>Sam. 20 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Ven. 19 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Jeu. 18 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mer. 17 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mar. 16 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Lun. 15 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+    </tr>
+    <tr>
+        <td>Dim. 14 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Sam. 13 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Ven. 12 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Jeu. 11 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mer. 10 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Mar. 09 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+        <td>Lun. 08 Sept. 2025<br/><s>backup 12:00<br/>backup 0:00</s></td>
+    </tr>
+</table>
+
+## Restauration 👻
+
+Vos sauvegardes peuvent évidemment être restaurés aisément. Voici comment procéder.
+
+### Via l'interface graphique
+
+**Datacenter → Noeud → *VM* concerné → Backup**
+
+![RestoreBackup](../Assets/06/Restore.png)
+
+### Via l'invite de commandes
+
+```bash
+qmrestore /var/lib/vz/dump/vzdump-qemu-100-2025_09_09-12_41_17.vma 100 --force
+```
+
+:::note
+La machine virtuelle que vous restaurez doit être éteinte.
+:::
+
