@@ -3,16 +3,16 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 7
+# Cours 8
 
 ## Gestion de réseau sous Proxmox 🌐
 
 **<span class="green-text fonttaller">Table des matières:</span>**
-    1. [Architecture de réseau Proxmox](./00-cours7.md#architecture-de-réseau-proxmox)
-    2. [Les bridges: le coeur du réseau](./00-cours7.md#les-bridges-le-coeur-du-réseau-)
-    3. [Agrégation de liens (*bonding*)](./00-cours7.md#bonding)
-    4. [VLANs et segmentation](./00-cours7.md#vlans-et-segmentation)
-    5. [Software Defined Networks](./00-cours7.md#software-defined-networks-sdn)
+    1. [Architecture de réseau Proxmox](./00-cours8.md#architecture-de-réseau-proxmox)
+    2. [Les bridges: le coeur du réseau](./00-cours8.md#les-bridges-le-coeur-du-réseau-)
+    3. [Agrégation de liens (*bonding*)](./00-cours8.md#bonding)
+    4. [VLANs et segmentation](./00-cours8.md#vlans-et-segmentation)
+    5. [Software Defined Networks](./00-cours8.md#software-defined-networks-sdn)
 
 ## Architecture de réseau Proxmox
 
@@ -428,3 +428,49 @@ Pour utiliser toutes les options disponibles dans *SDN* sous Proxmox, il vous fa
     systemctl enable frr.service # Lancement automatique
     ```
 :::
+
+### Exemple d'architecture SDN complète
+
+Voici une configuration en *SDN* valide pour une entreprise avec des environnements développement, test et production qui utilise également des *VLANs* à travers son infrastructure physique:
+
+```
+Zone: "enterprise-network" (type VLAN)
+├── VNet: "prod-web" (VLAN 10)
+│   └── Subnet: 192.168.10.0/24
+├── VNet: "prod-app" (VLAN 20)  
+│   └── Subnet: 192.168.20.0/24
+├── VNet: "prod-db" (VLAN 30)
+│   └── Subnet: 192.168.30.0/24
+├── VNet: "test-web" (VLAN 40)
+│   └── Subnet: 192.168.40.0/24
+└── VNet: "dev-all" (VLAN 50)
+    └── Subnet: 192.168.50.0/24
+```
+
+**Avec cette approche:**
+- Création d'une nouvelle VM : sélection du VNet, IP automatique
+- Ajout d'un environnement : création rapide de nouveaux VNets
+- Migration de VM : transparente entre nœuds
+- Audit : vision globale de l'architecture réseau
+
+
+## Pare-feu Proxmox 🔥
+
+Le pare-feu de Proxmox fonctionne à l'aide **4 niveaux** bien distincts 😩:
+
+1. **Niveau Datacenter:** Règles globales pour tout le cluster.
+2. **Niveau Noeud:** Règles pour un serveur Proxmox en particulier.
+3. **Niveau VM/Conteneur:** Règles spécifiques à chaque VM.
+4. **Niveau Vnet (SDN):** Règles pour les réseaux virtuels SDN.
+
+:::note[Parfois un 5ème niveau]
+Parfois le système d'exploitation d'une machine virtuelle possède, lui aussi, son propre pare-feu.
+:::
+
+> *Oui mais Gabriel, dois-je configurer 5 pares-feu pour ma machine virtuelle ?*
+>
+> *-Les étudiants*
+
+Je vous rasssure: **Non!**
+
+Peu importe leur destination, les paquets ne franchiront jamais plus de deux pares-feu (du moins dans Proxmox). Voici un schéma explicatif:
