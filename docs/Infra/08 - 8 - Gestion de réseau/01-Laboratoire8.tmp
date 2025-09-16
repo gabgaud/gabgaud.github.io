@@ -1,0 +1,20 @@
+# Laboratoire 7
+
+* * *
+
+## Conception de réseaux
+
+## Préalables ✅
+
+- Avoir consulté la théorie en lien avec ce cours.
+- Avoir complété le laboratoire précédent.
+
+## Objectifs 🎯
+
+À partir du laboratoire précédent, prenez le temps de réfléchir à comment vous organiseriez le réseau d'une telle infrastructure. Est-ce que vous utiliseriez plusieurs *bridges* ? Des *VLANs* ? Est-ce que Proxmox agirait à titre de Routeur ?
+
+## Livrable
+
+Faites un schéma de conception (je vous recommande d'utiliser [draw.io](https://app.diagrams.net/)) que vous me présenterez en m'expliquant vos choix et comment vous voyez la chose.
+
+Il y a plusieurs façons de procéder qui sont toutes valides. À vous de voir comment vous procéderez. *Pssst: je vous prépare à votre projet de fin d'études, ni vu ni connu 🤫*
