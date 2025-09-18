@@ -454,23 +454,34 @@ Zone: "enterprise-network" (type VLAN)
 - Audit : vision globale de l'architecture réseau
 
 
-## Pare-feu Proxmox 🔥
+## Pare-feux Proxmox 🔥
 
-Le pare-feu de Proxmox fonctionne à l'aide **4 niveaux** bien distincts 😩:
+Les pare-feux de Proxmox fonctionnent à l'aide **4 niveaux** bien distincts 😩:
 
 1. **Niveau Datacenter:** Règles globales pour tout le cluster.
 2. **Niveau Noeud:** Règles pour un serveur Proxmox en particulier.
 3. **Niveau VM/Conteneur:** Règles spécifiques à chaque VM.
 4. **Niveau Vnet (SDN):** Règles pour les réseaux virtuels SDN.
 
-:::note[Parfois un 5ème niveau]
-Parfois le système d'exploitation d'une machine virtuelle possède, lui aussi, son propre pare-feu.
-:::
-
-> *Oui mais Gabriel, dois-je configurer 5 pares-feu pour ma machine virtuelle ?*
+> *Oui mais Gabriel, dois-je configurer 4 pare-feux pour ma machine virtuelle ?*
 >
 > *-Les étudiants*
 
 Je vous rasssure: **Non!**
 
-Peu importe leur destination, les paquets ne franchiront jamais plus de deux pares-feu (du moins dans Proxmox). Voici un schéma explicatif:
+Peu importe leur destination, les paquets ne franchiront jamais plus de deux pare-feux (du moins dans Proxmox). La gestion des pare-feux sous Promox peut rapidement devenir un véritable casse-tête. Ne vous attendez pas à être à l'aise dès vos premières manipulations, la logique est difficile au départ.
+
+**Éléments clés à retenir:**
+
+1. Le pare-feu Datacenter s'applique à TOUT le trafic entrant (provenant de l'extérieur).
+2. Le pare-feu du noeud ne s'applique qu'au trafic entrant, sortant ou transigeant par Proxmox.
+3. Les pare-feux *VNet* et *VM* sont mutuellement exclusifs:
+    - *VM* sur *VNet* → Utilise les règles VNet ou du noeud.
+    - *VM* classique → Utilise les règles *VM*
+
+**Pour vous guider, voici une matrice qui vous aidera à déterminer le, ou les pare-feux en cause:**
+
+|SOURCE|DESTINATION|PARE-FEUX TRAVERSÉS|CONFIGURATION REQUISE|
+|------|-----------|-------------------|---------------------|
+|Internet/Externe|VM sur Vnet|Datacenter et Vnet|<ul><li>Datacenter: Règles globales</li><li>VNet: Règles spécifiques au réseau</li></ul>|
+|Internet/Externe|VM Classique|Datacenter et VM|<ul><li>Datacenter: Règles globales</li><li>VM: Règles individuelles</li></ul>|
