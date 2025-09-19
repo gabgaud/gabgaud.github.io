@@ -481,7 +481,12 @@ Peu importe leur destination, les paquets ne franchiront jamais plus de deux par
 
 **Pour vous guider, voici une matrice qui vous aidera à déterminer le, ou les pare-feux en cause:**
 
-|SOURCE|DESTINATION|PARE-FEUX TRAVERSÉS|CONFIGURATION REQUISE|
-|------|-----------|-------------------|---------------------|
-|Internet/Externe|VM sur Vnet|Datacenter et Vnet|<ul><li>Datacenter: Règles globales</li><li>VNet: Règles spécifiques au réseau</li></ul>|
-|Internet/Externe|VM Classique|Datacenter et VM|<ul><li>Datacenter: Règles globales</li><li>VM: Règles individuelles</li></ul>|
+| **SOURCE → / DESTINATION ↓** | **Internet/Externe** | **Réseau Local** | **VM VNet A** | **VM VNet B** | **VM Classique** | **Proxmox** |
+|------------------------------|---------------------|------------------|---------------|---------------|------------------|-------------|
+| **VM sur VNet A** | Datacenter → VNet A | Datacenter → VNet A | VNet A (interne) | VNet B → Nœud → VNet A | VM → Nœud → VNet A | Nœud → VNet A |
+| **VM sur VNet B** | Datacenter → VNet B | Datacenter → VNet B | VNet A → Nœud → VNet B | VNet B (interne) | VM → Nœud → VNet B | Nœud → VNet B |
+| **VM Classique** | Datacenter → VM | Datacenter → VM | VNet A → Nœud → VM | VNet B → Nœud → VM | VM → VM * | Nœud → VM |
+| **Proxmox (8006/22)** | Datacenter → Nœud | Datacenter → Nœud | VNet A → Nœud | VNet B → Nœud | VM → Nœud | Nœud (local) |
+| **Internet/Externe** | - | - | VNet A → Datacenter | VNet B → Datacenter | VM → Datacenter | Nœud → Datacenter |
+
+**\* VM → VM** : Direct si même bridge, via **Nœud** si bridges différents
