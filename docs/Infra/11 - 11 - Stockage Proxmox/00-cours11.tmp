@@ -5,3 +5,47 @@ import TabItem from '@theme/TabItem';
 
 # Cours 11
 
+## Le stockage en virtualisation 💾
+
+Contrairement à un ordinateur physique où vous avez un disque dur, dans Proxmox vous devez :
+
+1. **Décider où** stocker vos VMs (quel disque physique ?)
+2. **Choisir comment** les stocker (quel format ?)
+3. **Gérer l'espace** entre plusieurs VMs
+4. **Prévoir les sauvegardes** et les snapshots
+5. **Optimiser les performances** selon vos besoins
+
+À la fin de ce cours, vous saurez :
+- **Comprendre** les différentes options de stockage
+- **Choisir** la solution adaptée à vos besoins
+- **Configurer** le stockage correctement
+- **Résoudre** les problèmes courants
+
+## LVM - *Logical Volume Manager*
+
+Par défaut, Proxmox utilise la technologie `LVM` pour l'ensemble de ses stockages. `LVM` est une couche d'abstraction logicielle que l'on applique par dessus la configuration **régulière** des disques durs. Sans `LVM`, une configuration avec deux disques dur pourraient ressembler à ceci:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/disques_W.svg'),
+            dark: useBaseUrl('/img/Virtu/disques_D.svg'),
+        }}
+    />
+</div>
+
+Avec `LVM`, on pourrait redécouper le tout, sans se soucier des disques ou même des partitions:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/LVM_W.svg'),
+            dark: useBaseUrl('/img/Virtu/LVM_D.svg'),
+        }}
+    />
+</div>
+
+Dans une architecture `LVM`, les disques physiques sont appelés des **PV** (*Physical Volume*). Un regroupement de disques se nomme un **VG** (*Volume Group*). Attention, un **VG** n'est pas obligatoirement l'hôte de plusieurs disques durs. En effet, un **VG** peut contenir un seul disque. Les **LV** (*Logical Volume*), constituent les emplacements disponibles pour utilisation.
+
