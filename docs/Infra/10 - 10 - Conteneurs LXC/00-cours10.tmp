@@ -92,3 +92,27 @@ Il est impossible d'utiliser un noyau différent de l'hôte d'une part. De plus,
 ### Sécurité
 
 Nous en avons parlé un peu plus haut, l'isolation est moins étanche qu'avec une vraie machine virtuelle. Les vulnérabilités du noyau hôte seront celles du conteneur LXC également. Les conteneurs privilégiés peut poser un risque encore plus accrue.
+
+### Compatibilité
+
+Certaines applications dites *legacy* (plus anciennes) nécessitent une machine virtuelle complète. L'installation de pilotes personnalisés, tel que nous l'avons fait avec les pilotes *virtio* est impossible dans les conteneurs LXC.
+
+## Modèles disponibles
+
+### Distributions principales
+
+Proxmox fournit plusieurs modèles de conteneur pré-configurés et prêts à l'emploi. Vous y retrouverez des distributions populaires telles que **Ubuntu**, **Debian**, **CentOS**, **Fedora** et bien d'autres. Pour retrouver ces modèles, dirigez-vous dans votre stockage *local*, cliquez sur *CT Templates* puis sur *Templates*.
+
+![CTTemplates](../Assets/10/CTTemplates.png)
+
+![Templates](../Assets/10/Templates.png)
+
+:::caution
+L'utilisation d'un modèle pour la création d'un conteneur LXC est obligatoire. Vous ne pouvez pas créer un conteneur LXC depuis rien. Vous devrez, minimalement, choisir un OS sur lequel vous appuyer.
+:::
+
+### Applications pré-configurées
+
+*Turnkey* est une organisation qui offre des modèles de conteneur LXC avec des applications prêtes à l'emploi à l'intérieur. Ainsi, en l'espace de quelques secondes ou de quelques clics, vous pouvez faire tourner un serveur web. Le plus beau ? C'est que *TurnKey* a intégré ces modèles à Proxmox.
+
+![TurnKey](../Assets/10/TurnKey.png)

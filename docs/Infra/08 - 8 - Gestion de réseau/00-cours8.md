@@ -13,6 +13,7 @@ import TabItem from '@theme/TabItem';
     3. [Agrégation de liens (*bonding*)](./00-cours8.md#bonding)
     4. [VLANs et segmentation](./00-cours8.md#vlans-et-segmentation)
     5. [Software Defined Networks](./00-cours8.md#software-defined-networks-sdn)
+    6. [Pare-feu](./00-cours8.md#pare-feux-proxmox-)
 
 ## Architecture de réseau Proxmox
 
