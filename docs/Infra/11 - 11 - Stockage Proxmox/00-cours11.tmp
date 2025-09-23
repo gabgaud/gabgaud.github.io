@@ -49,3 +49,9 @@ Avec `LVM`, on pourrait redécouper le tout, sans se soucier des disques ou mêm
 
 Dans une architecture `LVM`, les disques physiques sont appelés des **PV** (*Physical Volume*). Un regroupement de disques se nomme un **VG** (*Volume Group*). Attention, un **VG** n'est pas obligatoirement l'hôte de plusieurs disques durs. En effet, un **VG** peut contenir un seul disque. Les **LV** (*Logical Volume*), constituent les emplacements disponibles pour utilisation.
 
+Le problème avec la technologie `LVM` standard, c'est qu'elle ne supporte que le *Thick Provisionning*. Autrement dit, si vous désirez octroyer un disque dur virtuel de 500Go à une machinve virtuelle, il vous faudra bloquer 500Go d'espace disque physique. Ce n'est pas très pratique et encore moins optimal.
+
+## LVM - Thin
+
+Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement à l'aide d'un *pool* de stockage partagé. Avec cette méthode, nous sommes capable de faire de l'allocation d'espace à la demande (*Thin-Provisionning*).
+
