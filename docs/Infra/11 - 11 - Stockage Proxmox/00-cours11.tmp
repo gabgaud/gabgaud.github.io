@@ -49,9 +49,34 @@ Avec `LVM`, on pourrait redécouper le tout, sans se soucier des disques ou mêm
 
 Dans une architecture `LVM`, les disques physiques sont appelés des **PV** (*Physical Volume*). Un regroupement de disques se nomme un **VG** (*Volume Group*). Attention, un **VG** n'est pas obligatoirement l'hôte de plusieurs disques durs. En effet, un **VG** peut contenir un seul disque. Les **LV** (*Logical Volume*), constituent les emplacements disponibles pour utilisation.
 
-Le problème avec la technologie `LVM` standard, c'est qu'elle ne supporte que le *Thick Provisionning*. Autrement dit, si vous désirez octroyer un disque dur virtuel de 500Go à une machinve virtuelle, il vous faudra bloquer 500Go d'espace disque physique. Ce n'est pas très pratique et encore moins optimal.
+Le problème avec la technologie `LVM` standard, c'est qu'elle ne supporte que le *Thick Provisionning*. Autrement dit, si vous désirez octroyer un disque dur virtuel de 500Go à une machinve virtuelle, il vous faudra bloquer 500Go d'espace disque physique. Ce n'est pas très pratique et encore moins optimal lorsqu'on parle d'environnement virtuel.
 
-## LVM - Thin
+## LVM - *Thin*
 
-Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement à l'aide d'un *pool* de stockage partagé. Avec cette méthode, nous sommes capable de faire de l'allocation d'espace à la demande (*Thin-Provisionning*).
+Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement à l'aide d'un *pool* de stockage partagé. Avec cette méthode, nous sommes capable de faire de l'allocation d'espace à la demande (*Thin-Provisionning*) et même de l'*over-provisionning*.
 
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/LVM-Thin_W.svg'),
+            dark: useBaseUrl('/img/Virtu/LVM-Thin_D.svg'),
+        }}
+    />
+</div>
+
+Dans le schéma ci-dessus, vous remarquerez que le serveur Proxmox est équipé de deux disques durs de 500Go. Or, 700Go ont été alloués au total aux différentes machines virtuelles. Il sera donc primordial de surveiller l'utilisation de l'espace disque physique pour éviter des problèmes de corruptions et de manque d'espace.
+
+## Par défaut
+
+Voici comment est configuré et découpé le stockage d'une installation Proxmox standard. Pour l'exemple, prenons un simple disque de 250Go:
+
+```
+SSD 250GB (sda)
+├── Partition 1 : BIOS boot (1MB)
+├── Partition 2 : Boot EFI (1GB) 
+└── Partition 3 : LVM Proxmox (249GB)
+    ├── Swap : 8GB
+    ├── Système : 72GB  
+    └── Thin Pool : 150GB (pour vos VMs)
+```
