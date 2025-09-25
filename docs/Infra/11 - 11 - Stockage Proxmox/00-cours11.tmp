@@ -65,18 +65,140 @@ Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement 
     />
 </div>
 
-Dans le schéma ci-dessus, vous remarquerez que le serveur Proxmox est équipé de deux disques durs de 500Go. Or, 700Go ont été alloués au total aux différentes machines virtuelles. Il sera donc primordial de surveiller l'utilisation de l'espace disque physique pour éviter des problèmes de corruptions et de manque d'espace.
+Dans le schéma ci-dessus, vous remarquerez que le serveur Proxmox est équipé de deux disques durs de 500Go. Or, 700Go ont été alloués au total aux différentes machines virtuelles. <span class="yellow-text">Il sera donc primordial de surveiller l'utilisation de l'espace disque physique pour éviter des problèmes de corruptions et de manque d'espace.</span>
 
-## Par défaut
+## Configuration par défaut
 
 Voici comment est configuré et découpé le stockage d'une installation Proxmox standard. Pour l'exemple, prenons un simple disque de 250Go:
 
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/LVM-Thin-Tech_W.svg'),
+            dark: useBaseUrl('/img/Virtu/LVM-Thin-Tech_D.svg'),
+        }}
+    />
+</div>
+
+*Cette configuration est visible depuis l'interface graphique:*
+![ConfigDefaut](../Assets/11/ConfigDefaut.png)
+
+### Détails techniques ⚙️
+
+- **SDA**: Le disque dur physique
+- **SDA *N*** : Les partitions:
+    - **SDA1**: BIOS Boot
+    - **SDA2**: UEFI Boot
+    - **SDA3**: LVM
+- **Groupe de volumes**: Un seul groupe de volume(s) pour tout Proxmox.
+- **Volumes logiques (standard)**:
+    - *Swap*: Réservoire de débordement (RAM)
+    - **/** : Le système d'explotation de Proxmox
+- **Thin pool**:
+    - **pve-data_tmeta** : Les métadonnées pour les machines virtuelles. En fait, c'est ici qu'on stipulera combien d'espace une machine virtuelle possède virtuellement. Cet espace ne contient que des métadonnées, c'est-à-dire de l'information uniquement. Il n'est pas besoin d'être très gros.
+    - **pve-data_tdata** : C'est le véritable emplacement où les données des machines virtuelles sont stockées.
+
+*Dans l'interface graphique, vous pouvez voir en continu l'utilisation réel du Thin Pool:*
+![ThinProvision](../Assets/11/ThinProvision.png)
+
+### Pourquoi LVM 🤔
+
+Proxmox utilise **LVM (Logical Volume Manager)** pour plusieurs raisons importantes, notamment liées à la flexibilité, la gestion des *snapshots* et la performance. Voyons cela en détail:
+
+1. **Gestion des *snapshots* efficaces avec LVM:**<br/>
+Lorsque nous créons un snapshot avec LVM, il utilise un mécanisme basé sur les copy-on-write (COW). Cela signifie que LVM n'écrit pas directement sur le volume original lors de la modification des données, mais enregistre uniquement les changements dans un volume de snapshot. Cela permet de conserver une image cohérente de l'état du volume au moment du snapshot, sans avoir à dupliquer l'intégralité des données.
+
+2. **Flexibilité de gestion:**<br/>
+LVM permet une gestion dynamique et flexible des volumes de stockage. Par exemple, il peut:
+    - **Redimensionner les volumes à chaud. (sans éteindre la vm)**
+    - **Fusionner ou fractionner des volumes logiques**
+
+3. **Gestion des volumes dédiés pour chaque VM:**<br/>
+Sous Proxmox, chaque machine virtuelle peut être configurée avec un volume logique LVM dédiée. Cela assure une isolation complète des données entre les *VMs*. Nous avons également abordé toute la notion de *thin provisionning* à ce sujet.
+
+4. **Simplification du stockage:**<br/>
+Dans un environnement de clustering Proxmox (avec plusieurs hôtes), LVM permet une gestion centralisée des volumes, ce qui facilite la gestion des sauvegardes, des migrations de VM, et du stockage partagé. De plus, Proxmox permet de configurer des volumes LVM sur un stockage réseau via iSCSI. Cela permet de centraliser le stockage et de simplifier l’extension des ressources de stockage à mesure que l’infrastructure se développe.
+
+5. **Évolutivité:**<br/>
+Avec LVM, il est beaucoup plus facile d'ajouter des volumes à mesure que la demande en stockage augmente. LVM nous permet d'ajouter de l'espace en ajoutant simplement un autre disque au groupe de volumes, ce qui rend l'ajout de stockage plus transparent et moins risqué.
+
+## Types de contenu 🧐
+
+Dans Proxmox, chaque stockage peut accepter certains types de fichiers. Ces types de fichier sont les suivants:
+
+|Contenu|Description|
+|------------------|--------------------|
+|VM images|Disques durs virtuels des VMs|
+|Container templates|Vos modèles pour créer des LXC|
+|Images ISO|DVD d'installation pour OS|
+|Backups|Sauvegardes des *VMs* et des conteneurs.|
+|Snippets|Scripts de configurations personnalisées|
+
+Pourquoi fait-on cette disctinction entre les différents types de contenu ? Plusieurs raisons:
+
+1. **Optimisation:** SSD rapide pour les *VMs*, HDD plus lent pour les sauvegardes.
+2. **Sécurité:** Sauvegardes sur un serveur distant.
+3. **Organisation:** ISOs regroupés dans un endroit.
+4. **Partage:** Plusieurs serveurs Proxmox peuvent partager certains stockage.
+
+## Stockages par défaut 
+
+Tous les noeuds Proxmox possèdent deux endroits de stockage visibles dès l'installation: **Local** et **Local-LVM**.
+
+![locallvm](../Assets/11/locallvm.png)
+
+Ces stockages sont en place pour accueillir différents éléments et nous allons voir ensemble pourquoi:
+
+|Stockage|Type|Contenu|Explications|
+|-----|-----|----------|-------------|
+|**local**|**Dossier**|Sauvegarde, Fichiers ISOs, Modèles de conteneur|Ces contenus ne requièrent pas d'approvisionnement *Thin*. Un fichier ISO conserve toujours la même taille, de même qu'une sauvegarde ou un modèle de conteneur. Inutile donc de stocker ces éléments dans le *Thin-Pool*. Ce dossier est donc stocké dans le volume logique contenant le système d'exploitation Proxmox. Dans le *shell*, vous le retrouverez dans `/var/lib/vz`|
+|**local-lvm**|**LVM-Thin**|Disques de machines virtuelles et de conteneurs|À l'inverse, ces contenus nécessitent un approvisionnement *Thin*. Nous voulons, par exemple, être en mesure de créer une machine virtuelle qui « pense » posséder un disque dur de 80Go, mais qui en réalité n'en a un de 15Go. Ces données sont conservées dans le *Thin-Pool*.|
+
+## Création de stockage 🪄
+
+Vous pouvez évidemment ajouter des emplacements de stockage supplémentaires dans Proxmox. Selon le niveau où vous créerez cet endroit de stockage, Proxmox le traitera différemment:
+
+### Niveau Datacenter 🏬
+
+Les emplacements de stockage créés au niveau du *datacenter* seront créés systématiquement sur tous les noeuds.
+
+![StorageDatacenter](../Assets/11/StorageDatacenter.png)
+
+Vous reconnaitrez sans doute certains éléments dont nous avons discuté ensemble: **LVM, Directory et LVM-Thin**. D'autres vous sont peut-être moins familiers, comme **ZFS et BTRFS**, nous en reparleront un peu plus loin. Remarquez bien les icônes qui précèdent les termes:
+
+📁 → Un dossier signifie qu'il s'agit d'un stockage local, sur les noeuds directement.
+
+🏢 → Un immeuble signifie qu'il s'agit d'un stockage partagé sur le réseau, ou d'une technologie de stockage avancé.
+
+💾 → La disquette est réservé à PBS (*Proxmox Backup Server*)
+
+☁️ → Le nuage correspond au serveur ESXi, un hyperviseur de l'entreprise VMware que nous aborderons prochainement.
+
+### Niveau Noeud 🪢
+
+Au niveau d'un noeud, il est intéressant de constater la flexbilité qu'apporte une technologie comme `LVM`. À tout moment, vous pouvez simplement ajouter un disque dur, l'intégrer à la structure `LVM`, et vous voilà avec des l'espace supplémentaire pour vos machines virtuelles. Pour ce faire, sélectionnez le noeud concerné, et dirigez vous dans la section *Disks*.
+
+#### Exemple: Ajout d'un disque à la structure LVM
+
+<span class="fonttaller">**Étape 1: Initialiser le nouveau disque**</span><br/>
+Après avoir ajouté le disque dur à la machine, il faut l'initialiser pour pouvoir l'utiliser
+
+![Init](../Assets/11/Init.png)
+
+<span class="fonttaller">**Étape 2: Créer une partition**</span><br/>
+Malheureusement, pour cette étape, nous n'aurons d'autre choix que d'utiliser le terminal. Utilisez donc la commande suivante pour créer une seule partition couvrant la superficie totale (ou presque) du nouveau disque.
+```bash
+parted /dev/sdb mkpart primary 1024 100% #Le 1024 laisse de l'espace pour la table de partitionnement
 ```
-SSD 250GB (sda)
-├── Partition 1 : BIOS boot (1MB)
-├── Partition 2 : Boot EFI (1GB) 
-└── Partition 3 : LVM Proxmox (249GB)
-    ├── Swap : 8GB
-    ├── Système : 72GB  
-    └── Thin Pool : 150GB (pour vos VMs)
+:::caution
+Pour créer la partition, vous aurez besoin d'installer le logiciel de partitionnement `parted`.
+:::
+
+<span class="fonttaller">**Étape 3: Ajouter le disque dur au groupe de volume**</span><br/>
+Encore ici, nous utiliserons le terminal. Nous allons donc étendre notre groupe de volume pour inclure le nouveau disque dur comme suit:
+```bash
+vgextend pve /dev/sdb1
 ```
+À cette étape, votre disque devrait apparaitre dans le groupe de volume **PVE**, visible depuis l'interface de Proxmox.
+![lvmnewdisk](../Assets/11/lvmnewdisk.png)
