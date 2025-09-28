@@ -202,3 +202,37 @@ vgextend pve /dev/sdb1
 ```
 À cette étape, votre disque devrait apparaitre dans le groupe de volume **PVE**, visible depuis l'interface de Proxmox.
 ![lvmnewdisk](../Assets/11/lvmnewdisk.png)
+
+<span class="fonttaller">**Étape 4: Étendre le *ThinPool***</span><br/>
+Rappelez-vous; le *thin pool* contient les données et les métadonnées de nos machines virtuelles. Il nous faudra donc réfléchir à l'espace attribuable aux données et aux métadonnées. Si vous voulez vous assurer de ne jamais manquer d'espace, je vous recommande d'attribuer 1% de l'espace de stockage aux métadonnées. Autrement dit, si nous ajoutons un disque de 250Go (ce qui est notre cas ici), il serait plus que raisonnable d'ajouter 25Go d'espace à nos métadonnées.
+
+Commençons donc par augmenter l'espace de stockage réel. En laissant, 25Go d'espace aux métadonnées, il nous reste donc 225Go à attribuer:
+```bash
+lvresize -L 225G /dev/pve/data
+```
+
+Puis, on augmente l'espace attribué aux métadonnées:
+```bash
+lvresize --poolmetadatasize +25GB /dev/pve/data
+```
+
+## ZFS
+
+ZFS est un véritable couteau suisse du stockage. Il combine
+
+- Gestionnaire de dsiques (comme LVM)
+- Système de fichiers
+- Gestionnaire RAID
+- Système de *snapshots*
+- Vérification d'intégrité
+- Compression
+- Déduplication
+
+ZFS a été mis en place pour répondre aux différentes problématiques que l'on rencontrait avec les espaces de stockage traditionnels:
+
+|Problème|Résolution avec ZFS|
+|--------|-------------------|
+|Corruption de données|*Checksum* qui détecte automatiquement la corruption de données|
+|*RAID hardware* : Panne du contrôleur = perte de tout|*RAID Software* sans contrôleur propriétaire|
+|Snapshots lents |Snapshots instantanés (similaires à LVM)|
+|Gaspillage d'espace: fichiers similaires stockés plusieurs fois|Compression/Déduplication: économie d'espace|
