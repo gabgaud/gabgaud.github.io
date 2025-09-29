@@ -1,0 +1,21 @@
+# Laboratoire 10
+
+* * *
+
+## Préparation de serveurs multiples pour *clustering*
+
+## Préalables ✅
+
+- Avoir consulté la théorie en lien avec ce cours.
+- Avoir complété les laboratoires précédents.
+
+## Objectifs 🎯
+
+1. Préparer 2 machines Proxmox pour *Clustering*
+2. Optimiser les stockages (LVM)
+
+## Étapes de réalisation 🔢
+
+### Préparation des systèmes
+
+En premier lieu, ouvrez le capot de vos deux stations de travail **z440** et faites l'inventaire ce que vous possédez en termes de stockage. Tentez d'équilibrer les deux stations de travail.

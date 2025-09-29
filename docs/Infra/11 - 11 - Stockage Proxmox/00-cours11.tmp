@@ -239,5 +239,69 @@ ZFS a été mis en place pour répondre aux différentes problématiques que l'o
 
 ### Concepts
 
-<span class="fonttaller">**Pool:**</span><br/>
+#### Pool 🏊‍♀️
 Un pool ZFS est tout simplement un groupe de disques. C'est un peu l'équivalent du *VG* dans *LVM* (*Volume Group*). On implémentera généralement une technologie de redondance sur ce pool.
+
+* * * 
+<span class="green-text">*Stripe - RAID 0*</span>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Raid0_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Raid0_D.gif'),
+        }}
+    />
+</div>
+
+* * * 
+<span class="green-text">*Mirror - RAID 1*</span>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Raid1_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Raid1_D.gif'),
+        }}
+    />
+</div>
+
+* * *
+<span class="green-text">*RAID-Z1, RAID-Z2, RAID-Z3*</span>
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Serveurs1/Raid5_W.gif'),
+            dark: useBaseUrl('/img/Serveurs1/Raid5_D.gif'),
+        }}
+    />
+</div>
+
+:::caution
+Le nombre de disques nécessaires pour les différents niveaux de parité peut varier en fonction du RAID-Z utilisé. Pour plus de renseignement quant aux différents niveaux de RAID-Z, vous pouvez consulter [ce lien.](https://www.raidz-calculator.com/raidz-types-reference.aspx)
+:::
+
+#### Dataset
+
+Un *dataset* pourrait être comparable à un dossier dans le *pool* ZFS.
+
+Exemple:
+```
+tank/vmdata → Pour les VMs
+tank/backup → Pour les sauvegardes
+tank/media  → Pour les médias
+```
+
+#### Snapshot 📸
+
+Évidemment, vous pourrez prendre des *snapshots* de vos *VMs*, mais plus impressionnant encore, c'est la capacité de ZFS de prendre un *snapshot* d'un *dataset* complet. Vous pourriez donc prendre un *snapshot* de toutes vos *VMs* le matin, puis un autre l'après-midi, en toute transparence, en une seule action à chaque fois.
+
+### Inconvénients 👎
+
+Malgré ses multiples avantages, ZFS présente certains inconvénients. Pour commencer, ZFS consomme beaucoup de mémoire vive. On recommande normalement 1Go de RAM pour 1To de stockage, c'est quand même beaucoup.
+
+ZFS est également un peu plus complexe à maitriser et nécessite une bonne préparation avant de passer à l'action. La courbe d'apprentissage peut ajouter une charge de travail supplémentaire aux administrateurs.
