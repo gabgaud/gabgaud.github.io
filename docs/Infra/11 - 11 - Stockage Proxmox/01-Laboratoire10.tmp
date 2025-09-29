@@ -18,4 +18,14 @@
 
 ### Préparation des systèmes
 
-En premier lieu, ouvrez le capot de vos deux stations de travail **z440** et faites l'inventaire ce que vous possédez en termes de stockage. Tentez d'équilibrer les deux stations de travail.
+En premier lieu, ouvrez le capot de vos deux stations de travail **z440** et faites l'inventaire ce que vous possédez en termes de stockage. Tentez d'équilibrer les deux stations de travail du mieux que vous le pouvez, autant niveau de la mémoire vive qu'au niveau de l'espace de stockage.
+
+Assurez-vous que les deux systèmes puissent démarrer convenablement.
+
+### Planification de l'installation
+
+Veillez à prévoir convenablement l'installation de vos deux systèmes en planifiant:
+
+- La création de vos comptes respectifs (utilisateur et administrateur)
+- La répartition de l'espace de stockage (*thinpool*, dossier pour les images iso, etc.)
+- 
