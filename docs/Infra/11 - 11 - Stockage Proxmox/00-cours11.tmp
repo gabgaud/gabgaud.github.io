@@ -236,3 +236,8 @@ ZFS a été mis en place pour répondre aux différentes problématiques que l'o
 |*RAID hardware* : Panne du contrôleur = perte de tout|*RAID Software* sans contrôleur propriétaire|
 |Snapshots lents |Snapshots instantanés (similaires à LVM)|
 |Gaspillage d'espace: fichiers similaires stockés plusieurs fois|Compression/Déduplication: économie d'espace|
+
+### Concepts
+
+<span class="fonttaller">**Pool:**</span><br/>
+Un pool ZFS est tout simplement un groupe de disques. C'est un peu l'équivalent du *VG* dans *LVM* (*Volume Group*). On implémentera généralement une technologie de redondance sur ce pool.
