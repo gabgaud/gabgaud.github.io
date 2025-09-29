@@ -28,4 +28,13 @@ Veillez à prévoir convenablement l'installation de vos deux systèmes en plani
 
 - La création de vos comptes respectifs (utilisateur et administrateur)
 - La répartition de l'espace de stockage (*thinpool*, dossier pour les images iso, etc.)
-- 
+- L'allocation des adresses IPs ainsi que la configuration réseau.
+- Les noms de vos machines (node1, nodeA, n1, etc.)
+
+    :::caution
+    N'oubliez pas d'utiliser votre plage d'adresses IP (voir Teams)
+    :::
+
+### Installation des systèmes
+
+Installez Proxmox sur les deux machines
