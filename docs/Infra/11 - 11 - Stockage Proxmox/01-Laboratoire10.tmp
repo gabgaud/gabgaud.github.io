@@ -11,30 +11,34 @@
 
 ## Objectifs 🎯
 
-1. Préparer 2 machines Proxmox pour *Clustering*
-2. Optimiser les stockages (LVM)
+- Préparer 3 machines de types z440 pour créer un premier *Proxmox*
+    - Récupérer les bons disques de la bonne taille
+    - Planifier l'installation
+    - Procéder à l'Installation
 
 ## Étapes de réalisation 🔢
 
 ### Préparation des systèmes
 
-En premier lieu, ouvrez le capot de vos deux stations de travail **z440** et faites l'inventaire ce que vous possédez en termes de stockage. Tentez d'équilibrer les deux stations de travail du mieux que vous le pouvez, autant niveau de la mémoire vive qu'au niveau de l'espace de stockage.
+La première étape consiste à consulter le tableau ci-dessous qui décrit le nombre de stockage que vous devriez avoir dans chacun des noeuds:
 
-Assurez-vous que les deux systèmes puissent démarrer convenablement.
+:::tip
+Pour rappel, la composition des équipes est disponible dans l'équipe Teams du cours
+:::
 
-### Planification de l'installation
+|Équipe|Configuration des disques|
+|:------:|-------------------------|
+|Alpha|Pour chacune des trois tours du cluster:<br/>-2 Disques de 480Go (ZFS)<br/>-1 carte SD (système)|
+|Bravo|Pour chacune des trois tours du cluster:<br/>-2 Disques de 480Go (ZFS)<br/>-1 carte SD (système)|
+|Charlie|Pour chacune des trois tours du cluster:<br/>-2 Disques de 480Go (ZFS)<br/>-1 carte SD (système)|
+|Delta|Pour chacune des trois tours du cluster:<br/>-2 Disques de 512Go (ZFS)<br/>-1 carte SD (système)|
+|Echo|Pour chacune des trois tours du cluster:<br/>-2 Disques de 2To (ZFS)<br/>-1 carte SD (système)|
 
-Veillez à prévoir convenablement l'installation de vos deux systèmes en planifiant:
+### Installation
 
-- La création de vos comptes respectifs (utilisateur et administrateur)
-- La répartition de l'espace de stockage (*thinpool*, dossier pour les images iso, etc.)
-- L'allocation des adresses IPs ainsi que la configuration réseau.
-- Les noms de vos machines (node1, nodeA, n1, etc.)
+Il vous faut maintenant procéder à l'installation de 3 systèmes Proxmox. Pensez donc à:
 
-    :::caution
-    N'oubliez pas d'utiliser votre plage d'adresses IP (voir Teams)
-    :::
-
-### Installation des systèmes
-
-Installez Proxmox sur les deux machines
+- Installer le système sur la carte SD, et rien d'autre.
+- Donnez des noms d'hôte et des adresses IP différentes. (utilisez les adresses appropriées)
+- Créez les comptes PVE **<u> dans un seul système </u>**.
+- Désactivez le compte `Root` au moment approprié.
