@@ -37,9 +37,9 @@ Cette architecture en couches permet:
 - **Performance :** Le bridge ne transmet que le trafic nécessaire
 - **Évolutivité :** Facile d'ajouter des bridges pour différents usages
 
-## Les bridges: le coeur du réseau 🧡
+## Les bridges: le cœur du réseau 🧡
 
-Les *bridges* constituent le coeur du fonctionnement du réseau sous Proxmox. Il est donc essentiel de comprendre leur fonctionnement. Le *bridge* Linux fonctionne un peu de la même façon qu'un commutateur intelligent. Son comportement varie selon les données qu'il possède:
+Les *bridges* constituent le cœur du fonctionnement du réseau sous Proxmox. Il est donc essentiel de comprendre leur fonctionnement. Le *bridge* Linux fonctionne un peu de la même façon qu'un commutateur intelligent. Son comportement varie selon les données qu'il possède:
 
 - **Mode apprentissage:** Au début, le bridge ne sait rien. Quand une VM envoie un paquet, il note "VM-A est connectée sur le port 1 avec l'adresse MAC XX:XX:XX:XX:XX:XX".
 - **Mode transmission:** Quand un paquet arrive pour cette MAC, il sait exactement où l'envoyer.

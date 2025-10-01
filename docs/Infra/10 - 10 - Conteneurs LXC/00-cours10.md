@@ -19,7 +19,7 @@ LXC était l'environnement d'exécution par défaut de Docker avant d'être remp
 
 ## Fonctionnement des conteneurs LXC
 
-Les conteneurs LXC reposent sur plusieurs technologies Linux fondamentales qui travaillent de concert pour créer un environnement virtualisé léger mais robuste:
+Les conteneurs LXC reposent sur plusieurs technologies Linux fondamentales qui travaillent de concert pour créer un environnement virtualisé léger, mais robuste:
 
 ### Namespaces: La base de l'isolation
 
@@ -27,7 +27,7 @@ Les namespaces sont des fonctionnalités du noyau Linux qui permettent d'isoler 
 
 |PID Namespace|Network Namespace|Mount Namespace|UTS Namespace|IPC Namespace|User Namespace|
 |-------------|-----------------|---------------|-------------|--------------|--------------|
-|Isolation des processus|Isolation du réseau|Isolation du système de fichiers|Isolation du nom d'hôte|Isolation de la communication inter-processus|Isolation des utilisateurs et des groupes|
+|Isolation des processus|Isolation du réseau|Isolation du système de fichiers|Isolation du nom d'hôte|Isolation de la communication interprocessus|Isolation des utilisateurs et des groupes|
 
 ### Control Groups: Limitent et contrôlent l'utilisation des ressources
 
@@ -44,7 +44,7 @@ Les namespaces sont des fonctionnalités du noyau Linux qui permettent d'isoler 
 
 **<span class="fonttaller">Architecture 🏗️</span>**<br/>
 
-|Aspect|Conteneurs LXC|Machines Virtuelles|
+|Aspect|Conteneurs LXC|Machines virtuelles|
 |------|--------------|-------------------|
 |Noyau|Partagé avec l'hôte|Noyau indépendant|
 |Hyperviseur|Pas nécessaire|Requis (KVM/QEMU)|
@@ -55,9 +55,9 @@ Les namespaces sont des fonctionnalités du noyau Linux qui permettent d'isoler 
 
 |Conteneurs LXC|Machines virtuelles|
 |--------------|-------------------|
-|Performance quasi-native (pas d'émulation)|*Overhead* plus important|
+|Performance quasi native (pas d'émulation)|*Overhead* plus important|
 |*Overhead* minimal|Émulation matérielle nécessaire|
-|Partage direct des ressources système|Isolation plus forte mais plus coûteuse|
+|Partage direct des ressources système|Isolation plus forte, mais plus coûteuse|
 |Accès direct aux périphériques|Virtualisation complète du matériel|
 
 **<span class="fonttaller">Sécurité 🚨</span>**<br/>
@@ -73,7 +73,7 @@ Les namespaces sont des fonctionnalités du noyau Linux qui permettent d'isoler 
 
 ### Performances exceptionnelles
 
-Les conteneurs peuvent démarrer en l'espace de quelques secondes. De plus, ils possèdent un accès direct au matériel, ce qui optimise et accélère grandemment l'accès aux ressources et aux périphériques.
+Les conteneurs peuvent démarrer en l'espace de quelques secondes. De plus, ils possèdent un accès direct au matériel, ce qui optimise et accélère grandement l'accès aux ressources et aux périphériques.
 
 ### Efficacité des ressources
 
@@ -81,7 +81,7 @@ Sur un même serveur, vous serez en mesure d'exécuter beaucoup plus de conteneu
 
 ### Simplicité de gestion
 
-La gestion peut aisément se faire via l'interface web de Proxmox ou même via son invite de commandes. Les déploiement sont rapides et il existe plusieurs modèles de conteneurs pré-configurés. Les *snapshots* sont ultra légers et très efficaces.
+La gestion peut aisément se faire via l'interface web de Proxmox ou même via son invite de commande. Les déploiements sont rapides et il existe plusieurs modèles de conteneurs préconfigurés. Les *snapshots* sont ultras légers et très efficaces.
 
 ## Inconvénients des conteneurs LXC 👎
 
@@ -91,7 +91,7 @@ Il est impossible d'utiliser un noyau différent de l'hôte d'une part. De plus,
 
 ### Sécurité
 
-Nous en avons parlé un peu plus haut, l'isolation est moins étanche qu'avec une vraie machine virtuelle. Les vulnérabilités du noyau hôte seront celles du conteneur LXC également. Les conteneurs privilégiés peut poser un risque encore plus accrue.
+Nous en avons parlé un peu plus haut, l'isolation est moins étanche qu'avec une vraie machine virtuelle. Les vulnérabilités du noyau hôte seront celles du conteneur LXC également. Les conteneurs privilégiés peuvent poser un risque encore plus accru.
 
 ### Compatibilité
 
@@ -101,7 +101,7 @@ Certaines applications dites *legacy* (plus anciennes) nécessitent une machine 
 
 ### Distributions principales
 
-Proxmox fournit plusieurs modèles de conteneur pré-configurés et prêts à l'emploi. Vous y retrouverez des distributions populaires telles que **Ubuntu**, **Debian**, **CentOS**, **Fedora** et bien d'autres. Pour retrouver ces modèles, dirigez-vous dans votre stockage *local*, cliquez sur *CT Templates* puis sur *Templates*.
+Proxmox fournit plusieurs modèles de conteneur préconfigurés et prêts à l'emploi. Vous y retrouverez des distributions populaires telles qu’**Ubuntu**, **Debian**, **CentOS**, **Fedora** et bien d'autres. Pour retrouver ces modèles, dirigez-vous dans votre stockage *local*, cliquez sur *CT Templates* puis sur *Templates*.
 
 ![CTTemplates](../Assets/10/CTTemplates.png)
 
@@ -111,7 +111,7 @@ Proxmox fournit plusieurs modèles de conteneur pré-configurés et prêts à l'
 L'utilisation d'un modèle pour la création d'un conteneur LXC est obligatoire. Vous ne pouvez pas créer un conteneur LXC depuis rien. Vous devrez, minimalement, choisir un OS sur lequel vous appuyer.
 :::
 
-### Applications pré-configurées
+### Applications préconfigurées
 
 *Turnkey* est une organisation qui offre des modèles de conteneur LXC avec des applications prêtes à l'emploi à l'intérieur. Ainsi, en l'espace de quelques secondes ou de quelques clics, vous pouvez faire tourner un serveur web. Le plus beau ? C'est que *TurnKey* a intégré ces modèles à Proxmox.
 

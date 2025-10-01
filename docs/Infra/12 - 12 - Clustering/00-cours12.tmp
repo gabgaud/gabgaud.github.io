@@ -5,4 +5,59 @@ import TabItem from '@theme/TabItem';
 
 # Cours 12
 
-## Clustering
+## Cluster Proxmox, pourquoi ? 🤔
+
+En fait, pour comprendre pourquoi il est essentiel de créer un cluster Proxmox en entreprise, il suffit d'imaginer ce qui pourrait se produire si nous n'en avions pas. Imaginons, par exemple, un serveur Proxmox hébergeant 10 machines virtuelles. Sans cluster on risquerait:
+
+- **Une panne matérielle** : Carte mère grillée → Plusieurs jours d'arrêt
+- **Maintenance** : Mise à jour du serveur → Interruption de service
+- **Saturation** : Plus de ressources → Impossible d'ajouter des *VMs*
+- **Erreur humaine** : Corruption du système → Désastre
+
+**<span class="fonttaller green-text">La solution : le cluster</span>**<br/>
+
+Le *clustering*, c'est la création d'une équipe de serveurs qui travaillent ensemble en vue d'atteindre des objectifs communs. Cette façon de fonctionner comporte de nombreux avantages:
+
+1. **Haute disponibilité:** Une *VM* redémarre ailleurs si son serveur hôte plante.
+2. **Migration à chaud:** Déplacer une *VM* sans l'arrêter
+3. **Maintenance sans interruption:** Redémarrer un serveur sans impact
+4. **Gestion centralisée:** Un seul point d'administration
+5. **Évolutivité:** Ajouter des serveurs facilement
+
+```
+Cluster Proxmox
+├── Serveur 1 : VM 1, VM 4, VM 7
+├── Serveur 2 : VM 2, VM 5, VM 8
+└── Serveur 3 : VM 3, VM 6, VM 9
+
+Si Serveur 1 tombe → VMs redémarrent automatiquement sur Serveur 2 ou 3 !
+```
+
+### Quand considérer le *clustering* ?
+
+Vous DEVEZ considérer un *cluster* si:
+
+- Vos applications ne peuvent pas s'arrêter (sites web, BDD critiques)
+- Vous gérez plus de 5-10 VMs importantes
+- Vous avez besoin de faire des maintenances sans interruption
+- Votre entreprise dépend de ces VMs
+
+## Qu'est-ce qu'un **cluster** ? 🚒
+
+Règle général: J'aime bien les analogies. Ici, je vais vous comparer le *clustering* à une équipe de pompiers. Imaginez si la caserne de votre ville ne contenait qu'un seul pompier:
+
+- Il peut éteindre qu'un seul feu à la fois.
+- Advenant qu'il soit malade, il n'y a personne pour intervenir.
+- S'il est déjà en intervention, il ne peut pas répondre pour un autre urgence.
+- Sa force physique est limité.
+
+Maintenant, avec trois pompiers, on change la dynamique:
+
+- Si un pompier est indisponible, un autre prend le relais.
+- Ils peuvent gérer plus d'un incendie à la fois.
+- Ils se coordonnent par radio.
+- Ils peuvent se partager de l'équipement.
+
+**Le *clustering* c'est exactement ça, mais dans le domaine des technologies de l'information:**
+
+1. Les serveurs Proxmox communiquent entre eux via ce qu'on appelle un *heartbeat* toutes les secondes 💓. En gros les serveurs veillent les uns sur les autres pour s'assurer que tout le monde va bien.

@@ -23,7 +23,7 @@ Contrairement à un ordinateur physique où vous avez un disque dur, dans Proxmo
 
 ## LVM - *Logical Volume Manager*
 
-Par défaut, Proxmox utilise la technologie `LVM` pour l'ensemble de ses stockages. `LVM` est une couche d'abstraction logicielle que l'on applique par dessus la configuration **régulière** des disques durs. Sans `LVM`, une configuration avec deux disques dur pourraient ressembler à ceci:
+Par défaut, Proxmox utilise la technologie `LVM` pour l'ensemble de ses stockages. `LVM` est une couche d'abstraction logicielle que l'on applique par-dessus la configuration **régulière** des disques durs. Sans `LVM`, une configuration avec deux disques durs pourrait ressembler à ceci:
 
 <div style={{textAlign: 'center'}}>
     <ThemedImage
@@ -49,11 +49,11 @@ Avec `LVM`, on pourrait redécouper le tout, sans se soucier des disques ou mêm
 
 Dans une architecture `LVM`, les disques physiques sont appelés des **PV** (*Physical Volume*). Un regroupement de disques se nomme un **VG** (*Volume Group*). Attention, un **VG** n'est pas obligatoirement l'hôte de plusieurs disques durs. En effet, un **VG** peut contenir un seul disque. Les **LV** (*Logical Volume*), constituent les emplacements disponibles pour utilisation.
 
-Le problème avec la technologie `LVM` standard, c'est qu'elle ne supporte que le *Thick Provisionning*. Autrement dit, si vous désirez octroyer un disque dur virtuel de 500Go à une machinve virtuelle, il vous faudra bloquer 500Go d'espace disque physique. Ce n'est pas très pratique et encore moins optimal lorsqu'on parle d'environnement virtuel.
+Le problème avec la technologie `LVM` standard, c'est qu'elle ne supporte que le *Thick Provisionning*. Autrement dit, si vous désirez octroyer un disque dur virtuel de 500Go à une machine virtuelle, il vous faudra bloquer 500Go d'espace disque physique. Ce n'est pas très pratique et encore moins optimal lorsqu'on parle d'environnement virtuel.
 
 ## LVM - *Thin*
 
-Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement à l'aide d'un *pool* de stockage partagé. Avec cette méthode, nous sommes capable de faire de l'allocation d'espace à la demande (*Thin-Provisionning*) et même de l'*over-provisionning*.
+Voilà! La technologie *LVM-Thin* vient répondre à ce besoin, tout simplement à l'aide d'un *pool* de stockage partagé. Avec cette méthode, nous sommes capables de faire de l'allocation d'espace à la demande (*Thin-Provisionning*) et même de l'*over-provisionning*.
 
 <div style={{textAlign: 'center'}}>
     <ThemedImage
@@ -94,12 +94,12 @@ Voici comment est configuré et découpé le stockage d'une installation Proxmox
 - **Groupe de volumes**: Un seul groupe de volume(s) pour tout Proxmox.
 - **Volumes logiques (standard)**:
     - *Swap*: Réservoire de débordement (RAM)
-    - **/** : Le système d'explotation de Proxmox
+    - **/** : Le système d'exploitation de Proxmox
 - **Thin pool**:
     - **pve-data_tmeta** : Les métadonnées pour les machines virtuelles. En fait, c'est ici qu'on stipulera combien d'espace une machine virtuelle possède virtuellement. Cet espace ne contient que des métadonnées, c'est-à-dire de l'information uniquement. Il n'est pas besoin d'être très gros.
     - **pve-data_tdata** : C'est le véritable emplacement où les données des machines virtuelles sont stockées.
 
-*Dans l'interface graphique, vous pouvez voir en continu l'utilisation réel du Thin Pool:*
+*Dans l'interface graphique, vous pouvez voir en continu l'utilisation réelle du Thin Pool:*
 ![ThinProvision](../Assets/11/ThinProvision.png)
 
 ### Pourquoi LVM 🤔
@@ -135,16 +135,16 @@ Dans Proxmox, chaque stockage peut accepter certains types de fichiers. Ces type
 |Backups|Sauvegardes des *VMs* et des conteneurs.|
 |Snippets|Scripts de configurations personnalisées|
 
-Pourquoi fait-on cette disctinction entre les différents types de contenu ? Plusieurs raisons:
+Pourquoi fait-on cette distinction entre les différents types de contenu ? Plusieurs raisons:
 
 1. **Optimisation:** SSD rapide pour les *VMs*, HDD plus lent pour les sauvegardes.
 2. **Sécurité:** Sauvegardes sur un serveur distant.
 3. **Organisation:** ISOs regroupés dans un endroit.
-4. **Partage:** Plusieurs serveurs Proxmox peuvent partager certains stockage.
+4. **Partage:** Plusieurs serveurs Proxmox peuvent partager certains stockages.
 
 ## Stockages par défaut 
 
-Tous les noeuds Proxmox possèdent deux endroits de stockage visibles dès l'installation: **Local** et **Local-LVM**.
+Tous les nœuds Proxmox possèdent deux endroits de stockage visibles dès l'installation: **Local** et **Local-LVM**.
 
 ![locallvm](../Assets/11/locallvm.png)
 
@@ -161,23 +161,23 @@ Vous pouvez évidemment ajouter des emplacements de stockage supplémentaires da
 
 ### Niveau Datacenter 🏬
 
-Les emplacements de stockage créés au niveau du *datacenter* seront créés systématiquement sur tous les noeuds.
+Les emplacements de stockage créés au niveau du *datacenter* seront créés systématiquement sur tous les nœuds.
 
 ![StorageDatacenter](../Assets/11/StorageDatacenter.png)
 
 Vous reconnaitrez sans doute certains éléments dont nous avons discuté ensemble: **LVM, Directory et LVM-Thin**. D'autres vous sont peut-être moins familiers, comme **ZFS et BTRFS**, nous en reparleront un peu plus loin. Remarquez bien les icônes qui précèdent les termes:
 
-📁 → Un dossier signifie qu'il s'agit d'un stockage local, sur les noeuds directement.
+📁 → Un dossier signifie qu'il s'agit d'un stockage local, sur les nœuds directement.
 
 🏢 → Un immeuble signifie qu'il s'agit d'un stockage partagé sur le réseau, ou d'une technologie de stockage avancé.
 
-💾 → La disquette est réservé à PBS (*Proxmox Backup Server*)
+💾 → La disquette est réservée à PBS (*Proxmox Backup Server*)
 
 ☁️ → Le nuage correspond au serveur ESXi, un hyperviseur de l'entreprise VMware que nous aborderons prochainement.
 
-### Niveau Noeud 🪢
+### Niveau Nœud 🪢
 
-Au niveau d'un noeud, il est intéressant de constater la flexbilité qu'apporte une technologie comme `LVM`. À tout moment, vous pouvez simplement ajouter un disque dur, l'intégrer à la structure `LVM`, et vous voilà avec des l'espace supplémentaire pour vos machines virtuelles. Pour ce faire, sélectionnez le noeud concerné, et dirigez vous dans la section *Disks*.
+Au niveau d'un nœud, il est intéressant de constater la flexibilité qu'apporte une technologie comme `LVM`. À tout moment, vous pouvez simplement ajouter un disque dur, l'intégrer à la structure `LVM`, et vous voilà avec des l'espace supplémentaire pour vos machines virtuelles. Pour ce faire, sélectionnez le nœud concerné, et dirigez-vous dans la section *Disks*.
 
 #### Exemple: Ajout d'un disque à la structure LVM
 
@@ -220,7 +220,7 @@ lvresize --poolmetadatasize +25GB /dev/pve/data
 
 ZFS est un véritable couteau suisse du stockage. Il combine
 
-- Gestionnaire de dsiques (comme LVM)
+- Gestionnaire de disques (comme LVM)
 - Système de fichiers
 - Gestionnaire RAID
 - Système de *snapshots*
@@ -282,7 +282,7 @@ Un pool ZFS est tout simplement un groupe de disques. C'est un peu l'équivalent
 </div>
 
 :::caution
-Le nombre de disques nécessaires pour les différents niveaux de parité peut varier en fonction du RAID-Z utilisé. Pour plus de renseignement quant aux différents niveaux de RAID-Z, vous pouvez consulter [ce lien.](https://www.raidz-calculator.com/raidz-types-reference.aspx)
+Le nombre de disques nécessaires pour les différents niveaux de parité peut varier en fonction du RAID-Z utilisé. Pour plus de renseignements quant aux différents niveaux de RAID-Z, vous pouvez consulter [ce lien.](https://www.raidz-calculator.com/raidz-types-reference.aspx)
 :::
 
 #### Dataset
