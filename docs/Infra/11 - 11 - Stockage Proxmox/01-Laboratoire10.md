@@ -41,8 +41,8 @@ Il vous faut maintenant procéder à l'installation de 3 systèmes Proxmox. Pens
 - Installer le système sur la carte SD, et rien d'autre (laissez les disques libres).
 - Donnez des noms d'hôte et des adresses IP différentes. (utilisez les adresses appropriées)
 - Créez les comptes PVE **<u> dans un seul système </u>**.
+- Créez des comptes dans l'OS au besoin (sudo nécessite une installation)
 - Désactivez le compte `Root` au moment approprié.
-- Créez vos comptes `PVE` et créez des comptes dans l'OS (installez sudo au besoin).
 
 ### Création des pools ZFS
 
