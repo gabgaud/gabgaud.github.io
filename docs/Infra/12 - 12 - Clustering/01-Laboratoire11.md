@@ -11,6 +11,6 @@
 
 ## Objectifs 🎯
 
-- Expérimenter la réplication de conteneurs, de VMs et même d'ISOs
+- Expérimenter la réplication de conteneurs et de conteneurs
 
 ## Étapes de réalisation 🔢

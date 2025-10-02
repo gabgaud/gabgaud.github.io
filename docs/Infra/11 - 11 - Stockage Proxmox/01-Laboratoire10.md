@@ -44,7 +44,7 @@ Il vous faut maintenant procéder à l'installation de 3 systèmes Proxmox. Pens
 - Créez des comptes dans l'OS au besoin (sudo nécessite une installation)
 - Désactivez le compte `Root` au moment approprié.
 
-### Création des pools ZFS
+### Création des pools et datasets ZFS
 
 L'interface web de Proxmox permet de créer des *pools* ZFS sans problème. Néanmoins, celle-ci ne permet pas la création du *pool* en *RAID0 (stripe)*. Nous utiliserons donc l'invite de commande pour créer notre *pool* ZFS.
 
@@ -74,6 +74,13 @@ pvesh create /storage --storage ISOs --type dir --path /tank/isos --content iso,
 pvesh create /storage --storage VMDisks --type zfspool --pool tank/vmdisks
 pvesh create /storage --storage Backups --type dir --path /tank/backups --content backup
 ```
+
+:::caution[Architecture des dossiers]
+Si vous déposez vos fichiers **ISOs** directement dans votre *dataset*, Proxmox ne sera pas en mesure de les récupérer. Vous devez respecter l'architecture des dossiers:
+- Pour les **ISOs**, vos fichiers doivent être contenu dans /template/iso. Donc dans notre cas: /tank/isos/template/iso/
+- Pour les modèles de conteneurs, les fichiers doivent être dans /template/cache. Donc dans notre cas: /tank/isos/template/cache/
+- Pour les sauvagardes, les fichiers doivent être dans /dump. Donc dans notre cas: /tank/backups/dump
+:::
 
 ### Création du cluster Proxmox
 
