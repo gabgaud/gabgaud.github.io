@@ -53,14 +53,27 @@ L'interface web de Proxmox permet de créer des *pools* ZFS sans problème. Néa
 zpool create tank /dev/sdb /dev/sdc # À ajuster selon vos propres disques
 ```
 
-**Ajout du stockage ZFS dans l'interface Proxmox:**
-```bash
-pvesh create /storage --storage tank --type zfspool --pool tank
-```
-
-Une fois ces deux commandes complétées, vous devriez retrouver votre *pool* ZFS dans l'interface Web.
+Une fois cette commandes complétée, vous devriez retrouver votre *pool* ZFS dans l'interface Web.
 
 ![tank](../Assets/11/tank.png)
+
+
+**Création des *datasets* (répertoire) dans notre pool ZFS**
+```bash
+zcreate tank/vmdisks    # Stockage pour nos VMs et conteneurs
+zcreate tank/isos       # Stockage pour nos ISOs
+zcreate tank/backups    # Stockage pour nos sauvegardes
+```
+:::caution[Prudence!]
+**Attention!** Les *datasets* doivent posséder des noms identiques et respecter la casse.
+:::
+
+**Ajout des stockages ZFS dans l'interface Proxmox:**
+```bash
+pvesh create /storage --storage ISOs --type dir --path /tank/isos --content iso,vztmpl
+pvesh create /storage --storage VMDisks --type zfspool --pool tank/vmdisks
+pvesh create /storage --storage Backups --type dir --path /tank/backups --content backup
+```
 
 ### Création du cluster Proxmox
 

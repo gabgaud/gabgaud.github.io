@@ -1,0 +1,16 @@
+# Laboratoire 11
+
+* * *
+
+## Premiers tests de réplication et HA
+
+## Préalables ✅
+
+- Avoir consulté la théorie en lien avec ce cours.
+- Avoir complété le laboratoire précédent et posséder un cluster fonctionnel
+
+## Objectifs 🎯
+
+- Expérimenter la réplication de conteneurs, de VMs et même d'ISOs
+
+## Étapes de réalisation 🔢
