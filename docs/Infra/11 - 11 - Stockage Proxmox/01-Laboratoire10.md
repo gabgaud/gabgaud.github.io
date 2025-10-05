@@ -60,9 +60,9 @@ Une fois cette commandes complétée, vous devriez retrouver votre *pool* ZFS da
 
 **Création des *datasets* (répertoire) dans notre pool ZFS**
 ```bash
-zcreate tank/vmdisks    # Stockage pour nos VMs et conteneurs
-zcreate tank/isos       # Stockage pour nos ISOs
-zcreate tank/backups    # Stockage pour nos sauvegardes
+zfs create tank/vmdisks    # Stockage pour nos VMs et conteneurs
+zfs create tank/isos       # Stockage pour nos ISOs
+zfs create tank/backups    # Stockage pour nos sauvegardes
 ```
 :::caution[Prudence!]
 **Attention!** Les *datasets* doivent posséder des noms identiques et respecter la casse.
