@@ -130,5 +130,67 @@ Cela veut donc dire que même si vous optez pour le système ZFS et sa réplicat
 
 Dans le schéma ci-dessus, les noeuds utilisent un stockage partagé. Advenant un incident majeur, comme la perte d'un noeud, il n'y aurait aucun transfert à effectuer, un autre noeud du *cluster* n'aura qu'à démarrer la machine virtuelle depuis le même stockage qu'utilisait le noeud tombé en panne.
 
-### Les types de stockage partagé
+### Les principaux types de stockage partagé
+
+#### NFS (Network File System)
+
+**NFS** est généralement utilisé sur des serveurs de type NAS. Le stockage est alors accessible directement via le réseau et facilement configurable dans Proxmxox.
+
+**Avantages:**<br/>
+✓ Simple à configurer<br/>
+✓ Compatible<br/>
+✓ Bon pour des *VMs* peu sollicitées
+
+**Inconvénients:**<br/>
+✗ Point unique de défaillance (le NAS)<br/>
+✗ Performance limitée par le réseau<br/>
+✗ Pas de redondance native
+
+#### CEPH RBD (RADOS Block Device)
+
+CEPH utilise une méthode de distribution de block de stockage entre tous les noeuds. On pourrait comparer cela au *striping* d'un RAID, mais ici, on étalonne sur les serveurs plutôt que sur une grappe de disques.
+
+**Avantages :**<br/>
+✓ Haute disponibilité native<br/>
+✓ Pas de point unique de défaillance<br/>
+✓ Scalable (ajout de disques facile)<br/>
+✓ Snapshots et clones
+
+**Inconvénients :**<br/>
+✗ Complexe à configurer<br/>
+✗ Nécessite au moins 3 nœuds<br/>
+✗ Consomme beaucoup de ressources<br/>
+✗ Réseau 10Gbps obligatoire
+
+#### iSCSI
+
+iSCSI permet d'utiliser du stockage sur le réseau (SAN) comme s'il était local.
+
+**Avantages :**<br/>
+✓ Performance excellente<br/>
+✓ Matériel dédié robuste<br/>
+✓ Snapshots et réplication
+
+**Inconvénients :**<br/>
+✗ Très couteux (matériel)<br/>
+✗ Configuration complexe<br/>
+✗ Point unique de défaillance (sauf SAN HA)<br/>
+
+#### Résumé
+
+|**Critère**|**NFS**|**Ceph RBD**|**iSCSI**|
+|-----------------|--------|---------------|-----------|
+|**Complexité**|⭐⭐⭐⭐⭐ Très simple| ⭐ Très complexe|⭐⭐⭐ Moyenne|
+|**Performance**|⭐⭐ Moyenne|⭐⭐⭐⭐ Élevée|⭐⭐⭐⭐⭐ Excellente|
+|**Haute disponibilité native**| ❌ Non | ✅ Oui | ❌ Non*|
+|**Noeuds minimum**|1 (NAS externe)|3|1 (SAN externe)|
+|**Réseau requis**|1 Gbps min. 10 Gbps recommandé|10 Gbps recommandé|10 Gbps recommandé|
+|**RAM requise**|Minimal|1GB/TB|Minimal|
+|**Snapshots**|✅ Oui|✅ Oui|⚠️ Dépend du SAN|
+|**Thin Provisionning**| ⚠️ Via qcow2 | ✅ Oui | ⚠️ Dépend du SAN|
+|**Déduplication**|❌ Non|⚠️ Optionnelle| ⚠️ Dépend du SAN|
+|**Compression**|❌ Non|✅ Oui|⚠️ Dépend du SAN|
+|**Coût**|Faible|Faible|Très élevé|
+|**Scalabilité**|⭐⭐ Limitée|⭐⭐⭐⭐⭐ Excellente|⭐⭐⭐ Bonne|
+|***Use case* idéal**|PME, Home Lab|Production, Cloud|Entreprise|
 
