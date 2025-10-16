@@ -45,4 +45,27 @@ CRUSH est un algorithme qui calcule *dynamiquement* où une donnée doit être �
 2. CEPH prend l'identifiant de cet objet et le « hashe ».
 3. Il utilise ensuite cet identifiant hashé et la carte CRUSH (qui décrit la hiérarchie de vos serveurs, racks, etc.) pour calculer sur quel OSD (et ses répliques) l'objet doit être stocké.  
 
-**L'avantage majeur:** 
+**L'avantage majeur:** N'importe quel client (comme un hyperviseur Proxmox) peut calculer de manière autonome où se trouve une donnée. C'est ce qui rend CEPH si rapide et si scalable. La carte CRUSH permet aussi de définir des règles de placement intelligentes (ex: je veux que les copies de mes données ne soient jamais dans le même rack physique).
+
+## Ceph & Proxmox ; Synergie parfaite 🤹
+
+Proxmox VE intègre Ceph de manière native, ce qui simplifie énormément son déploiement et sa gestion. Mais outre son intégration, pourquoi devriez-vous l'utiliser ?
+
+- **Hyperconvergence:** Vos serveurs Proxmox sont à la fois des serveurs de calcul (hyperviseurs) et des serveurs de stockage. Plus besoin d'un SAN.
+
+- **Haute-Disponibilité:** Si un noeud Proxmox tombe en panne, les *VMs* qui y tournaient peuvent être redémarrées automatiquement sur un autre noeud car leur disque est stocké sur le *cluster* Ceph, qui est toujours accessible.
+
+- **Migration en direct:** Vous pouvez déplacer une *VM* d'un noeud à un autre sans aucune interruption de service.
+
+- **Scalabilité facile:** Besoin de plus de stockage ou de performance ? Il suffit d'ajouter un nouveau disque (OSD) ou un nouveau serveur au cluster.
+
+### Les types de stockage Ceph dans Proxmox 💾
+
+Proxmox utilise Ceph principalement via deux types de stockage:
+
+1. **RDB (RADOS Block Device) :** C'est le mode le plus courant. Ceph présente un « périphérique bloc » à la *VM*. C'est très performant et idéal pour les disques des *VMs* et des conteneurs.
+
+2. **CephFS (Ceph File System):** C'est un système de fichiers distribué compatible POSIX. Utile pour du stockage partagé accessible par plusieurs *VMs* ou conteneurs en même temps.
+
+### Déploiement et gestion via Proxmox
+
