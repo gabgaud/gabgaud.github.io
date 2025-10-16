@@ -1,0 +1,48 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 14
+
+# Introduction à CEPH dans Proxmox
+
+Pendant longtemps, le stockage informatique reposait sur des systèmes centralisés et monolithiques : les fameux **SAN** (*Storage Area Network*) ou **NAS** (*Network Attached Storage*). Cette façon de procéder, quoique longtemps exploitée, possède des inconvénients majeurs:
+
+- **Coût élevé**: Matériel propriétaire et licences onéreuses.
+- **Point de défaillance unique**: Si le contrôleur tombe en panne, tout le stockage devient inaccessible.
+- **Manque de flexibilité**: Difficile et coûteux à faire évoluer (scalabilité).
+
+## L'arrivée du SDS et de CEPH
+
+Le **stockage défini par logiciel (*Software-Defined Storage*)** change complètement la donne. L'idée est de séparer le logiciel du matériel. On peut désormais utiliser des serveurs standards avec des disques durs classiques pour créer un système de stockage puissant, flexible et résilient.
+
+Ainsi est né **CEPH**.
+
+**Qu'est-ce que CEPH ?** CEPH est un système de stockage distribué, open-source (🥳), qui n'a **aucun point de défaillance unique**. Il est conçu pour être massivement scalable (de quelques serveurs à des milliers) et auto-réparateur.
+
+### Architecture et composants ⚙️
+
+CEPH peut sembler complexe aux premiers abords. C'est pourquoi il est nécessaire d'en saisir les éléments qui le compose. Analysons donc ses composants fondamentaux:
+
+1. **OSD (*Object Storage Daemon*)**: C'est le « muscle » de CEPH. Plus techniquement, un OSD est un processus qui tourne sur un serveur et qui est responsable d'un disque de stockage. C'est lui qui stocke les données, gère la réplication, la récupération et l'équilibrage des données avec les autres OSDs. **En bref : 1 disque = 1 OSD.**
+
+2. **MON (*Monitor*)**: C'est le « cerveau » du *cluster*. Les moniteurs maintiennent la carte du cluster (la «CRUSH map», on y revient plus bas). Ils savent quels OSDs sont actifs, où les données devraient se trouver, et ils gèrent l'état général du *cluster*. Pour éviter d'être un point de défaillance, on déploie toujours un nombre impair de moniteurs (typiquement 3 ou 5) qui se surveillent mutuellement.
+
+3. **MGR (*Manager*)**: C'est le « gestionnaire » du *cluster*. Le MGR collecte des statistiques détaillées sur le fonctionnement du cluster (performance, capacité, etc.) et expose ces informations, notamment pour le tableau de bord de Proxmox.
+
+4. **RADOS (*Reliable Autonomic Distributed Object Store*)**: C'est la couche fondamentale de CEPH. Tout ce qui est stocké dans CEPH, que ce soit un disque de VM, un fichier ou peu importe, est au final un **objet** stocké dans le *cluster* RADOS. C'est le service fourni par les OSDs, les MONs et les MGRs.
+
+### Le secret de CEPH : L'algorithme CRUSH 🤐
+
+Comment CEPH sait-il où placer une donnée sans avoir une base de données centralisée qui deviendrait un goulot d'étranglement ? Grâce à **CRUSH (*Controlled Replication Under Scalable Hashing*)**.
+
+CRUSH est un algorithme qui calcule *dynamiquement* où une donnée doit être écrite et lue. Il n'a pas besoin de consulter une table de métadonnées.
+
+**Exemple:**
+
+1. Vous voulez stocker une image de VM (qui est un « objet » pour CEPH).
+2. CEPH prend l'identifiant de cet objet et le « hashe ».
+3. Il utilise ensuite cet identifiant hashé et la carte CRUSH (qui décrit la hiérarchie de vos serveurs, racks, etc.) pour calculer sur quel OSD (et ses répliques) l'objet doit être stocké.  
+
+**L'avantage majeur:** 
