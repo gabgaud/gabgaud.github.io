@@ -5,6 +5,10 @@ import TabItem from '@theme/TabItem';
 
 # Cours 12
 
+# Clustering Proxmox
+
+* * *
+
 ## Cluster Proxmox, pourquoi ? 🤔
 
 En fait, pour comprendre pourquoi il est essentiel de créer un cluster Proxmox en entreprise, il suffit d'imaginer ce qui pourrait se produire si nous n'en avions pas. Imaginons, par exemple, un serveur Proxmox hébergeant 10 machines virtuelles. Sans cluster on risquerait:

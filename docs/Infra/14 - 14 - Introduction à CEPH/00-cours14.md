@@ -7,6 +7,8 @@ import TabItem from '@theme/TabItem';
 
 # Introduction à CEPH dans Proxmox
 
+* * *
+
 Pendant longtemps, l'informatique a reposé sur du stockage centralisé : les **SAN** (*Storage Area Network*) et les **NAS** (*Network Attached Storage*). Cette approche souffre de trois défauts majeurs :
 
 1. **Coût élevé** : Matériel propriétaire et licences onéreuses.

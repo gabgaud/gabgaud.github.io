@@ -5,6 +5,10 @@ import TabItem from '@theme/TabItem';
 
 # Cours 13
 
+# Haute-Disponibilité
+
+* * *
+
 ## Qu'est-ce que la haute-disponibilité ?
 
 La haute-disponibilité est la capacité d'un système informatique à rester opérationnel et accessible presque 100% du temps, visant à réduire ou éliminer les temps d'arrêt. Dans le contexte de Proxmox, on cherche à éviter l'arrêt des appareils virtuels.

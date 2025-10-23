@@ -5,7 +5,9 @@ import TabItem from '@theme/TabItem';
 
 # Cours 15
 
-## Rattrapage et Laboratoire 13
+# Rattrapage et Laboratoire 13
+
+* * *
 
 Ce cours est dédié au rattrappage et à la réalisation du laboratoire #13.
 
