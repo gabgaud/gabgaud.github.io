@@ -1,0 +1,155 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 16
+
+# Introduction à la virtualisation VMware
+
+* * *
+
+## Vue d'ensemble : VMware versus Proxmox
+
+**<span class="fonttaller">Rappel Proxmox (Ce que vous connaissez déjà)</span>**
+
+Avec Proxmox, vous avez travaillé avec une solution **tout-en-un**:
+
+- Interface web unique
+- Gestion de *VMs* et de conteneurs
+- Clustering intégré
+- Stockage distribué (Ceph)
+- Sauvegarde incluse
+- Solution *open-source* 🥳
+
+**<span class="fonttaller">L'approche VMware : la modularité 🧩</span>**
+
+VMware fonctionne différemment avec une approche **modulaire et stratifiée (par couche):**
+
+- Plusieurs produits spécialisés
+- Architecture en couches (hyperviseur + gestion + services)
+- Chaque produit à un rôle précis (et un coût 😒...)
+- Écosystème propriétaire avec licences distinctes 💰
+
+On pourrait voir Proxmox comme un petit couteau suisse. Il comporte plusieurs outils pratiques et nous permet de se débrouiller très très bien. VMware est plutôt comme une véritable boîte à outils professionnelle. Chaque outil excelle dans sa fonction, mais c'est un peu plus lourd comme infrastructure à mettre en place.
+
+## L'Hyperviseur : ESXi (la fondation) 🧱
+
+### Qu'est-ce que ESXI ?
+
+C'est l'hyperviseur de type 1 (*bare-metal*) de VMware. C'est l'équivalent de l'hyperviseur intégré dans Proxmox (*qemu*).
+
+**<span class="fonttaller">Caractéristiques clés:</span>**
+
+- S'installe directement sur le serveur physique
+- Interface web minimale
+- Empreinte très légère (~300 MO)
+- Gère les ressources matérielles (CPU,RAM,disques,réseau)
+- Exécute les machines virtuelles
+
+### Comparaison avec Proxmox
+
+|Aspect|Proxmox|ESXi|
+|------|-------|----|
+|Base Linux|Oui (Debian)|Non (VMkernel propriétaire)|
+|Conteneurs|Oui (LXC)|Non (VM seulement)|
+|Gestion locale|Interface web complète|Interface basique|
+|Clustering|Intégré|Nécessite vCenter 💵💵💵|
+
+### Quand utiliser ESXi seul ?
+
+- Laboratoire personnel: Pour vous amuser: *homelab, tests, etc*
+- Petit environnement: 1-3 serveurs sans besoin de gestion centralisé
+- Apprentissage: Comprendre la base avant d'utiliser vCenter
+
+:::caution[Limitations importantes]
+ESXi seul ne permet PAS le clustering, la migration à chaud (vMotion), ou la haute disponibilité. Pour ces fonctionnalités, vous avez besoin de vCenter. Tous ces beaux produits sont évidemment payants.
+:::
+
+## Le gestionnaire centralisé : vCenter Server 📊
+
+### Qu'est-ce que vCenter
+
+**vCenter Server** est le cerveau de l'infrastructure VMware. C'est la plateforme de gestion centralisée qui orchestre plusieurs hôtes ESXi. C'est un peu comme le cluster manager de Proxmox, mais bien plus puissant et séparé de l'hyperviseur.
+
+### Architecture de déploiement
+
+vCenter peut être déployé de deux façons:
+
+1. **vCSA (vCenter Server Appliance)** - Recommandé
+    - VM préconfigurée sous Linux (Photon OS)
+    - Déploiement rapide (format OVA)
+    - Base de données PostgreSQL intégrée
+    - Pas de Windows requis
+
+
+2. **vCenter sur Windows** - Déprécié
+    - Installation sur Windows Serveur
+    - Nécessite SQL Server ou Oracle
+    - Plus complexe à maintenir
+    - En voie de disparition
+
+### Fonctionnalités principales de vCenter
+
+**<span class="fonttaller green-text">Gestion centralisée</span>**
+
+- **Interface unique** pour gérer des dizaines ou centaines d'hôtes ESXi
+- **Inventaire hiérarchique** : Datacenter → Cluster → Hôte → VM
+- **Recherche globale**: Trouver n'importe quelle ressource rapidement
+- **Gestion par lots**: Opérations sur plusieurs *VMs* simultanément
+
+**<span class="fonttaller green-text">Clustering et Haute-Disponibilité</span>**
+
+- **vSphere HA**: Redémarrage automatique des *VMs* en cas de panne d'hôte
+- **vSphere DRS**: Distribution automatique des la charge entre les hôtes
+- **vMotion**: Migration à chaud des *VMs* sans interruption
+- **Storage vMotion**: Migration du stockage sans arrêt
+
+**<span class="fonttaller green-text">Fonctionnalités avancées</span>**
+
+- **Templates**: Modèles de VM standardisés
+- **Content Library**: Bibilothèque centralisée de *templates* et *ISOs*
+- **Rôles et permissions**: Gestion fine des accès (RBAC)
+- **Alarmes et monitoring**: Surveillance proactive
+- **Update manager**: Gestin des MAJ ESXi
+
+## Le stockage : Comprendre les options 💾
+
+Contrairement à Proxmox qui intègre Ceph, VMware propose plusieurs approches:
+
+**<span class="fonttaller">VMFS (VMware File System)</span>**
+
+- **Type:** Système de fichiers propriétaire de VMware
+- **Usage:** Stockage partagé classique (SAN,iSCSI)
+- **Particularité:** Clustering des fichiers
+- **Comparatif:** Ce serait l'équivalent d'un LVM sur un stockage partagé avec Proxmox
+
+**<span class="fonttaller">NFS</span>**
+
+- **Type:** Protocole standard et connu
+- **Usage:** Connexion à des NAS
+- **Particularité:** Simple, flexible, *thin provisionning* natif
+- **Comparatif:** NFS est utilisable de la même façon avec Proxmox
+
+**<span class="fonttaller">vSAN</span>**
+
+- **Type:** Stockage distribué défini par logiciel
+- **Usage:** Aggrégation des disques locaux de plusieurs hôtes
+- **Particularité:** Créé un *datastore* partagé à partir de ressources locales
+- **Comparatif:** C'est l'équivalent de Ceph!
+- **Licence:** vSAN n'est pas inclus dans vCenter... évidemment 💵💵💵
+- **Préalables:** 3 hôtes ESXi (comme Ceph)
+
+**<span class="fonttaller">Local Datastore</span>**
+- **Type:** Disques locaux sur un hôte ESXi
+- **Usage:** VM non critiques, lab, pas de haute disponibilité
+- **Limitation:** Pas de vMotion possible (migration)
+
+### Quelle solution de stockage choisir ?
+
+|Scénario|Solution recommandée|Pourquoi|
+|--------|--------------------|--------|
+|Infrastructure existante avec SAN|VMFS sur SAN|Utilise l'infra. en place. Performant.|
+|NAS en place|NFS|Simple économique (mais lent)|
+|Infrastructure moderne sans SAN|vSAN|Stockage distribué. Résilient.|
+|Lab/Test sur un seul hôte|Local Datastore|Pas de coût additionnel.|
