@@ -153,3 +153,6 @@ Contrairement à Proxmox qui intègre Ceph, VMware propose plusieurs approches:
 |NAS en place|NFS|Simple économique (mais lent)|
 |Infrastructure moderne sans SAN|vSAN|Stockage distribué. Résilient.|
 |Lab/Test sur un seul hôte|Local Datastore|Pas de coût additionnel.|
+
+## Quelques produits complémentaires de VMware
+
