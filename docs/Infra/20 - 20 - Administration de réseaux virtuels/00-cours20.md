@@ -22,8 +22,8 @@ L'architecture réseau de vSphere peut se visualiser en **trois couches:**
     <ThemedImage
         alt="Schéma"
         sources={{
-            light: useBaseUrl('/img/Virtu/3Couches_W.svg'),
-            dark: useBaseUrl('/img/Virtu/3Couches_D.svg'),
+            light: useBaseUrl('/img/Virtu/3couches_W.svg'),
+            dark: useBaseUrl('/img/Virtu/3couches_D.svg'),
         }}
     />
 </div>
