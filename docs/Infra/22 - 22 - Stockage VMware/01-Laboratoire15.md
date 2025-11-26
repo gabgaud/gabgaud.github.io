@@ -43,7 +43,7 @@ Sur LabInfo, créez une machine virtuelle avec les caractéristiques suivantes:
 - 2 coeurs
 - 8192Mo de mémoire vive
 - 1 disque dur de 40Go pour l'installation du système
-- 1 carte réseau branché à votre passerelle personnelle <span class='red-text'>(E1000)</span>
+- 1 carte réseau branché à votre passerelle personnelle
 - 1 lecteur optique dans lequel vous mettrez l'iso de TrueNas-13.0-U6.8.iso
 
 :::important

@@ -1,0 +1,107 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Laboratoire 17
+
+# Mise en place d'une infrastructure VMware complète
+
+* * *
+
+## Préalables ✅
+  - 3 hôtes ESXi
+  - vCenter installé et fonctionnel
+  - Chaque noeud doit avoir:
+    - Trois interfaces réseau
+    - Deux disques supplémentaires pour vSAN
+      - 1 SSD (40 Go)
+      - 1 HDD/SSD (250 Go)
+  - Connexion à un stockage réseau temporaire pour la phase initiale
+
+:::important[Un mot sur les prérequis]
+Une étape est réservée à la mise en place des prérequis dans le laboratoire. Vous pouvez donc partir de zéro si vous le voulez. Ce serait même l'occasion de faire une bonne révision.
+:::
+
+## Objectifs 🎯
+  - Avoir un cluster VMware composé de 3 noeuds avec *vMotion*, haute-disponibilité, DRS et vSAN.
+
+
+## Étapes de réalisation 🔢
+
+### 0. Mise en place des prérequis
+
+Si vous désirez partir de zéro, c'est ici qu'il faut commencer. Si vous avez déjà une infrastructure, vous pouvez vous dirigez vers l'étape #1.
+
+#### 0.1 Passerelle et Serveur DNS
+
+Nous allons devoir se créer une passerelle et un serveur DNS pour répondre à nos besoins. Pour la passerelle, vous pouvez utiliser le modèle `MODELE_pfSense (Sans DHCP)` disponible à la racine du dossier Modèles dans LabInfo. Configurez une première carte sur `Accès Internet` et l'autre sur l'un de vos réseaux privés.
+
+:::caution
+Prenez note qu'en ce qui me concerne, j'utiliserai le réseau privé 192.168.21.0/24 pour mes démonstrations.
+:::
+
+Pour le serveur DNS, je vous laisse le soin de choisir le système d'exploitation de votre choix. Néanmoins, assurez-vous de créer une zone de recherche direct et une autre inversée dans lesquelles vous mettrez en place les enregistrements suivants:
+
+**Zone de recherche direct:**
+|Nom|Type|Destination|Description|
+|---|----|-----------|-----------|
+|@|NS|ns1.domaine.lan.|Enregistrement NS pour le serveur de noms|
+|@|A|192.168.21.5|Enregistrement A au nom de la zone pointant vers l'IP de mon serveur DNS|
+|ns1|A|192.168.21.5|Traduction du nom pour ns1|
+|esx1|A|192.168.21.11|Enregistrement A pour ESXi-1|
+|esx2|A|192.168.21.12|Enregistrement A pour ESXi-2|
+|esx3|A|192.168.21.13|Enregistrement A pour ESXi-3|
+|vcenter|A|192.168.21.21|Enregistrement A pour vCenter|
+
+**Zone de recherche inverse:**
+|Nom|Type|Destination|Description|
+|---|----|-----------|-----------|
+|@|NS|ns1.domaine.lan.|Enregistrement NS pour le serveur de noms|
+|5|PTR|ns1.domaine.lan.|Enregistrement PTR pour ns1|
+|11|PTR|esx1.domaine.lan|Enregistrement PTR pour ESXi-1|
+|12|PTR|esx2.domaine.lan|Enregistrement PTR pour ESXi-2|
+|13|PTR|esx3.domaine.lan|Enregistrement PTR pour ESXi-3|
+|21|PTR|vcenter.domaine.lan|Enregistrement PTR pour vCenter|
+
+#### 0.2 Déploiement des ESXi
+
+J'ai créé un modèle d'hyperviseur ESXi pour vous permettre de gagner du temps. Vous pouvez assurément l'utiliser, mais vous devrez l'adapter. Vous devrez donc suivre les étapes ci-dessous pour chaque hyperviseur à créer.
+
+    - Dirigez-vous dans le dossier `Modèles` → `420-5V6` et cloner le modèle **MODELE_ESXi_8.0.3_Golden** vers une machine virtuelle.
+    - Personnaliser le matériel de la machine virtuelle:
+        - Ajustez la première carte réseau pour brancher celle-ci sur le réseau privé que déssert votre passerelle.
+        - Ajoutez une deuxième interface réseau que vous relierez sur un autre de vos réseaux privés.
+        - Ajoutez une troisième interface réseau que vous relierez sur un autre de vos réseaux privés (Différent des interfaces précédentes).
+        - Ajoutez un second disque dur de 40Go en vous assurant de le relier au contrôleur SATA.
+        - Ajoutez un troisième disque dur de 250Go en vous assurant de la relier au contrôleur SATA.
+        - Supprimez le contrôleur SCSI qui aura été ajouté automatiquement.
+        - <mark>**Sur le noeud hébergeant vCenter seulement:**</mark>
+            - Augmentez la mémoire vive à 24Go
+        - Terminez.
+    - Démarrez la machine virtuelle que vous venez de déployer.
+    - Dans la console, ajustez les paramètres IP et DNS conformément à ce que vous avez inscrit dans votre serveur DNS.
+
+#### 0.3 Déploiement du client
+
+J'ai créé un modèle de client que vous devez utiliser <span class="red-text">**obligatoirement**</span> si vous êtes reparti de zéro. La raison est bien simple, vous devrez utiliser un script qui se trouve à l'intérieur du modèle à utiliser.
+
+Dirigez-vous donc dans le dossier `Modèles` → `420-5V6` et cloner le modèle **Client5V6_ScriptvCenter**. Ajustez sa carte réseau pour que celle-ci soit reliée au réseau interne que déssert votre passerelle.
+
+Suite au démarrage de votre client, configurez lui une adresse IP. Ensuite, démarrez un navigateur web au sein de votre client. Pour chaque noeud ESXi, réalisez les étapes suivantes:
+
+- Ouvrez un navigateur web et tentez d'accéder à l'hôte ESXi **<u>à partir du nom de domaine.</u>**
+- Ouvrez une session et confirmez que l'hyperviseur fonctionne bien.
+
+#### 0.4 Configuration de vSwitch Standard pour iSCSI
+
+Nous devons à présent configurer un réseau pour notre stockage iSCSI. Dans le laboratoire précédent, nous avions utilisé un *vSwitch* distribué. Or, pour utiliser un tel *vSwitch*, nous devons avoir accès à *vCenter*, que nous n'avons pas encore installé. Pour faire changement, nous utiliserons des *vSwitch* standards cette fois.
+
+Pour chaque serveur ESXi, suivez les étapes suivantes:
+
+- Menu `Mise en réseau` → `Commutateurs virtuels`
+- Cliquez sur `Ajouter un commutateur virtuel standard`
+    - Nom: vSwitch1
+    - MTU: 9000
+    - Liaison montante 1: vmnic1
+- Ajouter
