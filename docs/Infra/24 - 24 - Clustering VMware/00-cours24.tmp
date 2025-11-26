@@ -1,0 +1,38 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Cours 24
+
+# Clustering sous VMware
+
+* * *
+
+Un cluster vSphere, comme un cluster Proxmox, est un regroupement logique de plusieurs hôtes. Dans vSphere, les noeuds ESXi ainsi rassemblés gérés sous la forme d'une seule ressource par vCenter. Trois piliers caractérisent le clustering VMware:
+
+1. **vMotion (Migration à chaud)**
+    - Déplace une VM d'un hôte à un autre sans interruption de service.
+    - La VM reste allumée et accessible pendant le déplacement.
+    - Parfait pour la maintenance et/ou l'équilibrage de charge.
+
+2. **vSphere HA (*High Availability*)**
+    - Redémarre automatiquement les VMs si un hôte tombe en panne.
+    - Protection contre les défaillances matérielles.
+    - Temps d'arrêt réduit au minimum.
+
+3. **vSphere DRS (*Distributed Ressource Scheduler*)**
+    - Équilibre automatiquement la charge de travail
+    - Utilise *vMotion* pour déplacer les *VMs* selon les besoins
+    - Optimise l'utilisation des ressources du *cluster*.
+
+## Prérequis essentiels pour un cluster
+
+Un *cluster* ne peut pas fonctionner simplement parce qu'on décide d'en créer un. Un *cluster* nécessite certains éléments pour fonctionner.
+
+|Prérequis|Explications|
+|---------|------------|
+|**vCenter Server**|*vCenter* est obligatoire si vous pensez mettre un *cluster* en place.|
+|**Stockage partagé**|Toutes les *VMs* doivent être sur un stockage accessible par tous les noeuds.|
+|**Réseau commun**|Tous les hôtes doivent évidemment pouvoir communiquer entre eux.|
+|**Hôtes similaires**|Les caractéristiques techniques doivent être similaires.|
