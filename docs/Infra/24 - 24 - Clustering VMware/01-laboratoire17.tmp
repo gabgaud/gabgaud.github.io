@@ -97,11 +97,50 @@ Suite au démarrage de votre client, configurez lui une adresse IP. Ensuite, dé
 
 Nous devons à présent configurer un réseau pour notre stockage iSCSI. Dans le laboratoire précédent, nous avions utilisé un *vSwitch* distribué. Or, pour utiliser un tel *vSwitch*, nous devons avoir accès à *vCenter*, que nous n'avons pas encore installé. Pour faire changement, nous utiliserons des *vSwitch* standards cette fois.
 
-Pour chaque serveur ESXi, suivez les étapes suivantes:
+<mark>Pour chaque serveur ESXi, suivez les étapes suivantes:</mark><br/><br/>
 
+**Création du *vSwitch Standard:***
 - Menu `Mise en réseau` → `Commutateurs virtuels`
 - Cliquez sur `Ajouter un commutateur virtuel standard`
     - Nom: vSwitch1
     - MTU: 9000
     - Liaison montante 1: vmnic1
 - Ajouter
+
+**Création d'un groupe de ports:**
+- Menu `Mise en réseau` → `Groupe de ports`
+- Cliquez sur `Ajouter un groupe de ports`
+    - Nom: iSCSI
+    - VLAN: 0
+    - Commutateur virtuel: vSwitch1
+- Ajouter
+
+**Création d'un VMkernel port:**
+- Menu `Mise en réseau` → `Ajouter une NIC VMKernel`
+    - Groupe de ports: iSCSI
+    - MTU: 9000
+    - Version IP: IPv4
+    - Paramètres IPV4: Statique
+      - IP: *Votre IP iSCSI*
+      - Masque: 255.255.255.0
+    - Pile TCP/IP: Par défaut
+    - Services: Aucun
+
+#### 0.5 Activation de l'adapteur logiciel iSCSI
+
+Pour chaque serveur ESXi, dirigez-vous dans le menu `stockage` → `adapteurs` et cliquez sur `iSCSI Logiciel`. Activez iSCSI et attendez quelques secondes que tous les champs disponibles s'affichent dans la fenêtre.
+
+Lorsque vous le pourrez, faites une liaison avec votre port `vmk1` que vous avez préalablement créé, puis enregistrez la configuration.
+
+#### 0.6 Mise en place d'un stockage réseau iSCSI
+
+J'ai créé un modèle de VM **TrueNAS** pour que vous puissiez vous concentrer sur la mise en place du stockage iSCSI plutôt que sur l'installation. Lorsque vous aurez importé le modèle, n'oubliez pas de configurer un adapteur réseau sur votre réseau de gestion et l'autre sur votre réseau iSCSI. De plus, vous devrez ajouter deux disques durs pour configurer votre pool ZFS. Comme *vCenter* sera installé directement sur notre stockage iSCSI, je vous recommande de mettre 2 x 500Go en mode *striping* pour totaliser 1To d'espace disque sur votre iSCSI.
+
+Référez-vous aux laboratoires précédents pour mettre en place votre stockage iSCSI sur le réseau. Lorsque ce sera fait, <mark>**créez une nouvelle banque de données sur l'hyperviseur qui accueillera vCenter**</mark>. Celle-ci nous sera utile pour y installer vCenter.
+
+:::caution
+N'oubliez pas qu'il faut activer un adapteur de stockage virtuel iSCSI dans ESXi pour bénéficier de ce type de stockage.
+:::
+
+#### 0.7 Déploiement de vCenter
+

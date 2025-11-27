@@ -1,0 +1,14 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Projet final - Phase 1
+
+# Mise en place d'une infrastructure VMware complète
+
+* * *
+
+Il ne nous reste plus que quelques éléments à voir avec les produits VMware dans le cadre de ce cours. Tout ce qui nous reste à voir concerne et/ou tourne autour du *clustering*. Comme vous connaissez, en bonne partie, les avantages, les inconvénients et les raisons pour lesquelles nous mettons en place ces *clusters* (grâce à la portion Proxmox du cours), ces dernières notions vous seront transmises sous la forme d'un projet synthèse.
+
+Un cluster vSphere, comme un cluster Proxmox, est un regroupement logique de plusieurs hôtes. Dans vSphere, les noeuds ESXi ainsi rassemblés gérés sous la forme d'une seule ressource par vCenter. Trois piliers caractérisent le clustering VMware:
