@@ -1,0 +1,107 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Projet final - Phase 2
+
+Il est essentiel que vous ayez dûment complété la Phase 1 du projet avant de vous lancer dans cette portion du projet. Prendre le risque de sauter certaines étapes pourrait vous obliger à tout recommencer.
+
+* * *
+
+## Phase 2
+
+Dans la phase 2, nous optimiseront l'infrastructure virtuelle et déploieront certaines technologies en lien avec le *clustering*.
+
+### 9. Migration vers vSwitch Distribué
+
+Comme vous l'avez peut-être déjà remarqué dans la phase 1 de ce projet, nous n'utilisons que des *vSwitch Standards* pour le moment. En classe, nous avons vu que l'utilisation de *vSwitch Standards* n'est pas idéal puisque celles-ci nécessitent:
+
+- Une configuration séparée.
+- Des répétitions dans le travail de gestion et d'administration. 😮‍💨
+- Une attention particulière pour éviter les erreurs. 👀
+
+Nous allons donc migrer notre configuration actuelle pour utiliser des *vSwitch Distribués* qui nous permettent une meilleure efficacité et un risque d'erreur amoindri. Voici comment nous allons procéder. Voici l'architecture cible après les manipulations:
+
+
+#### 9.10 Création d'un premier vDS
+
+Dans **vCenter**, sélectionnez votre *datacenter* puis cliquez sur `Nouveau Distributed Switch`:
+
+- **Nom:** vDS Production
+- **Version:** 8.0.3
+- **Nombre de liaison montante:** 1
+- **Network I/O Control:** Activé
+- **Default PortGroup:** Aucun pour l'instant
+
+#### 9.11 Création d'un second VDS pour vMotion et vSAN
+
+Dans **vCenter**, sélectionnez votre *datacenter* puis cliquez sur `Nouveau Distributed Switch`:
+
+- **Nom:** vDS Services
+- **Version:** 8.0.3
+- **Nombre de liaison montante:** 1
+- **Network I/O Control:** Activé
+- **Default PortGroup:** Aucun pour l'instant
+
+#### 9.20 Création des groupes de ports pour vDS Production
+
+Nous aurons besoin de deux groupes de ports distincts sur notre **vDS Production**: Un premier groupe pour l'administration et un second pour les *VMs*. Faites un clic à l'aide du bouton de droite de la souris sur votre nouveau vDS et sélectionnez `Nouveau groupe de ports distribués`:
+
+- **Nom:** DPG-Management
+- **Liaison de port:** Statique
+- **Nombre de ports:** 8
+- **Pool de ressources:** Aucun
+- **VLAN:** Aucun
+- **Sécurité:**
+    - **Mode promiscuité:** Accepter
+    - **Modifications de l'adresse MAC:** Accepter
+    - **Transmissions forgées:** Accepter
+- **Formation du traffic:** Par défaut
+- **Association et basculement:** Par défaut
+- **Surveillance:** Par défaut
+- **Divers:** Par défaut
+
+**<span class="red-text"><u>Répétez les mêmes étapes pour vous créer un groupe de ports nommé DPG-VM-Network sur le même vDS</u></span>**
+
+#### 9.21 Création des groupes de ports pour vDS Services
+
+Pour les groupes de ports du **vDS Services**, il faudra affecter des VLANs distincts puisque nous voulons effectuer une réelle séparation du traffic. Créez donc les groupes de ports comme vous l'avez effectué à l'étape précédente, mais cette fois attribuez des VLANs (10 pour vSAN et 20 pour vMotion par exemple).
+
+Assurez-vous de créer les groupes de ports sur les bons commutateurs virtuels.
+
+#### 9.3 Ajouter les hôtes aux vDS
+
+Nous devons maintenant permettre aux hyperviseurs ESXi d'utiliser les vDS que nous venons de créer. Pour cela, il faut ajouter des hôtes aux commutateurs virtuels. **Pour chacun des vDS, faites les étapes suivantes:**
+
+- Clic à l'aide du bouton de droite de la souris sur le vDS, puis `Ajoutez et gérez des hôtes`
+- **Sélectionner la tâche:** Ajouter des hôtes
+- **Sélectionner des hôtes:** Cocher tous les hyperviseurs
+- **Gérer les adapteurs physiques:** <span class="red-text">Ne rien cocher</span>
+- **Gérer les adapteurs VMKernel:** <span class="red-text">Ne rien cocher</span>
+- **Migrer la mise en réseau des VMs:** <span class="red-text">Ne rien cocher</span>
+
+#### 9.4 ⚠️ Migration de vmnic0 vers vDS ⚠️
+
+:::danger[Risque de perdre la connexion!]
+Cette étape est à la fois délicate et cruciale. Assurez-vous d'avoir du temps et de la concentration avant de procéder. Nous nous apprêtons à faire passer le réseau de gestion des hyperviseurs d'un **vSwitch Standard** à un **vSwitch Distribué.** Vous perdrez donc la connexion avec vos hyperviseurs pendant un court instant. Une erreur de configuration à cette étape vous obligera à revenir en arrière. Respirez par le nez, dites *namasté* et allez-y calmement 😊.
+:::
+
+**<span class="fonttaller">Pour les noeuds ne contenant <span class="red-text">PAS</span> vCenter:</span>**
+
+Faites un clic à l'aide du bouton de droite de la souris sur `vDS Production` et sélectionnez `Ajouter ou gérer des hôtes`:
+
+- **Sélectionnez la tâche:** Gérez la mise en réseau de l'hôte
+- **Sélectionnez des hôtes:** Choisissez un seul noeud pour l'instant
+- **Gérer les adapteurs physiques:** Attribuez le vmnic0 à l'uplink 1
+- **Gérer les adapteurs VMKernel:** Attribuez vmk0 à votre groupe de ports `DPG-Management`
+- **Migrer la mise en réseau VM:** Pas de modification ici
+- **Prenez une grande respiration et cliquez sur `terminer`.**
+
+<u>Refaites les mêmes étapes pour l'autre noeud ne contenant PAS vCenter</u>
+
+<br/><br/>
+**<span class="fonttaller">Pour le noeud contenant vCenter:</span>**
+
+vCenter possède des protections en place pour éviter de causer des coupures de connexion involontaires. Il ne nous laissera pas perdre la connexion. On va donc le déjouer temporairement. Suivez les étapes suivantes:
+

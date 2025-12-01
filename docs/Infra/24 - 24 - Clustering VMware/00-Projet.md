@@ -18,7 +18,7 @@ Le projet doit être réalisé individuellement. L'entraide est permise, cependa
 
 Il ne nous reste plus que quelques éléments à voir avec les produits VMware dans le cadre de ce cours. Tout ce qui nous reste à voir concerne et/ou tourne autour du *clustering*. Comme vous connaissez, en bonne partie, les avantages, les inconvénients et les raisons pour lesquelles nous mettons en place ces *clusters* (grâce à la portion Proxmox du cours), ces dernières notions vous seront transmises sous la forme d'un projet synthèse.
 
-Un cluster vSphere, comme un cluster Proxmox, est un regroupement logique de plusieurs hôtes. Dans vSphere, les noeuds ESXi ainsi rassemblés gérés sous la forme d'une seule ressource par vCenter. Trois piliers caractérisent le clustering VMware:
+Un cluster vSphere, comme un cluster Proxmox, est un regroupement logique de plusieurs hôtes. Dans vSphere, les nœuds ESXi ainsi rassemblés gérés sous la forme d'une seule ressource par vCenter. Trois piliers caractérisent le clustering VMware:
 
 1. **vMotion (Migration à chaud)**
     - Déplace une VM d'un hôte à un autre sans interruption de service.
@@ -58,7 +58,7 @@ La première étape du projet consiste à mettre en place l'infrastructure virtu
 
 ### 1. Passerelle et Serveur DNS
 
-Nous allons devoir se créer une passerelle et un serveur DNS pour répondre à nos besoins. Pour la passerelle, vous pouvez utiliser le modèle `MODELE_pfSense (Sans DHCP)` disponible à la racine du dossier Modèles dans LabInfo. Configurez une première carte sur `Accès Internet` et l'autre sur l'un de vos réseaux privés. Prenez note qu'en ce qui me concerne, j'utiliserai le réseau privé 192.168.21.0/24 pour mes démonstrations. Vous pouvez suivre mon plan d'adressage ou utiliser le vôtre.
+Nous allons devoir nous créer une passerelle et un serveur DNS pour répondre à nos besoins. Pour la passerelle, vous pouvez utiliser le modèle `MODELE_pfSense (Sans DHCP)` disponible à la racine du dossier Modèles dans LabInfo. Configurez une première carte sur `Accès Internet` et l'autre sur l'un de vos réseaux privés. Prenez note qu'en ce qui me concerne, j'utiliserai le réseau privé 192.168.21.0/24 pour mes démonstrations. Vous pouvez suivre mon plan d'adressage ou utiliser le vôtre.
 
 :::danger[Choix du nom de domaine]
 Choisissez-vous un nom de domaine personnalisé. Je vous recommande *prenom.lan*.
@@ -71,9 +71,9 @@ Choisissez-vous un nom de domaine personnalisé. Je vous recommande *prenom.lan*
 Vous aurez des conflits avec les noms de domaine du Cégep.
 :::
 
-Pour le serveur DNS, je vous laisse le soin de choisir le système d'exploitation de votre choix. Néanmoins, assurez-vous de créer une zone de recherche direct et une autre inversée dans lesquelles vous mettrez en place les enregistrements suivants:
+Pour le serveur DNS, je vous laisse le soin de choisir le système d'exploitation de votre choix. Néanmoins, assurez-vous de créer une zone de recherche directe et une autre inversée dans lesquelles vous mettrez en place les enregistrements suivants:
 
-**Zone de recherche direct:**
+**Zone de recherche directe:**
 |Nom|Type|Destination|Description|
 |---|----|-----------|-----------|
 |@|NS|ns1.domaine.lan.|Enregistrement NS pour le serveur de noms|
@@ -96,7 +96,7 @@ Pour le serveur DNS, je vous laisse le soin de choisir le système d'exploitatio
 
 ### 2. Déploiement des ESXi
 
-J'ai créé un modèle d'hyperviseur ESXi pour vous permettre de gagner du temps. Vous pouvez évidemment l'utiliser, mais vous devrez **<span class="red-text">obligatoirement l'adapter. Sans quoi, vous aurez différentes problmatiques.</span>** Si vous préférez, vous pouvez aussi installer individuellement les trois hyperviseurs, c'est également une possibilité viable. **<span class="red-text">Si vous clonez mon modèle, ne faites qu'un hyperviseur à la fois!</span>**
+J'ai créé un modèle d'hyperviseur ESXi pour vous permettre de gagner du temps. Vous pouvez évidemment l'utiliser, mais vous devrez **<span class="red-text">obligatoirement l'adapter. Sans quoi, vous aurez différentes problématiques.</span>** Si vous préférez, vous pouvez aussi installer individuellement les trois hyperviseurs, c'est également une possibilité viable. **<span class="red-text">Si vous clonez mon modèle, ne faites qu'un hyperviseur à la fois!</span>**
 
 #### 2.1 Clone et importation
 
@@ -149,9 +149,9 @@ J'ai créé un modèle d'hyperviseur ESXi pour vous permettre de gagner du temps
 
 J'ai créé un modèle de client que vous devez utiliser <span class="red-text">**obligatoirement**</span>. La raison est bien simple, vous devrez utiliser un script qui se trouve à l'intérieur du modèle à utiliser.
 
-Dirigez-vous donc dans le dossier `Modèles` → `420-5V6` et cloner le modèle **Client5V6_ScriptvCenter**. Ajustez sa carte réseau pour que celle-ci soit reliée au réseau interne que déssert votre passerelle.
+Dirigez-vous donc dans le dossier `Modèles` → `420-5V6` et clonez le modèle **Client5V6_ScriptvCenter**. Ajustez sa carte réseau pour que celle-ci soit reliée au réseau interne que dessert votre passerelle.
 
-Suite au démarrage de votre client, configurez lui une adresse IP statique. Ensuite, démarrez un navigateur web au sein de votre client. Pour chaque noeud ESXi, réalisez les étapes suivantes:
+Suite au démarrage de votre client, configurez-lui une adresse IP statique. Ensuite, démarrez un navigateur web au sein de votre client. Pour chaque nœud ESXi, réalisez les étapes suivantes:
 
 - Ouvrez un navigateur web et tentez d'accéder à l'hôte ESXi **<u>à partir du nom de domaine.</u>**
 - Ouvrez une session et confirmez que l'hyperviseur fonctionne bien.
@@ -266,12 +266,12 @@ Une fois que votre fichier JSON est bien modifié. Lancez PowerShell 7 dans Wind
 Accédez à l'interface de votre instance vCenter et ouvrez une session:
 
 - Créez votre *Datacenter*
-- Ajoutez vos noeuds ESXi au *datacenter*
+- Ajoutez vos nœuds ESXi au *datacenter*
 
 **<span class="red-text">Fin de la phase 1</span>**
 
 :::tip
-À ce stade, si tout fonctionne bien, je vous recommande de prendre des *snapshots* dans LabInfo. Identifiez-les pertinemment. En cas de retour en arrière, vous ne pourrez pas revenir en arrière sur un seul hyperviseur, vous devrez revenir en arrière pour les trois ainsi que TrueNAS
+À ce stade, si tout fonctionne bien, je vous recommande de prendre des *snapshots* dans LabInfo. Identifiez-les pertinemment. En cas de retour en arrière, vous ne pourrez pas revenir en arrière sur un seul hyperviseur, vous devrez revenir en arrière pour les trois ainsi que TrueNAS.
 
 Vous pouvez utiliser la date et une brève description. Ex: 20251201-Phase1
 :::
