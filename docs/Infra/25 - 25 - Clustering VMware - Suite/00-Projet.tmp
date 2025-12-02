@@ -43,6 +43,7 @@ Dans **vCenter**, sélectionnez votre *datacenter* puis cliquez sur `Nouveau Dis
 - **Nombre de liaison montante:** 2
 - **Network I/O Control:** Activé
 - **Default PortGroup:** Aucun pour l'instant
+- **MTU:** 9000 (Changeable dans les paramètres par la suite)
 
 #### 9.20 Création des groupes de ports pour vDS Production
 
@@ -81,7 +82,7 @@ Nous devons maintenant permettre aux hyperviseurs ESXi d'utiliser les vDS que no
 - **Gérer les adapteurs VMKernel:** <span class="red-text">Ne rien cocher</span>
 - **Migrer la mise en réseau des VMs:** <span class="red-text">Ne rien cocher</span>
 
-#### 9.4 ⚠️ Migration de vmnic0 vers vDS ⚠️
+#### 9.4 Migration de vmnic0 vers vDS ⚠️
 
 :::danger[Risque de perdre la connexion!]
 Cette étape est à la fois délicate et cruciale. Assurez-vous d'avoir du temps et de la concentration avant de procéder. Nous nous apprêtons à faire passer le réseau de gestion des hyperviseurs d'un **vSwitch Standard** à un **vSwitch Distribué.** Vous perdrez donc la connexion avec vos hyperviseurs pendant un court instant. Une erreur de configuration à cette étape vous obligera à revenir en arrière. Respirez par le nez, dites *namasté* et allez-y calmement 😊.
@@ -96,14 +97,14 @@ Faites un clic à l'aide du bouton de droite de la souris sur `vDS Production` e
 - **Gérer les adapteurs physiques:** Attribuez le vmnic0 à l'uplink 1
 - **Gérer les adapteurs VMKernel:** Attribuez vmk0 à votre groupe de ports `DPG-Management`
 - **Migrer la mise en réseau VM:** Pas de modification ici
-- **Prenez une grande respiration et cliquez sur `terminer`.**
+- **Cliquez sur `terminer`.**
 
 <u>Refaites les mêmes étapes pour l'autre noeud ne contenant PAS vCenter</u>
 
 <br/><br/>
 **<span class="fonttaller">Pour le noeud contenant vCenter:</span>**
 
-Observez le schéma ci-dessous. Remarquez comment, actuellement, notre machine vCenter dépend complètement de notre *vSwitch0*. La problématique que nous rencontreront est directement lié à cette dépendance ici. L'objectif est de remplacer notre *vSwitch0* (un vSS) par notre vDS-Prodction (un VDS). Or, vCenter possède des protections contre les coupures de connexion. Si nous tentons de nous y prendre comme nous l'avons fait avec les deux autres noeuds, vCenter nous bloquera.
+Observez le schéma ci-dessous. Remarquez comment, actuellement, notre machine **vCenter** dépend complètement de notre *vSwitch0*. La problématique que nous rencontreront est directement lié à cette dépendance. L'objectif est de remplacer notre *vSwitch0* (un vSS) par notre vDS-Prodction (un VDS). Or, **vCenter** possède des protections contre les coupures de connexion. Si nous tentons de nous y prendre comme nous l'avons fait avec les deux autres noeuds, **vCenter** nous bloquera.
 
 <div style={{textAlign: 'center'}}>
     <ThemedImage
@@ -114,19 +115,117 @@ Observez le schéma ci-dessous. Remarquez comment, actuellement, notre machine v
         }}
     />
 </div>
+<br/>
+**<span class="fonttaller">Plan de match</span>**
 
-**Plan de match**
+1. Relier la vmnic2 au réseau de votre passerelle (lien rose)
+2. Relier la vmnic2 au vDS
+3. Assigner vmk0 au vDS
+4. Migrer le réseau de **vCenter**
+5. Relier la vmnic0 au vDS
+6. Retirer la vmnic2 du vDS
 
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/ReplacevSwitch0_W.gif'),
+            dark: useBaseUrl('/img/Virtu/ReplacevSwitch0_D.gif'),
+        }}
+    />
+</div>
 
-Suivez les étapes suivantes:
+:::caution[Gabriel où est l'étape 6 dans le schéma ?]
+Elle n'apparait pas. Elle consiste simplement à retirer les liens 1 & 2.
+:::
 
-1. Branchez une vmnic supplémentaire (branché derrière votre bridge) au vDS:
-    - Dans vCenter, clic droit sur le vDS → Ajoutez et Gérer des hôtes...
-    - **Sélectionner la tâche:** Gérer la mise en réseau de l'hôte
-    - **Sélectionner des hôtes:** L'hôte avec vCenter
-    - **Gérer les adapteurs physiques:** Assigner l'uplink 1 à la vmnic2 (<mark>Ne touchez pas vmnic0, laissez-le sur vSwitch0</mark>)
-    - **Gérer les adapteurs VMkernel:** Assigner vmk0 sur DPG-Management
-    - **Migrer la mise en réseau des VMs:** Changez le réseau de vCenter vers DPG-Management
-    - **Terminer**
+**Étape par étape:**
 
-2. 
+1. Sur l'ESXi hôte, relié l'adapteur vmnic2 (ou celui disponible) au commutateur désservi par PfSense dans LabInfo.
+2. Reliez votre vDS Production à cette vmnic. Pour ce faire suivez les sous-étapes:
+    - Dans **vCenter**, clic droit sur vDS Production → Ajoutez et gérez des hôtes.
+    - Gérez la mise en réseau de l'hôte
+        - Sélectionnez l'hôte avec **vCenter** seulement.
+    - Gérez les adapteurs physiques:
+        - Uplink 1: vmnic2 (ou celle qui vous concerne)
+    - Gérez les adapteurs VMKernel:
+        - Assignez `DPG-Management` à vmk0
+    - Migrer la mise en réseau des VMs:
+        - Assignez l'adapteur réseau de vCenter dans `DPG-Management`
+    - Terminer
+3. Vérifiez que **vCenter** est toujours accessible et que vos changements ont bien été pris en compte.
+4. Ajoutez vmnic0 au vDS (retirer de vSwitch0)
+    - Dans **vCenter**, clic droit sur vDS Production → Ajoutez et gérez des hôtes.
+    - Gérez la mise en réseau de l'hôte
+        - Sélectionnez l'hôte avec **vCenter** seulement.
+    - Gérez les adapteurs physiques:
+        - Uplink 2: vmnic0
+    - Gérez les adapteurs VMKernel: rien à faire
+    - Migrer la mise en réseau des VMs: rien à faire
+    - Terminer
+5. Retirez vmnic2 du vDS (utilisé temporairement)
+    - Dans **vCenter**, clic droit sur vDS Production → Ajoutez et gérez des hôtes.
+    - Gérez la mise en réseau de l'hôte
+        - Sélectionnez l'hôte avec **vCenter** seulement.
+    - Gérez les adapteurs physiques:
+        - Uplink 1: vide
+        - Uplink 2: vmnic0
+    - Gérez les adapteurs VMKernel: rien à faire
+    - Migrer la mise en réseau des VMs: rien à faire
+    - Terminer
+
+#### 9.5 Suppression des VSS0
+
+À ce stade, tous vos noeuds sont désormais reliés au vSwitch Distrivué vDS Production que nous avons créé plus tôt. Nous n'avons plus besoin des vSwitch Standards 0 qui sont au sein des différents hyperviseurs.
+
+Passez donc dans chacun des hyperviseurs et supprimez ces commutateurs virtuels qui sont devenus inutiles.
+
+### 10. Création du Cluster
+
+Dans **vCenter**, créez le *vSphere Cluster* en effectuant un clic droit sur votre *datacenter* et en sélectionnant `Nouveau Cluster`:
+
+|Paramètre|Valeur|Notes|
+|:---------:|:------:|:-----:|
+|**Nom**|Cluster-*vosinitiales* EX: Cluster-GG|Nom du cluster|
+|**vSphere DRS**| ❌ Désactivé | On activera manuellement plus tard|
+|**vSphere HA**| ❌ Désactivé | On activera manuellement plus tard|
+|**vSAN**| ❌ Désactivé | On activera manuellement plus tard|
+|**Image**| Importer une image à partir d'un hôte existant | Tous les noeuds devront correspondre à cette image système.|
+
+#### 10.1 Ajouter les noeuds au sein du cluster
+
+Une fois le *cluster* créé, vous le verrez apparaître dans votre inventaire. Clic droit → `Ajouter des hôtes` et sélectionnez tous vos noeuds ESXi. **Inutile d'importer à nouveau une image pour vLCM (*Life Cycle Manager*), nous l'avons déjà fait lors de la création du *cluster***.
+
+:::danger[Gabriel! Mes hyperviseurs tombent en maintenance 😱]
+C'est normal! C'est le *Cluster Quickstart* qui démarre automatiquement. En gros, c'est une aide à l'administrateur...que nous n'utiliseront pas 🥲
+:::
+
+Pour désactiver le *Cluster Quickstart*, sélectionnez votre *cluster* dans l'inventaire puis dans la section `Configurer` → `Démarrage Rapide`, cliquez sur `Ignorer le démarrage rapide`.
+
+Au besoin, faites un clic droit sur vos hyperviseurs et sortez les du mode maintenance. 🚧
+
+### 11. Configurer vMotion
+
+Dans les étapes précédentes, nous avons préparé un vDS pour nos services vMotion & vSAN. Cependant, nous avons pas encore configuré les interfaces **Vmkernel Ports** pour ces services. Il faut donc s'affairer à les créer maintenant. D'abord, sélectionnez un sous-réseau pour **vMotion**. Si vous désirez suivre mon propre plan d'adressage, vous pouvez également: 
+
+|Hôte|IP vMotion|Subnet|VLAN|
+|:----:|:----------:|:------:|:----:|
+|ESXi-01|10.20.0.11|255.255.255.0|20|
+|ESXi-02|10.20.0.12|255.255.255.0|20|
+|ESXi-03|10.20.0.13|255.255.255.0|20|
+
+#### 11.1 Configurer les VMKernel pour chaque noeud
+
+Pour chaque noeud ESXi dans l'inventaire:
+
+- Menu `Configurer` → `Adapteurs VMKernel`
+- Ajouter une mise en réseau:
+    - **Sélectionner un type de connexion:** Adapteur réseau VMKernel
+    - **Sélectionner un périphérique cible:** Sélectionner un réseau existant → `DPG-Vmotion`
+    - **Propriétés du port:** Par défaut → Services: vMotion
+    - **Paramètres IPv4:** Statique
+        - Adresse: *La vôtre*
+        - Masque: /24
+        - Passerelle et DNS: Ne rien changer, pas utile pour nous
+
+**Répéter les mêmes étapes pour les tous les noeuds**
