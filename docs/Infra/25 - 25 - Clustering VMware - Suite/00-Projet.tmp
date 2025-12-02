@@ -30,7 +30,7 @@ Dans **vCenter**, sélectionnez votre *datacenter* puis cliquez sur `Nouveau Dis
 
 - **Nom:** vDS Production
 - **Version:** 8.0.3
-- **Nombre de liaison montante:** 1
+- **Nombre de liaison montante:** 2
 - **Network I/O Control:** Activé
 - **Default PortGroup:** Aucun pour l'instant
 
@@ -40,7 +40,7 @@ Dans **vCenter**, sélectionnez votre *datacenter* puis cliquez sur `Nouveau Dis
 
 - **Nom:** vDS Services
 - **Version:** 8.0.3
-- **Nombre de liaison montante:** 1
+- **Nombre de liaison montante:** 2
 - **Network I/O Control:** Activé
 - **Default PortGroup:** Aucun pour l'instant
 
@@ -103,5 +103,30 @@ Faites un clic à l'aide du bouton de droite de la souris sur `vDS Production` e
 <br/><br/>
 **<span class="fonttaller">Pour le noeud contenant vCenter:</span>**
 
-vCenter possède des protections en place pour éviter de causer des coupures de connexion involontaires. Il ne nous laissera pas perdre la connexion. On va donc le déjouer temporairement. Suivez les étapes suivantes:
+Observez le schéma ci-dessous. Remarquez comment, actuellement, notre machine vCenter dépend complètement de notre *vSwitch0*. La problématique que nous rencontreront est directement lié à cette dépendance ici. L'objectif est de remplacer notre *vSwitch0* (un vSS) par notre vDS-Prodction (un VDS). Or, vCenter possède des protections contre les coupures de connexion. Si nous tentons de nous y prendre comme nous l'avons fait avec les deux autres noeuds, vCenter nous bloquera.
 
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/ReplacevSwitch0_W.svg'),
+            dark: useBaseUrl('/img/Virtu/ReplacevSwitch0_D.svg'),
+        }}
+    />
+</div>
+
+**Plan de match**
+
+
+Suivez les étapes suivantes:
+
+1. Branchez une vmnic supplémentaire (branché derrière votre bridge) au vDS:
+    - Dans vCenter, clic droit sur le vDS → Ajoutez et Gérer des hôtes...
+    - **Sélectionner la tâche:** Gérer la mise en réseau de l'hôte
+    - **Sélectionner des hôtes:** L'hôte avec vCenter
+    - **Gérer les adapteurs physiques:** Assigner l'uplink 1 à la vmnic2 (<mark>Ne touchez pas vmnic0, laissez-le sur vSwitch0</mark>)
+    - **Gérer les adapteurs VMkernel:** Assigner vmk0 sur DPG-Management
+    - **Migrer la mise en réseau des VMs:** Changez le réseau de vCenter vers DPG-Management
+    - **Terminer**
+
+2. 
