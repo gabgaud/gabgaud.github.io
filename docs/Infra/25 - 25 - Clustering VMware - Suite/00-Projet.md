@@ -354,3 +354,42 @@ Au final, vous devriez terminé avec des avertissements. Il s'agit d'éléments 
 Dans l'interface web de **vCenter**, sélectionnez votre *cluster* puis dirigez-vous dans le menu `Configurer` → `vSphere DRS`. Cliquez sur `Modifier...`
 
 Commencez par activer **vSphere HA**
+
+![ActiverDRS](../Assets/Projet/vSphereDRS.png)
+
+<span class="green-text fonttaller">**Onglet Automatisation:**</span><br/><br/>
+
+|Paramètre|Valeur|Explication|
+|---------|------|-----------|
+|Niveau d'automatisation|Entièrement automatisé|Il s'agit du mode de fonctionnement de DRS:<br/><br/>**Entièrement automatisé:**<br/>DRS prend les décisions et migre automatiquement.<br/><br/>**Partiellement automatisé:**<br/> DRS planifie des actions, mais vous demande une confirmation.<br/><br/>**Manuel:** <br/>DRS recommande des actions, vous décidez|
+|Seuil de migration|Medium|Fréquence d'intervention de DRS:<br/><br/>**Conservateur (gauche):**<br/> Migre les *VMs* seulement lorsqu'il y a un déséquilibre important.<br/><br/> **Modéré (millieu):**<br/> Migre les *VMs* lorsqu'il y a un déséquilibre standard.<br/><br/>**Agressif (droite):**<br/> Migre les machines dès le moindre déséquilibre.|
+|Predictive DRS|❌ Désactivé|Utilise l'intelligence prédictive pour anticiper certains besoins en ressources. Cette option nécessite **vRealize Operations Manager**|
+|Automatisation de machine virtuelle|✅ Activé|Cette option permet de définir des règles d'automatisation spécifiques par *VM*. Cela peut être utile si certaines *VMs* nécessitent un traitement différent du reste du cluster.|
+|Limite de temps de latence des périphériques de VM|❌ Désactivé|Il s'agit du temps d'attente acceptable qu'une *VM* peut attendre avant de pouvoir accéder à un périphérique comme un stockage par exemple. Un temps de latence long est souvent un indicateur qu'une *VM* éprouve des difficultés. DRS peut donc se servir de cette valeur pour prendre des décisions de rééquilibrage.|
+|Automatisation DRS de la VM de relais|❌ Désactivé|Il s'agit de la configuration des options pour les *VMs* ayant des périphériques *pass-through*. Ces *VMs* sont normalement plus difficiles à configurer.|
+
+<span class="green-text fonttaller">**Onglet options supplémentaires:**</span><br/><br/>
+
+|Paramètre|Valeur|Explication|
+|---------|------|-----------|
+|Distribution des *VMs*|❌ Désactivé|Cette option force DRS à répartir les VMs de manière plus uniforme entre tous les hôtes du cluster, plutôt que de se concentrer uniquement sur l'équilibrage des ressources (CPU/RAM). Le message concernant la dégradation du DRS signifie que si vous cochez cette option l'équilibrage des ressources pourrait être moins optimal.|
+|Surcharge du CPU|4v:1p|Permet de sur-allouer les ressources CPU des hôtes ESXi. C'est-à-dire allouer plus de vCPUs aux VMs que de cœurs physiques disponibles.<br/><br/>Réalité des VMs :<br/>-La plupart des VMs n'utilisent pas 100% de leurs vCPUs en permanence<br/>-Un serveur web avec 4 vCPUs peut utiliser en moyenne 20-30% seulement<br/>-La surallocation permet de consolider plus de *VMs*|
+|Partages évolutifs|❌ Désactivé| Lorsqu'il y a des pools de ressources, l'accès aux ressources est priorisé en fonction du nombre de *shares* que détiennent les *VMs*. Nous n'utilisons pas de pools ressources, laissez donc cette option désactivé.|
+
+<span class="green-text fonttaller">**Onglet gestion de l'alimentation:**</span><br/>
+
+DRS peut éteindre les noeuds qui sont très peu utilisés. Cela permet à une entreprise de faire des économies d'énergie importante. Dans notre contexte (LabInfo), ce n'est pas vraiment pertinent à mettre en place, mais sachez que c'est une configuration possible.
+
+<span class="green-text fonttaller">**Onglet options avancées:**</span><br/>
+
+Options supplémentaires que vous pouvez ajouter manuellement.
+
+Une fois les options remplies, cliquez sur `Terminer`
+
+**<span class="red-text">Fin de la phase 2</span>**
+
+:::tip
+À ce stade, si tout fonctionne bien, je vous recommande de prendre des *snapshots* dans LabInfo. Identifiez-les pertinemment. En cas de retour en arrière, vous ne pourrez pas revenir en arrière sur un seul hyperviseur, vous devrez revenir en arrière pour les trois ainsi que TrueNAS.
+
+Vous pouvez utiliser la date et une brève description. Ex: 20251203-Phase2
+:::
