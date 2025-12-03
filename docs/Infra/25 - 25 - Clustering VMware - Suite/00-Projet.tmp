@@ -295,4 +295,62 @@ La haute-disponibilité permet de redémarrer automatiquement les machines virtu
 
 - **Conservateur:** Migre les *VMs* seulement lorsqu'il y a un déséquilibre important
 - **Modéré:** Migre les *VMs* lorsqu'il y a un déséquilibre standard
-- **Agressif:** Migre les machines dès le moindre déséquilibre 
+- **Agressif:** Migre les machines dès le moindre déséquilibre
+
+#### 12.1 Activation et configuration de vSphere HA
+
+Dans l'interface web de **vCenter**, sélectionnez votre *cluster* puis dirigez-vous dans le menu `Configurer` → `Disponibilité vSphere`. Cliquez sur `Modifier...`
+
+Commencez par activer **vSphere HA**
+
+![vSphereHA](../Assets/Projet/vSphereHA.png)
+
+<span class="green-text fonttaller">**Onglet Pannes et réponses:**</span><br/><br/>
+
+|Paramètre|Valeur|Explication|
+|---------|------|-----------|
+|Réponse en cas de panne de l'hôte|Redémarrer les machines virtuelles|vSphere HA surveille les noeuds via des *heartbeats* toutes les secondes. Si un noeud ne répond plus pendant 15 secondes, **vSphere HA** considère le noeud planté et prend les mesures nécessaires. Dans notre cas, les mesures correspondent au redémarrage des *VMs* sur d'autres noeuds encore opérationnels.|
+|Réponse à l'isolation d'hôte|Mettre hors tension et redémarrer les machines virtuelles|Que fait **vSphere HA** si un noeud perd sa connexion réseau mais fonctionne encore ? <br/><br/>Dans notre cas, les *VMs* seront éteintes proprement puis elles seront démarrées sur d'autres noeuds.|
+|Banque de données avec PDL (*Permanent Device Lost*)|Mettre hors tension et redémarrer les machines virtuelles|Que fait **vSphere HA** si une banque de données disparaît définitivement ?<br/><br/>Avec notre configuration, **vSphere HA** tentera de démarrer les *VMs* depuis une autre banque de données si possible. Évidemment, s'il n'existe pas de copie de la *VM* en question sur une autre banque de donnée, le redémarrage sera impossible (logique: pas de données = pas de vm)|
+|Banque de données avec APD (*All Path Down*)|Mettre hors tension et redémarrer les machines virtuelles|Que fait **vSphere HA** si tous les chemins vers une banque de données sont coupés ?<br/><br/>Le stockage ne répond plus, mais n'a pas signalé sa défaillance. **vSphere HA** attendra 140 secondes (par défaut) pour voir si le stockage revient. Après ce délai, si le stockage est toujours absent, le système entreprend les mesures prescrites.|
+|Surveillance de *VM*|Désactivé|**vSphere HA** peut s'assurer que les *VMs* elles-mêmes répondent bien en leur envoyant des *heartbeats* régulièrement. Lorsqu'une *VM* ne répond plus pendant un certain temps, elle est redémarrée.|
+
+<span class="green-text fonttaller">**Onglet Contrôle d'admission:**</span><br/><br/>
+
+Le contrôle d'admission permet de définir les politiques de réservation de ressources pour redémarrer les *VMs* en cas de panne. En gros, on s'assure que tous les noeuds aient une réserver de ressource au cas où un noeud flancherait. Ainsi, les *VMs* qui doivent être déplacées peuvent effectivement l'être.
+
+|Paramètre|Valeur|Explication|
+|---------|------|-----------|
+|Panne d'hôte tolérées par le cluster|1|Combien de pannes simultanées voulez-vous que le *cluster* soit en mesure de survivre ?<br/><br/>Vous ne pouvez pas définir n'importe quoi comme politique ici. Avec 3 noeuds (notre situation), on ne peut généralement pas aller plus haut que FTT=1 (*Failed To Tolerate*). C'est purement mathématiques: supposons qu'un noeud tombe en panne, les deux autres noeuds doivent posséder suffisamment de ressources disponibles pour accueillir les *VMs* qui seront transférées.|
+|Capacité de basculement|Stratégie d'emplacement (vm sous tension)|Il existe plusieurs façons de configurer le basculement en cas de panne:<br/><br/>**1. Stratégie d'emplacement (vm sous tension):**<br/> Avec cette stratégie **vSphere HA** calcul automatiquement les ressources nécessaires au basculement et s'assure que les noeuds aient les ressources disponibles en cas de panne de l'un des noeuds. Stratégie simple et directe.<br/><br/>**2. Pourcentage de ressources du cluster:**<br/> Cette stratégie vous permet de spécifiez vous-même le poucentage de ressources à réserver sur les noeuds. Cette stratégie est flexible mais nécessite des calculs manuels.<br/><br/>**3. Hôtes de basculement dédiés**<br/> Cette stratégie vous permet de spécifiez un noeud qui est en *stand-by*. Ce noeud reste vide et sert uniquement au *failover*. C'est évidemment une stratégie très couteuse à mettre en place.|
+|Dégradation des performances tolérée par les *VMs*|100%|Est-ce que **vSphere HA** autorise une surcharge temporaire après une panne ?<br/><br/>Évidemment, lorsque des *VMs* sont déplacées suite à une panne, il n'est pas rare que les performances soient dégradées. Les noeuds qui prennent le relais sont souvent surchargés. Souvent, mieux vaut une *VM* moins performante qu'une *VM* éteinte. La valeur 100% désactive cette surveillance de la dégradation.|
+
+<span class="green-text fonttaller">**Onglet Banque de données de signal de pulsation:**</span><br/><br/>
+
+**vSphere HA** ne se contente pas seulement de faire des *heartbeats* sur le réseau pour vérifier si un noeud est en panne, il utilise également un système de *heartbeats* avec les banque de données. <u>Tous les noeuds doivent écrire sur une banque de donnée partagé à chaque *x* secondes pour confirmer qu'ils sont bien en vie.</u>
+
+**Scénario:**
+Imaginons qu'un noeud ESXi a un problème au niveau de son réseau de gestion (câble débranché ou *switch* éteinte). Cependant le noeud fonctionne toujours bien. Les autres noeuds se demanderont alors:
+
+>*ESXi-1 ne répond plus! Est-il vraiment en panne ou simplement isolé ?*
+>
+
+Les autres noeuds vérifieront alors si ESXi-1 peut encore écrire sur le stockage partagé, grâce aux *heartbeats* sur la banque de donnée. Si c'est le cas: le noeud est vivant! Sinon: panne réel.
+
+|Paramètre|Valeur|Explication|
+|---------|------|-----------|
+|Banque de données pour *heartbeats*|Sélectionner automatiquement les banques de données accessibles depuis les hôtes|Quelles banques de données **vSphere HA** doit utiliser pour son système de *heartbeats*<br/><br/>**Sélectionner automatiquement (recommandé):** **vSphere HA** détermine automatiquement les banques de données à utiliser. Nous n'avons qu'un seul stockage partagé; celui fait avec TrueNAS.<br/><br/>Les autres options vous permettent de spécifier vous-mêmes une partie ou la totalité des banques de données à utiliser.|
+
+La mise en place de **vSphere HA** peut prendre quelques minutes. Durant cette période, il se peut que vous soyez témoin de certains messages d'erreur. Prenez votre mal en patience. Tant que les configurations ne sont pas terminées, <span class="red-text">**ne touchez à rien!**</span>
+
+Au final, vous devriez terminé avec des avertissements. Il s'agit d'éléments mineurs. Voici les avertissements acceptables:
+
+1. **Cet hôte n'a pas de redondance de réseau de gestion:** C'est normal et vrai. Normalement, il nous faudrait une redondance pour le réseau de gestion, mais il ne s'agit que d'un laboratoire. Nous pouvons la jouer risqué 😜
+
+2. **Le nombre de banque de données de signal de pulsation de vSphere HA pour cet hôte est 1, ce qui est moins que le minimum exigé : 2** C'est normal et aussi vrai. Nous n'avons que notre stockage iSCSI via TrueNAS en place. Normalement, il nous faudrait une redondance ici aussi.
+
+#### 12.2 Activation et configuration de DRS
+
+Dans l'interface web de **vCenter**, sélectionnez votre *cluster* puis dirigez-vous dans le menu `Configurer` → `vSphere DRS`. Cliquez sur `Modifier...`
+
+Commencez par activer **vSphere HA**
