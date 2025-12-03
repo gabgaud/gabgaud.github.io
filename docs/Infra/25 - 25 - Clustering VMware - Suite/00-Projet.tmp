@@ -5,6 +5,15 @@ import TabItem from '@theme/TabItem';
 
 # Projet final - Phase 2
 
+:::danger[Travail individuel]
+Le projet doit être réalisé individuellement. L'entraide est permise, cependant:
+  - Vos captures d'écran doivent être uniques et prises par vous.
+  - Votre documentation et vos explications doivent être votre composition (pas celle de l'IA 🥲 ni celle d'un collègue)
+  - Le plagiat (IA, collègue ou autre) entrainera systématiquement une note de zéro.
+:::
+
+* * *
+
 Il est essentiel que vous ayez dûment complété la Phase 1 du projet avant de vous lancer dans cette portion du projet. Prendre le risque de sauter certaines étapes pourrait vous obliger à tout recommencer.
 
 * * *
@@ -19,7 +28,7 @@ Comme vous l'avez peut-être déjà remarqué dans la phase 1 de ce projet, nous
 
 - Une configuration séparée.
 - Des répétitions dans le travail de gestion et d'administration. 😮‍💨
-- Une attention particulière pour éviter les erreurs. 👀
+- Une attention particulière pour éviter les erreurs (tout comme ce projet). 👀
 
 Nous allons donc migrer notre configuration actuelle pour utiliser des *vSwitch Distribués* qui nous permettent une meilleure efficacité et un risque d'erreur amoindri. Voici comment nous allons procéder. Voici l'architecture cible après les manipulations:
 
@@ -67,7 +76,7 @@ Nous aurons besoin de deux groupes de ports distincts sur notre **vDS Production
 
 #### 9.21 Création des groupes de ports pour vDS Services
 
-Pour les groupes de ports du **vDS Services**, il faudra affecter des VLANs distincts puisque nous voulons effectuer une réelle séparation du traffic. Créez donc les groupes de ports comme vous l'avez effectué à l'étape précédente, mais cette fois attribuez des VLANs (10 pour vSAN et 20 pour vMotion par exemple).
+Pour les groupes de ports du **vDS Services**, procédez de la même façon en prenant soin de créer un groupe de ports distribué pour vMotion et un autre pour vSAN. <mark>**Ne mettez surtout pas de VLANs en place**</mark>, vos commutateurs privés sur LabInfo ne les supportent pas.
 
 Assurez-vous de créer les groupes de ports sur les bons commutateurs virtuels.
 
@@ -85,7 +94,7 @@ Nous devons maintenant permettre aux hyperviseurs ESXi d'utiliser les vDS que no
 #### 9.4 Migration de vmnic0 vers vDS ⚠️
 
 :::danger[Risque de perdre la connexion!]
-Cette étape est à la fois délicate et cruciale. Assurez-vous d'avoir du temps et de la concentration avant de procéder. Nous nous apprêtons à faire passer le réseau de gestion des hyperviseurs d'un **vSwitch Standard** à un **vSwitch Distribué.** Vous perdrez donc la connexion avec vos hyperviseurs pendant un court instant. Une erreur de configuration à cette étape vous obligera à revenir en arrière. Respirez par le nez, dites *namasté* et allez-y calmement 😊.
+Cette étape est à la fois délicate et cruciale. Assurez-vous d'avoir du temps et de la concentration avant de procéder. Nous nous apprêtons à faire passer le réseau de gestion des hyperviseurs d'un **vSwitch Standard** à un **vSwitch Distribué.** Vous perdrez donc la connexion avec vos hyperviseurs pendant un court instant. Une erreur de configuration à cette étape vous obligera à revenir en arrière. Respirez par le nez, dites *namaste* et allez-y calmement 😊.
 :::
 
 **<span class="fonttaller">Pour les noeuds ne contenant <span class="red-text">PAS</span> vCenter:</span>**
@@ -229,3 +238,61 @@ Pour chaque noeud ESXi dans l'inventaire:
         - Passerelle et DNS: Ne rien changer, pas utile pour nous
 
 **Répéter les mêmes étapes pour les tous les noeuds**
+
+#### 11.2 Raccorder le vDS Services
+
+Notre vDS n'a aucune liaison montante pour le moment. Autrement dit, aucune interface physique ne déssert ce commutateur virtuel. Nous allons donc associer notre vmnic2, dont nous nous sommes servi temporairement un peu plus tôt. 
+
+Dans **vCenter**, clic droit sur `vDS Services` → `Ajouter et gérer des hôtes`:
+
+- **Sélectionner la tâche:** Gérer la mise en réseau de l'hôte
+- **Sélectionner des hôtes:** Sélectionner tout
+- **Gérer les adapteurs physiques:** vmnic2 : uplink1
+- **Gérer les adapteurs VMkernel:** vmk2 : `DPG-vMotion`
+- **Migrer la mise en réseau VM:** Rien à faire
+- **Terminer**
+
+#### 11.3 Tests avec vMotion
+
+Bon, ça y est. **vMotion** est en place. Il ne nous reste qu'à effectuer quelques tests pour s'assurer que ça fonctionne bien. Créez-vous une machine virtuelle toute simple sur votre *cluster*. Idéalement, évitez de créer cette machine virtuelle sur le même noeud que **vCenter**.
+
+:::tip[DRS]
+Si le **DRS** était déjà activé sur notre *cluster*, nous n'aurions pas besoin de sélectionner le noeud. Le module ferait une analyse de charge de travail sur tous les noeuds et déterminerait, pour nous, le meilleur emplacement pour notre *vm*. On y reviendra.
+:::
+
+Si vous désirez suivre mon propre test, sachez que j'utiliserai une *VM Ubuntu Server* sur ESX1.
+
+:::caution[Aucun DHCP]
+Il n'y a aucun serveur DHCP sur notre réseau... Ne l'oubliez pas lors de la création de votre *vm*
+:::
+
+Le vrai test à effectuer avec **vMotion**, ce n'est pas seulement de constater que la machine peut être transférée sans être arrêtée, mais c'est de constater qu'il n'y a aucune interruption.
+
+Pour visualiser ce concept, je vais démarrer une commande `ping` vers Google dans ma *vm*. Sous Linux, le `ping` est perpétuel, je devrai donc l'arrêter moi-même. À cela, je vais ajouter un intervalle de 2 secondes pour ralentir légèrement l'envoie. Puis, du côté de **vCenter**, je vais déclencher le transfert avec **vMotion** et je pourrai observer qu'il n'y aucun impact sur l'envoie des pings vers Google, malgré ce transfert.
+
+La commande à utiliser:
+```bash
+ping -i 2 google.com
+```
+
+:::tip[Duplicata de Ping]
+Il se peut que vous receviez des réponses en duplicata lors de vos tests d'envoie ICMP. Votre *vm* se trouve derrière un environnement réseau anormalement lourd. Vous pouvez tout simplement ignorer ces messages `(DUP!)`.
+:::
+
+### 12. Configurer la haute-disponibilité l'équilibrage de charge
+
+La haute-disponibilité permet de redémarrer automatiquement les machines virtuelles sur un autre noeud lorsqu'un incident se produit. Cela dit, **attention:** ce n'est pas du vMotion. Quant à l'équilibrage de charge (DRS), son travail est de surveiller continuellement l'utilisation de CPU/RAM de chaque noeud et de déplacer automatiquement les *VMs* via **vMotion** au besoin. Le tout dans l'objectif d'optimiser l'utilisation des ressources.
+
+**DRS** possède différents modes de fonctionnement ainsi que des seuils de migrations:
+
+<span class="green-text">**Modes**:</span>
+
+- **Manuel:** DRS recommande des actions, vous décidez
+- **Partiellement automatique:** DRS planifie des actions, mais vous demande une confirmation
+- **Automatique:** DRS prend les décisions et migre automatiquement
+
+<span class="green-text">**Seuils de migration**:</span>
+
+- **Conservateur:** Migre les *VMs* seulement lorsqu'il y a un déséquilibre important
+- **Modéré:** Migre les *VMs* lorsqu'il y a un déséquilibre standard
+- **Agressif:** Migre les machines dès le moindre déséquilibre 
