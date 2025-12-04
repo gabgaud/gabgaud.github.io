@@ -1,0 +1,55 @@
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import ThemedImage from '@theme/ThemedImage';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Projet final - Phase 3
+
+:::danger[Travail individuel]
+Le projet doit être réalisé individuellement. L'entraide est permise, cependant:
+  - Vos captures d'écran doivent être uniques et prises par vous.
+  - Votre documentation et vos explications doivent être votre composition (pas celle de l'IA 🥲 ni celle d'un collègue)
+  - Le plagiat (IA, collègue ou autre) entrainera systématiquement une note de zéro.
+:::
+
+* * *
+
+Il est essentiel que vous ayez dûment complété la Phase 1 & 2 du projet avant de vous lancer dans cette portion du projet. Prendre le risque de sauter certaines étapes pourrait vous obliger à tout recommencer.
+
+* * *
+
+## Phase 3
+
+Dans la phase 3, nous mettons en place un bloc de stockage distribué à la manière de CEPH dans Proxmox.
+
+### 13. vSAN
+
+**Rappelez-vous:** dans les phases précédentes du projet, vous avez mis plusieurs disques durs dans chacun de vos noeuds ESXi. Voici un schéma de l'infrastructure à mettre en place:
+
+<div style={{textAlign: 'center'}}>
+    <ThemedImage
+        alt="Schéma"
+        sources={{
+            light: useBaseUrl('/img/Virtu/ArchitecturevSAN_W.svg'),
+            dark: useBaseUrl('/img/Virtu/ArchitecturevSAN_D.svg'),
+        }}
+    />
+</div>
+
+#### 13.1 Lancer l'assistant vSAN
+
+En premier lieu, même si cela peut paraître contre-productif, il nous faudra désactiver <u>temporairement</u> **vSphere HA**. Dirigez-vous donc dans votre inventaire et sélectionnez votre *cluster*. Allez dans le menu `configurer` → `Disponibilité vSphere`. Cliquez sur `Modifier...` et arrêtez le service.
+
+Une fois cette première étape complétée, restez dans le menu `configurer` du *cluster* et repérez le menu `vSan` → `Services`.
+
+Laissez les options par défaut cochés:
+- vSAN HCI
+- Cluster vSAN à un seul site
+
+Cliquez sur `Configurer`
+
+![ConfigurevSAN](../Assets/Projet/ConfigurevSAN.png)
+
+:::tip[psst!🤫]
+Vous vous demandez quels sont les autres types de déploiement ? Vous voulez en savoir davantage sur la technologie vSAN ? [Consultez cette page](https://techdocs.broadcom.com/fr/fr/vmware-cis/vsan/vsan/8-0/planning-and-deployment/building-a-virtual-san-cluster/vsan-deployment-options.html)
+:::
