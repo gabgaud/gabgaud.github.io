@@ -124,7 +124,7 @@ J'ai créé un modèle d'hyperviseur ESXi pour vous permettre de gagner du temps
         - Évidemment, identifiez-vous.
         - Une fois identifié dans le shell, nous devrons effectuer quelques modifications importantes:
             - Éditez le fichier `/etc/vmware/esx.conf` et supprimez la ligne de texte commençant par `/system/uuid`. Cela forcera ESXi a créer un nouvel identifiant système. Ne cherchez pas Nano, il n'existe pas sous vmware. Vous devez utiliser **vi**, le papa de **vim** 😈. Assurez-vous de bien enregistrer vos modifications.
-            - Supprimez les certificats liés à l'identification de la machine. Il y a deux fichiers à supprimer : `/etc/vmware/ssl/rui.crt` et `/etc/vmware/ssl/rui.key`.
+            - Regénérez les certificats liés à l'identification de la machine. Pour ce faire, entrez la commande `/sbin/generate-certificates`. Vous pouvez confirmer que les certificats ont bien été renouvelés en validant la date de modification des fichiers `/etc/vmware/ssl/rui.crt` et `/etc/vmware/ssl/rui.key`.
             - Finalement, il nous faut recréer le VMkernel Port 0. Cette interface virtuelle possède, elle aussi, une adresse MAC. Comme ESX a été cloné, l'adresse MAC doit être regénéré, sans quoi vous aurez beaucoup d'instabilité sur votre réseau:
             ```bash
             #Suppression du VMkernel Port 0
