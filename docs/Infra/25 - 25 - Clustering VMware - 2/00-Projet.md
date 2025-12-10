@@ -217,11 +217,11 @@ Au besoin, faites un clic droit sur vos hyperviseurs et sortez les du mode maint
 
 Dans les étapes précédentes, nous avons préparé un vDS pour nos services vMotion & vSAN. Cependant, nous avons pas encore configuré les interfaces **Vmkernel Ports** pour ces services. Il faut donc s'affairer à les créer maintenant. D'abord, sélectionnez un sous-réseau pour **vMotion**. Si vous désirez suivre mon propre plan d'adressage, vous pouvez également: 
 
-|Hôte|IP vMotion|Subnet|VLAN|
-|:----:|:----------:|:------:|:----:|
-|ESXi-01|10.20.0.11|255.255.255.0|20|
-|ESXi-02|10.20.0.12|255.255.255.0|20|
-|ESXi-03|10.20.0.13|255.255.255.0|20|
+|Hôte|IP vMotion|Subnet|
+|:----:|:----------:|:------:|
+|ESXi-01|10.20.0.11|255.255.255.0|
+|ESXi-02|10.20.0.12|255.255.255.0|
+|ESXi-03|10.20.0.13|255.255.255.0|
 
 #### 11.1 Configurer les VMKernel pour chaque noeud
 
