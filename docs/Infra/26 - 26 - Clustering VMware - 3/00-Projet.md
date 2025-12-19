@@ -275,7 +275,7 @@ Pendant que la machine virtuelle se fait migré, retournez sur la console de cel
 
 #### 16.3 Dépôt
 
-Lorsque vous aurez réuni tous les éléments nécessaires (vidéo et captures d'écran), déposez-les dans un dossier que vous nommerez *NomDeFamille_Prenom_Projet* et compressez ce-dernier en `.zip`.<br/> [Déposez votre dossier compressé ici.](https://cloud.tonprof.ca/index.php/s/kCGSBLR7YjmmpPA)
+Lorsque vous aurez réuni tous les éléments nécessaires (vidéo et captures d'écran), déposez-les dans un dossier que vous nommerez *NomDeFamille_Prenom_Projet* et compressez ce-dernier en `.zip`.<br/> [Déposez votre dossier compressé ici.](https://cloud.tonprof.ca/index.php/s/KiEbH5LzMMYeGC5)
 
 #### 16.4 Grille de correction
 
