@@ -136,4 +136,4 @@ Pour l'instant, nous nous contenterons de l'accès via le bureau à distance. Il
 
 ## Références
 
-- [Présentation PowerPoint du cours](../Assets/01/01-420-2S5-H25%20(Intro%20Windows%20Server).pdf)
+- [Présentation PowerPoint du cours](../Assets/01/01-420-2S5-H26%20(Intro%20Windows%20Server).pdf)
