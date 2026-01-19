@@ -1,3 +1,6 @@
+---
+draft: false
+---
 # Journal de cours - 15%
 
 Le journal de cours est un travail à faire individuellement. Il compte pour **15%** de la note finale du cours. La remise se fera à la quinzième et dernière semaine de la session sur un dépôt que je créerai en temps et lieu sur Teams. Entre-temps, je ferai régulièrement des rappels à l'oral et à l'écrit.
