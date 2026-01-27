@@ -1,10 +1,11 @@
+---
+draft: true
+---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
----
-draft: true
----
+
 # Disques et partitions 💾
 
 Lorsqu'on installe un système d'exploitation, qu'on ajoute un disque dur ou qu'on veut organiser ses fichiers, la gestion des disques devient essentielle. Une bonne maîtrise des partitions permet de :

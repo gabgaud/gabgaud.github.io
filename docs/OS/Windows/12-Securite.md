@@ -1,10 +1,11 @@
+---
+draft: true
+---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
----
-draft: true
----
+
 # Sécurité 🛡
 
 ## Introduction à la sécurité dans Windows 11
