@@ -1,3 +1,6 @@
+---
+draft: true
+---
 # Lignes de commande 🤖
 
 Sous Windows, plusieurs Shell (interface machine-personne) cohabitent côte à côte.

@@ -1,3 +1,6 @@
+---
+draft: true
+---
 # Interfaces graphiques (GUI) 📺
 
 *A contrario* de Linux, Microsoft n'a pas développé plusieurs interfaces graphiques. L'entreprise n'en a développé qu'une seule, qu'elle a su améliorer et optimiser au fil des années. Cela a eu pour effet de rassurer et de réconforter la majorité des utilisateurs finaux. C'est vrai que pour quelqu'un qui n'est pas un expert de l'informatique, retrouver ses menus toujours aux mêmes endroits peut être rassurant.

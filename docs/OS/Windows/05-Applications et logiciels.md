@@ -1,3 +1,6 @@
+---
+draft: true
+---
 # Applications et logiciels 📦
 
 ## Qu'est-ce qu'un logiciel ?
