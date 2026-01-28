@@ -3,7 +3,7 @@ title: VPN Édouard-Montpetit
 ---
 # Configuration du VPN pour les étudiants du CEM
 
-Les étudiants de au programme « Techniques de l'informatique » bénéficient d'un accès externe à l'infrastructure virtuelle « LabInfo » par le biais d'une connexion privée et sécurisée. Cette page vous explique comment installer et configurer cet accès à l'aide du logiciel FortiClient.
+Les étudiants au programme « Techniques de l'informatique » bénéficient d'un accès externe à l'infrastructure virtuelle « LabInfo » par le biais d'une connexion privée et sécurisée. Cette page vous explique comment installer et configurer cet accès à l'aide du logiciel FortiClient.
 
 ## Téléchargement du logiciel ⬇️
 
