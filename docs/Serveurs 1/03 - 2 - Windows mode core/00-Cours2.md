@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 # Cours 2
 
@@ -66,4 +66,4 @@ Le SSH ( *Secure Shell* ) est une autre méthode efficace pour administrer à di
 
 ## Références
 
-- [Présentation PowerPoint du cours](../Assets/02/02-420-2S5-H25%20(Mode%20Core).pdf)
+- [Présentation PowerPoint du cours](../Assets/02/02-420-2X5-H26%20(Mode%20Core).pdf)
