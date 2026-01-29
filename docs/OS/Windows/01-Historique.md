@@ -252,3 +252,7 @@ Dans Windows 11, les éléments de la barre des tâches (menu démarrer, raccour
 **Bureau de Windows 11:**
 
 ![Windows11](./Assets/01/11.png)
+
+## Références supplémentaires
+
+- [Podcast résumant le cours](../Windows/Assets/01/Pourquoi_Windows_rate_une_version_sur_deux.mp3)
