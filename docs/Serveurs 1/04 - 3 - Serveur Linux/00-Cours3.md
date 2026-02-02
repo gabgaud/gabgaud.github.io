@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 # Cours 3
 
@@ -149,4 +149,4 @@ sudo apt install openssh-server -y
 
 ## Références
 
-- [Présentation PowerPoint du cours](../Assets/03/03-420-2S5-H25%20(Intro%20Ubuntu%20Server).pdf)
+- [Présentation PowerPoint du cours](../Assets/03/03-420-2X5-H26%20(Intro%20Ubuntu%20Server).pdf)
