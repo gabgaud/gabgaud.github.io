@@ -150,3 +150,4 @@ sudo apt install openssh-server -y
 ## Références
 
 - [Présentation PowerPoint du cours](../Assets/03/03-420-2X5-H26%20(Intro%20Ubuntu%20Server).pdf)
+- [Podcast du cours](../Assets/03/Pourquoi_l_internet_roule_sur_Linux.mp3)
