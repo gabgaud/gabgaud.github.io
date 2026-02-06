@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -250,4 +250,4 @@ La salle où sont stockés les serveurs doit posséder un accès contrôlé. Plu
 
 ### Références
 
-- [Présentation du cours](../Assets/04/04-420-2S5-H25%20(Serveurs%20Physiques).pdf)
+- [Présentation du cours](../Assets/04/04-420-2X5-H26%20(Serveurs%20Physiques).pdf)
