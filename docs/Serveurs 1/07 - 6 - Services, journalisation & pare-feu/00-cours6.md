@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -301,4 +301,4 @@ Les événements de *UFW* sont enregistrés dans le fichier `/var/log/ufw.log`. 
 
 ## Références
 
-- [Retrouvez le PowerPoint du cours ici](../Assets/06/06-420-2S5-H25%20(Services%20Journalisation%20FW).pdf)
+- [Retrouvez le PowerPoint du cours ici](../Assets/06/06-420-2X5-H26%20(Services%20Journalisation%20FW).pdf)
