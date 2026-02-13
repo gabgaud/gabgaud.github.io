@@ -15,19 +15,19 @@ Sous Linux, les services sont parfois appelés « *daemons* ». C'est un nom d'o
 :::
 
 ### Windows Serveur <FAIcon icon="fa-brands fa-windows" size="1x"/>
-Sous Windows Serveur, les services du système d'exploitation s'administrent exactement de la même façon que sur un poste Windows standard. Si vous avez besoin de vous rafraichir la mémoire quant à la gestion des services sous Windows, [consultez cette section.](/docs/OS/Windows/07-Services.md)
+Sous Windows Serveur, les services du système d'exploitation s'administrent exactement de la même façon que sur un poste Windows standard.
 
 ### Serveur Linux <FAIcon icon="fa-brands fa-linux" size="1x"/>
-Il en va de même pour les services sous Linux. Qu'il s'agisse d'un système Ubuntu *desktop* ou d'un système serveur, l'administration des services se fait de la même façon. Vous avez besoin de vous rafraichir la mémoire quant à la gestion des services sous Linux ? [Consultez cette section.](/docs/OS/Linux/08-Services.md)
+Il en va de même pour les services sous Linux. Qu'il s'agisse d'un système Ubuntu *desktop* ou d'un système serveur, l'administration des services se fait de la même façon.
 
 ## Retour sur la journalisation <FAIcon icon="fa-solid fa-newspaper" size="1x"/>
 La journalisation permet d'effectuer le suivi des services et des processus du système. Comme les processus et les services n'offrent généralement pas d'interface pour interagir avec eux, en faire le suivi et l'administration peut devenir un enjeu. La journalisation permet donc de conserver les traces du bon, ou du mauvais fonctionnement de ces services et de ces processus.
 
 ### Windows Serveur <FAIcon icon="fa-brands fa-windows" size="1x"/>
-Sous Windows Serveur, tout comme sur les postes de travail, la majorité des journaux sont rapportés dans l'observateur d'événements. L'Observateur d'événements offre une interface graphique conviviale et permet de manipuler les différents journaux assez aisément. Si vous avez besoin de vous remémorer le fonctionnement de la journalisation sous Windows, je vous invite à [consulter cette section](/docs/OS/Windows/08-Journalisation.md).
+Sous Windows Serveur, tout comme sur les postes de travail, la majorité des journaux sont rapportés dans l'observateur d'événements. L'Observateur d'événements offre une interface graphique conviviale et permet de manipuler les différents journaux assez aisément.
 
 ### Serveur Linux <FAIcon icon="fa-brands fa-linux" size="1x"/>
-Sous Linux, les journaux ont longtemps été sauvegardés sous forme de fichier texte et disparates. D'ailleurs, beaucoup de journaux sous Linux fonctionnent de la sorte. Cela dit, l'arrivée de `systemd` a changé les choses, une centralisation des journaux semble s'installer. En effet, la commande `journalctl` semble nous permettre d'atteindre à peu près n'importe quel journal stocké au sein du système. Si vous avez besoin de vous rafraichir la mémoire quant au fonctionnement de la journalisation sous Linux, je vous invite à [consulter cette section](/docs/OS/Linux/09-Journalisation.md).
+Sous Linux, les journaux ont longtemps été sauvegardés sous forme de fichier texte et disparates. D'ailleurs, beaucoup de journaux sous Linux fonctionnent de la sorte. Cela dit, l'arrivée de `systemd` a changé les choses, une centralisation des journaux semble s'installer. En effet, la commande `journalctl` semble nous permettre d'atteindre à peu près n'importe quel journal stocké au sein du système.
 
 ## Pare-feu <FAIcon icon="fa-solid fa-fire" size="1x"/>
 
