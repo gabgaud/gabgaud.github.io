@@ -322,4 +322,4 @@ Sans commutateur, la commande `dig` nous retournait trop d'informations, alors q
 - [Explication du DNS en vidéo du youtubeur Cookie connecté](https://youtu.be/qzWdzAvfBoo?si=KS5brGyet4w4dgrs)
 - [Explication du DNS en vidéo par DNS made easy (*Anglais*)](https://youtu.be/72snZctFFtA?si=d0YqaTTBYybJZIY_)
 - [Qu'est-ce que le DNS du groupe It-Connect](https://youtu.be/tyDxzzdKnsU?si=2IXJLleFfWdjLzaP)
-- Présentation PowerPoint du cours
+- [Présentation PowerPoint du cours](../Assets/07/07-420-2X5-H26-Introduction%20DNS.pdf)
