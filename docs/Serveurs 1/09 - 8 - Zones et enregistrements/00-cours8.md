@@ -126,4 +126,4 @@ L'enregistrement SOA est <u>obligatoire</u> à toute zone de recherche. Cet enre
 
 ## Référence(s)
 
-- [Présentation du cours](../Assets/08/08-420-2S5-H25%20(DNS-Zones%20et%20enregistrements).pdf)
+- [Présentation du cours](../Assets/08/08-420-2X5-H26%20(DNS-Zones%20et%20enregistrements).pdf)
