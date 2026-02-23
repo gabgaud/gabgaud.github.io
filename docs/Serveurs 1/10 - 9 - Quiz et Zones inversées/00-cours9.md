@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -92,4 +92,4 @@ Finalement, vous pourrez également interroger la zone de recherche inversée so
 
 ## Référence(s)
 
-- [Présentation du cours](../Assets/09/09-420-2S5-H25%20(DNS-Zones%20inverses).pdf)
+- [Présentation du cours](../Assets/09/09-420-2X5-H26%20(DNS-Zones%20inverses).pdf)
