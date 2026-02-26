@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -180,4 +180,4 @@ Les transferts de zones entre les serveurs DNS primaire et secondaire peuvent é
 
 ## Références
 
- - [Présentation du cours](../Assets/10/10-420-2S5-H25%20(DNS-Serveurs%20multiples).pdf)
+ - [Présentation du cours](../Assets/10/10-420-2X5-H26%20(DNS-Serveurs%20multiples).pdf)
