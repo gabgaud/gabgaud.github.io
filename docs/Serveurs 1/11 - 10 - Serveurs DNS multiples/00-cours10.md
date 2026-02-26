@@ -181,3 +181,4 @@ Les transferts de zones entre les serveurs DNS primaire et secondaire peuvent é
 ## Références
 
  - [Présentation du cours](../Assets/10/10-420-2X5-H26%20(DNS-Serveurs%20multiples).pdf)
+ - [Podcast sur toute la théorie DNS](../Assets/10/La_mécanique_invisible_et_fragile_du_DNS.mp3)
