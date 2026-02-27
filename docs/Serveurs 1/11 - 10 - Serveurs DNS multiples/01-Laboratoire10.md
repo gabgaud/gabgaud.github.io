@@ -49,7 +49,7 @@ Dans ce laboratoire, nous mettrons en place un second serveur DNS. Il nous faudr
 
 - Renommez votre serveur
 - Lui configurer une adresse IP statique
-- Le configurer pour être son propre serveur DNS ([Besoin d'un rappel ?](../09%20-%20Cours%208%20-%20Zones%20et%20enregistrements/01-Laboratoire8.md#modification-de-la-configuration-réseau))
+- Le configurer pour être son propre serveur DNS ([Besoin d'un rappel ?](../09%20-%208%20-%20Zones%20et%20enregistrements/01-Laboratoire8.md#Modification-de-la-configuration-réseau))
 
 #### Installation de Bind9
 
