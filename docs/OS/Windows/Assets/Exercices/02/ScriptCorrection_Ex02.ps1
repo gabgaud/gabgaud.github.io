@@ -122,10 +122,10 @@ Check-History @Values -Operator "-like"
 #Question 6
 Write-Host "Correction de la question #6: " -NoNewline -ForegroundColor Yellow
 $Values = @(
-    "Add-Content*Powershell, c''est fantastique!*",
-    "Set-Content*Powershell, c''est fantastique!*"
+    "Add-Content*Powershell est fantastique!*",
+    "Set-Content*Powershell est fantastique!*"
 )
-Check-History @Values -Operator "-like"
+Check-History $Values -Operator "-like"
 
 #Question 7
 Write-Host "Correction de la question #7: " -NoNewline -ForegroundColor Yellow
@@ -137,7 +137,7 @@ Check-History @Values -Operator "-like"
 #Question 8
 Write-Host "Correction de la question #8: " -NoNewline -ForegroundColor Yellow
 $Values = @(
-    "Copy-Item*C:\exploitation*-Recurse"
+    "Copy-Item*C:\exploitation*-Recurse*"
 )
 Check-History @Values -Operator "-like"
 
