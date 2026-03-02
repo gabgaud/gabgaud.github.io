@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 
 Dans cet exercice, vous aurez l'occasion d'installer et de désinstaller des logiciels ou des applications en expérimentant diverses méthodes d'installation et de désinstallation.
 
-## Préalables
+<!--## Préalables
 
 ### Windows 11 (24H2) - Custom ✅
 
@@ -64,14 +64,14 @@ Certaines étapes peuvent s'avérer plus longues. **Soyez patient!** La machine 
 :::important
 Le mot de passe du compte Administrateur est **Passw0rd**
 :::
-
+-->
 ## Étapes de réalisation
 
-### Installation d'un logiciel avec le Windows Store
+### Question 1: Installation d'un logiciel avec le Windows Store
 
-Débutez par confirmer que vous avez bien accès au Windows Store de Microsoft depuis votre nouvelle machine virtuelle. Une fois celui-ci lancé, explorez les menus et les différentes catégories afin de vous familiariser avec l'interface.
+Débutez par confirmer que vous avez bien accès au Windows Store de Microsoft depuis votre machine virtuelle. Une fois celui-ci lancé, explorez les menus et les différentes catégories afin de vous familiariser avec l'interface.
 
-Sélectionnez une application gratuite (par exemple, une application de productivité ou un petit jeu simple) et tentez de procéder à son installation.
+Sélectionnez une application gratuite <mark>dont l'éditeur **n'est pas** Microsoft</mark> (par exemple, une application de productivité ou un petit jeu simple) et tentez de procéder à son installation.
 
 ![WindowsStore](../Assets/Exercices/03/WindowsStore.png)
 
@@ -120,7 +120,8 @@ Pour procéder à l'installation d'un application avec **WinGet**, on utilisera 
     <Tabs>
         <TabItem value="WinGetInstall" label="Commande" default>
             ```Powershell
-            winget install Notepad++.Notepad++
+            winget install Notepad++.Notepad++ --source winget
+            #La source est importante! Autrement vous installerez à la manière d'une application dans le store.
             ```
         </TabItem>
         <TabItem value="ResultatWinGetInstall" label="Résultat">
