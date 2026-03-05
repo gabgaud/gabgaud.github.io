@@ -14,7 +14,7 @@ Dans cet exercice, vous aurez l'occasion de mettre en pratique les éléments qu
 
 ## Prélables
 
-Vous devez posséder une machine virtuelle sous Windows 11 **24H2** opérationnelle.
+Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationnelle.
 
 ## Étapes de réalisation
 
