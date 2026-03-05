@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -190,4 +190,4 @@ Sous Linux (Ubuntu), c'est la commande `ip a` qui vous permet d'avoir un résum�
 
 ## Références
 
-- [Présentation du cours](../Assets/12/12-420-2S5-H25%20(DHCP).pdf)
+- [Présentation du cours](../Assets/12/12-420-2X5-H26%20(DHCP).pdf)
