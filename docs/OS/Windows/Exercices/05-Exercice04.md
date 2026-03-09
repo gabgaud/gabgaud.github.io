@@ -20,13 +20,16 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
 
 ### Partie 1 : Processus
 
-1. Ouvrez le gestionnaire de tâche sous Windows et trouvez quel utilisateur est propriétaire du processus *explorer.exe*. Notez également son *PID*.
+1. Ouvrez le gestionnaire de tâche sous Windows et trouvez quel utilisateur est propriétaire du processus *explorer*. Notez également son *PID*. Inscrivez les deux informations dans un fichier texte que vous nommerez `ex3.txt` sur votre bureau. Inscrivez les informations dans le fichier comme suit:
+    ```yaml
+    propriétaire;pid
+    ```
 
-2. Ouvrez une fenêtre PowerShell et arrêter ce processus. Qu'est-ce qui se passe lorsque vous l'arrêtez ?
+2. Ouvrez une fenêtre PowerShell et arrêter ce processus avec la *cmdlet* appropriée. Qu'est-ce qui se passe lorsque vous l'arrêtez ?
 
-3. Trouvez comment vous pourriez créer un nouveau processus pour `notepad.exe`
+3. Toujours dans PowerShell, créez un nouveau processus pour `notepad.exe`. Une fois `notepad.exe` lancée, ne le fermez pas, minimisez simplement la fenêtre.
 
-4. Utilisez la méthode de votre choix pour récupérer la quantité de mémoire utilisée par le processus que vous avez lancé.
+4. Utilisez la méthode de votre choix pour récupérer la quantité de mémoire utilisée par le processus que vous avez lancé. Inscrivez cette quantité à la ligne `2` de votre fichier `ex3.txt`. Par exemple, pour 10,2Mo, inscrivez seulement `10.2`.
 
 * * *
 
@@ -34,11 +37,11 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
 
 5. Déterminez l'état du service de spouleur d'impression avec PowerShell. [(indice)](https://learn.microsoft.com/fr-ca/powershell/module/microsoft.powershell.management/get-service?view=powershell-7.5)
 
-6. Toujours avec PowerShell, trouvez comment modifier le type de démarrage de ce service. [(indice)](https://learn.microsoft.com/fr-ca/powershell/module/microsoft.powershell.management/set-service?view=powershell-7.5#exemple-2-modifier-le-type-de-d-marrage-des-services)
+6. Toujours avec PowerShell, trouvez comment modifier le type de démarrage de ce service. Passez le type de démarrage à `Manual`. [(indice)](https://learn.microsoft.com/fr-ca/powershell/module/microsoft.powershell.management/set-service?view=powershell-7.5#exemple-2-modifier-le-type-de-d-marrage-des-services)
 
-7. Trouvez le numéro du processus du service de spouleur d'impression.
+7. Trouvez le numéro du processus du service de spouleur d'impression. Inscrivez celui-ci à la ligne 3 de votre fichier `ex3.txt`.
 
-8. En analysant cette commande PowerShell ainsi qu'en l'expérimentant, que fait-elle selon-vous ?
+8. En analysant cette commande PowerShell ainsi qu'en l'expérimentant, que fait-elle selon-vous ? Inscrivez son résultat à la ligne 4 de votre fichier `ex3.txt`.
     ```Powershell
     (Get-Service | Where-Object {$_.StartType -eq 'Manual'}).Count
     ```
@@ -47,7 +50,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
 
 ### Partie 3 : Journalisation
 
-9. Ouvrez l'observateur d'événements Windows et repérez l'entrée concernant votre dernière ouverture de session. Quel est l'id de l'événement ?
+9. Ouvrez l'observateur d'événements Windows et repérez l'entrée concernant votre dernière ouverture de session. Quel est l'id de l'événement ? Inscrivez ce-dernier à la ligne 
 
 10. Outre les journaux et les événements créés par le système, il est possible de se créer des journaux personnels. Ces journaux peuvent être utilisés pour toutes raisons (Se souvenir de l'installation d'un logiciel, enregistrer la date d'une sauvegarde, etc...)
 
