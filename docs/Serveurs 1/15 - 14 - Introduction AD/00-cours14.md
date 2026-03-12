@@ -265,4 +265,4 @@ Le groupe des admins du domaine est le plus puissant du domaine, car il permet d
 
 ## Références
 
-- [Présentation du cours](../Assets/13/13-420-2S5-H25%20(Intro-Active%20Directory).pdf)
+- [Présentation du cours](../Assets/13/14-420-2X5-H26%20(Intro-Active%20Directory).pdf)
