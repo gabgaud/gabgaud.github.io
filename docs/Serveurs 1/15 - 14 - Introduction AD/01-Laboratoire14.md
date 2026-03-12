@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 13
+# Laboratoire 14
 * * *
 
 ## Installation et configuration d'un domaine Active Directory

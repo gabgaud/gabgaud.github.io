@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 13
+# Cours 14
 
 ## Le DNS jusqu'ici
 Jusqu'ici nous avons abordé les DNS sans *Active Directory*. En outre, nous avons appris qu'un domaine était un ensemble d'ordinateurs et de périphériques interconnectés les uns aux autres via un réseau local et représenté par une délimitation logique. Chaque appareil possède un nom qui lui est propre sur le domaine, constitué de son nom, suivi du nom de domaine.
