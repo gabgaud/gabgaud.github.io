@@ -74,3 +74,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
     ![Erreur7jours](../Assets/Exercices/04/Erreurs7jours.png)
 
 12. Trouvez l'id de l'événement correspondant au succès du démarrage du service Dhcp-Client. Inscrivez celui-ci à la ligne 6 du fichier `ex3.txt`.
+
+## Correction
+
+Si vous voulez un retour sur le travail effectué, vous pouvez télécharger et exécuter ce [script de correction.](../Assets/Exercices/04/ScriptCorrection04.ps1)
