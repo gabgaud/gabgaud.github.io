@@ -50,7 +50,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
 
 ### Partie 3 : Journalisation
 
-9. Ouvrez l'observateur d'événements Windows et repérez l'entrée concernant votre dernière ouverture de session. Quel est l'id de l'événement ? Inscrivez ce-dernier à la ligne 
+9. Ouvrez l'observateur d'événements Windows et repérez l'entrée concernant votre dernière ouverture de session. Quel est l'id de l'événement ? Inscrivez ce-dernier à la ligne 5 de votre fichier `ex3.txt`.
 
 10. Outre les journaux et les événements créés par le système, il est possible de se créer des journaux personnels. Ces journaux peuvent être utilisés pour toutes raisons (Se souvenir de l'installation d'un logiciel, enregistrer la date d'une sauvegarde, etc...)
 
@@ -73,4 +73,4 @@ Vous devez posséder une machine virtuelle sous Windows 11 **25H2** opérationne
 
     ![Erreur7jours](../Assets/Exercices/04/Erreurs7jours.png)
 
-12. Trouvez que représente l'événement 8198 dans l'observateur d'événements sous Windows 11.
+12. Trouvez l'id de l'événement correspondant au succès du démarrage du service Dhcp-Client. Inscrivez celui-ci à la ligne 6 du fichier `ex3.txt`.
