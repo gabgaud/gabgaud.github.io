@@ -22,11 +22,11 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
 
 1. Avec l'aide de l'interface graphique de Windows 11, créez les utilisateurs suivants:
 
-    |Nom d'utilisateur|Nom complet|Description|Mot de passe|Options|
-    |----------|------------------|-------------------|--------|------------|
-    |Vincent|Vincent Carrier|Professeur|Passw0rd|Le mot de passe n'expire jamais|
-    |Eric|Éric Gendron|Professeur|Passw0rd|Le mot de passe n'expire jamais|
-    |Gabriel|Gabriel Gaudreault|Professeur|Passw0rd|Le mot de passe n'expire jamais|
+    |Nom d'utilisateur|Nom complet|Description|Mot de passe|Mot de passe n'expire jamais|L'utilisateur doit changer de mot de passe à la prochaine ouverture de session|Le compte est désactivé|L'utilisateur ne peut pas changer son mot de passe|
+    |----------|------------------|-------------------|--------|:------------:|:-----------------:|:-------------:|:---------------:|
+    |Vincent|Vincent Carrier|Professeur|Passw0rd|✅|❌|❌|❌|
+    |Eric|Éric Gendron|Professeur|Passw0rd|✅|❌|❌|❌|
+    |Gabriel|Gabriel Gaudreault|Professeur|Passw0rd|✅|❌|❌|❌|
 
 2. Avec l'aide de PowerShell cette fois, créez les utilisateur suivants:
 
@@ -38,7 +38,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
 
 3. Êtes-vous capable d'ouvrir une session avec les utilisateurs que vous avez créé via PowerShell ? Pourquoi ? Réglez cette situation.
 
-4. Trouvez comment exporter la liste de vos utilisateurs au format **csv** (séparés par des virgules) sur le bureau de l'Administrateur.
+4. Trouvez comment exporter la liste de vos utilisateurs au format **csv** (séparés par des virgules) sur le bureau de l'Administrateur. Nommez votre fichier `users.csv`.
 
 ### Partie 2 : Groupes
 
@@ -72,6 +72,10 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
     />
 </div>
 
+:::caution
+Pour les numéros suivants, assurez-vous de vérifiez **adéquatement l'héritage des droits!**
+:::
+
 8. Permissions pour le dossier **Établissement**
     - Seuls les membres du groupe *Administrateurs*, du groupe *Communauté Académique* ainsi que l'utilisateur *Système* doivent posséder des accès.
     
@@ -96,11 +100,12 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
         |Utilisateur(s) concerné(s)|Permissions|
         |--------------------------|-----------|
         |Groupe des Administrateurs|Contrôle total|
-        |Élèves|Lecture et exécution|
+        |Étudiants|Lecture et exécution|
         |Système|Contrôle total|
 
 11. Permissions pour les dossiers individuels des professeurs.
     - Chaque professeur possède un dossier personnel dans lequel il peut manipuler les items qu'il souhaite. Seul le professeur concerné, le groupe *Administrateurs* et l'utilisateur *Système* possèdent des accès.
+    
 
         |Utilisateur(s) concerné(s)|Permissions|
         |--------------------------|-----------|
@@ -114,7 +119,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
         |Utilisateur(s) concerné(s)|Permissions|
         |--------------------------|-----------|
         |Groupe des Administrateurs|Contrôle total|
-        |Professeurs|Lecture, écriture et exécution|
+        |Professeurs|Lecture & Exécution + Écriture|
         |Système|Contrôle total|
 
 13. Permissions pour les dossiers individuels des étudiants.
@@ -132,7 +137,7 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
         |Utilisateur(s) concerné(s)|Permissions|
         |--------------------------|-----------|
         |Groupe des Administrateurs|Contrôle total|
-        |Étudiants|Lecture, écriture et exécution|
+        |Étudiants|Lecture & Exécution + Écriture|
         |Système|Contrôle total|
 
 ## Correction
