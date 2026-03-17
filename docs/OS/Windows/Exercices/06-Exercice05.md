@@ -142,12 +142,4 @@ Pour les numéros suivants, assurez-vous de vérifiez **adéquatement l'héritag
 
 ## Correction
 
-Pour corriger votre laboratoire, utiliser les comptes suivants et validez les permissions:
-
-|Compte|Dossier Établissement|Dossier professeurs|Dossier Élèves|Dossier perso. Prof.|Dossier perso. Étu.|Dossier commun Prof.|Dossier commun Étu|
-|------|-------------|------------|-----------|----------|----------|------------|----------|
-|Brice|Accès sans écriture|Aucun accès|Accès sans écriture|Aucun accès|Accès presque complet*|Aucun accès|Accès lecture/écriture|
-|Vincent|Accès sans écriture|Accès sans écriture|Aucun accès|Accès presque complet*|Aucun accès|Accès lecture/écriture|Aucun accès|
-|Administrateur|Accès total|Accès total|Accès total|Accès total|Accès total|Accès total|Accès total|
-
-*Un accès presque complet signifie tous les droits à l'exception de changer les permissions.
+Pour vous corriger, utilisez le script de [correction suivant](../Assets/Exercices/05/ScriptCorrectionEx05.ps1)

@@ -153,3 +153,7 @@ Get-EventLog -LogName Security -Index 17371 | fl
 **Résultat:**
 
 ![Powershell Details](./Assets/08/PowershellDetails.png)
+
+## Références
+
+- [Podcast résumant les processus, les services et la journalisation](../Windows/Assets/08/La_mécanique_des_processus_et_services_Windows.mp3)
