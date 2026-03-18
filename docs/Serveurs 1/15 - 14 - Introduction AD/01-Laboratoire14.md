@@ -168,6 +168,49 @@ Appuyez donc sur les touches <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> pour 
 
 ![OuvertureSession](../Assets/13/OuvertureSession.png)
 
+### Modifications des zones DNS
+
+Avant de procéder à la promotion du second serveur en contrôleur de domaine *Active Directory*, nous allons devoir procéder à quelques modifications sur nos zones DNS dans le contrôleur de domaine principal. Ouvrez donc la console DNS de votre serveur **NS1**.
+
+:::caution[Pourquoi ces modifications?]
+L'installation et la promotion du serveur en contrôleur de domaine suivent généralement des étapes relativement simples. Ici, nous sommes dans un cas un peu plus particulier puisque nous avons installé des serveurs DNS (labo 11) avant de procéder à l'installation AD. Il est plus simple (et conseillé) d'installer le toute en même temps.
+:::
+
+Dans votre console DNS du serveur **<mark>primaire</mark>**, faites un clic à l'aide du bouton de droite sur votre zone de recherche directe, puis cliquez sur `propriétés`.
+
+![ProprietesZone](../Assets/13/ProprietesZone.png)
+
+Une fois dans les propriétés de votre zone de recherche directe, cliquez sur `Modifier...`, puis dans le fenêtre qui s'ouvre cochez la case correspondant à l'option *Enregistrer la zone dans Active Directory (disponible uniquement si le serveur DNS est un contrôleur de domaine).* Cliquez sur `Ok`.
+
+![IntegrerZone](../Assets/13/IntegrerZone.png)
+
+Toujours dans le propriétés de la zone, changez l'otpion des mises à jour dynamiques à : `Sécurisé uniquement`. Cliquez ensuite sur `Appliquer` et `OK`.
+
+![MAJSecurise](../Assets/13/MAJSecurise.png)
+
+<u>**Répétez ces dernières étapes pour la zone de recherche inverse! Intégrez la zone à *Active Directory* et autorisez les mises à jour sécurisées.**</u>
+
+Une fois vos zones intégrées à *Active Directory*, il nous faut maintenant créer un sous-domaine qui dans lequel *Active Directory* fera ses propres enregistrements. Créez donc une nouvelle de zone de recherche directe (comme vous l'avez fait lors du laboratoire 11) avec les paramètres suivants:
+
+- **Type de zone:** Principale (Enregistrer la zone dans *Active Directory*)
+- **Étendue de la zone de réplication:** Vers tous les serveurs DNS exécutés sur des contrôleurs de domaine dans ce domaine: gabriel.local
+- **Nom de la zone:** _msdcs.*votredomaine.lan*
+- **Mise à niveau dynamique:** N'autoriser que les mises à jour dynamiques sécurisées
+
+![_msdcs](../Assets/13/_msdcs.png)
+
+Finalement, pour permettre à *Active Directory* d'aller créer ses premiers enregistrements, nous allons redémarrer un service bien précis à l'aide de la commande PowerShell suivante:
+
+```powershell
+Get-Service -Name Netlogon | Restart-Service
+```
+
+Une fois cette dernière commande entrée, appuyez sur le bouton *refresh* dans votre console DNS (ou la touche <kbd>f5</kbd> tout simplement) et validez que vous avez bien de nouveaux enregistrements dans la zone _msdcs.*votredomaine.lan*
+
+![_msdcsRecords](../Assets/13/_msdcsRecords.png)
+
+Voilà, vous êtes désormais prêt à promouvoir votre second serveur DNS en contrôleur de domaine. Suivez les instructions ci-dessous 👇
+
 ### Installation du rôle ADDS su NS2
 
 Installez le rôle *Active Directory* sur NS2 également. <mark>**Attention toutefois**</mark>, vous n'installez pas une nouvelle forêt cette fois. Vous ajoutez plutôt un contrôleur de domaine à un domaine existant:
