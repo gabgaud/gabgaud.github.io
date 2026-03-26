@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 14
+# Laboratoire 15
 * * *
 
 ## Mise en place d'un serveur DHCP avec Linux
@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 ## Préalable(s)
 
 - Avoir complété le laboratoire # 13
-- Lire la page [« Cours 14 »](../15%20-%20Cours%2014%20-%20DHCP%20sous%20Linux/00-cours14.md) du site du cours
+- Lire la page [« Cours 15 »](../16%20-%2015%20-%20DHCP%20sous%20Linux/00-cours15.md) du site du cours
 
 
 ## Objectif(s)
