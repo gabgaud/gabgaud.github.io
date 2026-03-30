@@ -10,127 +10,162 @@ import TabItem from '@theme/TabItem';
 
 * * *
 
-## 🧪 Administration de Windows 11
+<div class="red-text" style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '2.5em' }}>
+ DATE DE REMISE: 30 AVRIL 2026
+</div>
 
-### 🎯 Objectif
-Ce travail pratique vise à évaluer vos compétences dans l’administration d’un système Windows 11. Vous devez effectuer une série de tâches sur une **machine virtuelle** que vous me remettrez une fois complétée. Chaque action doit être rigoureusement exécutée et **documentée dans un fichier `rapport.odt`** (créé avec LibreOffice) situé sur le **Bureau** de l’**administrateur**.
+* * *
 
----
+## Administration de Windows 11
 
-### ✅ Tâches à réaliser
+### Objectif 🎯
+Ce travail pratique vise à évaluer vos compétences dans l'administration d'un système Windows 11. Vous devez effectuer une série de tâches sur une machine virtuelle que vous me remettrez un fois complétée. <span class="red-text">Vous devez <u>obligatoirement</u> installer une nouvelle machine virtuelle à partir de l'iso que je vous ai fourni dans le cours.</span>
 
-#### 🔧 1. Installation et désinstallation de logiciels
-
-Effectuez les actions suivantes **dans l’ordre indiqué**, et **documentez-les dans `rapport.odt`** :
-
-1. **Installez LibreOffice** à l’aide de `winget` (outil de documentation principal).
-2. Installez **7-Zip** à l’aide de `winget`.
-3. Installez **Spotify** via le **Microsoft Store**.
-4. Téléchargez et installez **Notepad++** depuis **le site officiel**.
-
-*Pour chaque logiciel, indiquez la méthode utilisée et ajoutez une preuve de provenance (commande PowerShell, capture d’écran, etc.).*
+:::info[Expression \[matricule\]]
+Dans ce TP, l'expression \[matricule\] doit toujours être remplacée par votre numéro de matricule étudiant. Par exemple, si on vous demande de créer le dossier `C:\Windows\[matricule]\` et que votre matricule correspond au numéro 1234567, vous devez créer le dossier `C:\Windows\1234567`.
+:::
 
 ---
 
-#### 🔍 2. Architecture du système de fichiers Windows
+### Tâches à réaliser  ✅
 
-Dans le fichier `rapport.odt`, répondez aux questions suivantes :
+:::tip
+Avant de commencer votr TP, je vous recommande de faire ce que l'on appelle un *snapshot*. Les *snapshots*, ou les instantannés en francais, permettent de prendre une photo de votre machine virtuelle à un instant *t*. Ainsi, si vous faites une erreur, vous pourrez revenir à l'état où était votre machine virtuelle lorsque vous avez effectué ce *snapshot* sans devoir réinstaller Windows au complet. C'est très pratique, particulièrement en examen 😉.
 
-**a) `C:\Windows`**  
-Quel est le rôle principal du dossier `C:\Windows`?
+Pour prendre un instantanné, cliquez sur le menu `VM` dans *Workstation*, sélectionnez *snapshot*, puis cliquez sur `Prendre un snapshot`. Donnez un nom à votre *snapshot*, ex: Machine neuve. Voilà.
+:::
 
-**b) `C:\Program Files` et `C:\Program Files (x86)`**  
-Quelle est la différence entre ces deux dossiers?  
-Pourquoi cette séparation est-elle importante?
+#### Préparation
 
-**c) `C:\Users`**  
-Pourquoi chaque utilisateur possède-t-il un dossier dans `C:\Users`?  
-Nommez deux sous-dossiers importants qui s’y trouvent et expliquez leur utilité.
+Une fois votre machine virtuelle sous Windows 11 installée et fonctionnelle:
 
-**d) `C:\ProgramData`**  
-Ce dossier est caché par défaut. Pourquoi?  
-Quel est son rôle dans le fonctionnement des applications installées?
+1. Créez un dossier, à la racine du disque dur `C:\` et nommez le `TP02_[matricule]`.
+2. À l'intérieur de ce dernier dossier, créez un fichier texte nommé `réponses.txt`. Copiez-collez le modèle ci-dessous 👇 à l'intérieur et utilisez-le pour rédiger vos réponses théoriques tout au long du TP :
 
----
+    ```text
+    NOM: [Votre Nom]
+    MATRICULE: [matricule]
 
-#### ⚙️ 3. Services et processus
+    --- Section 3: Architecture ---
 
-- **Désactivez** le service **spouleur d'impression**.
-- Trouvez le **numéro de processus** du service **Windows Update** (`wuauserv`) et inscrivez-le dans le rapport.
-- Recherchez la **description** du service `LanmanServer` et ajoutez-la dans le rapport.
+    Question 3a:
+    [Réponse ici]
 
----
+    Question 3b:
+    Rôle de ce dossier:
+    [Réponse ici]
 
-#### 💻 4. Utilisation de PowerShell
+    --- Section 4: Services ---
+    PID actuel de wuauserv : [chiffre ici]
 
-Avec PowerShell, effectuez les actions suivantes :
-
-- Créez un fichier `info.txt` dans `C:\AdminTP`.
-- Ajoutez **un élément que vous avez appris durant ce cours**.
-- Copiez ce fichier dans `C:\Users\Public`.
-- Supprimez le fichier original.
-- Créez un dossier `Archives` dans `C:\AdminTP` et déplacez-y `info.txt`.
+    Description de Lanmanserver :
+    [Copier la description ici]
+    ```
 
 ---
 
-#### 👤 5. Gestion des utilisateurs et groupes
+#### 1. Manipulations PowerShell
 
-- Créez un utilisateur local nommé `tp_utilisateur` avec le mot de passe `Tp@2025`.
-- Créez un deuxième utilisateur local nommé `tp_utilisateur2` avec le mot de passe `Tp@2025`.
-- Créez un groupe local nommé `Stagiaires`.
-- Ajoutez **les deux utilisateurs** au groupe `Stagiaires`.
-
----
-
-#### 🔐 6. Gestion des permissions (ACL)
-
-- Dans `C:\AdminTP`, créez un dossier `DossiersTP`.
-- À l’intérieur, créez trois sous-dossiers : `Confidentiel`, `Partagé`, `Public`.
-
-Appliquez les permissions suivantes :
-
-- **Désactivez l’héritage** dans les trois sous-dossiers.
-- `Confidentiel` : Accès complet uniquement pour `tp_utilisateur`.
-- `Partagé` : Accès complet pour le groupe `Stagiaires`.
-- `Public` : Accès en lecture seule pour le groupe `Utilisateurs`.
-
-Utilisez `Get-ACL` pour vérifier les permissions et copiez les résultats dans `rapport.odt`.
+1. Ouvrez PowerShell en tant qu'administrateur.
+2. Démarrez l'enregistrement de votre session (c'est ce qui me permettra de corriger) avec la commande :<br/> `Start-Transcript -Path C:\TP02_[matricule]\console.txt`
+:::danger
+Ne fermez pas la fenêtre PowerShell tant et aussi longtemps que vous n'avez pas exécuté l'ensemble des opérations de ce numéro. Si vous fermez la fenêtre PowerShell, la transcription se terminera et je ne pourrai pas valider les commandes que vous avez entrées et utilisées.
+:::
+3. Installez **LibreOffice** à l'aide de l'outil `winget`.
+4. Installez **7-zip** à l'aide de l'outil `winget`.
+5. Exécutez ensuite les commandes nécessaires pour exécuter les actions suivantes:
+    - Créez un fichier `info.txt` dans `C:\TP02_[matricule]\`.
+    - Ajoutez-y le texte : *Ceci a été fait via PowerShell*.
+    - Copiez ce fichier dans `C:\Users\Public\`.
+    - Supprimez le fichier original de `C:\TP02_[matricule]\`
+6. Arrêtez l'enregistrement avec la commande `Stop-Transcript`
 
 ---
 
-#### 📀 7. Gestion du stockage
+#### 2. Installations graphiques
 
-- Ajoutez un **disque virtuel** de 2 Go à la machine.
-- **Initialisez** le disque.
-- **Créez une partition**, formatez-la en **NTFS** et assignez-lui la lettre `Z:`.
-- Créez un fichier `stockage.txt` sur le disque `Z:`.
+1. Installez **Spotify** via le **Microsoft Store**.
+2. Téléchargez et installez **Notepad++** depuis le site officiel de l'éditeur.
 
 ---
 
-### 🗂️ Remise
+#### 3. Architecture du système
 
-Remettez les éléments suivants :
+Répondez de façon concise aux questions suivantes dans votre fichier `C:\TP02_[matricule]\réponses.txt`
 
-- La **machine virtuelle** avec toutes les modifications effectuées.
-- Le fichier `rapport.odt` placé sur le **Bureau** de l’**administrateur**.
-- Tous les fichiers créés (captures, fichiers de test, etc.) doivent rester en place dans le système.
+    a) Expliquez pourquoi Windows 11 possède deux dossiers *program files* distincts. Soit `C:\Program Files` et `C:\Program Files (x86)`
 
-📅 **La remise devra se faire via Microsoft Teams, dans le dépôt qui sera créé à cet effet.**
+    b) Affichez les éléments masqués de Windows. Explorez `C:\ProgramData`. Quel semble être le rôle de ce dossier ?
 
 ---
 
-### 📜 Barème détaillé (sur 40 points)
+#### 4. Services et processus
 
-| **Critère**                             | **Points** | **Détails évalués** |
-|-----------------------------------------|------------|----------------------|
-| **Installation/désinstallation de logiciels** | 6 pts | - Installation de LibreOffice avec `winget` (1 pt)<br/>- Installation de 7-Zip via `winget` (1 pt)<br/>- Installation de Spotify via le Microsoft Store (1 pt)<br/>- Installation de Notepad++ via internet (1 pt)<br/>- Preuves de provenance claires (2 pts) |
-| **Architecture du système**             | 4 pts | - Réponses claires, précises et personnalisées aux questions (1 pt chacune) |
-| **Services et processus**               | 4 pts | - Désactivation du spouleur d'impression (1 pt)<br/>- Numéro de processus `wuauserv` (1 pt)<br/>- Description du service `LanmanServer` (1 pt)<br/>- Bonne rédaction dans le rapport (1 pt) |
-| **PowerShell (fichiers et dossiers)**   | 6 pts | - Création du fichier (1 pt)<br/>- Contenu pertinent (1 pt)<br/>- Copie/suppression (1 pt)<br/>- Création de dossier (1 pt)<br/>- Déplacement de fichier (1 pt)<br/>- Utilisation correcte de PowerShell (1 pt) |
-| **Gestion des utilisateurs et groupes** | 6 pts | - Création des utilisateurs (2 pts)<br/>- Création du groupe `Stagiaires` (1 pt)<br/>- Ajout des utilisateurs au groupe (2 pts)<br/>- Cohérence générale (1 pt) |
-| **Permissions (ACL)**                   | 6 pts | - Structure de dossiers correcte (1 pt)<br/>- Héritage désactivé (1 pt)<br/>- Permissions configurées (3 pts)<br/>- Sortie `Get-ACL` dans le rapport (1 pt) |
-| **Gestion du stockage**                | 6 pts | - Ajout et initialisation du disque (1 pt)<br/>- Création et formatage de la partition (2 pts)<br/>- Attribution de lettre (1 pt)<br/>- Fichier `stockage.txt` présent (2 pts) |
-| **Clarté et exactitude du rapport**     | 2 pts | - Organisation, grammaire, précision (1 pt)<br/>- Cohérence avec actions (1 pt) |
+- **Désactivez** le service **Spouleur d'impression** (Il doit rester désactivé aux prochains démarrages.)
+- Dans le fichier `C:\TP02_[matricule]\réponses.txt`, inscrivez le **PID** actuel du service **Windows Update** tel qu'il apparait sur votre machine.
+- Dans le fichier `C:\TP02_[matricule]\réponses.txt`, copiez-collez la **description** exacte du service `Lanmanserver` telle qu'affichée dans la console des services.
+
+---
+
+#### 5. Gestion des utilisateurs et groupes
+
+Créez les éléments suivants:
+- Un utilisateur local nommé `user1_[matricule]` avec le mot de passe `Tp@2026`.
+- Un deuxième utilisateur local nommé `user2_[matricule]` avec le mot de passe `Tp@2026`.
+- Créez un groupe local nommé `groupe_[matricule]`.
+- Ajoutez **les deux utilisateurs** au groupe `groupe_[matricule]`.
+
+---
+
+#### 6. Gestion des permissions (ACL)
+
+:::caution[Groupe administrateurs et utilisateur system]
+Le groupe `administrateurs` et l'utilisateur `system` doivent <u>toujours</u> posséder toutes les permissions sur les dossier ci-dessous.
+:::
+
+Dans `C:\TP02_[matricule]\`, créez trois sous-dossiers: `Confidentiel`, `Partage` et `Public`. Configurez ensuite les permissions comme suit:
+- **Désactivez l'héritage des droits** pour les trois dossiers.
+- Dossier `Confidentiel` : Accès complet (contrôle total) uniquement pour `user1_[matricule]`.
+- Dossier `Partage` : Accès complet (contrôle total) pour `groupe_[matricule]`.
+- Dossier `Public` : Accès en lecture seule pour le groupe prédéfini `Utilisateurs`.
+
+---
+
+#### 7. Gestion du stockage
+
+- Dans les paramètres de votre hyperviseur, ajoutez un **disque dur virtuel** de 2Go à la VM.
+- Dans Windows, **initialisez** le disque,
+- **Créez une partition**, formatez-la en **NTFS** et assignez-lui la lettre `Z:\`.
+- Créez un fichier vide nommé `stockage_[matricule].txt` à la racine de ce nouveau lecteur `Z:\`.
+
+---
+
+### Remise
+
+1. Éteignez proprement votre machine virtuelle.
+2. Exportez la machine virtuelle en format `.ova`
+3. Nommez votre fichier `.ova` comme suit : `Nom_Prenom_TP02.ova`
+4. Remettez **uniquement votre machine virtuelle** via le dépôt ci-dessous 👇
+
+---
+
+<div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '2em' }}>
+ [LIEN POUR EFFECTUER LA REMISE](https://cloud.tonprof.ca/index.php/s/gCrxg7FEAg9dZRF)
+</div>
+
+---
+
+### Barème détaillé (sur 40 points)
+
+| **Critère** | **Points** | **Détails évalués** |
+| :--- | :--- | :--- |
+| **Installations et PowerShell** | 10 pts | - Présence du fichier `Console.txt` valide (2 pts)<br/>- Traces de `winget` pour LibreOffice et 7-Zip (4 pts)<br/>- Commandes de manipulation de fichiers réussies (2 pts)<br/>- Présence de Spotify et Notepad++ (2 pts) |
+| **Architecture du système** | 4 pts | - Explication claire `Program Files` vs `(x86)` (2 pts)<br/>- Identification et rôle du dossier `ProgramData` (2 pts) |
+| **Services et processus** | 4 pts | - Désactivation du spouleur d'impression confirmée (2 pts)<br/>- PID de `wuauserv` et description `LanmanServer` (2 pts) |
+| **Gestion des utilisateurs/groupes** | 6 pts | - Création des deux utilisateurs avec `[matricule]` (2 pts)<br/>- Création du groupe avec `[matricule]` (2 pts)<br/>- Appartenance au groupe confirmée (2 pts) |
+| **Permissions (ACL)** | 6 pts | - Héritage désactivé (2 pts)<br/>- Permissions correctes appliquées aux 3 dossiers (4 pts) |
+| **Gestion du stockage** | 6 pts | - Présence du disque 2 Go initialisé (2 pts)<br/>- Partition NTFS avec lettre Z: (2 pts)<br/>- Présence du fichier `stockage_[matricule].txt` (2 pts) |
+| **Respect des consignes globales** | 4 pts | - Utilisation stricte de la nomenclature `[matricule]` (2 pts)<br/>- Format respecté pour `Réponses.txt` (2 pts) |
 
 ---
 

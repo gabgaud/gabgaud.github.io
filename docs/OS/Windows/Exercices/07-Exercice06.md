@@ -18,21 +18,29 @@ Vous devez posséder une machine virtuelle sous Windows 11 24H2 opérationnelle.
 
 ## Étapes de réalisation
 
-Pour réaliser les différentes étapes qui suivront, vous aurez besoin d'ajouter <mark>trois</mark> disques durs à votre machine virtuelle. Vous devez ajouter ces périphériques <span class='red-text'>**lorsque la machine virtuelle est éteinte.**</span> Pour ce faire, dirigez-vous dans les configurations de votre machine virtuelle, sous l'onglet stockage, puis cliquez sur *Ajouter un périphérique*:
+Pour réaliser les différentes étapes qui suivront, vous aurez besoin d'ajouter <mark>trois</mark> disques durs à votre machine virtuelle. Vous devez ajouter ces périphériques <span class='red-text'>**lorsque la machine virtuelle est éteinte.**</span> Pour ce faire, dirigez-vous dans les configurations de votre machine virtuelle, cliquez sur *Ajouter* dans le volet matériel, puis sélectionnez *Disque dur*:
 
 ![AddHDDVM](../Assets/Exercices/06/AddHDDVM.png)
 
-Vous devez évidemment sélectionner **Disque Dur**. Lorsque ce sera fait, une nouvelle fenêtre apparaitra afin que vous puissiez sélectionner le nouveau disque à ajouter. Or, il faudra plutôt le créer.
+Sélectionnez le type de bus que vous désirez utiliser avec votre disque dur. Je vous recommande de prendre **NVMe**, mais ce n'est pas obligatoire.
 
 ![CreateHDD](../Assets/Exercices/06/CreateHDD.png)
 
-Vous serez alors amené à choisir le type de fichier à créer pour votre nouveau stockage (*laissez l'option par défaut*), à définir le type d'allocation (*pre-allocate Full Size*) et finalement la taille (Un disque de 15Go et deux autres de 10Go).
+Vous devrez alors indiquer ce que vous voulez entreprendre comme action:
 
-![CreateSteps](../Assets/Exercices/06/HDDProperties.png)
+- Créer un disque dur virtuel (*notre cas*)
+- Utiliser un disque dur existant
+- Utiliser un disque physique
 
-Finalement, ajouter le disque nouvèlement créé à votre configuration de machine virtuelle:
+Vous devrez spécifier la taille du disque, la manière de l'entreposer (un fichier ou plusieurs) et si vous désirez effectuer du *thin* ou du *thick provisionning*.
 
-![AttachHDD](../Assets/Exercices/06/AttachHDD.png)
+Dans l'univers de la virtualisation, le *thick* et le *thin provisionning* distinguent l'allocation de l'espace disque d'une machine virtuelle ou d'un conteneur. En français, on pourrait traduire ces expressions par **allocation complète** et **allocation dynamique**. 
+
+- **Allocation dynamique:** La machine virtuelle croit qu'elle possède un disque dur de la taille de que vous avez indiqué (*Ex: 500Go*), mais en réalité le disque n'a que la taille nécessaire, c'est-à-dire à peine plus que l'ensemble des fichiers stockés sur la machine. Cela permet aux administrateurs de faire de la surallocation. Autrement dit, on attribue plus d'espace qu'il y en a directement sur le disque dur physique. Évidemment, cela vient avec certaines conséquences, le stockage est légèrement plus lent qu'avec une allocation statique.
+
+- **Allocation statique:** Si vous allouez tout l'espace disque maintenant, vous bénéficierez d'un stockage plus rapide, mais en contre-partie, une partie du stockage physique sera réservée juste au cas (*et donc perdu si vous ne l'utilisez pas*).
+
+![CreateSteps](../Assets/Exercices/06/WorkstationHDDAll.png)
 
 **<u>Répétez ces étapes pour les trois disques durs à ajouter, sois un disque dur de 15Go et deux de 10Go</u>**
 

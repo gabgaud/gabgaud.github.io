@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,14 +7,14 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 15
+# Laboratoire 16
 * * *
 
 ## Ajout d'un service DNS dynamique à votre DHCP
 
 ## Préalable(s)
 
-- Avoir complété le laboratoire # 14 (nous réutilisons les VM)
+- Avoir complété le laboratoire # 15 (nous réutilisons les VM)
 
 ## Objectif(s)
 
