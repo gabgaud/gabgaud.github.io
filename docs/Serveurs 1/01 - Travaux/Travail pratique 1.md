@@ -1,24 +1,32 @@
 ---
-draft: true
+draft: false
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
 
 # Travail pratique - 25%
 
+---
+
+<div class="red-text" style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '2.5em' }}>
+ DATE DE REMISE: 30 AVRIL 2026
+</div>
+
+---
+
 Pour la réalisation de ce travail, l'infrastructure vous ait complètement fourni. Les serveurs DNS et DHCP sont prêts et à utiliser tel quel et il en va de même pour les clients. Un nom de domaine a déjà été sélectionné et tous les ordinateurs possèdent leur propre FQDN.
 
-L'ensemble des ordinateurs virtuels nécessaires à la réalisation de ce TP sont disponible directement dans Labinfo dans la section MODÈLES > 420-2S5 > TP.
+L'ensemble des ordinateurs virtuels nécessaires à la réalisation de ce TP sont disponible directement dans Labinfo dans la section MODÈLES > 420-2X5 > TP.
 
 Voici les informations de chacune des machines virtuelles:
 
 |Nom de la machine|Nom d'utilisateur|Mot de passe|Adapteur réseau 1|Adapteur réseau 2|
 |-----------------|-----------------|------------|-----------------|-----------------|
-|MODELE_PASSERELLE_2S5_TP1| N/A | N/A | Acces-Internet-1 | Votre réseau privé |
-|MODELE_PC0001_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
-|MODELE_PC0002_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
-|MODELE_UbuntuServeur_2S5_TP1| utilisateur | Passw0rd| Votre réseau privé | N/A |
-|MODELE_WindowsServeur_2S5_TP1| Administrateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_PASSERELLE_2X5_TP| N/A | N/A | Acces-Internet-2 | Votre réseau privé |
+|MODELE_PC0001_2X5_TP| Administrateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_PC0002_2X5_TP| Administrateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_DHCP_2X5_TP| utilisateur | Passw0rd| Votre réseau privé | N/A |
+|MODELE_DNS_2X5_TP| Administrateur | Passw0rd| Votre réseau privé | N/A |
 
 ## Mandat
 
