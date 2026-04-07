@@ -10,10 +10,26 @@ import TabItem from '@theme/TabItem';
 
 ## Introduction à la sécurité dans Windows 11
 
-### 🌍 Contexte et enjeux 
+### Contexte et enjeux 🌍 
+
+Avant d'explorer les mécanismes de Windows 11, il est essentiel de comprendre le cadre conceptuel sur lequel repose toute la sécurité informatique: *CIA(CID)*
+
+- **Confidentialité** (*Confidentiality*) : seules les personnes autorisées peuvent accéder aux données.
+- **Intégrité** (*Integrity*) : les données ne peuvent être modifiées que par des acteurs légitimes.
+- **Disponibilité** (*Availability*) : les systèmes et données sont accessibles quand on en a besoin.
+
+Chaque fonctionnalité de sécurité étudiée dans ce cours peut être rattachée à un ou plusieurs de ces principes. Garder ce modèle en tête aide à comprendre pourquoi un *feature* existe, pas seulement comment il fonctionne.
+
+Un attaquant cherche des vecteurs d'attaque: des chemins d'accès exploitables vers un système. Ces vecteurs peuvent être:
+
+- **Techniques** : vulnérabilités logicielles, pilotes non signés, ports réseau ouverts.
+- **Humains** : phishing, ingénierie sociale, mots de passe faibles.
+- **Physiques** : vol d'un appareil, accès direct à un disque dur.
+
+Windows 11 est conçu pour réduire ces surfaces d'attaque à chaque niveau : matériel, authentification, réseau et application.
 
 **Évolution des menaces**  
-Le paysage des cyberattaques évolue constamment et se complexifie. Windows 11 doit faire face à diverses formes d’attaques – du ransomware au phishing en passant par les attaques zero-day – qui ciblent aussi bien les utilisateurs individuels que les entreprises. Les attaquants exploitent des vulnérabilités aussi bien humaines que techniques, d'où l'importance d'une sécurité robuste.
+Le paysage des cyberattaques évolue constamment et se complexifie. Windows 11 doit faire face à diverses formes d’attaques allant du ransomware au phishing en passant par les attaques zero-day qui ciblent aussi bien les utilisateurs individuels que les entreprises. Les attaquants exploitent des vulnérabilités aussi bien humaines que techniques, d'où l'importance d'une sécurité robuste.
 
 **Attentes des utilisateurs**  
 Les utilisateurs, qu’ils soient particuliers ou professionnels, exigent une protection accrue de leurs données sensibles, financières ou personnelles. Windows 11 répond à ces attentes en intégrant des mécanismes de protection avancés pour instaurer un climat de confiance.
@@ -23,29 +39,37 @@ Dès son installation, Windows 11 offre des fonctionnalités de sécurité prêt
 
 ---
 
-## Sécurité liée au matériel 🖥️
+## Sécurité liée au matériel
 
-### 🔐 TPM (Trusted Platform Module) 2.0
+### TPM (Trusted Platform Module) 2.0 🔐 
 
 **Définition et rôle**  
-Le TPM est une puce dédiée intégrée directement dans la carte mère. Il agit comme un coffre-fort numérique en stockant de manière sécurisée des clés de chiffrement, des certificats et d'autres données sensibles. Windows 11 exige la version 2.0 pour garantir une base de sécurité solide.  
+Le TPM est une puce dédiée intégrée directement dans la carte mère. Il agit comme un coffre-fort numérique en stockant de manière sécurisée des clés de chiffrement, des certificats et d'autres données sensibles. Windows 11 exige la version 2.0 pour garantir une base de sécurité matérielle solide.
 
 **Utilisations**  
 Ce module est notamment utilisé pour :
-- Le chiffrement des disques avec BitLocker  
-- L’authentification via Windows Hello  
-- La sécurisation des données sensibles au niveau du hardware  
-Ainsi, le TPM contribue à minimiser le risque de compromission même si le logiciel du système est attaqué.
+- Le chiffrement des disques avec BitLocker
+- L'authentification via Windows Hello (PIN et biométrie)
+- La sécurisation des données sensibles au niveau du hardware
 
-### 🛡️ Secure Boot
+Ainsi, même si le système d'exploitation est compromis, les clés cryptographiques restent protégées dans le TPM et ne peuvent être extraites par un logiciel malveillant.
+
+**Vérifier la présence du TPM**
+Dans Windows 11 : `Win + R` → `tpm.msc`. L'outil affiche la version du TPM et son état.
+
+![TPM_MSC](../Windows/Assets/12/TPM_MSC.png)
+
+### Secure Boot
 
 **Fonctionnement**  
-À chaque démarrage, le processus de Secure Boot vérifie l'intégrité et la signature numérique de composants critiques tels que le chargeur de démarrage, le noyau et certains pilotes essentiels. Seuls les éléments signés et validés par Microsoft ou le constructeur sont autorisés à s’exécuter.
+À chaque démarrage, le processus de Secure Boot vérifie l'intégrité et la signature numérique de composants critiques : le chargeur de démarrage (*bootloader*), le noyau (*kernel*) et certains pilotes essentiels. Seuls les éléments signés et validés par Microsoft ou le constructeur sont autorisés à s'exécuter.
 
 **Importance**  
-Cette vérification empêche le démarrage de logiciels malveillants ou altérés, offrant ainsi une première ligne de défense qui sécurise l’intégrité du système dès son allumage.
+Cette vérification empêche le démarrage de *bootkits* et de *rootkits*, des malwares qui s'installent avant le chargement de l'OS pour échapper à la détection. C'est la première ligne de défense qui sécurise l'intégrité du système dès son allumage.
 
-### 🧩 Core Isolation et Memory Integrity
+**Lien CIA** : Secure Boot garantit principalement l'**intégrité** du processus de démarrage.
+
+### Core Isolation et Memory Integrity
 
 **Core Isolation**  
 Ce mécanisme exploite la virtualisation pour isoler certains processus critiques du système des autres composants. Cela limite la propagation des attaques, même si une partie du système est compromise.
