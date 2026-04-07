@@ -14,7 +14,7 @@ import TabItem from '@theme/TabItem';
 
 ## Préalable(s)
 
-- Avoir complété le laboratoire # 15 (nous réutilisons les VM)
+- Avoir complété le laboratoire # 16 (nous réutilisons les VM)
 
 ## Objectif(s)
 
