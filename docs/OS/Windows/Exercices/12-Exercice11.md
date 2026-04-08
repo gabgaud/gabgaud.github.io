@@ -6,7 +6,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Exercice 10
+# Exercice 11
 
 ## Exploitation du planificateur de tâches
 

@@ -8,13 +8,13 @@ import TabItem from '@theme/TabItem';
 
 # Exercice 08
 
-## Partage de ressources entre PC Windows
+## Mise en réseau de machines virtuelles
 
-Dans cet exercice, nous effectuerons des partages SMB entre deux PC sous Windows 11
+Dans cet exercice, nous mettrons en place le nécessaire pour que vous puissiez mettre en réseau un ordinateur sous Windows 11.
 
 ## Préalables
 
-Avoir complété l'exercice 07 puisque nous réutiliserons celui-ci.
+Vous aurez évidemment d'une première machine virtuelle sous Windows 11. Vous aurez également besoin d'une seconde machine virtuelle qui fera office de passerelle pour votre réseau. Je peux vous fournir cette machine directement via [ce lien](https://cloud.tonprof.ca/index.php/s/in3n5MDqcHSqSt4/download/Passerelle.ova), ou en classe.
 
 ## Schéma
 
@@ -22,117 +22,67 @@ Avoir complété l'exercice 07 puisque nous réutiliserons celui-ci.
     <ThemedImage
         alt="Schéma"
         sources={{
-            light: useBaseUrl('/img/Windows/Exercices/Exercice08_W.svg'),
-            dark: useBaseUrl('/img/Windows/Exercices/Exercice08_D.svg'),
+            light: useBaseUrl('/img/Windows/Exercices/Exercice07_W.svg'),
+            dark: useBaseUrl('/img/Windows/Exercices/Exercice07_D.svg'),
         }}
     />
 </div>
 
-## Étapes de réalisation
+## Mise en place
 
-La première étape de ce laboratoire consistera à déployer une seconde machine virtuelle sous Windows 11, tel que présenté dans le schéma ci-dessus. N'oubliez pas configurer son interface réseau, tel que vous l'avez fait pour votre premier client dans l'exercice précédent.
+D'abord, importez les deux machines virtuelles dans votre hyperviseur. Une fois les machines virtuelles bien importées, nous aurons quelques modifications à faire sur celles-ci.
 
-## Création d'utilisateurs et des dossiers
+## Configuration de la passerelle
 
-Évidemment, comme nous allons mettre en place des partages, nous aurons besoin d'utilisateurs et de dossiers. Vous trouverez ci-dessous la liste des utilisateurs et des groupes à créer. Un peu plus bas, vous trouverez la liste des dossiers à créer ainsi que leur ACL respectives.
+Dirigez-vous dans les configurations de votre machine virtuelle (passerelle). Passez en mode expert, puis cliquez sur Réseau:
 
-:::caution
-**Aucune autre permission que celle qui sont dans le tableau des dossiers ne doit être présente!** Les groupes **<u>utilisateurs authentifiés ou utilisateurs</u>** ne devraient jamais apparaitre en aucune circonstance dans les permissions de vos dossiers à moi que cela ne soit spécifiquement précisé.
+![Interfaces](../Assets/Exercices/07/Interfaces.png)
+
+Ici, vous remarquerez qu'une machine virtuelle sous VirtualBox peut posséder jusqu'à 4 cartes réseau. Pour notre passerelle, nous aurons besoin de deux cartes réseaux:
+
+        	👉 Une première carte branchée au Web.<br/>
+            👉 La seconde pour notre réseau interne.
+
+:::tip[Rappelez-vous!]
+**N'oubliez pas!** La passerelle agit comme un échangeur entre deux autoroutes. Elle permet au traffic de passer d'une route à l'autre. Pour y arriver, la passerelle a forcémment besoin d'être reliée à ces deux routes.
 :::
 
-### Tableau des utilisateurs
+### Interface 1 - *Accès par pont*
 
-| Type | Nom | Membres |
-|------|-----|---------|
-| Utilisateur | Bob | N/A |
-| Utilisateur | Paul | N/A |
-| Utilisateur | Rita | N/A |
-| Utilisateur | Claude | N/A |
-| Utilisateur | Amanda | N/A |
-| Groupe | Techniciens | Bob, Paul |
-| Groupe | Finances | Rita, Claude |
-| Groupe | Direction | Amanda |
-| Groupe | TLM | Bob, Paul, Rita, Claude, Amanda |
+L'interface #1 est notre lien vers le web. Utilisez donc le mode d'accès réseau nommé « Accès par pont ». Ce mode d'accès permet de relier une machine virtuelle directement sur le même réseau que votre machine physique. Dans le cas présent, c'est comme si vous reliiez votre passerelle directement sur le réseau du cégep. Une fois le mode d'accès réseau choisi, assurez-vous que le nom de la carte réseau juste au-dessous ait du sens. Je crois que vous n'avez qu'une seule interface réseau sur les PC du cégep donc vous ne pourrez pas vous tromper. ⚠️ **Ne modifiez pas les champs:** <u> Type d'interface, Mode promiscuité et Adresse MAC ⚠️</u>
 
-### Tableau des dossiers
+### Interface 2 - *Réseau interne*
 
->**Légende:** <br/>
-> 🟢 CT : Contrôle total <br/>
-> 🟡 Modif : Modification <br/>
-> 🟠 RX : Lecture et Exécution
+Pour l'interface #2, nous utiliserons le mode d'accès réseau nommé « Réseau interne ». Ce mode crée un commutateur (*switch*) virtuel au sein de votre ordinateur. Cela permet de créer des réseaux virtuels que seuls vos machines virtuelles pourront joindre. Vous devrez donner un nom à cette interface, dans mon cas, je l'ai nommé *vswitch*:
 
-| Nom du dossier | Emplacement | Permissions |
-|:----------------:|-------------------------|---------------------------------------------------|
-| Bob | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Bob (Modif)</li><li>Direction (Modif)</li></ul>
-| Paul | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Paul (Modif)</li><li>Direction (Modif)</li></ul>
-| Rita | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Rita (Modif)</li><li>Direction (Modif)</li></ul>
-| Claude | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Claude (Modif)</li><li>Direction (Modif)</li></ul>
-| Amanda | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Amanda (Modif)</li></ul>
-| Techniciens | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Techniciens (RX)</li><li>Direction (Modif)</li><li>Bob (Modif)</li></ul>
-| Finances | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (Modif)</li><li>Rita (Modif)</li></ul>
-| Direction | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Direction (Modif)</li></ul>
-| TLM | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (RX)</li><li>Techniciens (RX)</li></ul>
+![VSwitch](../Assets/Exercices/07/vswitch.png)
 
-## Mise en place des partages
+À partir d'ici, votre passerelle est prête. Allons maintenant configurer votre machine virtuelle sous Windows 11.
 
-L'objectif est de faire en sorte que les utilisateurs puissent accéder à leurs ressources à distance, soit depuis PC0002. Préalablement, il vous faudra évidemment partager les dossiers créés ci-dessus. Je vous présente ci-dessous un exemple avec le dossier de l'utilisateur Bob. Vous devrez répétez ces étapes, tout en ajustant les permissions à chaque fois, pour tous les dossiers de groupe et d'utilisateur.
+## Configuration de votre client
 
-### Partage avancé
+Dirigez-vous dans les mêmes configurations expertes de votre machine virtuelle sous Windows 11. Faites passer l'interface réseau en mode d'accès « Réseau Interne » et utilisez **<u>exactement le même nom que vous avez utilisé sur la carte du même type de votre passerelle</u>**. Pour rappel, j'avais utilisé le nom *vswitch* dans mon cas.
 
-Faites un clic à l'aide du bouton de droite de la souris sur l'un des dossiers que vous avez créé, puis sélectionnez *Propriétés*. Dans l'onglet *Partage*, cliquez sur *Partage Avancé...*:
+![CLientWin11](../Assets/Exercices/07/ClientWin11.png)
 
-![Partage](../Assets/Exercices/08/Partage.png)
+⚠️**Encore une fois ne modifiez pas les autres champs.**⚠️
 
-Cochez *Partager ce dossier* et définissez un nom pour le partage. Ce nom n'a pas forcémment à avoir de lien avec le nom du dossier, mais c'est tout de même recommandé:
+## Démarrage des machines
 
-![PartageADV](../Assets/Exercices/08/PartageADV.png)
+Nous sommes désormais prêts à démarrer nos machines virtuelles. Démarrez donc celles-ci. Prenez note qu'il est normal que vous n'ayez pas d'interface graphique dans votre passerelle car il s'agit d'un serveur Linux. Néanmoins, lorsque le serveur aura terminé de démarrer, il vous affichera des informations essentielles. Prenez en note l'adresse du serveur vis-à-vis la ligne **LAN**
 
-:::tip
-C'est ici, à la fin du nom, qu'il faut ajouter le fameux « $ » si vous désirez rendre le partage invisible.
+## Configuration Windows
+
+Vous n'obtiendrez pas de configuration IP automatiquement lorsque vous démarrerez Windows...Il fallait bien que je vous fasse travailler un peu 😉. Par contre, dans la théorie, nous avons vu comment configurer une adresse IP manuellement dans Windows. C'est donc à vous de jouer maintenant. Voici les informations que vous avez en mains:
+
+|Item|Valeur|
+|----|------|
+| Adresse de la passerelle | Vous l'avez obtenu sur l'écran de démarrage de la passerelle |
+| Adresse IP | Il vous faut la déterminer. Vous avez l'adresse de la passerelle et le masque pour vous aider. |
+| Masque de sous-réseau | 255.255.255.0 |
+| Dns Primaire | La passerelle sera aussi votre serveur DNS |
+| Dns Secondaire | Aucun |
+
+:::tip[Bonus]
+Vous avez terminé et ça fonctionne ? Excellent travail! Et si vous mettiez en place un deuxième client sous Windows 11 ? Pensez-vous être capable de faire en sorte que les deux clients puissent s'envoyer des paquets de type *PING* ? 🔥
 :::
-
-Cliquez ensuite sur *Autorisations*. C'est dans cette fenêtre que vous pourrez définir les permissions de partage pour vos utilisateurs.
-
-![PermissionsPartage](../Assets/Exercices/08/PermissionsPartage.png)
-
-:::important[N'OUBLIEZ PAS]
-Un utilisateur ou un groupe se verra toujours octroyer les permissions minimum entre les permissions de partage et les permissions locales.
-:::
-
-## Accéder à un partage depuis un autre PC
-
-Ouvrez une session sur votre client #2, comme vous le feriez normalement. Ouvrez l'explorateur Windows et tapez le chemin UNC vers votre client #1 comme suit:
-
-![UNC](../Assets/Exercices/08/UNC.png)
-
-Vous devriez voir apparaitre vos différents partages. Double-cliquez sur l'un d'entre eux... Alors ?...Ça fonctionne ? Non ? **C'est normal!** Nous ne nous sommes pas identifié. Le client #1 nous refuse donc l'accès car il ne sait pas qui tente d'accéder au dossier partagé que vous tentez d'ouvrir.
-
-![Refus](../Assets/Exercices/08/AccesRefuse.png)
-
-Pour vous identifier, ouvre une invite de commande Windows et entrez la commande suivante en prenant soin d'y indiquer les bonnes informations ( ip et utilisateur ) :
-
-```batch
-net use \\192.168.12.X /u:Bob
-```
-
-:::danger[En cas d'erreur]
-
-**Erreur 64:**<br/>
-L'erreur 64 se produit si la machine sur laquelle vous avez effectué les partages tombe en veille. 💤 Assurez-vous donc qu'elle ne tombe pas dans ce mode, quitte à désactiver la mise en veille.
-
-**Erreur 1219:**<br/>
-L'erreur 1219 se produit si des identifiants (peu importe s'ils sont bons ou mauvais) ont déjà été stockés pour la communication avec l'autre PC. Même si vous n'avez pas spécifiquement entré des identifiants, si vous avez seulement tentez d'ouvrir un dossier à distance par exemple, vos identifiants de session sont utilisés. Pour supprimer les identifiants stockés en mémoire, utilisez la commande `net use * /delete` et supprimez les connexions en cours. Ensuite, réutilisez la commande `net use` vu ci-dessus pour vous identifier.
-:::
-
-Une fois que vous vous serez identifié, vous devriez pouvoir accéder aux dossiers partagés via l'UNC:
-
-![Acces](../Assets/Exercices/08/Acces.png)
-
-Chaque fois que vous devrez vous authentifier avec un compte différent pour accéder à un dossier, vous devrez:
-
-1. Déconnecter le compte actuel avec la commande `net use * /delete`
-
-2. Vous authentifier avec le nouveau compte à l'aide de la commande vue un peu plus haut.
-
-
-

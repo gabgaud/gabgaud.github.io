@@ -18,6 +18,8 @@ Avant d'explorer les mécanismes de Windows 11, il est essentiel de comprendre l
 - **Intégrité** (*Integrity*) : les données ne peuvent être modifiées que par des acteurs légitimes.
 - **Disponibilité** (*Availability*) : les systèmes et données sont accessibles quand on en a besoin.
 
+![CID](../Windows/Assets/12/CID.png)
+
 Chaque fonctionnalité de sécurité étudiée dans ce cours peut être rattachée à un ou plusieurs de ces principes. Garder ce modèle en tête aide à comprendre pourquoi un *feature* existe, pas seulement comment il fonctionne.
 
 Un attaquant cherche des vecteurs d'attaque: des chemins d'accès exploitables vers un système. Ces vecteurs peuvent être:
@@ -54,7 +56,7 @@ Ce module est notamment utilisé pour :
 
 Ainsi, même si le système d'exploitation est compromis, les clés cryptographiques restent protégées dans le TPM et ne peuvent être extraites par un logiciel malveillant.
 
-**Vérifier la présence du TPM**
+**Vérifier la présence du TPM:**<br/>
 Dans Windows 11 : `Win + R` → `tpm.msc`. L'outil affiche la version du TPM et son état.
 
 ![TPM_MSC](../Windows/Assets/12/TPM_MSC.png)
@@ -72,146 +74,228 @@ Cette vérification empêche le démarrage de *bootkits* et de *rootkits*, des m
 ### Core Isolation et Memory Integrity
 
 **Core Isolation**  
-Ce mécanisme exploite la virtualisation pour isoler certains processus critiques du système des autres composants. Cela limite la propagation des attaques, même si une partie du système est compromise.
+Ce mécanisme exploite la virtualisation matérielle (*Virtualization-Based Security*) pour isoler certains processus critiques du système dans un environnement sécurisé séparé. Même si une partie du système est compromise, la propagation de l'attaque vers ces processus protégés est bloquée.
 
-**Memory Integrity (HVCI)**  
-En surveillant en continu la mémoire et en vérifiant l’intégrité des données en temps réel, Memory Integrity empêche l’injection de code malveillant dans les processus sensibles. Cela renforce la protection de l’ensemble du système pendant son exécution.
+**Memory Integrity (HVCI *Hypervisor-Protected Core Integrity*)**  
+En vérifiant en continu l'intégrité du code chargé en mémoire, HVCI empêche l'injection de code malveillant dans les processus sensibles du noyau. Les pilotes non signés ou modifiés sont rejetés avant de pouvoir s'exécuter.
 
-### ⚙️ Synergie entre les technologies matérielles
+![MemIntegrity](../Windows/Assets/12/MemIntegrity.png)
 
-**Chaîne de confiance**  
-Les technologies telles que le TPM et Secure Boot instaurent une base de confiance dès le démarrage. Ensuite, Core Isolation et Memory Integrity poursuivent la protection en garantissant l'intégrité des opérations en cours. L'ensemble de ces solutions forme une chaîne robuste qui sécurise chaque étape du cycle de vie du système.
+### Chaîne de confiance matériel 🔗
 
-**Impact global**  
-Cette approche multi-niveaux assure que, qu'il s'agisse du démarrage ou de l'exécution des applications, le système reste constamment protégé contre divers types de menaces.
+**De l'allumage à l'exécution**
+ 
+| Étape | Rôle |
+|-------|------|
+| **1. Allumage** | Le processeur démarre et transfère immédiatement le contrôle au firmware de la carte mère. Aucun système d'exploitation n'est encore en mémoire. |
+| **2. UEFI** | C'est le premier logiciel qui s'exécute. Il initialise le matériel (RAM, disques, périphériques) et prépare l'environnement avant de lancer le chargeur de démarrage de Windows. |
+| **3. Secure Boot** | Intégré à l'UEFI, Secure Boot vérifie la **signature numérique** du chargeur de démarrage Windows (*bootmgr*). Si la signature est absente ou invalide (fichier modifié par un malware), le démarrage est bloqué immédiatement. |
+| **4. TPM vérifie l'intégrité** | Pendant le démarrage, le TPM enregistre des empreintes (*mesures*) de chaque composant chargé. Il compare ces mesures à des valeurs de référence connues. Si quelque chose a été modifié depuis le dernier démarrage sain, le TPM refuse de libérer les clés BitLocker. |
+| **5. Chargement du noyau** | Le noyau Windows (*kernel*, `ntoskrnl.exe`) est chargé en mémoire. C'est le cœur du système d'exploitation, il gère les ressources matérielles et constitue la couche entre le matériel et les applications. Sa compromission donnerait un accès total au système. |
+| **6. VBS / Core Isolation** | La *Virtualization-Based Security* (VBS) crée un environnement isolé grâce à l'hyperviseur. Les processus critiques (comme la gestion des identifiants) s'exécutent dans cet environnement séparé, hors de portée même d'un noyau compromis. |
+| **7. HVCI protège la mémoire** | *Hypervisor-Protected Code Integrity* vérifie que tout nouveau code chargé en mémoire est signé et autorisé. Un pilote malveillant ou un module injecté sans signature valide est rejeté avant de pouvoir s'exécuter. |
+| **8. Applications s'exécutent** | Une fois toutes les couches validées, les applications utilisateur démarrent dans un environnement dont l'intégrité a été vérifiée de bout en bout. |
+
+Chaque étape valide la suivante. Si un maillon est compromis, la chaîne s'arrête. C'est ce qu'on appelle une **chaîne de confiance** (*chain of trust*).
 
 ---
 
-## 👤 Sécurité liée à l’accès utilisateur
+## Sécurité liée à l’accès utilisateur 👤
 
-### 🚀 Présentation de Windows Hello
+### Principe du moindre privilège et comptes utilisateur
+ 
+**Comptes standard vs. comptes administrateur**
+Windows 11 distingue deux types de comptes principaux :
+- **Compte standard** : accès limité aux ressources système. Recommandé pour l'usage quotidien.
+- **Compte administrateur** : accès complet. À utiliser uniquement pour les tâches de gestion.
+ 
+Travailler en permanence avec un compte administrateur augmente considérablement la surface d'attaque : un malware exécuté dans ce contexte hérite de tous les privilèges.
+
+### UAC (*User Account Control*)
+ 
+**Qu'est-ce que l'UAC ?**
+L'UAC est le mécanisme qui demande confirmation (ou les identifiants administrateur) chaque fois qu'une action nécessite des privilèges élevés. Il matérialise le principe du moindre privilège en pratique quotidienne.
+ 
+**Fonctionnement:**<br/>
+Lorsqu'une application tente d'effectuer une action administrative :
+1. Windows intercepte la demande.
+2. Une invite UAC apparaît (le bureau bascule en mode sécurisé).
+3. L'utilisateur approuve ou refuse explicitement.
+ 
+**Niveaux de configuration:**<br/>
+L'UAC dispose de 4 niveaux accessibles via `secpol.msc` (politiques de sécurité) ou le Panneau de configuration :
+- **Toujours notifier** : le plus sécurisé.
+- **Notifier uniquement pour les modifications d'applications** (par défaut).
+- **Notifier sans assombrir le bureau** : moins sécurisé.
+- **Ne jamais notifier** : désactive l'UAC (**<span class="red-text">fortement déconseillé.</span>**)
+
+![UAC](../Windows/Assets/12/uac.png)
+ 
+**Lien CIA** : l'UAC protège l'**intégrité** du système en empêchant les modifications non autorisées.
+
+### Windows Hello
 
 **Qu'est-ce que Windows Hello ?**  
-Windows Hello est une méthode avancée d'authentification qui remplace ou complète les mots de passe traditionnels. Elle permet l'accès à l'appareil via des données biométriques (reconnaissance faciale, empreinte digitale) ou un code PIN unique à l’appareil.
+Windows Hello est une méthode d'authentification moderne qui remplace ou complète les mots de passe traditionnels. Elle permet l'accès via données biométriques (reconnaissance faciale, empreinte digitale) ou un code PIN propre à l'appareil.
 
-**Objectif principal**  
-L'objectif est d'offrir une authentification à la fois rapide et sécurisée, en réduisant les risques associés à l'utilisation de mots de passe faibles ou compromis.
+**Modes d'authentification**
+ 
+- **Reconnaissance faciale** : caméras infrarouges qui capturent et comparent les traits du visage à un modèle enregistré. Résistant aux photos (détection de profondeur).
 
-### 🔄 Modes d’Authentification et Fonctionnement
+- **Empreinte digitale** : capteur dédié qui lit et compare l'empreinte à une version sécurisée stockée dans le TPM.
 
-**Reconnaissance faciale**  
-Cette méthode utilise des caméras équipées de capteurs infrarouges pour capturer et comparer les traits du visage de l'utilisateur avec un modèle préalablement enregistré.
-
-**Empreinte digitale**  
-Grâce à des capteurs dédiés, l'empreinte digitale de l'utilisateur est lue et comparée à une version sécurisée stockée dans le système.  
-
-**Code PIN**  
-Le code PIN, propre à l'appareil, est stocké de manière sécurisée dans le TPM. Il ne transite jamais sur le réseau, assurant ainsi une couche de sécurité supplémentaire par rapport aux mots de passe traditionnels.
-
-### 🔒 Sécurisation des Données d’Authentification
-
-**Stockage sécurisé**  
-Les modèles biométriques ainsi que le code PIN sont stockés localement dans le TPM, garantissant qu'ils ne peuvent être récupérés ou exposés par des applications malveillantes.
-
-**Chiffrement et vérifications**  
-Chaque information utilisée lors du processus d'authentification est chiffrée et validée en temps réel, contribuant à une protection dynamique et robuste contre les tentatives d'accès non autorisées.
-
-### 🌟 Avantages de Windows Hello
-
-**Sécurité améliorée**  
-L’association des méthodes biométriques et du code PIN offre un niveau de sécurité élevé, limitant efficacement les risques liés aux attaques par phishing ou par force brute.
-
-**Simplicité et rapidité**  
-L’authentification via Windows Hello se fait quasiment instantanément, améliorant l’expérience utilisateur tout en garantissant un haut niveau de protection.
+- **Code PIN** : propre à l'appareil, stocké dans le TPM, ne transite jamais sur le réseau. Plus sécurisé qu'un mot de passe réseau en cas de vol de credentials en transit.
+ 
+**Sécurisation des données d'authentification**<br />
+Les modèles biométriques et le PIN sont stockés localement dans le TPM, chiffrés et jamais transmis. Une application malveillante ne peut pas les extraire car ils ne quittent jamais la puce.
+ 
+**Pourquoi le PIN est-il plus sûr qu'un mot de passe ?**<br />
+Un mot de passe peut être intercepté lors de son envoi sur le réseau (attaque *pass-the-hash*, *credential stuffing*). Le PIN ne quitte jamais l'appareil, il déverrouille uniquement le TPM local. Sans l'appareil physique, le PIN est inutile.
 
 ---
 
-## 📁 Sécurité des données
+## Sécurité des données 📁 
 
-### 🔏 Chiffrement et Protection des Disques
+### Chiffrement: Concepts fondamentaux
 
-**BitLocker**  
-BitLocker permet de chiffrer l'ensemble du disque, protégeant ainsi les données contre les accès non autorisés même en cas de vol ou de perte de l'appareil. Le TPM est utilisé pour gérer et sécuriser les clés de chiffrement, ajoutant une couche de sécurité matérielle essentielle.
+**Chiffrement au repos vs. en transit:**
 
-**Chiffrement de l’appareil**  
-Certains appareils bénéficient d'une version simplifiée du chiffrement, conçue pour offrir une protection efficace sans nécessiter une configuration complexe. Cette approche assure la sécurité des données de manière automatisée et transparente pour l'utilisateur.
+- **Au repos** (*at rest*) : les données sont chiffrées lorsqu'elles sont stockées sur le disque. Si le disque est volé, les données restent illisibles sans la clé.
+
+- **En transit** (*in transit*) : les données sont chiffrées pendant leur transfert sur le réseau (ex. : HTTPS, VPN).
+
+BitLocker couvre le chiffrement *au repos*. Il ne protège pas contre un attaquant qui accède au système pendant qu'il est démarré et déverrouillé.
+
+### BitLocker
+ 
+**Fonctionnement:**<br/>
+BitLocker chiffre l'ensemble du volume disque à l'aide de l'algorithme AES (128 ou 256 bits). La clé de chiffrement est gérée et protégée par le TPM. Au démarrage, le TPM vérifie l'intégrité du système avant de libérer la clé.
+ 
+**Scénario d'attaque contré:**<br/>
+Un attaquant vole un laptop. Il retire le disque et le branche sur sa propre machine. Sans le TPM d'origine et la clé de récupération, les données restent illisibles. Le chiffrement rend donc le vol physique inutile.
+ 
+**Clé de récupération:**<br/>
+En cas de modification matérielle détectée (remplacement de la carte mère, mise à jour du BIOS), le TPM refuse de libérer la clé et BitLocker demande la clé de récupération à 48 chiffres. Cette clé doit être sauvegardée. Perte de la clé = perte définitive des données.
+ 
+**Chiffrement de l'appareil:**<br/>
+Sur certains appareils compatibles, une version simplifiée de BitLocker s'active automatiquement avec le compte Microsoft, offrant une protection transparente sans configuration manuelle.
+
+![Bitlocker_key](../Windows/Assets/12/Bitlocker_Key.png)
+
+### Gestion des mises à jour (Windows Update) 🔄️
+ 
+**Pourquoi les mises à jour sont critiques**<br />
+Les vulnérabilités non corrigées (*unpatched vulnerabilities*) constituent l'un des vecteurs d'attaque les plus exploités. WannaCry (2017), par exemple, a paralysé des centaines de milliers de systèmes en exploitant une vulnérabilité Windows pour laquelle un correctif existait depuis deux mois.
+ 
+**Types de mises à jour**
+- **Mises à jour de sécurité** : corrigent des vulnérabilités connues. Priorité absolue.
+- **Mises à jour cumulatives** : regroupent plusieurs correctifs.
+- **Mises à jour de fonctionnalités** : nouvelles versions majeures de Windows.
+ 
+**Bonne pratique**
+Configurer les mises à jour automatiques et ne jamais reporter indéfiniment les correctifs de sécurité. En environnement professionnel, les mises à jour sont souvent testées puis déployées via WSUS ou Intune.
 
 ---
 
-## 🚨 Protection contre les menaces
+## Protection contre les menaces 🚨 
 
-### 🛡️ Microsoft Defender Antivirus
+### Microsoft Defender Antivirus
 
-**Détection en temps réel**  
-Microsoft Defender Antivirus effectue une analyse continue des fichiers et processus afin d’identifier rapidement toute activité suspecte ou malveillante. Il agit de manière proactive pour neutraliser les menaces dès leur apparition.
+**Détection en temps réel:**<br/>
+Microsoft Defender Antivirus effectue une analyse continue des fichiers, processus et comportements pour identifier toute activité suspecte. Il combine plusieurs approches :
+- **Signatures** : comparaison à une base de données de malwares connus.
+- **Heuristique** : détection de comportements suspects même sans signature connue.
+- **Protection cloud** : analyse en temps réel via Microsoft Intelligence Security Graph.
+ 
+**Mises à jour automatiques:**<br/>
+Les définitions de virus se mettent à jour plusieurs fois par jour via Windows Update, garantissant une protection contre les menaces les plus récentes.
+ 
+**Tester sans risque avec les fichiers EICAR:**<br/>
+Le fichier de test EICAR est un standard industriel : un fichier inoffensif reconnu par tous les antivirus comme un "virus de test". Il permet de vérifier que la protection fonctionne sans utiliser de vrai malware.
 
-**Mises à jour automatiques**  
-Le système se met régulièrement à jour pour intégrer les dernières définitions de virus et les signatures de nouvelles menaces, garantissant ainsi une protection toujours à jour.
+### Filtres et Protection Web
 
-### 🌐 Filtres et Protection Web
+**SmartScreen:**<br/>
+SmartScreen analyse les URL, applications et téléchargements en temps réel pour identifier et bloquer les contenus potentiellement dangereux. Il s'appuie sur une réputation calculée à partir de millions d'utilisateurs : un fichier téléchargé pour la première fois par peu de personnes est suspect.
+ 
+**Protection du navigateur (Microsoft Edge):**<br/>
+Edge isole les sessions de navigation via *Application Guard*. Les sites non fiables s'exécutent dans un conteneur isolé. Même si un site compromis exploite une vulnérabilité du navigateur, l'attaque reste confinée au conteneur.
+ 
+**Protection contre le phishing:**<br/>
+Windows 11 intègre une protection contre la saisie de mots de passe sur des sites de phishing détectés, et avertit si un mot de passe Windows est réutilisé sur un site tiers.
 
-**SmartScreen**  
-SmartScreen analyse les URL, les applications et les téléchargements en temps réel pour identifier et bloquer les contenus potentiellement dangereux ou frauduleux. 
+### Pare-feu Windows Defender
 
-**Protection du navigateur**  
-Des mécanismes intégrés dans Microsoft Edge isolent les sessions de navigation, minimisant ainsi les risques de contamination en cas de visite de sites compromis.
-
-### 🔥 Pare-feu Windows Defender
-
-**Fonctionnement global**  
-Le pare-feu de Windows Defender contrôle les flux de données entrants et sortants en fonction du profil réseau (domaine, privé, public). Il offre une protection essentielle en bloquant les connexions suspectes et non autorisées.
-
-**Règles personnalisables**  
-Les administrateurs peuvent définir des règles spécifiques pour différentes applications et services, adaptant la sécurité réseau aux besoins particuliers de chaque environnement.
+**Fonctionnement global:**<br/>
+Le pare-feu contrôle les flux réseau entrants et sortants selon trois profils :
+- **Domaine** : réseau d'entreprise avec contrôleur de domaine.
+- **Privé** : réseau domestique ou de confiance.
+- **Public** : réseau Wi-Fi public, règles les plus restrictives.
+ 
+**Règles personnalisables:**<br/>
+Les administrateurs peuvent créer des règles par application, port ou protocole. Par exemple : autoriser uniquement une application spécifique à communiquer sur le port 443, bloquer tout trafic entrant vers un service donné.
+ 
+**Visualiser les règles actives:**<br/> 
+Dans la fenêtre *Exécuter*, tapez `wf.msc` (Pare-feu Windows Defender avec sécurité avancée).
 
 ---
 
-## 📊 Journalisation et surveillance
+## Journalisation et surveillance 📊 
 
-### 📋 Observateur d’événements
+### Observateur d’événements
 
-**Enregistrement des incidents**  
-L'Observateur d’événements consigne l’ensemble des logs générés par le système, ce qui permet de garder une trace détaillée des accès et des anomalies survenues.
+**Enregistrement des incidents**
+L'Observateur d'événements (*Event Viewer*) consigne tous les événements système, sécurité et application sous forme de logs structurés. Chaque événement possède un **Event ID** unique.
+ 
+**Exemples d'event IDs de sécurité importants:**<br/>
+ 
+| Event ID | Signification |
+|----------|--------------|
+| 4624 | Connexion réussie |
+| 4625 | Échec de connexion |
+| 4648 | Tentative de connexion avec credentials explicites |
+| 4720 | Création d'un compte utilisateur |
+| 4732 | Ajout d'un membre à un groupe privilégié |
+| 7045 | Installation d'un nouveau service (vecteur d'attaque fréquent) |
+ 
+**Utilisation pour l'analyse**
+Ces journaux sont la base de tout *incident response* : reconstituer la chronologie d'une attaque, détecter des tentatives d'intrusion, identifier des comportements anormaux.
 
-**Utilisation pour l’analyse**  
-Ces journaux constituent une ressource précieuse pour diagnostiquer les problèmes de sécurité, détecter des tentatives d'intrusion et analyser les comportements suspects dans l'environnement.
+### Tableau de Bord Sécurité Windows
 
-### 📈 Tableau de Bord Sécurité Windows
+**Vue d'ensemble centralisée:**<br/>
+Le tableau de bord Sécurité Windows offre une vision globale de l'état de protection : antivirus, pare-feu, mises à jour, santé de l'appareil, contrôle des applications. Un indicateur rouge signale immédiatement les problèmes nécessitant attention.
+ 
+**Accès** : `Win + R` → `windowsdefender`
 
-**Vue d’ensemble en temps réel**  
-Ce tableau de bord offre une vision globale de l'état de la sécurité du système, affichant les informations sur le pare-feu, l’antivirus et l’intégrité du système, permettant ainsi une surveillance centralisée.
-
-**Outil de gestion centralisé**  
-Grâce à cet outil, il est plus facile de réagir rapidement en cas d'incident et d'apporter les ajustements nécessaires pour renforcer la sécurité globale de l’appareil.
-
-### ⚙️ Politiques de Sécurité et GPO
+### Politiques de Sécurité et GPO
 
 **Configuration centralisée**  
 Les stratégies de groupe (GPO) permettent aux administrateurs de définir des configurations de sécurité uniformes sur l’ensemble des machines d’un réseau. Cela assure une gestion cohérente et conforme des politiques de sécurité dans les environnements professionnels.
 
 ---
 
-## 🚀 Application de la sécurité
+## Contrôle des applications
+ 
+### AppLocker et WDAC
+ 
+**AppLocker:**<br/>
+Permet de définir des règles qui autorisent ou bloquent l'exécution d'applications selon : l'éditeur (signature numérique), le chemin d'accès, ou le hash du fichier. Par exemple : interdire l'exécution de tout exécutable depuis `%TEMP%` (un vecteur d'attaque très courant pour les malwares).
+ 
+**Windows Defender Application Control (WDAC):**<br/>
+Solution plus robuste qu'AppLocker, opérant au niveau du noyau. Elle définit une liste blanche d'applications autorisées à s'exécuter, bloquant tout le reste par défaut. Utilisée dans les environnements à haute sécurité.
+ 
+**Configuration** : `secpol.msc` → Stratégies de contrôle des applications → AppLocker.
 
-### 🛡 Contrôle et Restriction des Applications
-
-**AppLocker et Windows Defender Application Control (WDAC)**  
-Ces outils permettent de limiter l'exécution d'applications non autorisées, en empêchant ainsi le lancement de logiciels potentiellement dangereux ou non validés par les politiques de sécurité de l'organisation.
-
-### 🔒 Sécurisation via l’Isolation
-
-**Windows Sandbox et Mode S**  
-Windows Sandbox offre un environnement temporaire et isolé pour exécuter des applications à risque, tandis que le Mode S limite l'installation d'applications uniquement au Microsoft Store. Ces fonctionnalités permettent de minimiser l'impact d'éventuelles intrusions en confinant les risques dans des environnements contrôlés.
-
+![AppLocker](../Windows/Assets/12/AppLocker.png)
 ---
 
-## ☁️ Intégration avec l’écosystème Microsoft
-
-### Intégration avec Azure et Active Directory
-
-**Azure AD Join et Gestion Centralisée**  
-Windows 11 s'intègre étroitement avec Azure Active Directory, facilitant la gestion des identités et des accès. Cette intégration permet d'appliquer des politiques de sécurité à l'échelle de l'organisation et d'assurer une gestion centralisée des appareils.
-
-**Windows Hello for Business et Intune**  
-Ces solutions complètent l’approche de sécurité en entreprise en proposant des méthodes d’authentification forte et en facilitant le déploiement et la gestion de stratégies de sécurité à distance via Microsoft Intune.
-
+### Isolation et confinement 🔒 
+ 
+**Windows Sandbox:**<br/>
+Environnement Windows 11 temporaire et totalement isolé pour exécuter des applications suspectes. À la fermeture, tout le contenu est effacé. Aucun impact sur le système hôte.
+ 
+**Activation** : Fonctionnalités Windows → Windows Sandbox (nécessite Windows 11 Pro/Enterprise).
+ 
+**Mode S:**<br/>
+Limite l'installation d'applications uniquement au Microsoft Store. Toutes les applications du Store sont vérifiées par Microsoft. Sacrifie de la flexibilité pour une sécurité maximale. C'est une version de Windows adaptée aux environnements contrôlés (écoles, kiosques).

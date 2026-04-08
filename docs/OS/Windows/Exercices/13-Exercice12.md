@@ -6,7 +6,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Exercice 11
+# Exercice 12
 
 ## Mise en place de stratégies de groupe
 

@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import ThemedImage from '@theme/ThemedImage';
@@ -8,81 +8,95 @@ import TabItem from '@theme/TabItem';
 
 # Exercice 07
 
-## Mise en réseau de machines virtuelles
+## Exploration de divers éléments de sécurité sur Windows
 
-Dans cet exercice, nous mettrons en place le nécessaire pour que vous puissiez mettre en réseau un ordinateur sous Windows 11.
+Ce laboratoire a pour objectif de vous faire parcourir et découvrir certains éléments associés à la sécurité du système d'exploitation Windows 11. Nous n'aurons évidemment pas le temps de couvrir l'ensemble des fonctionnalités et des paramètres de sécurité car il y en a énormément. Nous nous concentreront sur certains d'entre eux seulement.
 
-## Préalables
+## Préalabales
 
-Vous aurez évidemment d'une première machine virtuelle sous Windows 11. Vous aurez également besoin d'une seconde machine virtuelle qui fera office de passerelle pour votre réseau. Je peux vous fournir cette machine directement via [ce lien](https://cloud.tonprof.ca/index.php/s/in3n5MDqcHSqSt4/download/Passerelle.ova), ou en classe.
+Pour ce laboratoire, vous n'aurez d'autre choix que d'installer Windows 11 à neuf, sous Workstation. Cependant, vous devrez procéder autrement pour cette fois. **<span class="red-text">Vous devez préciser à Vmware Workstation que vous installez Windows 11</span>**. Ce n'est seulement qu'ainsi qu'il émulera une puce TPM pour votre machine virtuelle.
 
-## Schéma
+![W11](../Assets/Exercices/09/W11.png)
 
-<div style={{textAlign: 'center'}}>
-    <ThemedImage
-        alt="Schéma"
-        sources={{
-            light: useBaseUrl('/img/Windows/Exercices/Exercice07_W.svg'),
-            dark: useBaseUrl('/img/Windows/Exercices/Exercice07_D.svg'),
-        }}
-    />
-</div>
+:::danger[Mot de passe TPM]
+VMWare vous demandera de configurer un mot de passe pour votre TPM. Si vous oubliez ce-dernier, **vous ne pourrez plus utiliser votre machine virtuelle!** Assurez-vous de noter ce mot de passe et de ne pas l'égarer en aucune circonstance.
 
-## Mise en place
-
-D'abord, importez les deux machines virtuelles dans votre hyperviseur. Une fois les machines virtuelles bien importées, nous aurons quelques modifications à faire sur celles-ci.
-
-## Configuration de la passerelle
-
-Dirigez-vous dans les configurations de votre machine virtuelle (passerelle). Passez en mode expert, puis cliquez sur Réseau:
-
-![Interfaces](../Assets/Exercices/07/Interfaces.png)
-
-Ici, vous remarquerez qu'une machine virtuelle sous VirtualBox peut posséder jusqu'à 4 cartes réseau. Pour notre passerelle, nous aurons besoin de deux cartes réseaux:
-
-        	👉 Une première carte branchée au Web.<br/>
-            👉 La seconde pour notre réseau interne.
-
-:::tip[Rappelez-vous!]
-**N'oubliez pas!** La passerelle agit comme un échangeur entre deux autoroutes. Elle permet au traffic de passer d'une route à l'autre. Pour y arriver, la passerelle a forcémment besoin d'être reliée à ces deux routes.
+![MDP_TPM](../Assets/Exercices/09/MDP_TPM.png)
 :::
 
-### Interface 1 - *Accès par pont*
+## Étapes de réalisation
 
-L'interface #1 est notre lien vers le web. Utilisez donc le mode d'accès réseau nommé « Accès par pont ». Ce mode d'accès permet de relier une machine virtuelle directement sur le même réseau que votre machine physique. Dans le cas présent, c'est comme si vous reliiez votre passerelle directement sur le réseau du cégep. Une fois le mode d'accès réseau choisi, assurez-vous que le nom de la carte réseau juste au-dessous ait du sens. Je crois que vous n'avez qu'une seule interface réseau sur les PC du cégep donc vous ne pourrez pas vous tromper. ⚠️ **Ne modifiez pas les champs:** <u> Type d'interface, Mode promiscuité et Adresse MAC ⚠️</u>
+### Partie 1 - Sécurité matérielle
 
-### Interface 2 - *Réseau interne*
+1. Appuyez sur les touches <kbd>&#8862; win</kbd>+<kbd>r</kbd> et tapez la commande `tpm.msc` suivi de la touche <kbd>enter</kbd>. À l'aide de la console qui s'ouvre, répondez aux questions suivantes:
 
-Pour l'interface #2, nous utiliserons le mode d'accès réseau nommé « Réseau interne ». Ce mode crée un commutateur (*switch*) virtuel au sein de votre ordinateur. Cela permet de créer des réseaux virtuels que seuls vos machines virtuelles pourront joindre. Vous devrez donner un nom à cette interface, dans mon cas, je l'ai nommé *vswitch*:
+    - Quelle est la version du TPM ?
+    - Quelles seraient les conséquences si je cliquais sur `Effacer le module de plateforme sécurisée...`?
 
-![VSwitch](../Assets/Exercices/07/vswitch.png)
+2. Appuyez sur les touches <kbd>&#8862; win</kbd>+<kbd>r</kbd> et tapez la commande `msinfo32` suivi de la touche <kbd>enter</kbd>. À l'aide de la console qui s'ouvre, répondez aux questions suivantes:
 
-À partir d'ici, votre passerelle est prête. Allons maintenant configurer votre machine virtuelle sous Windows 11.
+    - Quel est le mode du BIOS utilisé ? Pourquoi ?
+    - Quel est l'état du démarrage sécurisé (*secure boot*) ? Où devrais-je aller pour modifier son état ?
 
-## Configuration de votre client
+3. Appuyez sur les touches <kbd>&#8862; win</kbd>+<kbd>r</kbd> et tapez la commande `windowsdefender:` suivi de la touche <kbd>enter</kbd>. Cliquez sur `Sécurité des périphériques`. Consultez les détails de l'isolation du noyau
 
-Dirigez-vous dans les mêmes configurations expertes de votre machine virtuelle sous Windows 11. Faites passer l'interface réseau en mode d'accès « Réseau Interne » et utilisez **<u>exactement le même nom que vous avez utilisé sur la carte du même type de votre passerelle</u>**. Pour rappel, j'avais utilisé le nom *vswitch* dans mon cas.
+    - L'intégrité de la mémoire est-elle activée ? Si non, est-ce que Windows affiche un avertissement ?
 
-![CLientWin11](../Assets/Exercices/07/ClientWin11.png)
+### Partie 2 - Bitlocker
 
-⚠️**Encore une fois ne modifiez pas les autres champs.**⚠️
-
-## Démarrage des machines
-
-Nous sommes désormais prêts à démarrer nos machines virtuelles. Démarrez donc celles-ci. Prenez note qu'il est normal que vous n'ayez pas d'interface graphique dans votre passerelle car il s'agit d'un serveur Linux. Néanmoins, lorsque le serveur aura terminé de démarrer, il vous affichera des informations essentielles. Prenez en note l'adresse du serveur vis-à-vis la ligne **LAN**
-
-## Configuration Windows
-
-Vous n'obtiendrez pas de configuration IP automatiquement lorsque vous démarrerez Windows...Il fallait bien que je vous fasse travailler un peu 😉. Par contre, dans la théorie, nous avons vu comment configurer une adresse IP manuellement dans Windows. C'est donc à vous de jouer maintenant. Voici les informations que vous avez en mains:
-
-|Item|Valeur|
-|----|------|
-| Adresse de la passerelle | Vous l'avez obtenu sur l'écran de démarrage de la passerelle |
-| Adresse IP | Il vous faut la déterminer. Vous avez l'adresse de la passerelle et le masque pour vous aider. |
-| Masque de sous-réseau | 255.255.255.0 |
-| Dns Primaire | La passerelle sera aussi votre serveur DNS |
-| Dns Secondaire | Aucun |
-
-:::tip[Bonus]
-Vous avez terminé et ça fonctionne ? Excellent travail! Et si vous mettiez en place un deuxième client sous Windows 11 ? Pensez-vous être capable de faire en sorte que les deux clients puissent s'envoyer des paquets de type *PING* ? 🔥
+:::caution
+Pour cette portion du laboratoire, vous devez ajouter un disque dur secondaire à votre machine virtuelle. La taille importe peu, 10 ou 20Go, pas plus. Référez-vous aux cours précédents si vous avez oublié comment procéder.
 :::
+
+    - Ouvrez l'explorateur de fichiers et faites un clic droit sur votre disque dur secondaire. Cliquez ensuite sur `Activer Bitlocker`.
+    - Choisissez la méthode de verrouillage par mot de passe.
+    - Définissez un mot de passe (et ne l'oubliez pas 😉).
+    - Enregistrez votre clé de récupération *Bitlocker* sur votre bureau Windows.
+    - Choisissez de ne chiffrer que l'espace disque utilisé (ce sera plus rapide).
+    - Utilisez le nouveau mode de chiffrement (XTS-AES).
+    - Puis démarrez le chiffrement.
+
+Une fois ces actions effectuées, répondez aux questions suivantes:
+
+    4. Ouvrez le fichier de récupération sauvegardé sur le bureau. Combien de caractère comporte la clé ? Pourquoi est-il crucial de sauvegarder cette clé dans un endroit sûr et séparé de l'appareil ?
+
+    5. Redémarrez votre PC. Que se passe-t-il si vous essayez d'ouvrir votre disque dur secondaire dans l'explorateur Windows ?
+
+    6. **Avant de déverrouiller votre disque dur**, entrez la commande PowerShell suivante:
+        ```powershell
+        manage-bde -status D: #Remplacez la lettre D: par la lettre de votre disque dur secondaire
+        ```
+        Portez attention à la sortie de la commande.
+
+    7. Déverrouillez votre disque dur secondaire à l'aide du mot de passe que vous avez configuré et relancez la commande précédente. Remarquez-vous des différences ?
+
+### Partie 3 - Windows Hello :)
+
+- Accédez aux paramètres de Windows en appuyant simultanémment sur les touches <kbd>&#8862; win</kbd>+<kbd>i</kbd>.
+- Allez dans Comptes, puis options de connexion.
+- Cliquez sur PIN (Windows Hello) et cliquez sur `Configurer`.
+- Définissez un PIN à 6 chiffres.
+
+8. Avant de définir votre PIN, Windows vous a demandé votre mot de passe. Pourquoi cette étape est nécessaire ?
+
+### Partie 4 - Test EICAR
+Le fichier **EICAR** (*European Institute for Computer Antivirus Research*) est un fichier texte standardisé reconnu par tous les antivirus comme un « virus de test ». Il est totalement inoffensif mais déclenche les mêmes alertes qu'un vrai *malware*.
+
+- Ouvrez le Bloc-notes (Notepad).
+- Copiez exactement la chaîne suivante (une seule ligne, sans espace avant ou après):
+
+    ```
+    X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+    ```
+
+- Sauvegardez le fichier sur votre bureau sous le nom `test-eicar` et changez l'extension de `.txt` en `.com`
+
+- Observez ce qui se passe une fois le fichier sauvegardé et répondez à la question suivante:
+
+9. Ouvrez Sécurité Windows → Protection contre les virus et menaces → Historique de protection. Trouvez l'entrée correspondant au fichier EICAR. Relevez : le nom de la menace détectée et l'action effectuée par Defender.
+
+## Correction
+
+Il n'y a malheureusement pas de script de correction pour cet exercice. La raison est fort simple, Microsoft est très frileux avec le scripting autour des éléments de sécurité. Je vous fais donc entièrement confiance sur la réalisation de ce laboratoire.
+
+N'oubliez pas d'ajouter le contenu appris dans votre journal de cours 😉
