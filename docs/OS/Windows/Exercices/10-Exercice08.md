@@ -14,7 +14,7 @@ Dans cet exercice, nous mettrons en place le nécessaire pour que vous puissiez 
 
 ## Préalables
 
-Vous aurez évidemment d'une première machine virtuelle sous Windows 11. Vous aurez également besoin d'une seconde machine virtuelle qui fera office de passerelle pour votre réseau. Je peux vous fournir cette machine directement via [ce lien](https://cloud.tonprof.ca/index.php/s/in3n5MDqcHSqSt4/download/Passerelle.ova), ou en classe.
+Vous aurez évidemment d'une première machine virtuelle sous Windows 11. Vous aurez également besoin d'une seconde machine virtuelle qui fera office de passerelle pour votre réseau. Je peux vous fournir cette machine via notre canal Teams, dans le dossier `_VMs`.
 
 ## Schéma
 
@@ -34,11 +34,11 @@ D'abord, importez les deux machines virtuelles dans votre hyperviseur. Une fois 
 
 ## Configuration de la passerelle
 
-Dirigez-vous dans les configurations de votre machine virtuelle (passerelle). Passez en mode expert, puis cliquez sur Réseau:
+Dirigez-vous dans les paramètres de votre machine virtuelle (passerelle). Modifiez les cartes réseaux comme suit:
 
 ![Interfaces](../Assets/Exercices/07/Interfaces.png)
 
-Ici, vous remarquerez qu'une machine virtuelle sous VirtualBox peut posséder jusqu'à 4 cartes réseau. Pour notre passerelle, nous aurons besoin de deux cartes réseaux:
+Ici, vous remarquerez qu'une machine virtuelle sous VMWare Workstation peut posséder plusieurs cartes réseau (je n'ai pas testé le maximum, mais je me suis déjà rendu à six). Pour notre passerelle, nous aurons besoin de deux cartes réseaux:
 
         	👉 Une première carte branchée au Web.<br/>
             👉 La seconde pour notre réseau interne.
@@ -49,11 +49,11 @@ Ici, vous remarquerez qu'une machine virtuelle sous VirtualBox peut posséder ju
 
 ### Interface 1 - *Accès par pont*
 
-L'interface #1 est notre lien vers le web. Utilisez donc le mode d'accès réseau nommé « Accès par pont ». Ce mode d'accès permet de relier une machine virtuelle directement sur le même réseau que votre machine physique. Dans le cas présent, c'est comme si vous reliiez votre passerelle directement sur le réseau du cégep. Une fois le mode d'accès réseau choisi, assurez-vous que le nom de la carte réseau juste au-dessous ait du sens. Je crois que vous n'avez qu'une seule interface réseau sur les PC du cégep donc vous ne pourrez pas vous tromper. ⚠️ **Ne modifiez pas les champs:** <u> Type d'interface, Mode promiscuité et Adresse MAC ⚠️</u>
+L'interface #1 est notre lien vers le web. Utilisez donc le mode d'accès réseau nommé « Pont (Automatique) ». Ce mode d'accès permet de relier une machine virtuelle directement sur le même réseau que votre machine physique. Dans le cas présent, c'est comme si vous reliiez votre passerelle directement sur le réseau du cégep.
 
-### Interface 2 - *Réseau interne*
+### Interface 2 - *Segment LAN*
 
-Pour l'interface #2, nous utiliserons le mode d'accès réseau nommé « Réseau interne ». Ce mode crée un commutateur (*switch*) virtuel au sein de votre ordinateur. Cela permet de créer des réseaux virtuels que seuls vos machines virtuelles pourront joindre. Vous devrez donner un nom à cette interface, dans mon cas, je l'ai nommé *vswitch*:
+Pour l'interface #2, nous utiliserons le mode d'accès réseau nommé « Segment LAN ». Ce mode crée un commutateur (*switch*) virtuel au sein de votre ordinateur. Cela permet de créer des réseaux virtuels que seuls vos machines virtuelles pourront joindre. Vous devrez donner un nom à cette interface, dans mon cas, je l'ai nommé *LAN1*:
 
 ![VSwitch](../Assets/Exercices/07/vswitch.png)
 
@@ -61,11 +61,10 @@ Pour l'interface #2, nous utiliserons le mode d'accès réseau nommé « Réseau
 
 ## Configuration de votre client
 
-Dirigez-vous dans les mêmes configurations expertes de votre machine virtuelle sous Windows 11. Faites passer l'interface réseau en mode d'accès « Réseau Interne » et utilisez **<u>exactement le même nom que vous avez utilisé sur la carte du même type de votre passerelle</u>**. Pour rappel, j'avais utilisé le nom *vswitch* dans mon cas.
+Dirigez-vous dans les mêmes configurations expertes de votre machine virtuelle sous Windows 11. Faites passer l'interface réseau en mode d'accès « Segment LAN » et utilisez **<u>exactement le même nom que vous avez utilisé sur la carte du même type de votre passerelle</u>**. Pour rappel, j'avais utilisé le nom *LAN1* dans mon cas.
 
 ![CLientWin11](../Assets/Exercices/07/ClientWin11.png)
 
-⚠️**Encore une fois ne modifiez pas les autres champs.**⚠️
 
 ## Démarrage des machines
 
