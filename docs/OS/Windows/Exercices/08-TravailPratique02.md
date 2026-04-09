@@ -19,7 +19,7 @@ import TabItem from '@theme/TabItem';
 ## Administration de Windows 11
 
 ### Objectif 🎯
-Ce travail pratique vise à évaluer vos compétences dans l'administration d'un système Windows 11. Vous devez effectuer une série de tâches sur une machine virtuelle que vous me remettrez un fois complétée. <span class="red-text">Vous devez <u>obligatoirement</u> installer une nouvelle machine virtuelle à partir de l'iso [disponible via ce lien.](https://cloud.tonprof.ca/index.php/s/wjtFncDgS5pxceW)</span>
+Ce travail pratique vise à évaluer vos compétences dans l'administration d'un système Windows 11. Vous devez effectuer une série de tâches sur une machine virtuelle que vous me remettrez un fois complétée. <span class="red-text">Vous devez <u>obligatoirement</u> installer une nouvelle machine virtuelle à partir de l'iso [disponible via ce lien.](https://cloud.tonprof.ca/index.php/s/wwHKzSNQ7zBe9PN)</span>
 
 :::info[Expression \[matricule\]]
 Dans ce TP, l'expression \[matricule\] doit toujours être remplacée par votre numéro de matricule étudiant. Par exemple, si on vous demande de créer le dossier `C:\Windows\[matricule]\` et que votre matricule correspond au numéro 1234567, vous devez créer le dossier `C:\Windows\1234567`.
