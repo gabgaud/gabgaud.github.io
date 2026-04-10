@@ -263,7 +263,6 @@ Windows propose des **ensembles de permissions prédéfinies**. Ces ensembles re
 | Modification     | Lecture + écriture + suppression          |
 | Contrôle total   | Tous les droits, y compris la gestion ACL |
 
-Plus d’infos : [Permissions Windows (carte interactive)](https://mapage.clg.qc.ca/profdinfo/web/420-KA9-LG/permissions.html)
 
 ---
 

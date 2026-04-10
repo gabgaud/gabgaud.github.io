@@ -299,3 +299,7 @@ Environnement Windows 11 temporaire et totalement isolé pour exécuter des appl
  
 **Mode S:**<br/>
 Limite l'installation d'applications uniquement au Microsoft Store. Toutes les applications du Store sont vérifiées par Microsoft. Sacrifie de la flexibilité pour une sécurité maximale. C'est une version de Windows adaptée aux environnements contrôlés (écoles, kiosques).
+
+## Références
+
+- [Podcast résumant le cours](../Windows/Assets/12/Windows_11_forteresse_du_TPM_au_NIP.mp3)
