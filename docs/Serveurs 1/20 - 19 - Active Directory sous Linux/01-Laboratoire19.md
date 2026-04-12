@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 17
+# Laboratoire 19
 
 * * *
 
@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 
 ## Préalable(s)
 
-- Avoir complété le laboratoire # 16 (nous réutilisons les VM)
+- Avoir complété le laboratoire # 17 (nous réutilisons les VM)
 
 ## Objectif(s)
 
