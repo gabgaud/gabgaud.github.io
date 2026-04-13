@@ -233,7 +233,7 @@ Créez un nouveau fichier du même nom dans lequel vous inscrirez ces lignes:
 Comme nous l'avons fait pour le contrôleur de domaine primaire, nous devons désactiver le résolveur DNS par défaut d'Ubuntu.
 
 ```bash
-sudo systemctl disable --nom systemd-resolved
+sudo systemctl disable --now systemd-resolved
 ```
 
 Supprimez également le raccourci vers le fichier `/etc/resolv.conf` avec la commande:
@@ -394,7 +394,7 @@ DNSStubListener=no
 Redémarrez le résolveur DNS en entrant la commande suivante:
 
 ```bash
-sudo systemctl-restart systemd-resolved.service
+sudo systemctl restart systemd-resolved.service
 ```
 
 Procédez maintenant à l'installation des paquets suivants:
