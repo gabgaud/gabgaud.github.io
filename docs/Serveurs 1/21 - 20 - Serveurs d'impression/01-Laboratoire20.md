@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 19
+# Laboratoire 20
 
 * * *
 
@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 
 ## Préalable(s)
 
-- Avoir complété le Laboratoire #17 (nous réutilisons les VM)
+- Avoir complété le Laboratoire #19 (nous réutilisons les VM)
 
 ## Objectif(s)
 
@@ -232,7 +232,7 @@ Entrez la commande suivante `sudo pam-auth-update` et cochez la cas *Create home
 
 Comme nous sommes sur un nouveau serveur, nous devrons créer à nouveau nos dossiers pour nos utilisateurs. N'oubliez pas de définir les propriétaires et les permissions sur vos dossiers.
 
-[Retrouvez la structure des dossiers ici.](../17%20-%2016%20-%20Serveurs%20de%20fichiers/01-Laboratoire16.md#création-des-dossiers)
+[Retrouvez la structure des dossiers ici.](../18%20-%2017%20-%20Serveurs%20de%20fichiers/01-Laboratoire17.md#création-des-dossiers)
 
 
 ### Création des partages
