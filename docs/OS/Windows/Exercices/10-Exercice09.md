@@ -14,7 +14,7 @@ Dans cet exercice, nous effectuerons des partages SMB entre deux PC sous Windows
 
 ## Préalables
 
-Avoir complété l'exercice 07 puisque nous réutiliserons celui-ci.
+Avoir complété l'exercice 08 puisque nous réutiliserons celui-ci.
 
 ## Schéma
 
