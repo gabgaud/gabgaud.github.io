@@ -63,15 +63,15 @@ La première étape de ce laboratoire consistera à déployer une seconde machin
 
 | Nom du dossier | Emplacement | Permissions |
 |:----------------:|-------------------------|---------------------------------------------------|
-| Bob | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Bob (Modif)</li><li>Direction (Modif)</li></ul>
-| Paul | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Paul (Modif)</li><li>Direction (Modif)</li></ul>
-| Rita | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Rita (Modif)</li><li>Direction (Modif)</li></ul>
-| Claude | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Claude (Modif)</li><li>Direction (Modif)</li></ul>
-| Amanda | C:\Exercice08\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Amanda (Modif)</li></ul>
-| Techniciens | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Techniciens (RX)</li><li>Direction (Modif)</li><li>Bob (Modif)</li></ul>
-| Finances | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (Modif)</li><li>Rita (Modif)</li></ul>
-| Direction | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Direction (Modif)</li></ul>
-| TLM | C:\Exercices08\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (RX)</li><li>Techniciens (RX)</li></ul>
+| Bob | C:\Exercice09\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Bob (Modif)</li><li>Direction (Modif)</li></ul>
+| Paul | C:\Exercice09\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Paul (Modif)</li><li>Direction (Modif)</li></ul>
+| Rita | C:\Exercice09\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Rita (Modif)</li><li>Direction (Modif)</li></ul>
+| Claude | C:\Exercice09\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Claude (Modif)</li><li>Direction (Modif)</li></ul>
+| Amanda | C:\Exercice09\Utilisateurs\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Amanda (Modif)</li></ul>
+| Techniciens | C:\Exercice09\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Techniciens (RX)</li><li>Direction (Modif)</li><li>Bob (Modif)</li></ul>
+| Finances | C:\Exercice09\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (Modif)</li><li>Rita (Modif)</li></ul>
+| Direction | C:\Exercice09\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Direction (Modif)</li></ul>
+| TLM | C:\Exercice09\Groupes\ | <ul><li>Administateurs (CT)</li><li>Système (CT)</li><li>Finances (RX)</li><li>Direction (RX)</li><li>Techniciens (RX)</li></ul>
 
 ## Mise en place des partages
 
