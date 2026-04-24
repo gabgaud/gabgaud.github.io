@@ -7,13 +7,13 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Laboratoire 20
+# Laboratoire 21
 
 * * *
 
 ## Préalable(s)
 
-- Avoir complété le Laboratoire #19 (nous réutilisons les VM et leur service respectif)
+- Avoir complété le Laboratoire #20 (nous réutilisons les VM et leur service respectif)
 
 ## Objectif(s)
 
