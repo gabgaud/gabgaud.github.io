@@ -49,13 +49,13 @@ Lors du démarrage, le UEFI effectue lui aussi un **POST**. Ensuite, le **firmwa
 |---------------------|----------|----------|
 | Mode | 16 bits | 32/64 bits |
 | Interface | Texte | Graphique |
-| Disques supportés | MBR(≤ 2.2 To) | GPT (≥ 9 Zettaoctets) |
+| Disques supportés | MBR (≤ 2.2 To) | GPT (≥ 9 Zettaoctets) |
 | Emplacement bootloader | MBR (secteur 0) | Partition EFI (.efi) |
 | Secure Boot | Non | Oui |
 
 ### Étapes de l'amorçage
 
-L'amorçage d'un système d'exploitation est une véritable symphonie où tous les musiciens doit suivre le rythme pour que cela fonctionne. Analysons cela de plus près:
+L'amorçage d'un système d'exploitation est une véritable symphonie où tous les musiciens doivent suivre le rythme pour que cela fonctionne. Analysons cela de plus près:
 
 - <span class='fonttaller'><span class='orange-text'>**Phase 1 : Préamorçage**</span></span>
     - Exécution du POST par le BIOS/UEFI (*Power-On Self Test*)
@@ -71,7 +71,7 @@ L'amorçage d'un système d'exploitation est une véritable symphonie où tous l
     - Le gestionnaire de démarrage exécute ensuite le chargeur d'amorce:
         - **BIOS**: C:\Windows\System32\winload.exe
         - **UEFI**: C:\Windows\System32\winload.efi
-    - Le chargeur d'amorce démarre le noyau:
+    - Le chargeur d'amorce démarre le noyau (`ntoskrnl.exe`):
         - Les pilotes essentiels sont chargés
         - Le gestionnaire de session **SMSS.exe** est lancé
         - Les services sont lancés
@@ -79,7 +79,7 @@ L'amorçage d'un système d'exploitation est une véritable symphonie où tous l
 
 - <span class='fonttaller'><span class='orange-text'>**Phase 4 : Ouverture de session**</span></span>
     - Authentification de l'utilisateur via le processus `lsass.exe`
-    - Explorer.exe initialise le bureau, le menu démarrer, la barre des tâches et les tâches de démarrage.
+    - `Explorer.exe` initialise le bureau, le menu démarrer, la barre des tâches et les tâches de démarrage.
 
 ### Schéma de l'amorçage
 
@@ -103,9 +103,51 @@ flowchart TD
     J --> K([⚙️ Initialisation du noyau])
     K --> L([🧍 Lancement de SMSS.exe & WINLOGON.exe])
     L --> M([🖥️ Affichage de l'écran de connexion])
+    M --> N([🔐 Authentification lsass.exe])
+    N --> O([🖥️ Initialisation du bureau explorer.exe])
+    O --> P([🚀 Exécution des programmes de démarrage])
 ```
 
 </div>
+
+### Le magasin BCD
+
+Le **BCD** (*Boot Configuration Data*) est une base de données structurée qui contient toutes les informations nécessaires au gestionnaire de démarrage Windows (`BOOTMGR`) pour savoir quoi démarrer et comment. Il remplace l'ancien fichier `boot.ini` utilisé par les systèmes BIOS/MBR plus anciens.
+
+On y retrouve notamment:
+- La liste des systèmes d'exploitation installés
+- Le système d'exploitation par défaut
+- Le délai d'attente avant démarrage automatique
+- Les options de démarrage spéciales (mode sans échec, débogage, etc.)
+
+#### Emplacement du BCD
+
+| Firmware | Emplacement |
+|----------|-------------|
+| BIOS | Partition système active, dans `\Boot\BCD` |
+| UEFI | Partition EFI, dans `\EFI\Microsoft\Boot\BCD` |
+
+#### Inspecter et modifier le BCD
+
+L'outil en ligne de commande `bcdedit` permet de consulter et modifier le contenu du magasin BCD. Il doit être exécuté dans une invite de commande avec des **privilèges élevés**.
+
+```powershell
+# Afficher le contenu complet du BCD
+bcdedit
+
+# Modifier le délai d'attente du menu de démarrage (en secondes)
+bcdedit /timeout 10
+
+# Définir le système d'exploitation par défaut
+bcdedit /default {identifiant}
+```
+
+:::caution
+Modifier le BCD incorrectement peut rendre Windows incapable de démarrer. Exportez toujours une sauvegarde avant toute modification :
+```powershell
+bcdedit /export C:\backup_bcd
+```
+:::
 
 ### Récupération (WinRE)
 
@@ -115,36 +157,58 @@ flowchart TD
 
 Il existe plusieurs méthodes pour accéder à l'environnement de récupération **WinRE**:
 
-    - Redémarrez le système en maintenant la touche <kbd>Shift</kbd>
-    - En accédant au menu `Paramètres` > `Système` > `Récupération`
-    - À l'aide d'une clé USB d'installation
-    - En redémarrant 3 fois consécutivement
+- Redémarrez le système en maintenant la touche <kbd>Shift</kbd>
+- En accédant au menu `Paramètres` > `Système` > `Récupération`
+- À l'aide d'une clé USB d'installation
+- En redémarrant 3 fois consécutivement
 
 #### Outils disponibles
 
 - **Réparation du démarrage (Startup Repair)** : analyse et corrige automatiquement certains problèmes courants de démarrage (par exemple un secteur de boot corrompu ou un fichier BCD manquant).
 
-- **Invite de commande (Command Prompt)** : permets d'exécuter des commandes avancées pour diagnostiquer et réparer le système (ex. : bootrec, chkdsk, sfc, etc.).
+- **Invite de commande (Command Prompt)** : permet d'exécuter des commandes avancées pour diagnostiquer et réparer le système (ex. : `bootrec`, `chkdsk`, `sfc`, etc.).
 
-- **Restaurer le système (System Restore)** : retourne l’ordinateur à un état antérieur en utilisant un point de restauration (utile après une mise à jour ou un pilote problématique).
+- **Restaurer le système (System Restore)** : retourne l'ordinateur à un état antérieur en utilisant un point de restauration (utile après une mise à jour ou un pilote problématique).
 
-- **Paramètres de démarrage (Startup Settings)** : permets de redémarrer Windows en activant des options spéciales comme le mode sans échec, le débogage, ou la désactivation de la vérification des signatures de pilotes.
+- **Paramètres de démarrage (Startup Settings)** : permet de redémarrer Windows en activant des options spéciales comme le mode sans échec, le débogage, ou la désactivation de la vérification des signatures de pilotes.
 
 - **Désinstaller des mises à jour (Uninstall Updates)** : option pour supprimer la dernière mise à jour de qualité ou de fonctionnalité si celle-ci empêche Windows de démarrer correctement.
 
-- **Paramètres du micrologiciel UEFI (UEFI Firmware Settings)** : permets de redémarrer directement dans les paramètres UEFI de la carte mère afin de modifier l’ordre de démarrage ou d’activer des fonctionnalités comme Secure Boot.
+- **Récupération de l'image système (System Image Recovery)** : restaure l'intégralité du système à partir d'une image disque préalablement créée.
+
+- **Paramètres du micrologiciel UEFI (UEFI Firmware Settings)** : permet de redémarrer directement dans les paramètres UEFI de la carte mère afin de modifier l'ordre de démarrage ou d'activer des fonctionnalités comme Secure Boot.
+
+#### La commande `bootrec`
+
+Lorsque Windows refuse de démarrer en raison d'un problème avec le secteur de démarrage ou le BCD, la commande `bootrec` est l'outil de premier recours. Elle s'utilise depuis l'**invite de commande de WinRE** et dispose de quatre options complémentaires :
+
+| Option | Description |
+|--------|-------------|
+| `bootrec /fixmbr` | Réécrit le Master Boot Record du disque système sans toucher à la table de partition. Utile si le MBR est corrompu ou infecté. |
+| `bootrec /fixboot` | Réécrit le secteur de démarrage de la partition active. Utile si le secteur de boot est endommagé. |
+| `bootrec /scanbos` | Recherche toutes les installations Windows sur tous les disques et les affiche. Utile pour diagnostiquer les problèmes de multi-boot. |
+| `bootrec /rebuildbcd` | Reconstruit entièrement le magasin BCD en se basant sur les installations Windows détectées. C'est souvent la commande la plus utile lorsque le BCD est corrompu. |
+
+:::tip
+En cas de démarrage impossible, la séquence suivante règle la majorité des problèmes courants :
+```
+bootrec /fixmbr
+bootrec /fixboot
+bootrec /rebuildbcd
+```
+:::
 
 #### Mode sans échec
 
 Le mode sans échec peut être utilisé lorsque Windows n'arrive pas à démarrer. Ce mode démarre Windows avec un minimum de dépendances afin d'augmenter les probabilités de réussir un démarrage du système d'exploitation. Une fois le système démarré, on peut alors essayer de repérer la source du problème dans les journaux.
 
-Le mode sans échec est offert en 3 saveurs:
+Le mode sans échec est offert en 3 variantes:
 
 - Sans réseau
 - Avec réseau
 - Sans interface graphique (invite de commande)
 
-Pour passer en mode sans échec, accédez à **WinRE**, puis cliquez sur `Paramètres` dans le menu des `Options avancées`.
+Pour passer en mode sans échec, accédez à **WinRE**, puis naviguez vers `Dépannage` > `Options avancées` > `Paramètres de démarrage`.
 
 ![OptionAvancees](./Assets/16/OptionsAvancees.png)
 
@@ -220,13 +284,25 @@ Les tâches sont constituées de plusieurs éléments. Chacun de ces éléments 
 
 Le déclencheur est un événement qui provoquera l'exécution de la tâche planifiée. Il peut s'agir simplement d'une date ou d'une heure, mais cela peut également être un élément plus complexe tel que l'apparition d'un événement particulier dans les journaux Windows.
 
+Voici les types de déclencheurs disponibles :
+
+| Déclencheur | Description |
+|-------------|-------------|
+| **À une heure précise** | La tâche s'exécute une fois, ou de façon récurrente (quotidienne, hebdomadaire, mensuelle). |
+| **Au démarrage du système** | La tâche s'exécute dès que Windows démarre, avant même qu'un utilisateur ouvre une session. |
+| **À l'ouverture de session** | La tâche s'exécute lorsqu'un utilisateur (spécifique ou n'importe lequel) ouvre une session. |
+| **Sur un événement** | La tâche s'exécute lorsqu'un événement précis apparaît dans les journaux Windows (ex. : une erreur de service). |
+| **À la connexion à une session** | Utile dans les environnements avec des sessions distantes (RDP). |
+| **Sur inactivité** | La tâche s'exécute si l'ordinateur est inactif depuis un certain délai. |
+| **Au verrouillage / déverrouillage** | La tâche réagit au verrouillage ou au déverrouillage de la session. |
+
 #### L'action
 
-Définit qu'est-ce que la tâche doit accomplir. Il s'agit généralement de lancer un script ou un logiciel. Le script contiendre l'ensemble des actions à effectuer.
+Définit ce que la tâche doit accomplir. Il s'agit généralement de lancer un script ou un logiciel. Le script contiendra l'ensemble des actions à effectuer.
 
 #### Les conditions 
 
-Les conditions permettent d'ajouter des contraintes supplémentaires. Lorsque que le déclencheur tentera de lancer l'exécution de la tâche, les contraintes devront elles aussi, être respectées pour que la tâche puis être lancée. Exemple:
+Les conditions permettent d'ajouter des contraintes supplémentaires. Lorsque le déclencheur tentera de lancer l'exécution de la tâche, les contraintes devront elles aussi être respectées pour que la tâche puisse être lancée. Exemple:
 
 - **Déclencheur:** Tous les jours à 2h00 du matin
 - **Action:** Lancer le script *sauvegarde.ps1*
@@ -239,6 +315,20 @@ Les paramètres sont des options additionnelles pour affiner le comportement d'u
 - Arrêter la tâche si elle dépasse un temps donné.
 - Recommencer la tâche si elle échoue.
 - Exécuter la tâche même si l'utilisateur concerné n'est pas connecté.
+
+### Contexte d'exécution
+
+Un aspect important souvent négligé est le **compte utilisateur sous lequel la tâche s'exécute**. Ce choix a des implications directes sur ce que la tâche peut ou ne peut pas faire.
+
+| Option | Comportement |
+|--------|-------------|
+| **N'exécuter que si l'utilisateur est connecté** | La tâche s'exécute dans la session active de l'utilisateur. Elle peut afficher une fenêtre à l'écran. Elle ne s'exécute pas si personne n'est connecté. |
+| **Exécuter même si l'utilisateur n'est pas connecté** | La tâche s'exécute en arrière-plan, sans session active. Aucune fenêtre ne s'affiche. Un mot de passe peut être requis. Indispensable pour les tâches de maintenance sur un serveur. |
+| **Exécuter avec les autorisations maximales** | Équivalent d'une élévation de privilèges (UAC). Nécessaire pour toute tâche qui modifie le système (registre, services, fichiers systèmes, etc.). |
+
+:::caution
+Une tâche configurée pour s'exécuter avec un compte spécifique **et** sans session active aura besoin que le mot de passe de ce compte soit stocké par le planificateur. Si le mot de passe change, la tâche échouera silencieusement. Pensez à utiliser un **compte de service** avec un mot de passe qui n'expire pas pour ce type de tâche.
+:::
 
 ### Création d'une tâche
 
@@ -278,4 +368,51 @@ Dans la section « *Paramètres* », vous pouvez cocher l'option « *Autoriser l
 
 :::info
 Vous souvenez-vous m'avoir vu cocher la case « *Exécuter avec les autorisations maximales* » lorsque j'ai créé la tâche ? Remarquez que celle-ci s'est exécutée avec des privilèges élevés.
+:::
+
+### Gestion des tâches avec PowerShell
+
+L'interface graphique est pratique pour créer et tester une tâche sur une seule machine. En revanche, dans un contexte d'administration système réel, vous aurez souvent à déployer des tâches sur **plusieurs machines** simultanément. PowerShell est l'outil approprié pour ce cas de figure.
+
+#### Créer une tâche planifiée
+
+La création d'une tâche en PowerShell se fait en trois étapes : définir l'action, définir le déclencheur, puis enregistrer la tâche.
+
+```powershell
+# 1. Définir l'action (lancer un script PowerShell)
+$action = New-ScheduledTaskAction -Execute "PowerShell.exe" `
+          -Argument "-File C:\Scripts\sauvegarde.ps1"
+
+# 2. Définir le déclencheur (tous les jours à 2h00)
+$trigger = New-ScheduledTaskTrigger -Daily -At "02:00"
+
+# 3. Enregistrer la tâche avec des privilèges élevés
+Register-ScheduledTask -TaskName "Sauvegarde quotidienne" `
+                       -Action $action `
+                       -Trigger $trigger `
+                       -RunLevel Highest `
+                       -User "SYSTEM"
+```
+
+#### Autres commandes utiles
+
+```powershell
+# Lister toutes les tâches planifiées
+Get-ScheduledTask
+
+# Obtenir les détails d'une tâche spécifique
+Get-ScheduledTask -TaskName "Sauvegarde quotidienne" | Get-ScheduledTaskInfo
+
+# Lancer une tâche manuellement
+Start-ScheduledTask -TaskName "Sauvegarde quotidienne"
+
+# Désactiver une tâche
+Disable-ScheduledTask -TaskName "Sauvegarde quotidienne"
+
+# Supprimer une tâche
+Unregister-ScheduledTask -TaskName "Sauvegarde quotidienne" -Confirm:$false
+```
+
+:::tip
+Le compte `SYSTEM` est souvent le meilleur choix pour les tâches de maintenance : il dispose des privilèges nécessaires, il est toujours disponible (pas de session requise), et son mot de passe n'expire jamais.
 :::
