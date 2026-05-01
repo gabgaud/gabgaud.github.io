@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 22
+# Cours 23
 
 Il n'est pas rare, dans différents contextes de réseau, que vous vous retrouviez en situation de débogage. D'ailleurs, régler des problèmes de réseau sera fort probablement une grande partie de votre travail. Ceci étant dit, il est important d'effectuer des vérifications dans un ordre logique pour arriver à mettre le doigt sur ce qui ne fonctionne pas.
 Ce cours vise à vous inculquer une logique de travail. Au fil du temps, à travers l'avancement de votre carrière, vous vous approprierez votre propre logique de travail. Pour l'instant, je vous recommande de suivre ces schémas.
