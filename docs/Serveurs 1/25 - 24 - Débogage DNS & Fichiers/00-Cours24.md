@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 23
+# Cours 24
 
 Tout comme nous avons procédé dans le dernier cours pour les problèmes liés au réseau sur les clients ainsi que les problématiques en lien avec le service DHCP, nous analyserons encore aujourd'hui, des schémas qui vous aideront dans la résolution de différents problèmes.
 
