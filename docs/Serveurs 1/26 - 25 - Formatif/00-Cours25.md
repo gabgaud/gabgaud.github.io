@@ -7,7 +7,7 @@ import ThemedImage from '@theme/ThemedImage';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Cours 24
+# Cours 25
 
 ## Formatif en vue de l'évaluation
 
@@ -38,11 +38,11 @@ Cet exercice formatif vous permettra de vous préparer en vue de l'évaluation f
 
 | Nom de la VM | FQDN | Adresse IP | Nom d'utilisateur | Mot de passe |
 |--------------|------|------------|-------------------|--------------|
-| 2S5-Formatif-Passerelle | passerelle.formatif.local | 192.168.25.1 | *N/A* | *N/A* |
-| 2S5-Formatif-DHCP | dhcp.formatif.local | 192.168.25.10 | utilisateur | formatifh25 |
-| 2S5-Formatif-DNS | ns1.formatif.local | 192.168.25.20 | utilisateur | formatifh25 |
-| 2S5-Formatif-PC001 | pc001.formatif.local | *Via DHCP* | Administrateur | formatifh25 |
-| 2S5-Formatif-PC002 | pc002.formatif.local | *Via DHCP* | Administrateur | formatifh25 |
+| 2X5-Formatif-Passerelle | passerelle.formatif.local | 192.168.25.1 | *N/A* | *N/A* |
+| 2X5-Formatif-DHCP | dhcp.formatif.local | 192.168.25.10 | utilisateur | formatifh26 |
+| 2X5-Formatif-DNS | ns1.formatif.local | 192.168.25.20 | utilisateur | formatifh26 |
+| 2X5-Formatif-PC001 | pc001.formatif.local | *Via DHCP* | Administrateur | formatifh26 |
+| 2X5-Formatif-PC002 | pc002.formatif.local | *Via DHCP* | Administrateur | formatifh26 |
 
 * * *
 
