@@ -125,12 +125,12 @@ const config: Config = {
           position: 'left',
           label: 'Serveurs 1',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'InfraSidebar',
-          position: 'left',
-          label: 'Infrastructure Virtuelle',
-        },
+        //{
+          //type: 'docSidebar',
+          //sidebarId: 'InfraSidebar',
+          //position: 'left',
+          //label: 'Infrastructure Virtuelle',
+        //},
         { 
           type: 'docSidebar',
           sidebarId: 'TutoSidebar',
@@ -162,10 +162,10 @@ const config: Config = {
               label: 'Serveurs 1',
               to: 'Serveurs 1/Mot%20de%20section',
             },
-            {
-              label: 'Infrastructure Virtuelle',
-              to: 'Infra/Mot%20de%20section',
-            },
+            //{
+              //label: 'Infrastructure Virtuelle',
+              //to: 'Infra/Mot%20de%20section',
+            //},
             {
               label: 'Tutoriels',
               to: 'Tutos/Mot%20de%20section',
