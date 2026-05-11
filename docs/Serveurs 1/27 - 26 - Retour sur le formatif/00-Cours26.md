@@ -11,4 +11,4 @@ import TabItem from '@theme/TabItem';
 
 ## Retour sur le formatif
 
-Dans la séance d'aujourd'hui, nous revenons sur le formatif ensemble et analysons comment il était possible de le rélaiser.
+Dans la séance d'aujourd'hui, nous revenons sur le formatif ensemble et analysons comment il était possible de le réaliser.
