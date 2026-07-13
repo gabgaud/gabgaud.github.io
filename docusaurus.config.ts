@@ -19,9 +19,7 @@ const config: Config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'gabgaud', // Usually your GitHub org/user name.
   projectName: 'www.tonprof.ca', // Usually your repo name.
-
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   deploymentBranch: "gh-pages",
   trailingSlash: false,
 
@@ -78,6 +76,9 @@ const config: Config = {
   ],
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes: [
     '@docusaurus/theme-mermaid',

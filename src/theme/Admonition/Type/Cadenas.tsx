@@ -19,7 +19,7 @@ title: (
 ),
 };
 
-export default function AdmonitionTypeCadenas(props: Props): JSX.Element {
+export default function AdmonitionTypeCadenas(props: Props): React.JSX.Element {
 return (
     <AdmonitionLayout
     {...defaultProps}

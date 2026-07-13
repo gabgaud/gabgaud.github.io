@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function CPen({ id, title }) {
+interface CPenProps {
+  id: string;
+  title: string;
+}
+
+export default function CPen({ id, title }: CPenProps) {
   return (
     <iframe 
       height="400" 

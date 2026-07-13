@@ -1,7 +1,7 @@
 import React from 'react';
 import type {Props} from '@theme/Admonition/Icon/Info';
 
-export default function AdmonitionIconInfo(props: Props): JSX.Element {
+export default function AdmonitionIconInfo(props: Props): React.JSX.Element {
   return (
     <svg viewBox="0 0 14 16" {...props}>
       <path
