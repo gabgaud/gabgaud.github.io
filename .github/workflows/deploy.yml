@@ -14,8 +14,8 @@ jobs:
     name: Build le site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
         with:
           cache-dependency-path: "**/package-lock.json"
           node-version: 24
@@ -34,7 +34,7 @@ jobs:
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
       - name: Téléverser l'artéfact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./build
   deploy:
