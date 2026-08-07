@@ -134,6 +134,12 @@ const config: Config = {
         //},
         { 
           type: 'docSidebar',
+          sidebarId: 'Serveur2Sidebar',
+          position: 'left',
+          label: 'Serveurs 2',
+        },
+        { 
+          type: 'docSidebar',
           sidebarId: 'TutoSidebar',
           position: 'left',
           label: 'Tutoriels',
