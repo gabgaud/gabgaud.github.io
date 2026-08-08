@@ -169,10 +169,10 @@ const config: Config = {
               label: 'Serveurs 1',
               to: 'Serveurs 1/Mot%20de%20section',
             },
-            //{
-              //label: 'Infrastructure Virtuelle',
-              //to: 'Infra/Mot%20de%20section',
-            //},
+            {
+              label: 'Serveurs 2',
+              to: 'Serveurs 2/Mot%20de%20section',
+            },
             {
               label: 'Tutoriels',
               to: 'Tutos/Mot%20de%20section',

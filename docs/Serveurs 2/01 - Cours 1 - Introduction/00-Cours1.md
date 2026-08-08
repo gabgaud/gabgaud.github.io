@@ -91,3 +91,35 @@ Pour les exercices du cours, vous devrez utiliser LabInfo. Vous pouvez déjà y 
 :::caution
 Deux environnements bien distincts. LabInfo ≠ Proxmox. Les exercices se font dans LabInfo. Le projet HébergePro se fait sur Proxmox. Ne mélangez pas les deux, ce serait fâcheux de bousiller un morceau de projet en cours 😬.
 :::
+
+## Le journal de travail 📰
+
+Dès aujourd'hui. Pas la semaine prochaine. Dès aujourd'hui.
+
+Le journal de travail est votre **procédurier personnel**, le document que vous construirez tout au long de la session et qui consignera tout ce que vous faites sur vos serveurs: les commandes utilisées, les problèmes rencontrés, les solutions trouvées, les décisions prises et pourquoi.
+
+> *« Ça sert à quoi si on a déjà le site du cours avec toutes les commandes ? »*
+>
+> *-Les étudiants*
+
+Le site du cours explique ce qu'il faut faire dans un contexte idéal. Votre journal documente ce qui s'est vraiment passé sur votre serveur. Ce sont deux choses très différentes. Dans quelques mois, en stage, ce sera votre journal que vous consulterez, pas le mien.
+
+Il est également évalué à **15% de votre note finale**. Plus vous attendez pour commencer, plus vous aurez du travail à rattraper.
+
+### Ce que le journal doit contenir
+
+Pour chaque bon de travail complété, votre journal doit inclure:
+
+- **La date** et le numéro de bon de travail.
+- **Les commandes utilisées,** avec une brève explication de ce qu'elles font.
+- **Les problèmes rencontrés,** soyez honnêtes, c'est la partie la plus utile.
+- **Les solutions appliquées,** ou comment vous avez résolu le problème.
+- **Le résultat final,** est-ce que le livrable fonctionne ? Comment vous l'avez vérifié ?
+
+### Format et autres informations
+
+Consultez la page journal de travail pour le gabarit complet et les consignes détaillées d'évaluation.
+
+:::tip[Commencez dès maintenant!]
+Documentez dans votre journal ce que vous avez fait aujourd'hui: votre première connexion SSH, la mise à jour du système, la configuration du nom d'hôte, etc.
+:::
